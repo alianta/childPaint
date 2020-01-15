@@ -29,6 +29,8 @@ namespace Paint
         bool isPressed = false; //передает состаяние мыши
         Point prevPoint; //точка начала коордиат
         int depthLine = 1;//толщина линии
+        Point pStart;// Начальная точка
+        Point pFinish;// Конечная точка
 
 
         public MainWindow()
@@ -59,18 +61,14 @@ namespace Paint
             MainImage.Source = wb;
         }
 
-        //private String ShowCurPoint(MouseEventArgs e)//показать на экране
-        //{
-        //        xPosition.Text = Convert.ToString(e.GetPosition(MainImage).X),
-        //        yPosition.Text = Convert.ToString(e.GetPosition(MainImage).Y)
-
-
-        //}
-
-        private Point SetToCurPoint(MouseEventArgs e)//текущая точка
+        private void ShowCurPoint(MouseEventArgs e)//показать на экране
         {
             xPosition.Text = Convert.ToString(e.GetPosition(MainImage).X);
             yPosition.Text = Convert.ToString(e.GetPosition(MainImage).Y);
+        }
+
+        private Point SetToCurPoint(MouseEventArgs e)//текущая точка
+        {
             return new Point(
                 (int)e.GetPosition(MainImage).X,
                 (int)e.GetPosition(MainImage).Y
@@ -79,8 +77,9 @@ namespace Paint
 
         private void Image_MouseMove(object sender, MouseEventArgs e)//движение мыши
         {
+            ShowCurPoint(e);
             Point curPoint = SetToCurPoint(e);
-
+            
             if (isPressed)
             {
                 //SetPixel(curPoint, colorData);
@@ -124,7 +123,7 @@ namespace Paint
                 {
                     DefineQuater(prevPoint, curPoint);
                 }
-               
+
                 //DrawLine(prevPoint, curPoint);
 
                 //for (int i = 0; i <= 649; i++)
@@ -149,9 +148,11 @@ namespace Paint
                 //}
 
 
-               // DefineQuater(new Point(325, 200), curPoint);
+                // DefineQuater(new Point(325, 200), curPoint);
+                
 
             }
+            
             prevPoint = curPoint;
         }
 
@@ -175,7 +176,6 @@ namespace Paint
             Point newP = new Point();
             double deltaX = Math.Abs(pFinish.X - pStart.X) + 1;
             double deltaY = Math.Abs(pFinish.Y - pStart.Y) + 1;
-            //bool XX = pStart.X > pFinish.X;
 
             if (deltaX > deltaY)
             {
@@ -204,7 +204,6 @@ namespace Paint
             Point newP = new Point();
             double deltaX = Math.Abs(pFinish.X - pStart.X) + 1;
             double deltaY = Math.Abs(pFinish.Y - pStart.Y) + 1;
-            bool XX = pStart.X > pFinish.X;
 
             if (deltaX > deltaY)
             {
@@ -259,15 +258,53 @@ namespace Paint
             }
         }
 
+
+        /// <summary>
+        /// Рисование окружности попиксельно
+        /// </summary>
+        /// <param name="pStart">Начальная точка по клику</param>
+        /// <param name="pFinish">Конечная точка по клику</param>
+        private void DrawCircle(Point pStart, Point pFinish)
+        {
+            double R = Math.Sqrt(Math.Pow((pFinish.X - pStart.X), 2) + Math.Pow((pFinish.Y - pStart.Y), 2));
+            //double x = 0;
+            //double y = R;
+            //double delta = 1 - 2 * R;
+            //double error = 0;
+            //while (y >= 0)
+            //{
+            //    SetPixel(new Point(pStart.X + x, pStart.Y + y), colorData);
+            //    SetPixel(new Point(pStart.X + x, pStart.Y - y), colorData);
+            //    SetPixel(new Point(pStart.X - x, pStart.Y + y), colorData);
+            //    SetPixel(new Point(pStart.X - x, pStart.Y - y), colorData);
+            //    error = 2 * (delta + y) - 1;
+            //    if ((delta < 0) && (error <= 0))
+            //        delta += 2 * (++x) + 1;
+            //    if ((delta > 0) && (error > 0))
+            //        delta -= 2 * (--y) + 1;
+            //    delta += 2 * (++x - y--);
+
+            for (double i = -R; i < R; i++)
+            {
+                double v = Math.Round(Math.Sqrt(R * R - i * i));
+                for (double j = -v; j < v; j++)
+                {
+                    SetPixel(new Point(i + pStart.X, j + pStart.Y), colorData);
+                }
+            }
+        }
+
         private void MainImage_MouseDown(object sender, MouseButtonEventArgs e)//клик
         {
             isPressed = true;
+            pStart = SetToCurPoint(e);
             prevPoint = new Point((int)e.GetPosition(MainImage).X, (int)e.GetPosition(MainImage).Y);
         }
 
         private void MainImage_MouseUp(object sender, MouseButtonEventArgs e)
         {
             isPressed = false;
+            pFinish = SetToCurPoint(e);
         }
 
         private void Button_Clear(object sender, RoutedEventArgs e)
