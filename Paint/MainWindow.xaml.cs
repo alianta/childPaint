@@ -28,6 +28,7 @@ namespace Paint
         byte[] colorData = { 0, 0, 0, 255 }; //все для создания цвета
         bool isPressed = false; //передает состаяние мыши
         Point prevPoint; //точка начала коордиат
+        int depthLine = 1;//толщина линии
 
 
         public MainWindow()
@@ -83,7 +84,47 @@ namespace Paint
             if (isPressed)
             {
                 //SetPixel(curPoint, colorData);
-                DefineQuater(prevPoint, curPoint);
+
+                if (depthLine == 2)
+                {
+                    DefineQuater(prevPoint, curPoint);
+                    DefineQuater(new Point(prevPoint.X - 1, prevPoint.Y), new Point(curPoint.X - 1, curPoint.Y));
+                    DefineQuater(new Point(prevPoint.X, prevPoint.Y - 1), new Point(curPoint.X, curPoint.Y - 1));
+                    DefineQuater(new Point(prevPoint.X-1, prevPoint.Y - 1), new Point(curPoint.X-1, curPoint.Y - 1));
+
+
+                }
+                else if (depthLine == 3)
+                {
+
+                    DefineQuater(prevPoint, curPoint);
+                    DefineQuater(new Point(prevPoint.X - 1, prevPoint.Y), new Point(curPoint.X - 1, curPoint.Y));
+                    DefineQuater(new Point(prevPoint.X + 1, prevPoint.Y), new Point(curPoint.X + 1, curPoint.Y));
+                    DefineQuater(new Point(prevPoint.X, prevPoint.Y-1), new Point(curPoint.X, curPoint.Y-1));
+                    DefineQuater(new Point(prevPoint.X, prevPoint.Y + 1), new Point(curPoint.X, curPoint.Y + 1));
+                }
+                else if (depthLine == 4)
+                {
+
+                    DefineQuater(prevPoint, curPoint);
+                    DefineQuater(new Point(prevPoint.X , prevPoint.Y), new Point(curPoint.X , curPoint.Y));
+                    DefineQuater(new Point(prevPoint.X - 1, prevPoint.Y), new Point(curPoint.X - 1, curPoint.Y));
+                    DefineQuater(new Point(prevPoint.X + 1, prevPoint.Y), new Point(curPoint.X + 1, curPoint.Y));
+                    DefineQuater(new Point(prevPoint.X + 2, prevPoint.Y), new Point(curPoint.X + 2, curPoint.Y));
+                    DefineQuater(new Point(prevPoint.X - 1, prevPoint.Y-1), new Point(curPoint.X - 1, curPoint.Y-1));
+                    DefineQuater(new Point(prevPoint.X, prevPoint.Y - 1), new Point(curPoint.X, curPoint.Y - 1));
+                    DefineQuater(new Point(prevPoint.X + 1, prevPoint.Y-1), new Point(curPoint.X + 1, curPoint.Y-1));
+                    DefineQuater(new Point(prevPoint.X + 2, prevPoint.Y-1), new Point(curPoint.X + 2, curPoint.Y-1));
+
+                    DefineQuater(new Point(prevPoint.X, prevPoint.Y + 1), new Point(curPoint.X, curPoint.Y + 1));
+                    DefineQuater(new Point(prevPoint.X+1, prevPoint.Y + 1), new Point(curPoint.X+1, curPoint.Y + 1));
+                    DefineQuater(new Point(prevPoint.X, prevPoint.Y + 2), new Point(curPoint.X, curPoint.Y + 2));
+                    DefineQuater(new Point(prevPoint.X+1, prevPoint.Y + 2), new Point(curPoint.X+1, curPoint.Y + 2));
+                }
+                {
+                    DefineQuater(prevPoint, curPoint);
+                }
+               
                 //DrawLine(prevPoint, curPoint);
 
                 //for (int i = 0; i <= 649; i++)
@@ -192,6 +233,12 @@ namespace Paint
             }
         }
 
+
+        /// <summary>
+        /// Рисование линии попиксельно
+        /// </summary>
+        /// <param name="pStart">Начальная точка</param>
+        /// <param name="pFinish">конечная точка</param>
         private void DefineQuater(Point pStart, Point pFinish)//определение четверти
         {
             if (pFinish.X >= pStart.X && pFinish.Y >= pStart.Y)//прямая начинается с права с верху в низ
@@ -229,7 +276,30 @@ namespace Paint
             MainImage.Source = wb;
         }
 
+        private void Button_Change_Depth(object sender, RoutedEventArgs e)
+        {
+            string depth = Convert.ToString(((Button)e.OriginalSource).Content);
+            if (depth == "x1")
+            {
+                depthLine = 1;
+            }
+            else if (depth == "x2")
+            {
+                depthLine = 2;
+            }else if(depth == "x3")
+            {
+                depthLine = 3;
+            }
+            else if (depth == "x4")
+            {
+                depthLine = 4;
+            }
 
+            /* ComboBox comboBox = (ComboBox)sender;
+             ComboBoxItem selectedItem = (ComboBoxItem)comboBox.SelectedItem;
+             MessageBox.Show(selectedItem.Content.ToString());*/
+
+        }
     }
 }
 

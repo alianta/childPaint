@@ -35,11 +35,28 @@
             <Button x:Name="bntMaroon" Width="30" Height="30" Margin="5" Background="#800000" Click="Button_Change_Color" />
             <Button x:Name="bntYellow" Width="30" Height="30" Margin="5" Background="#ffff00" Click="Button_Change_Color" />
             <Button x:Name="bntWhite" Width="30" Height="30" Margin="5" Background="#ffffff" Click="Button_Change_Color" Content="Л"/>
+            <Button x:Name="bntLineDepth1" Width="30" Height="30" Margin="5" Background="#ffffff" Click="Button_Change_Depth" Content="x1"/>
+            <Button x:Name="bntLineDepth2" Width="30" Height="30" Margin="5" Background="#ffffff" Click="Button_Change_Depth" Content="x2"/>
+            <Button x:Name="bntLineDepth3" Width="30" Height="30" Margin="5" Background="#ffffff" Click="Button_Change_Depth" Content="x3"/>
+            <Button x:Name="bntLineDepth4" Width="30" Height="30" Margin="5" Background="#ffffff" Click="Button_Change_Depth" Content="x4"/>
+           <!-- <Label Content="Depth : " Height="28" HorizontalAlignment="Left"/>
+            <ComboBox Name="phonesList" VerticalAlignment="Top" SelectionChanged="Button_Change_Depth">
+                <ComboBoxItem IsSelected="True">
+                    <TextBlock Name="textblock1">1</TextBlock>
+                </ComboBoxItem>
+                <TextBlock>2</TextBlock>
+                <TextBlock>3</TextBlock>
+            </ComboBox>-->
 
+            <Label Content="x : " Height="28" HorizontalAlignment="Left"/>
             <TextBox x:Name="xPosition" Width="50"/>
+            <Label Content="y : " Height="28" HorizontalAlignment="Left"/>
             <TextBox x:Name="yPosition" Width="50"/>
+            <Label Content="R : " Height="28" HorizontalAlignment="Left"/>
             <TextBox x:Name="rColor" Width="50"/>
+            <Label Content="G : " Height="28" HorizontalAlignment="Left"/>
             <TextBox x:Name="gColor" Width="50"/>
+            <Label Content="B : " Height="28" HorizontalAlignment="Left"/>
             <TextBox x:Name="bColor" Width="50"/>
         </WrapPanel>
     </Grid>
