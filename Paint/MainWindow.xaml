@@ -1,0 +1,48 @@
+﻿<Window x:Class="Paint.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Paint"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="600" Width="800">
+
+    <Grid >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="150"></ColumnDefinition>
+            <ColumnDefinition Width="650"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Border Grid.Column="2" BorderThickness="1" BorderBrush="Red">
+            <Image Name="MainImage"  HorizontalAlignment="Left" VerticalAlignment="Top" Width="650" MouseMove="Image_MouseMove" Stretch="None" MouseDown="MainImage_MouseDown" MouseUp="MainImage_MouseUp"/>
+        </Border>
+
+
+        <WrapPanel x:Name="btnColor" Margin="0,1,57,0">
+
+            <Button x:Name="bntBlack" Width="30" Height="30" Margin="5" Background="#000000" Click="Button_Change_Color"/>
+            <Button x:Name="bntRed" Width="30" Height="30" Margin="5" Background="#ff0000" Click="Button_Change_Color"/>
+            <Button x:Name="bntGreen" Width="30" Height="30" Margin="5" Background="#008000" Click="Button_Change_Color"/>
+            <Button x:Name="bntBlue" Width="30" Height="30" Margin="5" Background="#0000ff" Click="Button_Change_Color"/>
+            <Button x:Name="bntAqua" Width="30" Height="30" Margin="5" Background="#00ffff" Click="Button_Change_Color" />
+            <Button x:Name="bntGrey" Width="30" Height="30" Margin="5" Background="#808080" Click="Button_Change_Color" />
+            <Button x:Name="bntNavy" Width="30" Height="30" Margin="5" Background="#000080" Click="Button_Change_Color" />
+            <Button x:Name="bntSilver" Width="30" Height="30" Margin="5" Background="#c0c0c0" Click="Button_Change_Color" />
+            <Button x:Name="bntOlive" Width="30" Height="30" Margin="5" Background="#808000" Click="Button_Change_Color" />
+            <Button x:Name="bntTeal" Width="30" Height="30" Margin="5" Background="#008080" Click="Button_Change_Color" />
+            <Button x:Name="bntLime" Width="30" Height="30" Margin="5" Background="#00ff00" Click="Button_Change_Color"/>
+            <Button x:Name="bntPurple" Width="30" Height="30" Margin="5" Background="#800080" Click="Button_Change_Color" />
+            <Button x:Name="bntMargenta" Width="30" Height="30" Margin="5" Background="#ff00ff" Click="Button_Change_Color" />
+            <Button x:Name="bntMaroon" Width="30" Height="30" Margin="5" Background="#800000" Click="Button_Change_Color" />
+            <Button x:Name="bntYellow" Width="30" Height="30" Margin="5" Background="#ffff00" Click="Button_Change_Color" />
+            <Button x:Name="bntWhite" Width="30" Height="30" Margin="5" Background="#ffffff" Click="Button_Change_Color" Content="Л"/>
+
+            <TextBox x:Name="xPosition" Width="50"/>
+            <TextBox x:Name="yPosition" Width="50"/>
+            <TextBox x:Name="rColor" Width="50"/>
+            <TextBox x:Name="gColor" Width="50"/>
+            <TextBox x:Name="bColor" Width="50"/>
+        </WrapPanel>
+    </Grid>
+
+
+</Window>
