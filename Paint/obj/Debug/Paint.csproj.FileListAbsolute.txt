@@ -54,3 +54,17 @@ d:\_Study\_DevEducation\HomeWorks_VisualStudio\15_01_2020\Paint\Paint\obj\Debug\
 d:\_Study\_DevEducation\HomeWorks_VisualStudio\15_01_2020\Paint\Paint\obj\Debug\Paint.csproj.GenerateResource.cache
 d:\_Study\_DevEducation\HomeWorks_VisualStudio\15_01_2020\Paint\Paint\obj\Debug\Paint.exe
 d:\_Study\_DevEducation\HomeWorks_VisualStudio\15_01_2020\Paint\Paint\obj\Debug\Paint.pdb
+D:\_Study\_DevEducation\HomeWorks_VisualStudio\Git_HomeWorks\childPaint\Paint\bin\Debug\Paint.exe.config
+D:\_Study\_DevEducation\HomeWorks_VisualStudio\Git_HomeWorks\childPaint\Paint\bin\Debug\Paint.exe
+D:\_Study\_DevEducation\HomeWorks_VisualStudio\Git_HomeWorks\childPaint\Paint\bin\Debug\Paint.pdb
+D:\_Study\_DevEducation\HomeWorks_VisualStudio\Git_HomeWorks\childPaint\Paint\obj\Debug\Paint.csprojAssemblyReference.cache
+D:\_Study\_DevEducation\HomeWorks_VisualStudio\Git_HomeWorks\childPaint\Paint\obj\Debug\MainWindow.g.cs
+D:\_Study\_DevEducation\HomeWorks_VisualStudio\Git_HomeWorks\childPaint\Paint\obj\Debug\App.g.cs
+D:\_Study\_DevEducation\HomeWorks_VisualStudio\Git_HomeWorks\childPaint\Paint\obj\Debug\Paint_MarkupCompile.cache
+D:\_Study\_DevEducation\HomeWorks_VisualStudio\Git_HomeWorks\childPaint\Paint\obj\Debug\Paint_MarkupCompile.lref
+D:\_Study\_DevEducation\HomeWorks_VisualStudio\Git_HomeWorks\childPaint\Paint\obj\Debug\MainWindow.baml
+D:\_Study\_DevEducation\HomeWorks_VisualStudio\Git_HomeWorks\childPaint\Paint\obj\Debug\Paint.g.resources
+D:\_Study\_DevEducation\HomeWorks_VisualStudio\Git_HomeWorks\childPaint\Paint\obj\Debug\Paint.Properties.Resources.resources
+D:\_Study\_DevEducation\HomeWorks_VisualStudio\Git_HomeWorks\childPaint\Paint\obj\Debug\Paint.csproj.GenerateResource.cache
+D:\_Study\_DevEducation\HomeWorks_VisualStudio\Git_HomeWorks\childPaint\Paint\obj\Debug\Paint.exe
+D:\_Study\_DevEducation\HomeWorks_VisualStudio\Git_HomeWorks\childPaint\Paint\obj\Debug\Paint.pdb

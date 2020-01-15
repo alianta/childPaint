@@ -222,6 +222,14 @@ namespace Paint
         {
             isPressed = false;
         }
+
+        private void Button_Clear(object sender, RoutedEventArgs e)
+        {
+            wb = new WriteableBitmap(650, 600, 96, 96, PixelFormats.Bgra32, null);
+            MainImage.Source = wb;
+        }
+
+
     }
 }
 

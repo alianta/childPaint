@@ -18,7 +18,7 @@
 
 
         <WrapPanel x:Name="btnColor" Margin="0,1,57,0">
-
+            <Button x:Name="clearBtn" Width="80" Content="Clear All" Height="30" Margin="5" Background="white" Click="Button_Clear"/>
             <Button x:Name="bntBlack" Width="30" Height="30" Margin="5" Background="#000000" Click="Button_Change_Color"/>
             <Button x:Name="bntRed" Width="30" Height="30" Margin="5" Background="#ff0000" Click="Button_Change_Color"/>
             <Button x:Name="bntGreen" Width="30" Height="30" Margin="5" Background="#008000" Click="Button_Change_Color"/>
