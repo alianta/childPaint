@@ -336,6 +336,8 @@ namespace Paint
              ComboBoxItem selectedItem = (ComboBoxItem)comboBox.SelectedItem;
              MessageBox.Show(selectedItem.Content.ToString());*/
 
+            //hgfjknbfm 
+            
         }
     }
 }
