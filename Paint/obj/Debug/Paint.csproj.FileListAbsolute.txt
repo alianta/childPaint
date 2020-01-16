@@ -96,3 +96,17 @@ D:\программирование\PaintIlona\childPaint\Paint\obj\Debug\Paint.
 D:\программирование\PaintIlona\childPaint\Paint\obj\Debug\Paint.csproj.GenerateResource.cache
 D:\программирование\PaintIlona\childPaint\Paint\obj\Debug\Paint.exe
 D:\программирование\PaintIlona\childPaint\Paint\obj\Debug\Paint.pdb
+C:\Users\iRU\source\repos\childPaint\Paint\obj\Debug\Paint.csprojAssemblyReference.cache
+C:\Users\iRU\source\repos\childPaint\Paint\obj\Debug\MainWindow.g.cs
+C:\Users\iRU\source\repos\childPaint\Paint\obj\Debug\App.g.cs
+C:\Users\iRU\source\repos\childPaint\Paint\obj\Debug\Paint_MarkupCompile.cache
+C:\Users\iRU\source\repos\childPaint\Paint\obj\Debug\Paint_MarkupCompile.lref
+C:\Users\iRU\source\repos\childPaint\Paint\obj\Debug\Paint.exe
+C:\Users\iRU\source\repos\childPaint\Paint\obj\Debug\Paint.pdb
+C:\Users\iRU\source\repos\childPaint\Paint\bin\Debug\Paint.exe.config
+C:\Users\iRU\source\repos\childPaint\Paint\bin\Debug\Paint.exe
+C:\Users\iRU\source\repos\childPaint\Paint\bin\Debug\Paint.pdb
+C:\Users\iRU\source\repos\childPaint\Paint\obj\Debug\MainWindow.baml
+C:\Users\iRU\source\repos\childPaint\Paint\obj\Debug\Paint.g.resources
+C:\Users\iRU\source\repos\childPaint\Paint\obj\Debug\Paint.Properties.Resources.resources
+C:\Users\iRU\source\repos\childPaint\Paint\obj\Debug\Paint.csproj.GenerateResource.cache
