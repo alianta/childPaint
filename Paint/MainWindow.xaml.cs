@@ -31,7 +31,7 @@ namespace Paint
         int depthLine = 1;//толщина линии
         Point pStart;// Начальная точка
         Point pFinish;// Конечная точка
-
+        
 
         public MainWindow()
         {
@@ -77,9 +77,10 @@ namespace Paint
 
         private void Image_MouseMove(object sender, MouseEventArgs e)//движение мыши
         {
+          
             ShowCurPoint(e);
             Point curPoint = SetToCurPoint(e);
-            
+
             if (isPressed)
             {
                 //SetPixel(curPoint, colorData);
@@ -89,7 +90,7 @@ namespace Paint
                     DefineQuater(prevPoint, curPoint);
                     DefineQuater(new Point(prevPoint.X - 1, prevPoint.Y), new Point(curPoint.X - 1, curPoint.Y));
                     DefineQuater(new Point(prevPoint.X, prevPoint.Y - 1), new Point(curPoint.X, curPoint.Y - 1));
-                    DefineQuater(new Point(prevPoint.X-1, prevPoint.Y - 1), new Point(curPoint.X-1, curPoint.Y - 1));
+                    DefineQuater(new Point(prevPoint.X - 1, prevPoint.Y - 1), new Point(curPoint.X - 1, curPoint.Y - 1));
 
 
                 }
@@ -99,26 +100,26 @@ namespace Paint
                     DefineQuater(prevPoint, curPoint);
                     DefineQuater(new Point(prevPoint.X - 1, prevPoint.Y), new Point(curPoint.X - 1, curPoint.Y));
                     DefineQuater(new Point(prevPoint.X + 1, prevPoint.Y), new Point(curPoint.X + 1, curPoint.Y));
-                    DefineQuater(new Point(prevPoint.X, prevPoint.Y-1), new Point(curPoint.X, curPoint.Y-1));
+                    DefineQuater(new Point(prevPoint.X, prevPoint.Y - 1), new Point(curPoint.X, curPoint.Y - 1));
                     DefineQuater(new Point(prevPoint.X, prevPoint.Y + 1), new Point(curPoint.X, curPoint.Y + 1));
                 }
                 else if (depthLine == 4)
                 {
 
                     DefineQuater(prevPoint, curPoint);
-                    DefineQuater(new Point(prevPoint.X , prevPoint.Y), new Point(curPoint.X , curPoint.Y));
+                    DefineQuater(new Point(prevPoint.X, prevPoint.Y), new Point(curPoint.X, curPoint.Y));
                     DefineQuater(new Point(prevPoint.X - 1, prevPoint.Y), new Point(curPoint.X - 1, curPoint.Y));
                     DefineQuater(new Point(prevPoint.X + 1, prevPoint.Y), new Point(curPoint.X + 1, curPoint.Y));
                     DefineQuater(new Point(prevPoint.X + 2, prevPoint.Y), new Point(curPoint.X + 2, curPoint.Y));
-                    DefineQuater(new Point(prevPoint.X - 1, prevPoint.Y-1), new Point(curPoint.X - 1, curPoint.Y-1));
+                    DefineQuater(new Point(prevPoint.X - 1, prevPoint.Y - 1), new Point(curPoint.X - 1, curPoint.Y - 1));
                     DefineQuater(new Point(prevPoint.X, prevPoint.Y - 1), new Point(curPoint.X, curPoint.Y - 1));
-                    DefineQuater(new Point(prevPoint.X + 1, prevPoint.Y-1), new Point(curPoint.X + 1, curPoint.Y-1));
-                    DefineQuater(new Point(prevPoint.X + 2, prevPoint.Y-1), new Point(curPoint.X + 2, curPoint.Y-1));
+                    DefineQuater(new Point(prevPoint.X + 1, prevPoint.Y - 1), new Point(curPoint.X + 1, curPoint.Y - 1));
+                    DefineQuater(new Point(prevPoint.X + 2, prevPoint.Y - 1), new Point(curPoint.X + 2, curPoint.Y - 1));
 
                     DefineQuater(new Point(prevPoint.X, prevPoint.Y + 1), new Point(curPoint.X, curPoint.Y + 1));
-                    DefineQuater(new Point(prevPoint.X+1, prevPoint.Y + 1), new Point(curPoint.X+1, curPoint.Y + 1));
+                    DefineQuater(new Point(prevPoint.X + 1, prevPoint.Y + 1), new Point(curPoint.X + 1, curPoint.Y + 1));
                     DefineQuater(new Point(prevPoint.X, prevPoint.Y + 2), new Point(curPoint.X, curPoint.Y + 2));
-                    DefineQuater(new Point(prevPoint.X+1, prevPoint.Y + 2), new Point(curPoint.X+1, curPoint.Y + 2));
+                    DefineQuater(new Point(prevPoint.X + 1, prevPoint.Y + 2), new Point(curPoint.X + 1, curPoint.Y + 2));
                 }
                 {
                     DefineQuater(prevPoint, curPoint);
@@ -149,10 +150,10 @@ namespace Paint
 
 
                 // DefineQuater(new Point(325, 200), curPoint);
-                
+
 
             }
-            
+
             prevPoint = curPoint;
         }
 
@@ -215,16 +216,16 @@ namespace Paint
                     SetPixel(newP, colorData);
                 }
             }
-            else 
+            else
             {
                 if (pFinish.X < pStart.X && pFinish.Y > pStart.Y)
                 {
                     pStart = pFinish;
                 }
-               double k = deltaX / deltaY;
+                double k = deltaX / deltaY;
                 for (int i = 0; i < deltaY; i++)
                 {
-                  
+
                     newP.X = (k * i + pStart.X);
                     newP.Y = pStart.Y - i;
                     SetPixel(newP, colorData);
@@ -305,6 +306,7 @@ namespace Paint
         {
             isPressed = false;
             pFinish = SetToCurPoint(e);
+            
         }
 
         private void Button_Clear(object sender, RoutedEventArgs e)
@@ -323,7 +325,8 @@ namespace Paint
             else if (depth == "x2")
             {
                 depthLine = 2;
-            }else if(depth == "x3")
+            }
+            else if (depth == "x3")
             {
                 depthLine = 3;
             }
@@ -331,14 +334,68 @@ namespace Paint
             {
                 depthLine = 4;
             }
-
-            /* ComboBox comboBox = (ComboBox)sender;
-             ComboBoxItem selectedItem = (ComboBoxItem)comboBox.SelectedItem;
-             MessageBox.Show(selectedItem.Content.ToString());*/
-
-            //hgfjknbfm 
-            
         }
+        //КВАДРАТ 
+        private void Draw_Squere(Point pointB)
+        {
+            DefineQuater(prevPoint, pointB);
+
+            double katet1, katet2;
+
+            katet1 = prevPoint.Y - pointB.Y;
+            katet2 = pointB.X - prevPoint.X;
+
+            Point pointD = new Point();
+            pointD.X = prevPoint.X + katet1;
+            pointD.Y = prevPoint.Y + katet2;
+
+            Point pointC = new Point();
+            pointC.X = pointB.X + katet1;
+            pointC.Y = pointB.Y + katet2;
+            DefineQuater(pointB, pointC);
+            DefineQuater(pointC, pointD);
+            DefineQuater(pointD, prevPoint);
+
+        }
+
+
+        //ПРЯМОУГОЛЬНИК 
+        private void Draw_Rectangle(Point pointC)
+        {
+            Point pointD = new Point();
+            pointD.X = prevPoint.X;
+            pointD.Y = pointC.Y;
+
+            Point pointB = new Point();
+            pointB.X = pointC.X;
+            pointB.Y = prevPoint.Y;
+            DefineQuater(prevPoint, pointB);
+            DefineQuater(pointB, pointC);
+            DefineQuater(pointC, pointD);
+            DefineQuater(pointD, prevPoint);
+        } 
+
+        //ПРИВЯЗКА К КОНПКАМ: КВАДРАТ, ПРЯМОУГОЛЬНИК
+        //private void Button_Square(object sender, RoutedEventArgs e)
+        //{
+        //    type = "square";
+        //}
+
+        //private void Button_Rectangle(object sender, RoutedEventArgs e)
+        //{
+        //    type = "rectangle";
+        //}
+
+
+
+
+        /* ComboBox comboBox = (ComboBox)sender;
+         ComboBoxItem selectedItem = (ComboBoxItem)comboBox.SelectedItem;
+         MessageBox.Show(selectedItem.Content.ToString());*/
+
+        //hgfjknbfm 
+
+
     }
 }
 

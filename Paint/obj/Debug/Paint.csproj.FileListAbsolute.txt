@@ -82,3 +82,17 @@ D:\github\childPaint\Paint\obj\Debug\Paint.Properties.Resources.resources
 D:\github\childPaint\Paint\obj\Debug\Paint.csproj.GenerateResource.cache
 D:\github\childPaint\Paint\obj\Debug\Paint.exe
 D:\github\childPaint\Paint\obj\Debug\Paint.pdb
+D:\программирование\PaintIlona\childPaint\Paint\bin\Debug\Paint.exe.config
+D:\программирование\PaintIlona\childPaint\Paint\bin\Debug\Paint.exe
+D:\программирование\PaintIlona\childPaint\Paint\bin\Debug\Paint.pdb
+D:\программирование\PaintIlona\childPaint\Paint\obj\Debug\Paint.csprojAssemblyReference.cache
+D:\программирование\PaintIlona\childPaint\Paint\obj\Debug\MainWindow.g.cs
+D:\программирование\PaintIlona\childPaint\Paint\obj\Debug\App.g.cs
+D:\программирование\PaintIlona\childPaint\Paint\obj\Debug\Paint_MarkupCompile.cache
+D:\программирование\PaintIlona\childPaint\Paint\obj\Debug\Paint_MarkupCompile.lref
+D:\программирование\PaintIlona\childPaint\Paint\obj\Debug\MainWindow.baml
+D:\программирование\PaintIlona\childPaint\Paint\obj\Debug\Paint.g.resources
+D:\программирование\PaintIlona\childPaint\Paint\obj\Debug\Paint.Properties.Resources.resources
+D:\программирование\PaintIlona\childPaint\Paint\obj\Debug\Paint.csproj.GenerateResource.cache
+D:\программирование\PaintIlona\childPaint\Paint\obj\Debug\Paint.exe
+D:\программирование\PaintIlona\childPaint\Paint\obj\Debug\Paint.pdb
