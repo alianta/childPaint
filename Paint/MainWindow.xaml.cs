@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Collections;
 
 namespace Paint
 {
@@ -129,6 +130,8 @@ namespace Paint
 
 
             }
+
+            DrawCircle(new Point(100, 100), new Point(100, 50));
             prevPoint = curPoint;
         }
 
@@ -302,7 +305,7 @@ namespace Paint
         /// </summary>
         /// <param name="pStart">Point точка старта</param>
         /// <param name="pFinish">Point точка финиша</param>
-        private void DrawLineInThirdTourthQuarters(Point pStart, Point pFinish)
+        private void DrawLineInThirdFourthQuarters(Point pStart, Point pFinish)
         {
             Point newP = new Point();
             double deltaX = Math.Abs(pFinish.X - pStart.X) + 1;
@@ -377,11 +380,11 @@ namespace Paint
         {
             if (pFinish.X >= pStart.X && pFinish.Y >= pStart.Y)//прямая начинается с права с верху в низ
             {
-                DrawLineInThirdTourthQuarters(pStart, pFinish);
+                DrawLineInThirdFourthQuarters(pStart, pFinish);
             }
             else if (pFinish.X <= pStart.X && pFinish.Y <= pStart.Y)//прямая начинается с права с низу в верх
             {
-                DrawLineInThirdTourthQuarters(pFinish, pStart);
+                DrawLineInThirdFourthQuarters(pFinish, pStart);
             }
             else if (pFinish.X > pStart.X && pFinish.Y < pStart.Y)//прямая начинается с лева с низу в верх
             {
@@ -400,7 +403,52 @@ namespace Paint
         /// <param name="pFinish">Конечная точка по клику</param>
         private void DrawCircle(Point pStart, Point pFinish)
         {
-            double R = Math.Sqrt(Math.Pow((pFinish.X - pStart.X), 2) + Math.Pow((pFinish.Y - pStart.Y), 2));
+            int R = (int)Math.Sqrt((Math.Pow((pFinish.X - pStart.X), 2)) + (Math.Pow((pFinish.Y - pStart.Y), 2)));
+            double a = Math.Sqrt(2) / 2;
+            
+            for (int i = (int)(-a*R); i < (int)(a * R); i++)
+            {
+                int newY1 = (int)(pStart.Y - Math.Sqrt(R * R - i * i));
+
+                SetPixel(new Point(pStart.X + i, newY1), colorData);
+                SetPixel(new Point(pStart.X - i, newY1), colorData);
+
+                int newY2 = (int)(pStart.Y + Math.Sqrt(R * R - i * i));
+                SetPixel(new Point(pStart.X + i, newY2), colorData);
+                SetPixel(new Point(pStart.X - i, newY2), colorData);
+            }
+            for (int i = (int)(-a * R); i < (int)(a * R); i++)
+            {
+                int newX1 = (int)(pStart.X - Math.Sqrt(R * R - i * i));
+
+                SetPixel(new Point(newX1, pStart.Y - i), colorData);
+                SetPixel(new Point(newX1, pStart.Y + i), colorData);
+                int newX2 = (int)(pStart.X + Math.Sqrt(R * R - i * i));
+                SetPixel(new Point(newX2, pStart.Y + i), colorData);
+                SetPixel(new Point(newX2, pStart.X - i), colorData);
+            }
+            
+        }
+        private void DrawCircle1()
+        {
+            if (pFinish.X >= pStart.X && pFinish.Y >= pStart.Y)//прямая начинается с права с верху в низ
+            {
+                DrawCircle(pStart, pFinish);
+            }
+            else if (pFinish.X <= pStart.X && pFinish.Y <= pStart.Y)//прямая начинается с права с низу в верх
+            {
+                DrawCircle(pFinish, pStart);
+            }
+            else if (pFinish.X > pStart.X && pFinish.Y < pStart.Y)//прямая начинается с лева с низу в верх
+            {
+                DrawCircle(pFinish, pStart);
+            }
+            else if (pFinish.X < pStart.X && pFinish.Y > pStart.Y)//прямая начинается с лева с верху в низ
+            {
+                DrawCircle(pStart, pFinish);
+            }
+        }
+            //}
             //double x = 0;
             //double y = R;
             //double delta = 1 - 2 * R;
@@ -418,15 +466,15 @@ namespace Paint
             //        delta -= 2 * (--y) + 1;
             //    delta += 2 * (++x - y--);
 
-            for (double i = -R; i < R; i++)
-            {
-                double v = Math.Round(Math.Sqrt(R * R - i * i));
-                for (double j = -v; j < v; j++)
-                {
-                    SetPixel(new Point(i + pStart.X, j + pStart.Y), colorData);
-                }
-            }
-        }
+            //for (double i = -R; i < R; i++)
+            //{
+            //    double v = Math.Round(Math.Sqrt(R * R - i * i));
+            //    for (double j = -v; j < v; j++)
+            //    {
+            //        SetPixel(new Point(i + pStart.X, j + pStart.Y), colorData);
+            //    }
+            //}
+        
 
         /// <summary>
         /// Рисование элипса попиксельно
@@ -544,9 +592,13 @@ namespace Paint
         //    type = "rectangle";
         //}
 
+        private void Window_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            isPressed = false;
+            pFinish = SetToCurPoint(e);
+        }
 
-
-
+         
         /* ComboBox comboBox = (ComboBox)sender;
          ComboBoxItem selectedItem = (ComboBoxItem)comboBox.SelectedItem;
          MessageBox.Show(selectedItem.Content.ToString());*/
