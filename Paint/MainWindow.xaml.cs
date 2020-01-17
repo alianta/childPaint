@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -39,9 +40,10 @@ namespace Paint
 
             wb = new WriteableBitmap((int)MainImage.Width, (int)MainImage.Height, 96, 96, PixelFormats.Bgra32, null);
             MainImage.Source = wb;
+            DrawEllipse(new Point(200, 200), new Point(300, 250));
 
         }
-        
+
         //  ОБРАБОТКА СОБЫТИЙ 
 
         /// <summary>
@@ -427,12 +429,48 @@ namespace Paint
         }
 
         /// <summary>
+        /// Рисование элипса попиксельно
+        /// </summary>
+        /// <param name="pStart">Центр элипса</param>
+        /// <param name="pFinish">Правый нижний угол прямоугольника описанного вокруг элипса</param>
+        private void DrawEllipse(Point pStart, Point pFinish)
+        {
+            double a = (pFinish.X > pStart.X) ? pFinish.X - pStart.X : pStart.X - pFinish.X;
+            double b = (pFinish.Y > pStart.Y) ? pFinish.Y - pStart.Y : pStart.Y - pFinish.Y;
+            double aInPowerTwo = a * a;
+            double bInPowerTwo = b * b;
+
+            for (int i = 0; i < b; i++)
+            {
+                int newX1 = (int)(pStart.X + Math.Sqrt((aInPowerTwo * (bInPowerTwo - i * i)) / bInPowerTwo));
+                SetPixel(new Point(newX1, pStart.Y + i), colorData);
+                SetPixel(new Point(newX1, pStart.Y - i), colorData);
+
+                int newX2 = (int)(pStart.X - Math.Sqrt((aInPowerTwo * (bInPowerTwo - i * i)) / bInPowerTwo));
+                SetPixel(new Point(newX2, pStart.Y + i), colorData);
+                SetPixel(new Point(newX2, pStart.Y - i), colorData);
+            }
+            for (int i = 0; i < a; i++)
+            {
+                int newY1 = (int)(pStart.Y + Math.Sqrt((bInPowerTwo * (aInPowerTwo - i * i)) / aInPowerTwo));
+                SetPixel(new Point(pStart.X + i, newY1), colorData);
+                SetPixel(new Point(pStart.X - i, newY1), colorData);
+
+                int newY2 = (int)(pStart.Y - Math.Sqrt((bInPowerTwo * (aInPowerTwo - i * i)) / aInPowerTwo));
+                SetPixel(new Point(pStart.X + i, newY2), colorData);
+                SetPixel(new Point(pStart.X - i, newY2), colorData);
+            }
+
+        }
+
+
+        /// <summary>
         /// Метод рисующий квадрат по двум точкам на одной стороне
         /// </summary>
         /// <param name="pointB"></param>
         private void Draw_Squere(Point pointB)
         {
-            DrawLine(prevPoint, pointB); 
+            DrawLine(prevPoint, pointB);
 
             double katet1, katet2;
             katet1 = prevPoint.Y - pointB.Y;
@@ -470,9 +508,30 @@ namespace Paint
             DrawLine(pointD, prevPoint);
         }
 
-        
+        private void Button_Save(object sender, RoutedEventArgs e)
+        {
+            // Настраиваем параметры диалога
+            Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
+            dlg.FileName = "Document"; // Имя по-умолчанию
+            dlg.DefaultExt = ".jpg"; // Расширение по-умолчанию
+            dlg.Filter = "Jpeg Image (.jpg)|*.jpg"; // Фильтр по расширениям
 
-        
+            // Показываем диалог пользователю
+            Nullable<bool> result = dlg.ShowDialog();
+
+            // Обработка результата работы диалога
+            if (result == true)
+            {
+                var encoder = new PngBitmapEncoder();
+                encoder.Frames.Add(BitmapFrame.Create((BitmapSource)MainImage.Source));
+                using (FileStream stream = new FileStream(dlg.FileName, FileMode.Create))
+                    encoder.Save(stream);
+            }
+        }
+
+
+
+
 
         //ПРИВЯЗКА К КОНПКАМ: КВАДРАТ, ПРЯМОУГОЛЬНИК
         //private void Button_Square(object sender, RoutedEventArgs e)

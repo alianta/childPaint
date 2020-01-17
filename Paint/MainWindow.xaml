@@ -67,6 +67,8 @@
             <TextBox x:Name="gColor" Width="50"/>
             <Label Content="B : " Height="28" HorizontalAlignment="Left"/>
             <TextBox x:Name="bColor" Width="50"/>
+
+            <Button x:Name="save" Width="200" Height="30" Margin="5" Background="#ffffff" Click="Button_Save" Content="Сохранить этот бред  в файл =)"/>
         </WrapPanel>
     </Grid>
 
