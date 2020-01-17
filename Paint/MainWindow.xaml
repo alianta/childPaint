@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Paint"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="1000">
+        Title="MainWindow" Height="600" Width="1000" MouseUp="Window_MouseUp">
 
     <Grid >
         <Grid.ColumnDefinitions>
@@ -13,11 +13,11 @@
             <ColumnDefinition Width="650"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Border Grid.Column="2" BorderThickness="1" BorderBrush="Red">
-            <Image Name="MainImage"  HorizontalAlignment="Left" VerticalAlignment="Top" Width="650" MouseMove="Image_MouseMove" Stretch="None" MouseDown="MainImage_MouseDown" MouseUp="MainImage_MouseUp"/>
+			<Image Name="MainImage"  HorizontalAlignment="Left" VerticalAlignment="Top" Width="650" Height="600" MouseMove="Image_MouseMove" Stretch="None" MouseDown="MainImage_MouseDown" MouseEnter="MainImage_MouseEnter"/>
         </Border>
 
 
-        <WrapPanel x:Name="btnColor" Margin="0,1,57,0">
+        <WrapPanel Margin="0,1,57,0">
             <Button x:Name="clearBtn" Width="80" Content="Clear All" Height="30" Margin="5" Background="white" Click="Button_Clear"/>
             
             <Button x:Name="bntBlack" Width="30" Height="30" Margin="5" Background="#000000" Click="Button_Change_Color"/>
@@ -37,11 +37,14 @@
             <Button x:Name="bntYellow" Width="30" Height="30" Margin="5" Background="#ffff00" Click="Button_Change_Color" />
             
             <Button x:Name="bntWhite" Width="30" Height="30" Margin="5" Background="#ffffff" Click="Button_Change_Color" Content="Л"/>
-            
-            <Button x:Name="bntLineThickness1" Width="30" Height="30" Margin="5" Background="#ffffff" Click="Button_Change_Thickness" Content="x1"/>
-            <Button x:Name="bntLineThickness2" Width="30" Height="30" Margin="5" Background="#ffffff" Click="Button_Change_Thickness" Content="x2"/>
-            <Button x:Name="bntLineThickness3" Width="30" Height="30" Margin="5" Background="#ffffff" Click="Button_Change_Thickness" Content="x3"/>
-            <Button x:Name="bntLineThickness4" Width="30" Height="30" Margin="5" Background="#ffffff" Click="Button_Change_Thickness" Content="x4"/>
+			<GroupBox Header ="Изменить размер кисти" Padding="5">
+				<StackPanel>
+			<Button x:Name="bntLineThickness1" Width="20" Height="20" Margin="5" Background="#ffffff" Click="Button_Change_Thickness" Content="x1"/>
+            <Button x:Name="bntLineThickness2" Width="20" Height="20" Margin="5" Background="#ffffff" Click="Button_Change_Thickness" Content="x2"/>
+            <Button x:Name="bntLineThickness3" Width="20" Height="30" Margin="5" Background="#ffffff" Click="Button_Change_Thickness" Content="x3"/>
+            <Button x:Name="bntLineThickness4" Width="20" Height="20" Margin="5" Background="#ffffff" Click="Button_Change_Thickness" Content="x4"/>
+				</StackPanel>
+			</GroupBox>
             
             <!--<Button x:Name="bntSquare" Width="30" Height="30" Margin="5" Background="#ffffff" Click="Button_Square" Content="К"/>
             <Button x:Name="bntRectangle" Width="30" Height="30" Margin="5" Background="#ffffff" Click="Button_Rectangle" Content="П"/>-->

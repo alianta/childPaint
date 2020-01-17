@@ -37,7 +37,7 @@ namespace Paint
         {
             InitializeComponent();
 
-            wb = new WriteableBitmap(650, 600, 96, 96, PixelFormats.Bgra32, null);
+            wb = new WriteableBitmap((int)MainImage.Width, (int)MainImage.Height, 96, 96, PixelFormats.Bgra32, null);
             MainImage.Source = wb;
 
         }
@@ -164,11 +164,26 @@ namespace Paint
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void MainImage_MouseUp(object sender, MouseButtonEventArgs e)
+        private void Window_MouseUp(object sender, MouseButtonEventArgs e)
         {
             isPressed = false;
             pFinish = SetToCurPoint(e);
         }
+
+        /// <summary>
+        /// Метод обрывает рисование линии при выведении курсора из-за холста и продолжает, когда возвращаешься
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void MainImage_MouseEnter(object sender, MouseEventArgs e)
+        {
+            if (isPressed == true)
+            {
+                prevPoint = new Point((int)e.GetPosition(MainImage).X, (int)e.GetPosition(MainImage).Y);
+            }
+
+        }
+
 
         /// <summary>
         /// Метод обрабатывает нажатие на кнопку очищения холста
@@ -179,7 +194,7 @@ namespace Paint
         /// <param name="e"></param>
         private void Button_Clear(object sender, RoutedEventArgs e)
         {
-            wb = new WriteableBitmap(650, 600, 96, 96, PixelFormats.Bgra32, null);
+            wb = new WriteableBitmap((int)MainImage.Width, (int)MainImage.Height, 96, 96, PixelFormats.Bgra32, null);
             MainImage.Source = wb;
         }
 
@@ -454,6 +469,10 @@ namespace Paint
             DrawLine(pointC, pointD);
             DrawLine(pointD, prevPoint);
         }
+
+        
+
+        
 
         //ПРИВЯЗКА К КОНПКАМ: КВАДРАТ, ПРЯМОУГОЛЬНИК
         //private void Button_Square(object sender, RoutedEventArgs e)
