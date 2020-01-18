@@ -26,40 +26,33 @@ namespace Paint
         int thicknessLine = 1;//толщина линии
         Point pStart;// Начальная точка
         Point pFinish;// Конечная точка
-        Point temp;
-        int type = 1;//состояние кнопки переименовать!
-        Rastr.Figure figure;
-        bool shift = false;
-
-
-        bool line = false;
-        bool square = false;
-        bool rectangle = false;
-        bool circle = false;
-        bool oval = false;
-        bool triangle = false;
-        bool polygon = false;
-        bool tree = false;
-        bool lines = false;
-        double angle = Math.PI / 2; //Угол поворота на 90 градусов
-        double ang1 = Math.PI / 4;  //Угол поворота на 45 градусов
-        double ang2 = Math.PI / 6;  //Угол поворота на 30 градусов
-        int n = 100;//количество сторон
-        double R;//расстояние от центра до стороны
+        Point temp;
+        int type = 1;//состояние кнопки переименовать!
+        Rastr.Figure figure;
+        bool shift = false;
+        bool line = false;
+        bool square = false;
+        bool rectangle = false;
+        bool circle = false;
+        bool oval = false;
+        bool triangle = false;
+        bool polygon = false;
+        // bool tree = false;
+        bool lines = false;
+
+        int n = 100;//количество сторон
+        double R;//расстояние от центра до стороны
         Point[] p; //массив точек будущего многоугольника
-
         public MainWindow()
         {
             InitializeComponent();
-
             wb = new WriteableBitmap((int)MainImage.Width, (int)MainImage.Height, 96, 96, PixelFormats.Bgra32, null);
-            MainImage.Source = wb;
-            figure = new Rastr.Line();
-            //  DrawEllipse(new Point(200, 200), new Point(300, 250));
-
+            MainImage.Source = wb;
+            figure = new Rastr.Line();
+            //  DrawEllipse(new Point(200, 200), new Point(300, 250));
         }
 
-        //  ОБРАБОТКА СОБЫТИЙ 
+        //  ОБРАБОТКА СОБЫТИЙ 
 
         /// <summary>
         /// Метод обрабатывающий кнопки фигур
@@ -74,8 +67,10 @@ namespace Paint
             circle = false;
             oval = false;
             polygon = false;
-            triangle = false;
-            tree = false;
+            triangle = false;
+
+            //  tree = false;
+
             lines = false;
 
             if (sender.Equals(btnLine))
@@ -111,10 +106,10 @@ namespace Paint
             {
                 polygon = true;
             }
-            else if (sender.Equals(btnTree))
-            {
-                tree = true;
-            }
+            //else if (sender.Equals(btnTree))
+            //{
+            //    tree = true;
+            //}
             else if (sender.Equals(btnLines))
             {
                 lines = true;
@@ -132,12 +127,10 @@ namespace Paint
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void Image_MouseMove(object sender, MouseEventArgs e)//движение мыши
-        {
-            shift = Keyboard.IsKeyDown(Key.LeftShift);
+        {
+            shift = Keyboard.IsKeyDown(Key.LeftShift);
             ShowCurPoint(e);
             Point curPoint = SetToCurPoint(e);
-
-
             if (isPressed)
             {
                 //SetPixel(curPoint, colorData);
@@ -177,40 +170,36 @@ namespace Paint
                     DrawLine(new Point(prevPoint.X + 1, prevPoint.Y + 2), new Point(curPoint.X + 1, curPoint.Y + 2));
                 }
 
-                if (type == 2)
-                {
-                    wb = new WriteableBitmap(curState);
-                    figure.Draw(wb, pStart, curPoint, shift);
-                    MainImage.Source = wb;
+                if (type == 2)
+                {
+                    wb = new WriteableBitmap(curState);
+                    figure.Draw(wb, pStart, curPoint, shift);
+                    MainImage.Source = wb;
                 }
                 if (type == 3)
                 {
-                    wb = new WriteableBitmap(curState);
-                    figure.Draw(wb, pStart, curPoint, shift);
+                    wb = new WriteableBitmap(curState);
+                    figure.Draw(wb, pStart, curPoint, shift);
                     MainImage.Source = wb;
                 }
-                if (type == 4)
-                {
-                    wb = new WriteableBitmap(curState);
-                    figure.Draw(wb, pStart, curPoint, shift);
-                    MainImage.Source = wb;
+                if (type == 4)
+                {
+                    wb = new WriteableBitmap(curState);
+                    figure.Draw(wb, pStart, curPoint, shift);
+                    MainImage.Source = wb;
                 }
 
                 if (type == 6)
-                {
-                    wb = new WriteableBitmap(curState);
-                    figure.Draw(wb, pStart, curPoint, sides.Text);
-                    MainImage.Source = wb;
+                {
+                    wb = new WriteableBitmap(curState);
+                    figure.Draw(wb, pStart, curPoint, sides.Text);
+                    MainImage.Source = wb;
                 }
-
-
-
 
                 if (line)
                 {
                     DrawLine(prevPoint, curPoint);
                 }
-
 
 
                 if (circle)
@@ -223,10 +212,8 @@ namespace Paint
                 }
 
                 if (triangle)
-
                 {
-
-                    // DrawTree(prevPoint, curPoint, n , angle);                                  
+                    // DrawTree(prevPoint, curPoint, n , angle);                                 
 
                 }
 
@@ -238,9 +225,12 @@ namespace Paint
                     //Draw_Polygon(prevPoint, curPoint);
                 }
 
-                if (tree)
+                if (type == 11)
 
                 {
+                    wb = new WriteableBitmap(curState);
+                    figure.Draw(wb, pStart, curPoint, shift);
+                    MainImage.Source = wb;
 
                     // DrawTree(prevPoint, curPoint, n, angle);
 
@@ -269,10 +259,10 @@ namespace Paint
 
 
 
-        /// <summary>
-        /// Метод обрабатывает клик по иконке с цветами
-        /// </summary>
-        /// <param name="sender"></param>
+        /// <summary>
+        /// Метод обрабатывает клик по иконке с цветами
+        /// </summary>
+        /// <param name="sender"></param>
         /// <param name="e"></param>
         private void Button_Change_Color(object sender, RoutedEventArgs e)
         {
@@ -281,260 +271,278 @@ namespace Paint
             ShowCurColorRGB(colorData);
         }
 
-        /// <summary>
-        /// Метод обрабатывает клик по кнопке треугольника
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void triangle_Click(object sender, RoutedEventArgs e)
-        {
-            type = 2;
-            figure = new Triangle();
-        }
-
-        /// <summary>
-        /// Метод обрабатывает клик по кнопке треугольника
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Rectangle_Click(object sender, RoutedEventArgs e)
-        {
-            type = 4;
-            figure = new Rectangle();
-        }
-
-        /// <summary>
-        /// Метод обрабатывает MouseDown на холсте
-        /// Ставит isPressed в true
-        /// Задает стартовую точку координат
-        /// Задает предыдущую точку координат  
-        /// </summary>
-        /// <param name="sender"></param>
+        /// <summary>
+        /// Метод обрабатывает клик по кнопке треугольника
+        /// </summary>
+        /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void MainImage_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            isPressed = true;
-            pStart = SetToCurPoint(e);
-            temp = pStart;
-            prevPoint = new Point((int)e.GetPosition(MainImage).X, (int)e.GetPosition(MainImage).Y);
-            curState = new WriteableBitmap(wb);
-        }
+        private void triangle_Click(object sender, RoutedEventArgs e)
+        {
+            type = 2;
+            figure = new Triangle();
+        }
 
-        /// <summary>
-        /// Метод обрабатывает MouseUp на холсте
-        /// Возвращает isPressed в false
-        /// Задает финишную точку координат
-        /// </summary>
-        /// <param name="sender"></param>
+        /// <summary>
+        /// Метод обрабатывает клик по кнопке треугольника
+        /// </summary>
+        /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Window_MouseUp(object sender, MouseButtonEventArgs e)
-        {
-            isPressed = false;
-            pFinish = SetToCurPoint(e);
-            if (lines)
-            {
-                isPressed = true;
-                pStart = pFinish;
-            }
-        }
-
-        /// <summary>
-        /// Метод обрывает рисование линии при выведении курсора из-за холста и продолжает, когда возвращаешься
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void MainImage_MouseEnter(object sender, MouseEventArgs e)
-        {
-            if (isPressed == true)
-            {
-                prevPoint = new Point((int)e.GetPosition(MainImage).X, (int)e.GetPosition(MainImage).Y);
-            }
-
-        }
-
-        /// <summary>
-        /// Метод обрабатывает нажатие на кнопку очищения холста
-        /// Задает новый битмап
-        /// Ставит битмап в sourse холста
-        /// </summary>
-        /// <param name="sender"></param>
+        private void Rectangle_Click(object sender, RoutedEventArgs e)
+        {
+            type = 4;
+            figure = new Rectangle();
+        }
+
+
+
+        /// <summary>   
+        /// Метод обрабатывает клик по кнопке треугольника
+        /// </summary>        /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Button_Clear(object sender, RoutedEventArgs e)
-        {
-            wb = new WriteableBitmap((int)MainImage.Width, (int)MainImage.Height, 96, 96, PixelFormats.Bgra32, null);
-            MainImage.Source = wb;
-        }
-
-        /// <summary>
-        /// Метод обрабатывающй нажатие на кнопки изменения торщины линии
-        /// </summary>
-        /// <param name="sender"></param>
+        private void tree_Click(object sender, RoutedEventArgs e)
+        {
+            if (sides.Text != "")
+            {
+                n = Convert.ToInt32(sides.Text);
+            }
+            else
+            {
+                n = 100;
+            }
+            type = 11;
+            figure = new FractalTree(n);
+        }
+
+
+        /// <summary>
+        /// Метод обрабатывает MouseDown на холсте
+        /// Ставит isPressed в true
+        /// Задает стартовую точку координат
+        /// Задает предыдущую точку координат  
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>        private void MainImage_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            isPressed = true;
+            pStart = SetToCurPoint(e);
+            temp = pStart;
+            prevPoint = new Point((int)e.GetPosition(MainImage).X, (int)e.GetPosition(MainImage).Y);
+            curState = new WriteableBitmap(wb);
+        }
+
+
+
+        /// <summary>
+        /// Метод обрабатывает MouseUp на холсте
+        /// Возвращает isPressed в false        /// Задает финишную точку координат
+        /// </summary>
+        /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Button_Change_Thickness(object sender, RoutedEventArgs e)
-        {
-            string thickness = Convert.ToString(((Button)e.OriginalSource).Content);
-            if (thickness == "x1")
-            {
-                thicknessLine = 1;
-            }
-            else if (thickness == "x2")
-            {
-                thicknessLine = 2;
-            }
-            else if (thickness == "x3")
-            {
-                thicknessLine = 3;
-            }
-            else if (thickness == "x4")
-            {
-                thicknessLine = 4;
+        private void Window_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            isPressed = false;
+            pFinish = SetToCurPoint(e);
+
+            if (lines)
+            {
+                isPressed = true;
+                pStart = pFinish;
             }
         }
 
-
-        //  ВНУТРЕННИЕ МЕТОДЫ
-
-
-        /// <summary>
-        /// Метод конвертирует цвета из hex в rgb
-        /// </summary>
-        /// <param name="s">Строка. Цвет в формате hex </param>
-        /// <returns>Возвращает массив byte[] {alpha, red, green, blue}</returns>
-        private byte[] HexToRGBConverter(String s)
-        {
-            if (s.IndexOf('#') != -1)
-                s = s.Replace("#", "");
-            byte[] rgbColor = new byte[4]; // sARGB
-            rgbColor[3] = Convert.ToByte(int.Parse(s.Substring(0, 2), System.Globalization.NumberStyles.AllowHexSpecifier));
-            rgbColor[2] = Convert.ToByte(int.Parse(s.Substring(2, 2), System.Globalization.NumberStyles.AllowHexSpecifier));
-            rgbColor[1] = Convert.ToByte(int.Parse(s.Substring(4, 2), System.Globalization.NumberStyles.AllowHexSpecifier));
+        /// <summary>
+        /// Метод обрывает рисование линии при выведении курсора из-за холста и продолжает, когда возвращаешься
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void MainImage_MouseEnter(object sender, MouseEventArgs e)
+        {
+            if (isPressed == true)
+            {
+                prevPoint = new Point((int)e.GetPosition(MainImage).X, (int)e.GetPosition(MainImage).Y);
+            }
+        }
+
+
+
+        /// <summary>
+        /// Метод обрабатывает нажатие на кнопку очищения холста             /// /// Задает новый битмап
+        /// Ставит битмап в sourse холста
+        /// </summary>        /// <param name="sender"></param>        /// <param name="e"></param>
+        private void Button_Clear(object sender, RoutedEventArgs e)
+        {
+            wb = new WriteableBitmap((int)MainImage.Width, (int)MainImage.Height, 96, 96, PixelFormats.Bgra32, null);
+            MainImage.Source = wb;
+        }
+
+
+
+        /// <summary>
+        /// Метод обрабатывающй нажатие на кнопки изменения торщины линии        /// </summary>        /// <param name="sender"></param>        /// <param name="e"></param>
+        private void Button_Change_Thickness(object sender, RoutedEventArgs e)
+        {
+            string thickness = Convert.ToString(((Button)e.OriginalSource).Content);
+            if (thickness == "x1")
+            {
+                thicknessLine = 1;
+            }
+            else if (thickness == "x2")
+            {
+                thicknessLine = 2;
+            }
+            else if (thickness == "x3")
+            {
+                thicknessLine = 3;
+            }
+            else if (thickness == "x4")
+            {
+                thicknessLine = 4;
+            }
+        }
+
+
+        //  ВНУТРЕННИЕ МЕТОДЫ
+
+
+
+        /// <summary>
+        /// Метод конвертирует цвета из hex в rgb
+        /// </summary>
+        /// <param name="s">Строка. Цвет в формате hex </param>
+        /// <returns>Возвращает массив byte[] {alpha, red, green, blue}</returns>        private byte[] HexToRGBConverter(String s)
+        {
+            if (s.IndexOf('#') != -1)
+                s = s.Replace("#", "");
+            byte[] rgbColor = new byte[4]; // sARGB
+            rgbColor[3] = Convert.ToByte(int.Parse(s.Substring(0, 2), System.Globalization.NumberStyles.AllowHexSpecifier));
+            rgbColor[2] = Convert.ToByte(int.Parse(s.Substring(2, 2), System.Globalization.NumberStyles.AllowHexSpecifier));
+            rgbColor[1] = Convert.ToByte(int.Parse(s.Substring(4, 2), System.Globalization.NumberStyles.AllowHexSpecifier));
             rgbColor[0] = Convert.ToByte(int.Parse(s.Substring(6, 2), System.Globalization.NumberStyles.AllowHexSpecifier));
-            return rgbColor;
-        }
-
-        /// <summary>
-        /// Метод устанавливает пиксель в заданных координатах в заданном цвете
-        /// </summary>
-        /// <param name="p">Point. Координаты точки</param>
+            return rgbColor;
+        }
+        /// <summary>
+        /// Метод устанавливает пиксель в заданных координатах в заданном цвете
+        /// </summary>
+        /// <param name="p">Point. Координаты точки</param>
         /// <param name="colorData">Массив. Цвет в aRGB</param>
-        private void SetPixel(Point p, byte[] colorData)
-        {
-            if (p.X > 0 && p.X < (int)MainImage.Width && p.Y > 0 && p.Y < (int)MainImage.Height)
-            {
-                Int32Rect rect = new Int32Rect((int)p.X, (int)p.Y, 1, 1);
-                wb.WritePixels(rect, colorData, 4, 0);
-                //   curState.WritePixels(rect, colorData, 4, 0);
-                MainImage.Source = wb;
-            }
-        }
-
-        /// <summary>
-        /// Метод выводит в 2 текстбокса координаты позиции мыши
-        /// </summary>
+        private void SetPixel(Point p, byte[] colorData)
+        {
+            if (p.X > 0 && p.X < (int)MainImage.Width && p.Y > 0 && p.Y < (int)MainImage.Height)
+            {
+                Int32Rect rect = new Int32Rect((int)p.X, (int)p.Y, 1, 1);
+                wb.WritePixels(rect, colorData, 4, 0);
+                //   curState.WritePixels(rect, colorData, 4, 0);
+                MainImage.Source = wb;
+            }
+        }
+
+
+
+        /// <summary>
+        /// Метод выводит в 2 текстбокса координаты позиции мыши        /// </summary>
         /// <param name="e"></param>
-        private void ShowCurPoint(MouseEventArgs e)
-        {
-            xPosition.Text = Convert.ToString(e.GetPosition(MainImage).X);
-            yPosition.Text = Convert.ToString(e.GetPosition(MainImage).Y);
+        private void ShowCurPoint(MouseEventArgs e)
+        {
+            xPosition.Text = Convert.ToString(e.GetPosition(MainImage).X);
+            yPosition.Text = Convert.ToString(e.GetPosition(MainImage).Y);
         }
 
-        /// <summary>
-        /// Метод задает текущую точку
-        /// </summary>
-        /// <param name="e"></param>
+        /// <summary>
+        /// Метод задает текущую точку
+        /// </summary>
+        /// <param name="e"></param>
         /// <returns>Возвращает Point с текущими координатами</returns>
-        private Point SetToCurPoint(MouseEventArgs e)
-        {
-            return new Point(
-                (int)e.GetPosition(MainImage).X,
-                (int)e.GetPosition(MainImage).Y
-            );
-        }
-
-        /// <summary>
-        /// Метод выводит в 3 текстбокса текущий RGB цвет 
-        /// </summary>
+        private Point SetToCurPoint(MouseEventArgs e)
+        {
+            return new Point(
+                (int)e.GetPosition(MainImage).X,
+                (int)e.GetPosition(MainImage).Y
+            );
+        }
+
+
+
+        /// <summary>        /// Метод выводит в 3 текстбокса текущий RGB цвет 
+        /// </summary>
         /// <param name="colorData">byte[] {alpha, red, green, blue}</param>
-        private void ShowCurColorRGB(byte[] colorData)
-        {
-            red = colorData[1];
-            green = colorData[2];
-            blue = colorData[3];
-
-            rColor.Text = Convert.ToString(red);
-            gColor.Text = Convert.ToString(green);
-            bColor.Text = Convert.ToString(blue);
+        private void ShowCurColorRGB(byte[] colorData)
+        {
+            red = colorData[1];
+            green = colorData[2];
+            blue = colorData[3];
+
+            rColor.Text = Convert.ToString(red);
+            gColor.Text = Convert.ToString(green);
+            bColor.Text = Convert.ToString(blue);
+        }
+
+
+
+        /// <summary>
+        /// Метод риcует линию по двум координатам дял 3 и 4 четвертей         /// </summary>        /// <param name="pStart">Point точка старта</param>        /// <param name="pFinish">Point точка финиша</param>
+        private void DrawLineInThirdTourthQuarters(Point pStart, Point pFinish)
+        {
+            Point newP = new Point();
+            double deltaX = Math.Abs(pFinish.X - pStart.X) + 1;
+            double deltaY = Math.Abs(pFinish.Y - pStart.Y) + 1;
+
+            if (deltaX > deltaY)
+            {
+                double k = deltaY / deltaX;
+                for (int i = 0; i < deltaX; i++)
+                {
+                    newP.Y = (k * i + pStart.Y);
+                    newP.X = i + pStart.X;
+                    SetPixel(newP, colorData);
+                }
+            }
+            else
+            {
+                double k = deltaX / deltaY;
+                for (int i = 0; i < deltaY; i++)
+                {
+                    newP.X = (k * i + pStart.X);
+                    newP.Y = i + pStart.Y;
+                    SetPixel(newP, colorData);
+                }
+            }
         }
-
-        /// <summary>
-        /// Метод риcует линию по двум координатам дял 3 и 4 четвертей 
-        /// </summary>
-        /// <param name="pStart">Point точка старта</param>
-        /// <param name="pFinish">Point точка финиша</param>
-        private void DrawLineInThirdTourthQuarters(Point pStart, Point pFinish)
-        {
-            Point newP = new Point();
-            double deltaX = Math.Abs(pFinish.X - pStart.X) + 1;
-            double deltaY = Math.Abs(pFinish.Y - pStart.Y) + 1;
-
-            if (deltaX > deltaY)
-            {
-                double k = deltaY / deltaX;
-                for (int i = 0; i < deltaX; i++)
-                {
-                    newP.Y = (k * i + pStart.Y);
-                    newP.X = i + pStart.X;
-                    SetPixel(newP, colorData);
-                }
-            }
-            else
-            {
-                double k = deltaX / deltaY;
-                for (int i = 0; i < deltaY; i++)
-                {
-                    newP.X = (k * i + pStart.X);
-                    newP.Y = i + pStart.Y;
-                    SetPixel(newP, colorData);
-                }
-            }
-        }
-
-        /// <summary>
-        /// Метод римует линию по по двум координатам для 1 и 2 четвертей
-        /// </summary>
-        /// <param name="pStart"></param>
+        /// <summary>
+        /// Метод римует линию по по двум координатам для 1 и 2 четвертей
+        /// </summary>
+        /// <param name="pStart"></param>
         /// <param name="pFinish"></param>
-        private void DrawLineInFirstSecondQuarters(Point pStart, Point pFinish)
-        {
-            Point newP = new Point();
-            double deltaX = Math.Abs(pFinish.X - pStart.X) + 1;
-            double deltaY = Math.Abs(pFinish.Y - pStart.Y) + 1;
-
-            if (deltaX > deltaY)
-            {
-                double k = deltaY / deltaX;
-                for (int i = 0; i < deltaX; i++)
-                {
-                    newP.Y = (k * i + pStart.Y);
-                    newP.X = pStart.X - i;
-                    SetPixel(newP, colorData);
+        private void DrawLineInFirstSecondQuarters(Point pStart, Point pFinish)
+        {
+            Point newP = new Point();
+            double deltaX = Math.Abs(pFinish.X - pStart.X) + 1;
+            double deltaY = Math.Abs(pFinish.Y - pStart.Y) + 1;
+
+            if (deltaX > deltaY)
+            {
+                double k = deltaY / deltaX;
+                for (int i = 0; i < deltaX; i++)
+                {
+                    newP.Y = (k * i + pStart.Y);
+                    newP.X = pStart.X - i;
+                    SetPixel(newP, colorData);
+                }
+            }
+            else
+            {
+                if (pFinish.X < pStart.X && pFinish.Y > pStart.Y)
+                {
+                    pStart = pFinish;
                 }
-            }
-            else
-            {
-                if (pFinish.X < pStart.X && pFinish.Y > pStart.Y)
-                {
-                    pStart = pFinish;
-                }
-                double k = deltaX / deltaY;
-                for (int i = 0; i < deltaY; i++)
-                {
-
-                    newP.X = (k * i + pStart.X);
-                    newP.Y = pStart.Y - i;
-                    SetPixel(newP, colorData);
-                }
-            }
+                double k = deltaX / deltaY;
+                for (int i = 0; i < deltaY; i++)
+                {
+
+                    newP.X = (k * i + pStart.X);
+                    newP.Y = pStart.Y - i;
+                    SetPixel(newP, colorData);
+                }
+            }
         }
 
         /// <summary>
@@ -722,38 +730,7 @@ namespace Paint
         //        i = i - 1;
         //    }
         //}
-
-        /// <summary>
-        /// Метод рисующий Фрактал Дерево Пифагора 
-        /// </summary>
-        /// <param name="pStart">Стартовая точка</param>
-        /// <param name="pFinish">Финишная точка</param>
-        /// <param name="a">Параметр, который фиксирует количество итераций в рекурсии</param>
-        /// <param name="angle">Угол поворота на каждой итерации</param>
-        /// <returns></returns>
-        public int DrawTree(Point pStart, Point pFinish, double a, double angle)
-        {
-            n = Convert.ToInt32(sides.Text);
-            double x = pStart.X;
-            double y = pStart.Y;
-
-            if (a > 2)
-            {
-                a *= 0.7; //Меняем параметр a
-
-                //Считаем координаты для вершины-ребенка
-                pFinish.X = Math.Round(x + a * Math.Cos(angle));
-                pFinish.Y = Math.Round(y - a * Math.Sin(angle));
-
-                //рисуем линию между вершинами           
-                DrawLine(pStart, pFinish);
-
-                DrawTree(pFinish, pFinish, a, angle + ang1);
-                DrawTree(pFinish, pFinish, a, angle - ang2);
-            }
-            return 0;
-        }
-
+
         public void DrawByLines(Point pStart, Point pFinish, MouseEventArgs e)
         {
             wb = new WriteableBitmap(curState);
