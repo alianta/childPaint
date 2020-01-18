@@ -67,6 +67,17 @@
             <TextBox x:Name="gColor" Width="50"/>
             <Label Content="B : " Height="28" HorizontalAlignment="Left"/>
             <TextBox x:Name="bColor" Width="50"/>
+            <Label Content="Количество сторон многоугольника"/>
+            <TextBox x:Name="sides" Height="23" TextWrapping="Wrap"  Width="28"/>
+            <Button x:Name="btnLine" Content="Линия" Width="75" Click="btnFigure_Click"/>
+            <Button x:Name="btnSquare" Content="Кадрат" Width="75" Click="btnFigure_Click"/>
+            <Button x:Name="btnRectangle" Content="Прямоугольник" Width="75" Click="btnFigure_Click"/>
+            <Button x:Name="btnCircle" Content="Круг" Width="75" Click="btnFigure_Click"/>
+            <Button x:Name="btnOval" Content="Овал" Width="75" Click="btnFigure_Click"/>
+            <Button x:Name="btnTriangle" Content="Треугольник" Width="75" Click="triangle_Click"/>
+            <Button x:Name="btnPolygon" Content="Многоугольник" Width="75" Click="btnFigure_Click"/>
+            <Button x:Name="btnTree" Content="Дерево" Width="75" Click="btnFigure_Click"/>
+            <Button x:Name="btnLines" Content="Линии" Width="75" Click="btnFigure_Click"/>
 
             <Button x:Name="save" Width="200" Height="30" Margin="5" Background="#ffffff" Click="Button_Save" Content="Сохранить этот бред  в файл =)"/>
         </WrapPanel>

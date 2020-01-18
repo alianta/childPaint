@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Paint.Rastr;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -23,6 +24,7 @@ namespace Paint
     public partial class MainWindow : Window
     {
         WriteableBitmap wb; //создает новый холст Image для рисования 
+        WriteableBitmap curState;
         byte blue = 0;
         byte green = 0;
         byte red = 0;
@@ -33,7 +35,27 @@ namespace Paint
         int thicknessLine = 1;//толщина линии
         Point pStart;// Начальная точка
         Point pFinish;// Конечная точка
+        Point temp;
+        int type = 1;//состояние кнопки переименовать!
+        Rastr.Figure figure;
+        bool shift = false;
 
+
+        bool line = false;
+        bool square = false;
+        bool rectangle = false;
+        bool circle = false;
+        bool oval = false;
+        bool triangle = false;
+        bool polygon = false;
+        bool tree = false;
+        bool lines = false;
+        double angle = Math.PI / 2; //Угол поворота на 90 градусов
+        double ang1 = Math.PI / 4;  //Угол поворота на 45 градусов
+        double ang2 = Math.PI / 6;  //Угол поворота на 30 градусов
+        int n = 100;//количество сторон
+        double R;//расстояние от центра до стороны
+        Point[] p; //массив точек будущего многоугольника
 
         public MainWindow()
         {
@@ -41,11 +63,72 @@ namespace Paint
 
             wb = new WriteableBitmap((int)MainImage.Width, (int)MainImage.Height, 96, 96, PixelFormats.Bgra32, null);
             MainImage.Source = wb;
-            DrawEllipse(new Point(200, 200), new Point(300, 250));
+            figure = new Rastr.Line();
+            //  DrawEllipse(new Point(200, 200), new Point(300, 250));
 
         }
 
         //  ОБРАБОТКА СОБЫТИЙ 
+
+        /// <summary>
+        /// Метод обрабатывающий кнопки фигур
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnFigure_Click(object sender, RoutedEventArgs e)
+        {
+            line = false;
+            square = false;
+            rectangle = false;
+            circle = false;
+            oval = false;
+            polygon = false;
+            triangle = false;
+            tree = false;
+            lines = false;
+
+            if (sender.Equals(btnLine))
+            {
+                line = true;
+            }
+            else if (sender.Equals(btnSquare))
+            {
+                square = true;
+            }
+            else if (sender.Equals(btnRectangle))
+            {
+                rectangle = true;
+            }
+            else if (sender.Equals(btnCircle))
+            {
+                circle = true;
+            }
+            else if (sender.Equals(btnOval))
+            {
+                oval = true;
+            }
+            else if (sender.Equals(btnTriangle))
+            {
+                triangle = true;
+            }
+            else if (sender.Equals(btnPolygon))
+            {
+                polygon = true;
+            }
+            else if (sender.Equals(btnTree))
+            {
+                tree = true;
+            }
+            else if (sender.Equals(btnLines))
+            {
+                lines = true;
+            }
+            else
+            {
+                xPosition.Text = "Алярма!";
+            }
+
+        }
 
         /// <summary>
         /// Метод обрабатывает двидение мыши по холсту
@@ -54,9 +137,10 @@ namespace Paint
         /// <param name="e"></param>
         private void Image_MouseMove(object sender, MouseEventArgs e)//движение мыши
         {
-
+            shift = Keyboard.IsKeyDown(Key.LeftShift);
             ShowCurPoint(e);
             Point curPoint = SetToCurPoint(e);
+
 
             if (isPressed)
             {
@@ -68,8 +152,6 @@ namespace Paint
                     DrawLine(new Point(prevPoint.X - 1, prevPoint.Y), new Point(curPoint.X - 1, curPoint.Y));
                     DrawLine(new Point(prevPoint.X, prevPoint.Y - 1), new Point(curPoint.X, curPoint.Y - 1));
                     DrawLine(new Point(prevPoint.X - 1, prevPoint.Y - 1), new Point(curPoint.X - 1, curPoint.Y - 1));
-
-
                 }
                 else if (thicknessLine == 3)
                 {
@@ -98,11 +180,52 @@ namespace Paint
                     DrawLine(new Point(prevPoint.X, prevPoint.Y + 2), new Point(curPoint.X, curPoint.Y + 2));
                     DrawLine(new Point(prevPoint.X + 1, prevPoint.Y + 2), new Point(curPoint.X + 1, curPoint.Y + 2));
                 }
+
+                if (type == 2)
+                {
+                    wb = new WriteableBitmap(curState);
+                    figure.Draw(wb, pStart, curPoint, shift);
+                    MainImage.Source = wb;
+                }
+
+                if (line)
                 {
                     DrawLine(prevPoint, curPoint);
                 }
+                if (square)
+                {
+                    Draw_Squere(curPoint);
+                }
+                if (rectangle)
+                {
+                    Draw_Rectangle(curPoint);
+                }
+                if (circle)
+                {
+                    DrawCircle(prevPoint, curPoint);
+                }
+                if (oval)
+                {
+                    DrawEllipse(prevPoint, curPoint);
+                }
+                if (triangle)
+                {
+                    // DrawTree(prevPoint, curPoint, n , angle);                                  
+                }
+                if (polygon)
+                {
+                    Draw_Polygon(prevPoint, curPoint);
+                }
+                if (tree)
+                {
+                    DrawTree(prevPoint, curPoint, n, angle);
+                }
+                if (lines)
+                {
+                    DrawByLines(prevPoint, curPoint, e);
+                }
 
-                //DrawLine(prevPoint, curPoint);
+
 
                 //for (int i = 0; i <= 649; i++)
                 //{
@@ -128,11 +251,16 @@ namespace Paint
 
                 // DrawLine(new Point(325, 200), curPoint);
 
-
             }
 
-            DrawCircle(new Point(100, 100), new Point(100, 50));
-            prevPoint = curPoint;
+            if (line)
+            {
+                prevPoint = curPoint;
+            }
+
+
+
+            //  prevPoint = curPoint;
         }
 
         /// <summary>
@@ -148,6 +276,17 @@ namespace Paint
         }
 
         /// <summary>
+        /// Метод обрабатывает клик по кнопке треугольника
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void triangle_Click(object sender, RoutedEventArgs e)
+        {
+            type = 2;
+            figure = new Triangle();
+        }
+
+        /// <summary>
         /// Метод обрабатывает MouseDown на холсте
         /// Ставит isPressed в true
         /// Задает стартовую точку координат
@@ -159,7 +298,9 @@ namespace Paint
         {
             isPressed = true;
             pStart = SetToCurPoint(e);
+            temp = pStart;
             prevPoint = new Point((int)e.GetPosition(MainImage).X, (int)e.GetPosition(MainImage).Y);
+            curState = new WriteableBitmap(wb);
         }
 
         /// <summary>
@@ -173,6 +314,11 @@ namespace Paint
         {
             isPressed = false;
             pFinish = SetToCurPoint(e);
+            if (lines)
+            {
+                isPressed = true;
+                pStart = pFinish;
+            }
         }
 
         /// <summary>
@@ -257,9 +403,13 @@ namespace Paint
         /// <param name="colorData">Массив. Цвет в aRGB</param>
         private void SetPixel(Point p, byte[] colorData)
         {
-            Int32Rect rect = new Int32Rect((int)p.X, (int)p.Y, 1, 1);
-            wb.WritePixels(rect, colorData, 4, 0);
-            MainImage.Source = wb;
+            if (p.X > 0 && p.X < (int)MainImage.Width && p.Y > 0 && p.Y < (int)MainImage.Height)
+            {
+                Int32Rect rect = new Int32Rect((int)p.X, (int)p.Y, 1, 1);
+                wb.WritePixels(rect, colorData, 4, 0);
+                //   curState.WritePixels(rect, colorData, 4, 0);
+                MainImage.Source = wb;
+            }
         }
 
         /// <summary>
@@ -305,7 +455,7 @@ namespace Paint
         /// </summary>
         /// <param name="pStart">Point точка старта</param>
         /// <param name="pFinish">Point точка финиша</param>
-        private void DrawLineInThirdFourthQuarters(Point pStart, Point pFinish)
+        private void DrawLineInThirdTourthQuarters(Point pStart, Point pFinish)
         {
             Point newP = new Point();
             double deltaX = Math.Abs(pFinish.X - pStart.X) + 1;
@@ -380,11 +530,11 @@ namespace Paint
         {
             if (pFinish.X >= pStart.X && pFinish.Y >= pStart.Y)//прямая начинается с права с верху в низ
             {
-                DrawLineInThirdFourthQuarters(pStart, pFinish);
+                DrawLineInThirdTourthQuarters(pStart, pFinish);
             }
             else if (pFinish.X <= pStart.X && pFinish.Y <= pStart.Y)//прямая начинается с права с низу в верх
             {
-                DrawLineInThirdFourthQuarters(pFinish, pStart);
+                DrawLineInThirdTourthQuarters(pFinish, pStart);
             }
             else if (pFinish.X > pStart.X && pFinish.Y < pStart.Y)//прямая начинается с лева с низу в верх
             {
@@ -403,10 +553,12 @@ namespace Paint
         /// <param name="pFinish">Конечная точка по клику</param>
         private void DrawCircle(Point pStart, Point pFinish)
         {
+
+            wb = new WriteableBitmap(curState);
             int R = (int)Math.Sqrt((Math.Pow((pFinish.X - pStart.X), 2)) + (Math.Pow((pFinish.Y - pStart.Y), 2)));
             double a = Math.Sqrt(2) / 2;
-            
-            for (int i = (int)(-a*R); i < (int)(a * R); i++)
+
+            for (int i = (int)(-a * R); i < (int)(a * R); i++)
             {
                 int newY1 = (int)(pStart.Y - Math.Sqrt(R * R - i * i));
 
@@ -425,55 +577,10 @@ namespace Paint
                 SetPixel(new Point(newX1, pStart.Y + i), colorData);
                 int newX2 = (int)(pStart.X + Math.Sqrt(R * R - i * i));
                 SetPixel(new Point(newX2, pStart.Y + i), colorData);
-                SetPixel(new Point(newX2, pStart.X - i), colorData);
+                SetPixel(new Point(newX2, pStart.Y - i), colorData);
             }
-            
-        }
-        private void DrawCircle1()
-        {
-            if (pFinish.X >= pStart.X && pFinish.Y >= pStart.Y)//прямая начинается с права с верху в низ
-            {
-                DrawCircle(pStart, pFinish);
-            }
-            else if (pFinish.X <= pStart.X && pFinish.Y <= pStart.Y)//прямая начинается с права с низу в верх
-            {
-                DrawCircle(pFinish, pStart);
-            }
-            else if (pFinish.X > pStart.X && pFinish.Y < pStart.Y)//прямая начинается с лева с низу в верх
-            {
-                DrawCircle(pFinish, pStart);
-            }
-            else if (pFinish.X < pStart.X && pFinish.Y > pStart.Y)//прямая начинается с лева с верху в низ
-            {
-                DrawCircle(pStart, pFinish);
-            }
-        }
-            //}
-            //double x = 0;
-            //double y = R;
-            //double delta = 1 - 2 * R;
-            //double error = 0;
-            //while (y >= 0)
-            //{
-            //    SetPixel(new Point(pStart.X + x, pStart.Y + y), colorData);
-            //    SetPixel(new Point(pStart.X + x, pStart.Y - y), colorData);
-            //    SetPixel(new Point(pStart.X - x, pStart.Y + y), colorData);
-            //    SetPixel(new Point(pStart.X - x, pStart.Y - y), colorData);
-            //    error = 2 * (delta + y) - 1;
-            //    if ((delta < 0) && (error <= 0))
-            //        delta += 2 * (++x) + 1;
-            //    if ((delta > 0) && (error > 0))
-            //        delta -= 2 * (--y) + 1;
-            //    delta += 2 * (++x - y--);
 
-            //for (double i = -R; i < R; i++)
-            //{
-            //    double v = Math.Round(Math.Sqrt(R * R - i * i));
-            //    for (double j = -v; j < v; j++)
-            //    {
-            //        SetPixel(new Point(i + pStart.X, j + pStart.Y), colorData);
-            //    }
-            //}
+        }
         
 
         /// <summary>
@@ -483,6 +590,8 @@ namespace Paint
         /// <param name="pFinish">Правый нижний угол прямоугольника описанного вокруг элипса</param>
         private void DrawEllipse(Point pStart, Point pFinish)
         {
+
+            wb = new WriteableBitmap(curState);
             double a = (pFinish.X > pStart.X) ? pFinish.X - pStart.X : pStart.X - pFinish.X;
             double b = (pFinish.Y > pStart.Y) ? pFinish.Y - pStart.Y : pStart.Y - pFinish.Y;
             double aInPowerTwo = a * a;
@@ -518,6 +627,7 @@ namespace Paint
         /// <param name="pointB"></param>
         private void Draw_Squere(Point pointB)
         {
+            wb = new WriteableBitmap(curState);
             DrawLine(prevPoint, pointB);
 
             double katet1, katet2;
@@ -543,6 +653,7 @@ namespace Paint
         /// <param name="pointC"></param>
         private void Draw_Rectangle(Point pointC)
         {
+            wb = new WriteableBitmap(curState);
             Point pointD = new Point();
             pointD.X = prevPoint.X;
             pointD.Y = pointC.Y;
@@ -560,12 +671,10 @@ namespace Paint
         {
             // Настраиваем параметры диалога
             Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
+            Nullable<bool> result = dlg.ShowDialog();
             dlg.FileName = "Document"; // Имя по-умолчанию
             dlg.DefaultExt = ".jpg"; // Расширение по-умолчанию
             dlg.Filter = "Jpeg Image (.jpg)|*.jpg"; // Фильтр по расширениям
-
-            // Показываем диалог пользователю
-            Nullable<bool> result = dlg.ShowDialog();
 
             // Обработка результата работы диалога
             if (result == true)
@@ -577,7 +686,88 @@ namespace Paint
             }
         }
 
+        /// <summary>
+        /// Метод создает массив точек многоугольника
+        /// </summary>
+        /// <param name="angle"></param>
+        private void lineAngle(double angle)
+        {
+            double z = 0; int i = 0;
+            while (i < n + 1)
+            {
+                p[i].X = prevPoint.X + (int)(Math.Round(Math.Cos(z / 180 * Math.PI) * R));
+                p[i].Y = prevPoint.Y - (int)(Math.Round(Math.Sin(z / 180 * Math.PI) * R));
+                z = z + angle;
+                i++;
+            }
+        }
 
+        /// <summary>
+        /// Метод рисует n-угольник
+        /// </summary>
+        /// <param name="pStart"></param>
+        /// <param name="pFinish"></param>
+        private void Draw_Polygon(Point pStart, Point pFinish)
+        {
+
+            wb = new WriteableBitmap(curState);
+            n = Convert.ToInt32(sides.Text);
+
+            R = Math.Sqrt(Math.Pow((pFinish.X - pStart.X), 2) + Math.Pow((pFinish.Y - pStart.Y), 2));
+
+            p = new Point[n + 1];
+            lineAngle((double)(360.0 / (double)n));
+            int i = n;
+
+            while (i > 0)
+            {
+                DrawLine(p[i], p[i - 1]);
+                i = i - 1;
+            }
+        }
+
+        /// <summary>
+        /// Метод рисующий Фрактал Дерево Пифагора 
+        /// </summary>
+        /// <param name="pStart">Стартовая точка</param>
+        /// <param name="pFinish">Финишная точка</param>
+        /// <param name="a">Параметр, который фиксирует количество итераций в рекурсии</param>
+        /// <param name="angle">Угол поворота на каждой итерации</param>
+        /// <returns></returns>
+        public int DrawTree(Point pStart, Point pFinish, double a, double angle)
+        {
+            n = Convert.ToInt32(sides.Text);
+            double x = pStart.X;
+            double y = pStart.Y;
+
+            if (a > 2)
+            {
+                a *= 0.7; //Меняем параметр a
+
+                //Считаем координаты для вершины-ребенка
+                pFinish.X = Math.Round(x + a * Math.Cos(angle));
+                pFinish.Y = Math.Round(y - a * Math.Sin(angle));
+
+                //рисуем линию между вершинами           
+                DrawLine(pStart, pFinish);
+
+                DrawTree(pFinish, pFinish, a, angle + ang1);
+                DrawTree(pFinish, pFinish, a, angle - ang2);
+            }
+            return 0;
+        }
+
+        public void DrawByLines(Point pStart, Point pFinish, MouseEventArgs e)
+        {
+            wb = new WriteableBitmap(curState);
+            Point temp = pStart;
+            DrawLine(pStart, pFinish);
+            
+            if (e.RightButton == MouseButtonState.Pressed)
+            {
+                pFinish = temp;
+            }
+        }
 
 
 
@@ -592,13 +782,13 @@ namespace Paint
         //    type = "rectangle";
         //}
 
-        private void Window_MouseUp(object sender, MouseButtonEventArgs e)
-        {
-            isPressed = false;
-            pFinish = SetToCurPoint(e);
-        }
+        //private void Window_MouseUp(object sender, MouseButtonEventArgs e)
+        //{
+        //    isPressed = false;
+        //    pFinish = SetToCurPoint(e);
+        //}
 
-         
+
         /* ComboBox comboBox = (ComboBox)sender;
          ComboBoxItem selectedItem = (ComboBoxItem)comboBox.SelectedItem;
          MessageBox.Show(selectedItem.Content.ToString());*/

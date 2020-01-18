@@ -1,112 +1,14 @@
-D:\DevEducation\Paint\Paint\bin\Debug\Paint.exe.config
-D:\DevEducation\Paint\Paint\bin\Debug\Paint.exe
-D:\DevEducation\Paint\Paint\bin\Debug\Paint.pdb
-D:\DevEducation\Paint\Paint\obj\Debug\Paint.csprojAssemblyReference.cache
-D:\DevEducation\Paint\Paint\obj\Debug\MainWindow.g.cs
-D:\DevEducation\Paint\Paint\obj\Debug\App.g.cs
-D:\DevEducation\Paint\Paint\obj\Debug\Paint_MarkupCompile.cache
-D:\DevEducation\Paint\Paint\obj\Debug\Paint_MarkupCompile.lref
-D:\DevEducation\Paint\Paint\obj\Debug\MainWindow.baml
-D:\DevEducation\Paint\Paint\obj\Debug\Paint.g.resources
-D:\DevEducation\Paint\Paint\obj\Debug\Paint.Properties.Resources.resources
-D:\DevEducation\Paint\Paint\obj\Debug\Paint.csproj.GenerateResource.cache
-D:\DevEducation\Paint\Paint\obj\Debug\Paint.exe
-D:\DevEducation\Paint\Paint\obj\Debug\Paint.pdb
-C:\Users\User\Desktop\ggg\Paint\Paint\bin\Debug\Paint.exe.config
-C:\Users\User\Desktop\ggg\Paint\Paint\bin\Debug\Paint.exe
-C:\Users\User\Desktop\ggg\Paint\Paint\bin\Debug\Paint.pdb
-C:\Users\User\Desktop\ggg\Paint\Paint\obj\Debug\Paint.csprojAssemblyReference.cache
-C:\Users\User\Desktop\ggg\Paint\Paint\obj\Debug\MainWindow.g.cs
-C:\Users\User\Desktop\ggg\Paint\Paint\obj\Debug\App.g.cs
-C:\Users\User\Desktop\ggg\Paint\Paint\obj\Debug\Paint_MarkupCompile.cache
-C:\Users\User\Desktop\ggg\Paint\Paint\obj\Debug\Paint_MarkupCompile.lref
-C:\Users\User\Desktop\ggg\Paint\Paint\obj\Debug\MainWindow.baml
-C:\Users\User\Desktop\ggg\Paint\Paint\obj\Debug\Paint.g.resources
-C:\Users\User\Desktop\ggg\Paint\Paint\obj\Debug\Paint.Properties.Resources.resources
-C:\Users\User\Desktop\ggg\Paint\Paint\obj\Debug\Paint.csproj.GenerateResource.cache
-C:\Users\User\Desktop\ggg\Paint\Paint\obj\Debug\Paint.exe
-C:\Users\User\Desktop\ggg\Paint\Paint\obj\Debug\Paint.pdb
-C:\Users\iRU\Desktop\paint 1515\Paint\Paint\bin\Debug\Paint.exe.config
-C:\Users\iRU\Desktop\paint 1515\Paint\Paint\bin\Debug\Paint.exe
-C:\Users\iRU\Desktop\paint 1515\Paint\Paint\bin\Debug\Paint.pdb
-C:\Users\iRU\Desktop\paint 1515\Paint\Paint\obj\Debug\Paint.csprojAssemblyReference.cache
-C:\Users\iRU\Desktop\paint 1515\Paint\Paint\obj\Debug\MainWindow.g.cs
-C:\Users\iRU\Desktop\paint 1515\Paint\Paint\obj\Debug\App.g.cs
-C:\Users\iRU\Desktop\paint 1515\Paint\Paint\obj\Debug\Paint_MarkupCompile.cache
-C:\Users\iRU\Desktop\paint 1515\Paint\Paint\obj\Debug\Paint_MarkupCompile.lref
-C:\Users\iRU\Desktop\paint 1515\Paint\Paint\obj\Debug\MainWindow.baml
-C:\Users\iRU\Desktop\paint 1515\Paint\Paint\obj\Debug\Paint.g.resources
-C:\Users\iRU\Desktop\paint 1515\Paint\Paint\obj\Debug\Paint.Properties.Resources.resources
-C:\Users\iRU\Desktop\paint 1515\Paint\Paint\obj\Debug\Paint.csproj.GenerateResource.cache
-C:\Users\iRU\Desktop\paint 1515\Paint\Paint\obj\Debug\Paint.exe
-C:\Users\iRU\Desktop\paint 1515\Paint\Paint\obj\Debug\Paint.pdb
-d:\_Study\_DevEducation\HomeWorks_VisualStudio\15_01_2020\Paint\Paint\bin\Debug\Paint.exe.config
-d:\_Study\_DevEducation\HomeWorks_VisualStudio\15_01_2020\Paint\Paint\bin\Debug\Paint.exe
-d:\_Study\_DevEducation\HomeWorks_VisualStudio\15_01_2020\Paint\Paint\bin\Debug\Paint.pdb
-d:\_Study\_DevEducation\HomeWorks_VisualStudio\15_01_2020\Paint\Paint\obj\Debug\Paint.csprojAssemblyReference.cache
-d:\_Study\_DevEducation\HomeWorks_VisualStudio\15_01_2020\Paint\Paint\obj\Debug\MainWindow.g.cs
-d:\_Study\_DevEducation\HomeWorks_VisualStudio\15_01_2020\Paint\Paint\obj\Debug\App.g.cs
-d:\_Study\_DevEducation\HomeWorks_VisualStudio\15_01_2020\Paint\Paint\obj\Debug\Paint_MarkupCompile.cache
-d:\_Study\_DevEducation\HomeWorks_VisualStudio\15_01_2020\Paint\Paint\obj\Debug\Paint_MarkupCompile.lref
-d:\_Study\_DevEducation\HomeWorks_VisualStudio\15_01_2020\Paint\Paint\obj\Debug\MainWindow.baml
-d:\_Study\_DevEducation\HomeWorks_VisualStudio\15_01_2020\Paint\Paint\obj\Debug\Paint.g.resources
-d:\_Study\_DevEducation\HomeWorks_VisualStudio\15_01_2020\Paint\Paint\obj\Debug\Paint.Properties.Resources.resources
-d:\_Study\_DevEducation\HomeWorks_VisualStudio\15_01_2020\Paint\Paint\obj\Debug\Paint.csproj.GenerateResource.cache
-d:\_Study\_DevEducation\HomeWorks_VisualStudio\15_01_2020\Paint\Paint\obj\Debug\Paint.exe
-d:\_Study\_DevEducation\HomeWorks_VisualStudio\15_01_2020\Paint\Paint\obj\Debug\Paint.pdb
-D:\_Study\_DevEducation\HomeWorks_VisualStudio\Git_HomeWorks\childPaint\Paint\bin\Debug\Paint.exe.config
-D:\_Study\_DevEducation\HomeWorks_VisualStudio\Git_HomeWorks\childPaint\Paint\bin\Debug\Paint.exe
-D:\_Study\_DevEducation\HomeWorks_VisualStudio\Git_HomeWorks\childPaint\Paint\bin\Debug\Paint.pdb
-D:\_Study\_DevEducation\HomeWorks_VisualStudio\Git_HomeWorks\childPaint\Paint\obj\Debug\Paint.csprojAssemblyReference.cache
-D:\_Study\_DevEducation\HomeWorks_VisualStudio\Git_HomeWorks\childPaint\Paint\obj\Debug\MainWindow.g.cs
-D:\_Study\_DevEducation\HomeWorks_VisualStudio\Git_HomeWorks\childPaint\Paint\obj\Debug\App.g.cs
-D:\_Study\_DevEducation\HomeWorks_VisualStudio\Git_HomeWorks\childPaint\Paint\obj\Debug\Paint_MarkupCompile.cache
-D:\_Study\_DevEducation\HomeWorks_VisualStudio\Git_HomeWorks\childPaint\Paint\obj\Debug\Paint_MarkupCompile.lref
-D:\_Study\_DevEducation\HomeWorks_VisualStudio\Git_HomeWorks\childPaint\Paint\obj\Debug\MainWindow.baml
-D:\_Study\_DevEducation\HomeWorks_VisualStudio\Git_HomeWorks\childPaint\Paint\obj\Debug\Paint.g.resources
-D:\_Study\_DevEducation\HomeWorks_VisualStudio\Git_HomeWorks\childPaint\Paint\obj\Debug\Paint.Properties.Resources.resources
-D:\_Study\_DevEducation\HomeWorks_VisualStudio\Git_HomeWorks\childPaint\Paint\obj\Debug\Paint.csproj.GenerateResource.cache
-D:\_Study\_DevEducation\HomeWorks_VisualStudio\Git_HomeWorks\childPaint\Paint\obj\Debug\Paint.exe
-D:\_Study\_DevEducation\HomeWorks_VisualStudio\Git_HomeWorks\childPaint\Paint\obj\Debug\Paint.pdb
-D:\github\childPaint\Paint\bin\Debug\Paint.exe.config
-D:\github\childPaint\Paint\bin\Debug\Paint.exe
-D:\github\childPaint\Paint\bin\Debug\Paint.pdb
-D:\github\childPaint\Paint\obj\Debug\Paint.csprojAssemblyReference.cache
-D:\github\childPaint\Paint\obj\Debug\MainWindow.g.cs
-D:\github\childPaint\Paint\obj\Debug\App.g.cs
-D:\github\childPaint\Paint\obj\Debug\Paint_MarkupCompile.cache
-D:\github\childPaint\Paint\obj\Debug\Paint_MarkupCompile.lref
-D:\github\childPaint\Paint\obj\Debug\MainWindow.baml
-D:\github\childPaint\Paint\obj\Debug\Paint.g.resources
-D:\github\childPaint\Paint\obj\Debug\Paint.Properties.Resources.resources
-D:\github\childPaint\Paint\obj\Debug\Paint.csproj.GenerateResource.cache
-D:\github\childPaint\Paint\obj\Debug\Paint.exe
-D:\github\childPaint\Paint\obj\Debug\Paint.pdb
-D:\программирование\PaintIlona\childPaint\Paint\bin\Debug\Paint.exe.config
-D:\программирование\PaintIlona\childPaint\Paint\bin\Debug\Paint.exe
-D:\программирование\PaintIlona\childPaint\Paint\bin\Debug\Paint.pdb
-D:\программирование\PaintIlona\childPaint\Paint\obj\Debug\Paint.csprojAssemblyReference.cache
-D:\программирование\PaintIlona\childPaint\Paint\obj\Debug\MainWindow.g.cs
-D:\программирование\PaintIlona\childPaint\Paint\obj\Debug\App.g.cs
-D:\программирование\PaintIlona\childPaint\Paint\obj\Debug\Paint_MarkupCompile.cache
-D:\программирование\PaintIlona\childPaint\Paint\obj\Debug\Paint_MarkupCompile.lref
-D:\программирование\PaintIlona\childPaint\Paint\obj\Debug\MainWindow.baml
-D:\программирование\PaintIlona\childPaint\Paint\obj\Debug\Paint.g.resources
-D:\программирование\PaintIlona\childPaint\Paint\obj\Debug\Paint.Properties.Resources.resources
-D:\программирование\PaintIlona\childPaint\Paint\obj\Debug\Paint.csproj.GenerateResource.cache
-D:\программирование\PaintIlona\childPaint\Paint\obj\Debug\Paint.exe
-D:\программирование\PaintIlona\childPaint\Paint\obj\Debug\Paint.pdb
-C:\Users\iRU\source\repos\childPaint\Paint\obj\Debug\Paint.csprojAssemblyReference.cache
-C:\Users\iRU\source\repos\childPaint\Paint\obj\Debug\MainWindow.g.cs
-C:\Users\iRU\source\repos\childPaint\Paint\obj\Debug\App.g.cs
-C:\Users\iRU\source\repos\childPaint\Paint\obj\Debug\Paint_MarkupCompile.cache
-C:\Users\iRU\source\repos\childPaint\Paint\obj\Debug\Paint_MarkupCompile.lref
-C:\Users\iRU\source\repos\childPaint\Paint\obj\Debug\Paint.exe
-C:\Users\iRU\source\repos\childPaint\Paint\obj\Debug\Paint.pdb
-C:\Users\iRU\source\repos\childPaint\Paint\bin\Debug\Paint.exe.config
-C:\Users\iRU\source\repos\childPaint\Paint\bin\Debug\Paint.exe
-C:\Users\iRU\source\repos\childPaint\Paint\bin\Debug\Paint.pdb
-C:\Users\iRU\source\repos\childPaint\Paint\obj\Debug\MainWindow.baml
-C:\Users\iRU\source\repos\childPaint\Paint\obj\Debug\Paint.g.resources
-C:\Users\iRU\source\repos\childPaint\Paint\obj\Debug\Paint.Properties.Resources.resources
-C:\Users\iRU\source\repos\childPaint\Paint\obj\Debug\Paint.csproj.GenerateResource.cache
+C:\Users\User1\Documents\childPaint\Paint\obj\Debug\Paint.csprojAssemblyReference.cache
+C:\Users\User1\Documents\childPaint\Paint\obj\Debug\MainWindow.g.cs
+C:\Users\User1\Documents\childPaint\Paint\obj\Debug\App.g.cs
+C:\Users\User1\Documents\childPaint\Paint\obj\Debug\Paint_MarkupCompile.cache
+C:\Users\User1\Documents\childPaint\Paint\obj\Debug\Paint_MarkupCompile.lref
+C:\Users\User1\Documents\childPaint\Paint\obj\Debug\Paint.exe
+C:\Users\User1\Documents\childPaint\Paint\obj\Debug\Paint.pdb
+C:\Users\User1\Documents\childPaint\Paint\bin\Debug\Paint.exe.config
+C:\Users\User1\Documents\childPaint\Paint\bin\Debug\Paint.exe
+C:\Users\User1\Documents\childPaint\Paint\bin\Debug\Paint.pdb
+C:\Users\User1\Documents\childPaint\Paint\obj\Debug\MainWindow.baml
+C:\Users\User1\Documents\childPaint\Paint\obj\Debug\Paint.g.resources
+C:\Users\User1\Documents\childPaint\Paint\obj\Debug\Paint.Properties.Resources.resources
+C:\Users\User1\Documents\childPaint\Paint\obj\Debug\Paint.csproj.GenerateResource.cache
