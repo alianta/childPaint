@@ -81,11 +81,16 @@ namespace Paint
             if (sender.Equals(btnLine))
             {
                 line = true;
-            }
-          //  else if (sender.Equals(btnSquare))
-          //  {
-           //     square = true;
-           // }
+            }
+
+            //  else if (sender.Equals(btnSquare))
+
+            //  {
+
+            //     square = true;
+
+            // }
+
             else if (sender.Equals(btnRectangle))
             {
                 rectangle = true;
@@ -178,55 +183,92 @@ namespace Paint
                     figure.Draw(wb, pStart, curPoint, shift);
                     MainImage.Source = wb;
                 }
-                if (type == 3)
+                if (type == 3)
+                {
+                    wb = new WriteableBitmap(curState);
+                    figure.Draw(wb, pStart, curPoint, shift);
+                    MainImage.Source = wb;
                 }
                 if (type == 4)
                 {
                     wb = new WriteableBitmap(curState);
                     figure.Draw(wb, pStart, curPoint, shift);
                     MainImage.Source = wb;
-                }
+                }
+
+                if (type == 6)
                 {
                     wb = new WriteableBitmap(curState);
-                    figure.Draw(wb, pStart, curPoint, shift);
+                    figure.Draw(wb, pStart, curPoint, sides.Text);
                     MainImage.Source = wb;
-
-
-                if (line)
-                {
-                    DrawLine(prevPoint, curPoint);
-                }
-               
-                if (circle)
-                {
-                    type = 3;
-                    figure = new Ellipce();
-                }
-                if (triangle)
-                {
-                    // DrawTree(prevPoint, curPoint, n , angle);                                  
-                }
-                if (polygon)
-                {
-                    Draw_Polygon(prevPoint, curPoint);
-                }
-                if (tree)
-                {
-                   // DrawTree(prevPoint, curPoint, n, angle);
-                }
-                if (lines)
-                {
-                    DrawByLines(prevPoint, curPoint, e);
-                }
-
-            }
-
-            if (line)
-            {
-                prevPoint = curPoint;
-            }
-        }
-
+                }
+
+
+
+
+                if (line)
+                {
+                    DrawLine(prevPoint, curPoint);
+                }
+
+
+
+                if (circle)
+                {
+
+                    type = 3;
+
+                    figure = new Ellipce();
+
+                }
+
+                if (triangle)
+
+                {
+
+                    // DrawTree(prevPoint, curPoint, n , angle);                                  
+
+                }
+
+                if (polygon)
+
+                {
+                    type = 6;
+                    figure = new Poligon();
+                    //Draw_Polygon(prevPoint, curPoint);
+                }
+
+                if (tree)
+
+                {
+
+                    // DrawTree(prevPoint, curPoint, n, angle);
+
+                }
+
+                if (lines)
+
+                {
+
+                    DrawByLines(prevPoint, curPoint, e);
+
+                }
+            }
+
+
+
+            if (line)
+            {
+                prevPoint = curPoint;
+            }
+        }
+
+
+
+
+
+
+
         /// <summary>
         /// Метод обрабатывает клик по иконке с цветами
         /// </summary>
@@ -554,9 +596,17 @@ namespace Paint
                 SetPixel(new Point(newX2, pStart.Y - i), colorData);
             }
 
-        }
-        
-
+        }
+
+
+
+
+
+
+
+
+
+
         /// <summary>
         /// Рисование элипса попиксельно
         /// </summary>
@@ -649,29 +699,29 @@ namespace Paint
             }
         }
 
-        /// <summary>
-        /// Метод рисует n-угольник
-        /// </summary>
-        /// <param name="pStart"></param>
-        /// <param name="pFinish"></param>
-        private void Draw_Polygon(Point pStart, Point pFinish)
-        {
+        ///// <summary>
+        ///// Метод рисует n-угольник
+        ///// </summary>
+        ///// <param name="pStart"></param>
+        ///// <param name="pFinish"></param>
+        //private void Draw_Polygon(Point pStart, Point pFinish)
+        //{
 
-            wb = new WriteableBitmap(curState);
-            n = Convert.ToInt32(sides.Text);
+        //    wb = new WriteableBitmap(curState);
+        //    n = Convert.ToInt32(sides.Text);
 
-            R = Math.Sqrt(Math.Pow((pFinish.X - pStart.X), 2) + Math.Pow((pFinish.Y - pStart.Y), 2));
+        //    R = Math.Sqrt(Math.Pow((pFinish.X - pStart.X), 2) + Math.Pow((pFinish.Y - pStart.Y), 2));
 
-            p = new Point[n + 1];
-            lineAngle((double)(360.0 / (double)n));
-            int i = n;
+        //    p = new Point[n + 1];
+        //    lineAngle((double)(360.0 / (double)n));
+        //    int i = n;
 
-            while (i > 0)
-            {
-                DrawLine(p[i], p[i - 1]);
-                i = i - 1;
-            }
-        }
+        //    while (i > 0)
+        //    {
+        //        DrawLine(p[i], p[i - 1]);
+        //        i = i - 1;
+        //    }
+        //}
 
         /// <summary>
         /// Метод рисующий Фрактал Дерево Пифагора 
@@ -708,8 +758,10 @@ namespace Paint
         {
             wb = new WriteableBitmap(curState);
             Point temp = pStart;
-            DrawLine(pStart, pFinish);
-            
+            DrawLine(pStart, pFinish);
+
+
+
             if (e.RightButton == MouseButtonState.Pressed)
             {
                 pFinish = temp;

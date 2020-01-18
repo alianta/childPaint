@@ -15,6 +15,11 @@ namespace Paint.Rastr
 
         }
 
+        public virtual void Draw(WriteableBitmap wb, Point pStart, Point pFinish, string sides)
+        {
+
+        }
+
         /// <summary>
         /// Метод устанавливает пиксель в заданных координатах в заданном цвете
         /// </summary>
