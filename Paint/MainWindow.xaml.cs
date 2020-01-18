@@ -1,20 +1,11 @@
 ﻿using Paint.Rastr;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Collections;
 
 namespace Paint
 {
@@ -91,10 +82,10 @@ namespace Paint
             {
                 line = true;
             }
-            else if (sender.Equals(btnSquare))
-            {
-                square = true;
-            }
+          //  else if (sender.Equals(btnSquare))
+          //  {
+           //     square = true;
+           // }
             else if (sender.Equals(btnRectangle))
             {
                 rectangle = true;
@@ -187,19 +178,18 @@ namespace Paint
                     figure.Draw(wb, pStart, curPoint, shift);
                     MainImage.Source = wb;
                 }
+                if (type == 4)
+                {
+                    wb = new WriteableBitmap(curState);
+                    figure.Draw(wb, pStart, curPoint, shift);
+                    MainImage.Source = wb;
+                }
 
                 if (line)
                 {
                     DrawLine(prevPoint, curPoint);
                 }
-                if (square)
-                {
-                    Draw_Squere(curPoint);
-                }
-                if (rectangle)
-                {
-                    Draw_Rectangle(curPoint);
-                }
+               
                 if (circle)
                 {
                     DrawCircle(prevPoint, curPoint);
@@ -284,6 +274,17 @@ namespace Paint
         {
             type = 2;
             figure = new Triangle();
+        }
+
+        /// <summary>
+        /// Метод обрабатывает клик по кнопке треугольника
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Rectangle_Click(object sender, RoutedEventArgs e)
+        {
+            type = 4;
+            figure = new Rectangle();
         }
 
         /// <summary>
@@ -621,52 +622,6 @@ namespace Paint
         }
 
 
-        /// <summary>
-        /// Метод рисующий квадрат по двум точкам на одной стороне
-        /// </summary>
-        /// <param name="pointB"></param>
-        private void Draw_Squere(Point pointB)
-        {
-            wb = new WriteableBitmap(curState);
-            DrawLine(prevPoint, pointB);
-
-            double katet1, katet2;
-            katet1 = prevPoint.Y - pointB.Y;
-            katet2 = pointB.X - prevPoint.X;
-
-            Point pointD = new Point();
-            pointD.X = prevPoint.X + katet1;
-            pointD.Y = prevPoint.Y + katet2;
-
-            Point pointC = new Point();
-            pointC.X = pointB.X + katet1;
-            pointC.Y = pointB.Y + katet2;
-
-            DrawLine(pointB, pointC);
-            DrawLine(pointC, pointD);
-            DrawLine(pointD, prevPoint);
-        }
-
-        /// <summary>
-        /// Метод рисует прямоугольник по двум точкам на противоположных углах
-        /// </summary>
-        /// <param name="pointC"></param>
-        private void Draw_Rectangle(Point pointC)
-        {
-            wb = new WriteableBitmap(curState);
-            Point pointD = new Point();
-            pointD.X = prevPoint.X;
-            pointD.Y = pointC.Y;
-
-            Point pointB = new Point();
-            pointB.X = pointC.X;
-            pointB.Y = prevPoint.Y;
-            DrawLine(prevPoint, pointB);
-            DrawLine(pointB, pointC);
-            DrawLine(pointC, pointD);
-            DrawLine(pointD, prevPoint);
-        }
-
         private void Button_Save(object sender, RoutedEventArgs e)
         {
             // Настраиваем параметры диалога
@@ -770,23 +725,6 @@ namespace Paint
         }
 
 
-
-        //ПРИВЯЗКА К КОНПКАМ: КВАДРАТ, ПРЯМОУГОЛЬНИК
-        //private void Button_Square(object sender, RoutedEventArgs e)
-        //{
-        //    type = "square";
-        //}
-
-        //private void Button_Rectangle(object sender, RoutedEventArgs e)
-        //{
-        //    type = "rectangle";
-        //}
-
-        //private void Window_MouseUp(object sender, MouseButtonEventArgs e)
-        //{
-        //    isPressed = false;
-        //    pFinish = SetToCurPoint(e);
-        //}
 
 
         /* ComboBox comboBox = (ComboBox)sender;

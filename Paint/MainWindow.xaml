@@ -70,8 +70,8 @@
             <Label Content="Количество сторон многоугольника"/>
             <TextBox x:Name="sides" Height="23" TextWrapping="Wrap"  Width="28"/>
             <Button x:Name="btnLine" Content="Линия" Width="75" Click="btnFigure_Click"/>
-            <Button x:Name="btnSquare" Content="Кадрат" Width="75" Click="btnFigure_Click"/>
-            <Button x:Name="btnRectangle" Content="Прямоугольник" Width="75" Click="btnFigure_Click"/>
+            
+            <Button x:Name="btnRectangle" Content="Прямоугольник" Width="75" Click="Rectangle_Click"/>
             <Button x:Name="btnCircle" Content="Круг" Width="75" Click="btnFigure_Click"/>
             <Button x:Name="btnOval" Content="Овал" Width="75" Click="btnFigure_Click"/>
             <Button x:Name="btnTriangle" Content="Треугольник" Width="75" Click="triangle_Click"/>
