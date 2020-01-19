@@ -9,40 +9,22 @@ using System.Windows.Media.Imaging;
 namespace Paint.Rastr
 {
     class Poligon : Figure
-    {
-        /// <summary>
-        /// Метод рисует n-угольник
-        /// </summary>
-        /// <param name="pStart"></param>
-        /// <param name="pFinish"></param>
+    {        
         private byte[] colorData = { 0, 0, 0, 255 };
         private Figure line;
         int thickness;
-        int n;//кол-во сторон многоугольника
-
+        int numberOfSides;
+       
         public Poligon(byte[] colorData, int thickness, int n)
         {
+            line = new Line(colorData, thickness);
+            numberOfSides = n;
             this.thickness = thickness;
             this.colorData = colorData;
-            line = new Line(colorData, thickness);
-            this.n = n;
         }
         public override void Draw(WriteableBitmap wb, Point pStart, Point pFinish, bool shift)
         {
-            // wb = new WriteableBitmap(pFinish);
-            //int n = Convert.ToInt32();
-
-            double R = Math.Sqrt(Math.Pow((pFinish.X - pStart.X), 2) + Math.Pow((pFinish.Y - pStart.Y), 2));
-
-            Point[] p = new Point[n + 1];
-            lineAngle((double)(360.0 / (double)n), pStart, n, p, R);
-            int i = n;
-
-            while (i > 0)
-            {
-                line.Draw(wb, p[i], p[i - 1], thickness, false);
-                i = i - 1;
-            }
+            DrawPoligon(wb, pStart, pFinish, numberOfSides);
         }
 
         /// <summary>
@@ -58,6 +40,28 @@ namespace Paint.Rastr
                 p[i].Y = pStart.Y - (int)(Math.Round(Math.Sin(z / 180 * Math.PI) * R));
                 z = z + angle;
                 i++;
+            }
+        }
+
+        /// <summary>
+        /// Метод рисует многоугольник
+        /// </summary>
+        /// <param name="wb"></param>
+        /// <param name="pStart"></param>
+        /// <param name="pFinish"></param>
+        /// <param name="n"></param>
+        public void DrawPoligon(WriteableBitmap wb, Point pStart, Point pFinish, int n)
+        {
+            double R = Math.Sqrt(Math.Pow((pFinish.X - pStart.X), 2) + Math.Pow((pFinish.Y - pStart.Y), 2));
+
+            Point[] p = new Point[n + 1];
+            lineAngle((double)(360.0 / (double)n), pStart, n, p, R);
+            int i = n;
+
+            while (i > 0)
+            {
+                line.Draw(wb, p[i], p[i - 1], thickness, false);
+                i = i - 1;
             }
         }
 

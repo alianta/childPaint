@@ -33,25 +33,29 @@
             <Button x:Name="btnPolygon" Height="35" Width="35" Background="White" BorderThickness="0" Click="btnFigure_Click">
                 <Image Source="white/b_6-nGon.png"></Image>
             </Button>
-            <TextBox x:Name="sides" TextWrapping="Wrap"  Width="40" Margin="0,12,5,10" FontWeight="Normal" FontSize="6" VerticalAlignment="Center" Text="Введите количество строн"/>
+            <TextBox x:Name="sides" TextWrapping="Wrap"  Width="40" Margin="0,12,5,10" FontWeight="Normal"  VerticalAlignment="Center" Height="25" Text="5" TextAlignment="Center" FontSize="14"/>
 
 
             <!--выбор толщины линии-->
             <ComboBox Height="40" Width="90" Background="White" BorderThickness="0" Name="ThicknessList" VerticalAlignment="Center" SelectionChanged="Button_Change_Thickness">
-                <ComboBoxItem IsSelected="True">
-                    <StackPanel Orientation="Horizontal">
+                <ComboBoxItem  x:Name="thick1" IsSelected="True">
+                    <StackPanel  Orientation="Horizontal">
                         <Image Source="white/b_8-lineWidth.png"  Width="40" />
                         <TextBlock VerticalAlignment="Center" Margin="6,0,0,0">x1</TextBlock>
                     </StackPanel>
                 </ComboBoxItem>
-                <StackPanel Orientation="Horizontal">
-                    <Image Source="white/b_8-lineWidth.png"  Width="40" />
-                    <TextBlock VerticalAlignment="Center">x2</TextBlock>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <Image Source="white/b_8-lineWidth.png"  Width="40" />
-                    <TextBlock VerticalAlignment="Center">x3</TextBlock>
-                </StackPanel>
+                <ComboBoxItem  x:Name="thick2">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="white/b_8-lineWidth.png"  Width="40" />
+                        <TextBlock  VerticalAlignment="Center">x2</TextBlock>
+                    </StackPanel>
+                </ComboBoxItem>
+                <ComboBoxItem x:Name="thick3">
+                    <StackPanel   Orientation="Horizontal">
+                        <Image Source="white/b_8-lineWidth.png"  Width="40" />
+                        <TextBlock  VerticalAlignment="Center">x3</TextBlock>
+                    </StackPanel>
+                </ComboBoxItem>
             </ComboBox>
 
             <Button x:Name="bntFillBucket" Height="35" Width="35" Background="White" BorderThickness="0">
@@ -135,3 +139,4 @@
 
     </Grid>
 </Window>
+
