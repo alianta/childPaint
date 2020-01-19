@@ -13,13 +13,68 @@ namespace Paint.Rastr
         private Figure pixel = new Pixel();
         static byte[] colorData = { 0, 0, 0, 255 };
 
+
+
+        public override  void Draw(WriteableBitmap wb, Point pStart, Point pFinish, int thickness, bool shift)///запускается это
+        {
+           // SetPixel(curPoint, colorData);
+            pixel.Draw(wb, pFinish, colorData);
+            if (thickness == 1)
+            {
+                Draw(wb, pStart, pFinish, false);
+            }
+            if (thickness == 2)
+            {
+                Draw(wb, pStart, pFinish, false);
+                Draw(wb, new Point(pStart.X - 1, pStart.Y), new Point(pFinish.X - 1, pFinish.Y),false);
+                Draw(wb, new Point(pStart.X, pStart.Y - 1), new Point(pFinish.X, pFinish.Y - 1),false);
+                Draw(wb, new Point(pStart.X - 1, pStart.Y - 1), new Point(pFinish.X - 1, pFinish.Y - 1),false);
+            }
+            else if (thickness == 3)
+            {
+                Draw(wb, pStart, pFinish, false);
+                Draw(wb, new Point(pStart.X - 1, pStart.Y), new Point(pFinish.X - 1, pFinish.Y), false);
+                Draw(wb, new Point(pStart.X + 1, pStart.Y), new Point(pFinish.X + 1, pFinish.Y), false);
+                Draw(wb, new Point(pStart.X, pStart.Y - 1), new Point(pFinish.X, pFinish.Y - 1), false);
+                Draw(wb, new Point(pStart.X, pStart.Y + 1), new Point(pFinish.X, pFinish.Y + 1), false);                
+            }
+            else if (thickness == 4)
+            {
+                Draw(wb, pStart, pFinish, false);
+
+                Draw(wb, new Point(pStart.X - 1, pStart.Y), new Point(pFinish.X - 1, pFinish.Y), false);
+                Draw(wb, new Point(pStart.X + 1, pStart.Y), new Point(pFinish.X + 1, pFinish.Y), false);
+                Draw(wb, new Point(pStart.X + 2, pStart.Y), new Point(pFinish.X + 2, pFinish.Y), false);
+                Draw(wb, new Point(pStart.X - 1, pStart.Y - 1), new Point(pFinish.X - 1, pFinish.Y - 1), false);
+                Draw(wb, new Point(pStart.X, pStart.Y - 1), new Point(pFinish.X, pFinish.Y - 1), false);
+                Draw(wb, new Point(pStart.X + 1, pStart.Y - 1), new Point(pFinish.X + 1, pFinish.Y - 1), false);
+                Draw(wb, new Point(pStart.X + 2, pStart.Y - 1), new Point(pFinish.X + 2, pFinish.Y - 1), false);
+                Draw(wb, new Point(pStart.X, pStart.Y + 1), new Point(pFinish.X, pFinish.Y + 1), false);
+                Draw(wb, new Point(pStart.X + 1, pStart.Y + 1), new Point(pFinish.X + 1, pFinish.Y + 1), false);
+                Draw(wb, new Point(pStart.X, pStart.Y + 2), new Point(pFinish.X, pFinish.Y + 2), false);
+                Draw(wb, new Point(pStart.X + 1, pStart.Y + 2), new Point(pFinish.X + 1, pFinish.Y + 2), false);
+                // DrawLine(new Point(prevPoint.X, prevPoint.Y), new Point(curPoint.X, curPoint.Y));
+                //DrawLine(new Point(prevPoint.X - 1, prevPoint.Y), new Point(curPoint.X - 1, curPoint.Y));
+                //DrawLine(new Point(prevPoint.X + 1, prevPoint.Y), new Point(curPoint.X + 1, curPoint.Y));
+                //DrawLine(new Point(prevPoint.X + 2, prevPoint.Y), new Point(curPoint.X + 2, curPoint.Y));
+                //DrawLine(new Point(prevPoint.X - 1, prevPoint.Y - 1), new Point(curPoint.X - 1, curPoint.Y - 1));
+                //DrawLine(new Point(prevPoint.X, prevPoint.Y - 1), new Point(curPoint.X, curPoint.Y - 1));
+
+                //DrawLine(new Point(prevPoint.X + 1, prevPoint.Y - 1), new Point(curPoint.X + 1, curPoint.Y - 1));
+                //DrawLine(new Point(prevPoint.X + 2, prevPoint.Y - 1), new Point(curPoint.X + 2, curPoint.Y - 1));
+                //DrawLine(new Point(prevPoint.X, prevPoint.Y + 1), new Point(curPoint.X, curPoint.Y + 1));//
+                //DrawLine(new Point(prevPoint.X + 1, prevPoint.Y + 1), new Point(curPoint.X + 1, curPoint.Y + 1));
+                //DrawLine(new Point(prevPoint.X, prevPoint.Y + 2), new Point(curPoint.X, curPoint.Y + 2));
+                //DrawLine(new Point(prevPoint.X + 1, prevPoint.Y + 2), new Point(curPoint.X + 1, curPoint.Y + 2));
+            }
+        }
         /// <summary>
         /// Рисование линии попиксельно
         /// </summary>
         /// <param name="wb">Холст</param>
         /// <param name="pStart">Начальная точка</param>
         /// <param name="pFinish">конечная точка</param>
-        public override void Draw(WriteableBitmap wb, Point pStart, Point pFinish, bool shift)
+        public override void Draw(WriteableBitmap wb, Point pStart, Point pFinish, bool shift) //переписать в private как все фигуры передалем не предыдущий метод с толщиой (в фигурах должен вызываться предыдущий метод с толщиной)
         {
             if (pFinish.X >= pStart.X && pFinish.Y >= pStart.Y)//прямая начинается с права с верху в низ
             {

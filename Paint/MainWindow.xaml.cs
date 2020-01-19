@@ -15,10 +15,6 @@ namespace Paint
     {
         WriteableBitmap wb; //создает новый холст Image для рисования 
         WriteableBitmap curState;
-        byte blue = 0;
-        byte green = 0;
-        byte red = 0;
-        byte alpha = 255;
         byte[] colorData = { 0, 0, 0, 255 }; //все для создания цвета
         bool isPressed = false; //передает состаяние мыши
         Point prevPoint; //точка начала коордиат
@@ -141,15 +137,15 @@ namespace Paint
                 //    DrawLine(new Point(prevPoint.X, prevPoint.Y + 2), new Point(curPoint.X, curPoint.Y + 2));
                 //    DrawLine(new Point(prevPoint.X + 1, prevPoint.Y + 2), new Point(curPoint.X + 1, curPoint.Y + 2));
                 //}
-                if (type == 7)
+                if (type == 7) //line
                 {
-                    figure.Draw(wb, prevPoint, curPoint, shift);
+                    figure.Draw(wb, prevPoint, curPoint, thicknessLine, false);
                     MainImage.Source = wb;
                 }
-                if (type == 2)
+                if (type == 2)//triangle
                 {
                     wb = new WriteableBitmap(curState);
-                    figure.Draw(wb, pStart, curPoint, shift);
+                    figure.Draw(wb, pStart, curPoint, thicknessLine, shift);
                     MainImage.Source = wb;
                 }
                 if (type == 3)
@@ -227,7 +223,7 @@ namespace Paint
 
         /// <summary>   
         /// Метод обрабатывает клик по кнопке треугольника
-        /// </summary>        /// <param name="sender"></param>
+        /// </summary>        /// <param name="sender"></param>
         /// <param name="e"></param>
         private void tree_Click(object sender, RoutedEventArgs e)
         {
@@ -243,15 +239,7 @@ namespace Paint
             figure = new FractalTree(n);
 
         }
-
-        /// <summary>
-        /// Метод обрабатывает MouseDown на холсте
-        /// Ставит isPressed в true
-        /// Задает стартовую точку координат
-        /// Задает предыдущую точку координат  
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>        private void MainImage_MouseDown(object sender, MouseButtonEventArgs e)
+        private void MainImage_MouseDown(object sender, MouseButtonEventArgs e)
         {
             isPressed = true;
             pStart = SetToCurPoint(e);
@@ -339,21 +327,7 @@ namespace Paint
             rgbColor[0] = Convert.ToByte(int.Parse(s.Substring(6, 2), System.Globalization.NumberStyles.AllowHexSpecifier));
             return rgbColor;
         }
-        /// <summary>
-        /// Метод устанавливает пиксель в заданных координатах в заданном цвете
-        /// </summary>
-        /// <param name="p">Point. Координаты точки</param>
-        /// <param name="colorData">Массив. Цвет в aRGB</param>
-        //private void SetPixel(Point p, byte[] colorData)
-        //{
-        //    if (p.X > 0 && p.X < (int)MainImage.Width && p.Y > 0 && p.Y < (int)MainImage.Height)
-        //    {
-        //        Int32Rect rect = new Int32Rect((int)p.X, (int)p.Y, 1, 1);
-        //        wb.WritePixels(rect, colorData, 4, 0);
-        //        //   curState.WritePixels(rect, colorData, 4, 0);
-        //        MainImage.Source = wb;
-        //    }
-        //}
+        
 
         /// <summary>
         /// Метод выводит в 2 текстбокса координаты позиции мыши        /// </summary>
@@ -406,50 +380,7 @@ namespace Paint
                     encoder.Save(stream);
             }
         }
-        /// <summary>
-        /// Метод создает массив точек многоугольника
-        /// </summary>
-        /// <param name="angle"></param>
-        //private void lineAngle(double angle)
-        //{
-        //    double z = 0; int i = 0;
-        //    while (i < n + 1)
-        //    {
-        //        p[i].X = prevPoint.X + (int)(Math.Round(Math.Cos(z / 180 * Math.PI) * R));
-        //        p[i].Y = prevPoint.Y - (int)(Math.Round(Math.Sin(z / 180 * Math.PI) * R));
-        //        z = z + angle;
-        //        i++;
-        //    }
-        //}
-        ///// <summary>
-        ///// Метод рисует n-угольник
-        ///// </summary>
-        ///// <param name="pStart"></param>
-        ///// <param name="pFinish"></param>
-        //private void Draw_Polygon(Point pStart, Point pFinish)
-        //{
-        //    wb = new WriteableBitmap(curState);
-        //    n = Convert.ToInt32(sides.Text);
-        //    R = Math.Sqrt(Math.Pow((pFinish.X - pStart.X), 2) + Math.Pow((pFinish.Y - pStart.Y), 2));
-        //    p = new Point[n + 1];
-        //    lineAngle((double)(360.0 / (double)n));
-        //    int i = n;
-        //    while (i > 0)
-        //    {
-        //        DrawLine(p[i], p[i - 1]);
-        //        i = i - 1;
-        //    }
-        //}
-        //public void DrawByLines(Point pStart, Point pFinish, MouseEventArgs e)
-        //{
-        //    wb = new WriteableBitmap(curState);
-        //    Point temp = pStart;
-        //    DrawLine(pStart, pFinish);
-        //    if (e.RightButton == MouseButtonState.Pressed)
-        //    {
-        //        pFinish = temp;
-        //    }
-        //}
+
         /* ComboBox comboBox = (ComboBox)sender;
          ComboBoxItem selectedItem = (ComboBoxItem)comboBox.SelectedItem;
          MessageBox.Show(selectedItem.Content.ToString());*/
