@@ -145,7 +145,7 @@ namespace Paint
                 {
                     wb = new WriteableBitmap(curState);
                     figure.Draw(wb, pStart, curPoint, shift);
-                    figure = new Ellipce();
+                    figure = new Ellipce(colorData, thicknessLine);
                 }
                 if (triangle)
                 {

@@ -5,13 +5,24 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media.Imaging;
+using System.Collections;
 
 namespace Paint.Rastr
 {
     class Ellipce : Figure
     {
+        private byte[] colorData;
+        private Figure line;
         private Figure pixel = new Pixel();
-        static byte[] colorData = { 0, 0, 0, 255 };
+        int thickness;
+        public Ellipce(byte[] colorData, int thickness)
+        {
+            this.thickness = thickness;
+            this.colorData = colorData;
+            line = new Line(colorData, thickness);
+        }
+        
+        //static byte[] colorData = { 0, 0, 0, 255 };
 
         /// <summary>
         /// Рисование эллипса и круга
@@ -74,6 +85,7 @@ namespace Paint.Rastr
         /// <param name="pFinish">Конечная точка по клику</param>
         private void DrawCircle(WriteableBitmap wb, Point pStart, Point pFinish, bool shift)
         {
+            List<Point> listOfPixels = new List<Point>();
             //wb = new WriteableBitmap(curState);
             int R = (int)Math.Sqrt((Math.Pow((pFinish.X - pStart.X), 2)) + (Math.Pow((pFinish.Y - pStart.Y), 2)));
             double a = Math.Sqrt(2) / 2;
@@ -81,14 +93,66 @@ namespace Paint.Rastr
             for (int i = 0; i <= (int)(a * R); i++)
             {
                 int newY1 = (int)(pStart.Y - Math.Sqrt(R * R - i * i));
-                pixel.Draw(wb, new Point(pStart.X + i, newY1), colorData);
-                int newY2 = (int)(pStart.Y + Math.Sqrt(R * R - i * i));
-                pixel.Draw(wb, new Point(pStart.X + i, newY2), colorData);
-                int newX1 = (int)(pStart.X - Math.Sqrt(R * R - i * i));
-                pixel.Draw(wb, new Point(newX1, pStart.Y + i), colorData);
-                int newX2 = (int)(pStart.X + Math.Sqrt(R * R - i * i));
-                pixel.Draw(wb, new Point(newX2, pStart.Y + i), colorData);
+                listOfPixels.Add(new Point(pStart.X + i, newY1));
             }
+            for (int i = 0; i <= (int)(a * R); i++)
+            {
+                int newX2 = (int)(pStart.X + Math.Sqrt(R * R - i * i));
+                listOfPixels.Add(new Point(newX2, pStart.Y - i));
+            }
+            for (int i = 0; i <= (int)(a * R); i++)
+            {
+                int newX2 = (int)(pStart.X + Math.Sqrt(R * R - i * i));
+                listOfPixels.Add(new Point(newX2, pStart.Y + i));
+            }
+            for (int i = 0; i <= (int)(a * R); i++)
+            {
+                int newY2 = (int)(pStart.Y + Math.Sqrt(R * R - i * i));
+                listOfPixels.Add(new Point(pStart.X + i, newY2));
+            }
+            for (int i = 0; i <= (int)(a * R); i++)
+            {
+                int newY2 = (int)(pStart.Y + Math.Sqrt(R * R - i * i));
+                listOfPixels.Add(new Point(pStart.X - i, newY2));
+            }
+            for (int i = 0; i <= (int)(a * R); i++)
+            {
+                int newX1 = (int)(pStart.X - Math.Sqrt(R * R - i * i));
+                listOfPixels.Add(new Point(newX1, pStart.Y + i));
+            }
+            for (int i = 0; i <= (int)(a * R); i++)
+            {
+                int newX1 = (int)(pStart.X - Math.Sqrt(R * R - i * i));
+                listOfPixels.Add(new Point(newX1, pStart.Y - i));
+            }
+            for (int i = 0; i <= (int)(a * R); i++)
+            {
+                int newY1 = (int)(pStart.Y - Math.Sqrt(R * R - i * i));
+                listOfPixels.Add(new Point(pStart.X - i, newY1));
+            }
+
+            for (int i = 0; i < listOfPixels.Count -1; i++)
+            {
+                line.Draw(wb, listOfPixels[i], listOfPixels[i+1], false);
+            }
+
+
+            //for (int i = 0; i <= (int)(a * R); i++)
+            //{
+            //    //int newY1 = (int)(pStart.Y - Math.Sqrt(R * R - i * i));
+            //    //int newX2 = (int)(pStart.X + Math.Sqrt(R * R - i * i));
+            //    //int newY2 = (int)(pStart.Y + Math.Sqrt(R * R - i * i));
+            //    //int newX1 = (int)(pStart.X - Math.Sqrt(R * R - i * i));
+            //    //pixel.Draw(wb, new Point(pStart.X + i, newY1), colorData);
+            //    //pixel.Draw(wb, new Point(newX2, pStart.Y - i), colorData);
+            //    //pixel.Draw(wb, new Point(newX2, pStart.Y + i), colorData);
+            //    //pixel.Draw(wb, new Point(pStart.X + i, newY2), colorData);
+            //    //pixel.Draw(wb, new Point(pStart.X - i, newY2), colorData);
+            //    //pixel.Draw(wb, new Point(newX1, pStart.Y + i), colorData);
+            //    //pixel.Draw(wb, new Point(newX1, pStart.Y - i), colorData);
+            //    //pixel.Draw(wb, new Point(pStart.X - i, newY1), colorData);
+            //}
+
         }
 
     }

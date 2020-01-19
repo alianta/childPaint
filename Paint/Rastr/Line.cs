@@ -20,7 +20,7 @@ namespace Paint.Rastr
             this.thickness = thickness;
         }
 
-        public override  void Draw(WriteableBitmap wb, Point pStart, Point pFinish, int thickness, bool shift)///запускается это
+        public override void Draw(WriteableBitmap wb, Point pStart, Point pFinish, int thickness, bool shift)///запускается это
         {
            // SetPixel(curPoint, colorData);
             pixel.Draw(wb, pFinish, colorData);
