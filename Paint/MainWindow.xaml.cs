@@ -295,7 +295,7 @@ namespace Paint
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Button_Change_Thickness(object sender, RoutedEventArgs e)
+      /*  private void Button_Change_Thickness(object sender, RoutedEventArgs e)
         {
             string thickness = Convert.ToString(((Button)e.OriginalSource).Content);
             if (thickness == "x1")
@@ -314,7 +314,7 @@ namespace Paint
             {
                 thicknessLine = 4;
             }
-        }
+        }*/
 
         //  ВНУТРЕННИЕ МЕТОДЫ
         /// <summary>
@@ -388,9 +388,21 @@ namespace Paint
                     encoder.Save(stream);
             }
         }
+
+        private void Button_Change_Thickness(object sender, SelectionChangedEventArgs e)
+        {
+            ComboBoxItem selectedItem = (ComboBoxItem)ThicknessList.SelectedValue;
+           
+            if (selectedItem.Content != null)
+            {
+                
+                thicknessLine = Convert.ToInt32(selectedItem.Content);
+            }
+
+        }
         /* ComboBox comboBox = (ComboBox)sender;
-         ComboBoxItem selectedItem = (ComboBoxItem)comboBox.SelectedItem;
-         MessageBox.Show(selectedItem.Content.ToString());*/
+ComboBoxItem selectedItem = (ComboBoxItem)comboBox.SelectedItem;
+MessageBox.Show(selectedItem.Content.ToString());*/
         //hgfjknbfm 
     }
 }

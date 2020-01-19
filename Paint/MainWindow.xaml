@@ -37,25 +37,24 @@
             <Button x:Name="bntYellow" Width="30" Height="30" Margin="5" Background="#ffff00" Click="Button_Change_Color" />
             
             <Button x:Name="bntWhite" Width="30" Height="30" Margin="5" Background="#ffffff" Click="Button_Change_Color" Content="Л"/>
-			<GroupBox Header ="Изменить размер кисти" Padding="5">
+			<!--<GroupBox Header ="Изменить размер кисти" Padding="5">
 				<StackPanel>
 			<Button x:Name="bntLineThickness1" Width="20" Height="20" Margin="5" Background="#ffffff" Click="Button_Change_Thickness" Content="x1"/>
             <Button x:Name="bntLineThickness2" Width="20" Height="20" Margin="5" Background="#ffffff" Click="Button_Change_Thickness" Content="x2"/>
             <Button x:Name="bntLineThickness3" Width="20" Height="30" Margin="5" Background="#ffffff" Click="Button_Change_Thickness" Content="x3"/>
             <Button x:Name="bntLineThickness4" Width="20" Height="20" Margin="5" Background="#ffffff" Click="Button_Change_Thickness" Content="x4"/>
 				</StackPanel>
-			</GroupBox>
+			</GroupBox>-->
             
             <!--<Button x:Name="bntSquare" Width="30" Height="30" Margin="5" Background="#ffffff" Click="Button_Square" Content="К"/>
             <Button x:Name="bntRectangle" Width="30" Height="30" Margin="5" Background="#ffffff" Click="Button_Rectangle" Content="П"/>-->
-           <!-- <Label Content="Thickness : " Height="28" HorizontalAlignment="Left"/>
-            <ComboBox Name="phonesList" VerticalAlignment="Top" SelectionChanged="Button_Change_Thickness">
-                <ComboBoxItem IsSelected="True">
-                    <TextBlock Name="textblock1">1</TextBlock>
-                </ComboBoxItem>
-                <TextBlock>2</TextBlock>
-                <TextBlock>3</TextBlock>
-            </ComboBox>-->
+            <Label Content="Толщина: " Height="28" HorizontalAlignment="Left"/>
+            <ComboBox Name="ThicknessList" VerticalAlignment="Center" SelectionChanged="Button_Change_Thickness">
+                <ComboBoxItem IsSelected="True">1</ComboBoxItem>
+                <ComboBoxItem>2</ComboBoxItem>
+                <ComboBoxItem>3</ComboBoxItem>
+                <ComboBoxItem>4</ComboBoxItem>
+            </ComboBox>
 
             <Label Content="x : " Height="28" HorizontalAlignment="Left"/>
             <TextBox x:Name="xPosition" Width="50"/>
