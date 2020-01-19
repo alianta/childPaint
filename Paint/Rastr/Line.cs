@@ -12,10 +12,12 @@ namespace Paint.Rastr
     {
         private Figure pixel = new Pixel();
         private byte[] colorData;
+        int thickness;
 
-        public Line(byte[] colorData)
+        public Line(byte[] colorData, int thickness)
         {
             this.colorData = colorData;
+            this.thickness = thickness;
         }
 
         public override  void Draw(WriteableBitmap wb, Point pStart, Point pFinish, int thickness, bool shift)///запускается это

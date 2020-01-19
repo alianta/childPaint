@@ -17,11 +17,13 @@ namespace Paint.Rastr
         double ang2 = Math.PI / 6;  //Угол поворота на 30 градусов
 
         double iter = 100;
+        int thickness;
 
-        public FractalTree(byte[] colorData)
+        public FractalTree(byte[] colorData, int thickness)
         {
+            this.thickness = thickness;
             this.colorData = colorData;
-            line = new Line(colorData);
+            line = new Line(colorData, thickness);
         }
         public override void Draw(WriteableBitmap wb, Point pStart, Point pFinish, bool shift)
         {

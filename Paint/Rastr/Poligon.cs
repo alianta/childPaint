@@ -17,11 +17,13 @@ namespace Paint.Rastr
         /// <param name="pFinish"></param>
         private byte[] colorData = { 0, 0, 0, 255 };
         private Figure line;
+        int thickness;
 
-        public Poligon(byte[] colorData)
+        public Poligon(byte[] colorData, int thickness)
         {
+            this.thickness = thickness;
             this.colorData = colorData;
-            line = new Line(colorData);
+            line = new Line(colorData, thickness);
         }
         public override void Draw(WriteableBitmap wb, Point pStart, Point pFinish, string sides)
         {

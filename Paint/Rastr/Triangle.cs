@@ -12,11 +12,13 @@ namespace Paint.Rastr
     {
         private byte[] colorData;
         private Figure line;
+        int thickness;
 
-        public Triangle(byte[] colorData)
+        public Triangle(byte[] colorData, int thickness)
         {
+            this.thickness = thickness;
             this.colorData = colorData;
-            line = new Line(colorData);
+            line = new Line(colorData, thickness);
         }
 
         public override void Draw(WriteableBitmap wb, Point pStart, Point pFinish,int  thickness,  bool shift)

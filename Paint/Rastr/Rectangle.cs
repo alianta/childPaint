@@ -13,11 +13,12 @@ namespace Paint.Rastr
     {
         private byte[] colorData;
         private Figure line;
-
-        public Rectangle(byte[] colorData)
+        int thickness;
+        public Rectangle(byte[] colorData, int thickness)
         {
+            this.thickness = thickness;
             this.colorData = colorData;
-            line = new Line(colorData);
+            line = new Line(colorData, thickness);
         }
 
         public override void Draw(WriteableBitmap wb, Point pStart, Point pFinish, bool shift)
@@ -56,9 +57,9 @@ namespace Paint.Rastr
             pointC.X = pFinish.X + katet1;
             pointC.Y = pFinish.Y + katet2;
 
-            line.Draw(wb,pFinish, pointC,shift);
-            line.Draw(wb,pointC, pointD,shift);
-            line.Draw(wb,pointD, pStart,shift);
+            line.Draw(wb,pFinish, pointC,thickness, shift);
+            line.Draw(wb,pointC, pointD, thickness, shift);
+            line.Draw(wb,pointD, pStart, thickness, shift);
         }
 
 
@@ -79,10 +80,10 @@ namespace Paint.Rastr
             Point pointB = new Point();
             pointB.X = pFinish.X;
             pointB.Y = pStart.Y;
-            line.Draw(wb,pStart, pointB,shift);
-            line.Draw(wb,pointB, pFinish, shift);
-            line.Draw(wb,pFinish, pointD,shift);
-            line.Draw(wb,pointD, pStart,shift);
+            line.Draw(wb,pStart, pointB, thickness, shift);
+            line.Draw(wb,pointB, pFinish, thickness, shift);
+            line.Draw(wb,pFinish, pointD, thickness, shift);
+            line.Draw(wb,pointD, pStart, thickness, shift);
         }
     }
 }
