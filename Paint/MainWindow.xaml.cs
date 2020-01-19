@@ -160,10 +160,10 @@ namespace Paint
                     figure.Draw(wb, pStart, curPoint, shift);
                     MainImage.Source = wb;
                 }
-                if (type == 6)
+                if (type == 6)//многоугольник
                 {
                     wb = new WriteableBitmap(curState);
-                    figure.Draw(wb, pStart, curPoint, sides.Text);
+                    figure.Draw(wb, pStart, curPoint, false);
                     MainImage.Source = wb;
                 }
                 if (type == 11)
@@ -197,7 +197,7 @@ namespace Paint
                 if (polygon)
                 {
                     type = 6;
-                    figure = new Poligon(colorData, thicknessLine);
+                    figure = new Poligon(colorData, thicknessLine, Convert.ToInt32(sides.Text));
                     //Draw_Polygon(prevPoint, curPoint);
                 }
 

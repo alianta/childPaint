@@ -18,17 +18,19 @@ namespace Paint.Rastr
         private byte[] colorData = { 0, 0, 0, 255 };
         private Figure line;
         int thickness;
+        int n;//кол-во сторон многоугольника
 
-        public Poligon(byte[] colorData, int thickness)
+        public Poligon(byte[] colorData, int thickness, int n)
         {
             this.thickness = thickness;
             this.colorData = colorData;
             line = new Line(colorData, thickness);
+            this.n = n;
         }
-        public override void Draw(WriteableBitmap wb, Point pStart, Point pFinish, string sides)
+        public override void Draw(WriteableBitmap wb, Point pStart, Point pFinish, bool shift)
         {
             // wb = new WriteableBitmap(pFinish);
-            int n = Convert.ToInt32(sides);
+            //int n = Convert.ToInt32();
 
             double R = Math.Sqrt(Math.Pow((pFinish.X - pStart.X), 2) + Math.Pow((pFinish.Y - pStart.Y), 2));
 
@@ -38,7 +40,7 @@ namespace Paint.Rastr
 
             while (i > 0)
             {
-                line.Draw(wb, p[i], p[i - 1], false);
+                line.Draw(wb, p[i], p[i - 1], thickness, false);
                 i = i - 1;
             }
         }
