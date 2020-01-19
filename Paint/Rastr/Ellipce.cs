@@ -15,6 +15,7 @@ namespace Paint.Rastr
         private Figure line;
         private Figure pixel = new Pixel();
         int thickness;
+        List<Point> listOfPixels = new List<Point>();
         public Ellipce(byte[] colorData, int thickness)
         {
             this.thickness = thickness;
@@ -50,7 +51,32 @@ namespace Paint.Rastr
         /// <param name="pFinish">Конечная точка по клику</param>
         private void DrawEllipce(WriteableBitmap wb, Point pStart, Point pFinish, bool shift)
         {
-            //wb = new WriteableBitmap(curState);
+            ////wb = new WriteableBitmap(curState);
+            //double a = (pFinish.X > pStart.X) ? pFinish.X - pStart.X : pStart.X - pFinish.X;
+            //double b = (pFinish.Y > pStart.Y) ? pFinish.Y - pStart.Y : pStart.Y - pFinish.Y;
+            //double aInPowerTwo = a * a;
+            //double bInPowerTwo = b * b;
+
+            //for (int i = 0; i < b; i++)
+            //{
+            //    int newX1 = (int)(pStart.X + Math.Sqrt((aInPowerTwo * (bInPowerTwo - i * i)) / bInPowerTwo));
+            //    pixel.Draw(wb, new Point(newX1, pStart.Y + i), colorData);
+            //    pixel.Draw(wb, new Point(newX1, pStart.Y - i), colorData);
+
+            //    int newX2 = (int)(pStart.X - Math.Sqrt((aInPowerTwo * (bInPowerTwo - i * i)) / bInPowerTwo));
+            //    pixel.Draw(wb, new Point(newX2, pStart.Y + i), colorData);
+            //    pixel.Draw(wb, new Point(newX2, pStart.Y - i), colorData);
+            //}
+            //for (int i = 0; i < a; i++)
+            //{
+            //    int newY1 = (int)(pStart.Y + Math.Sqrt((bInPowerTwo * (aInPowerTwo - i * i)) / aInPowerTwo));
+            //    pixel.Draw(wb, new Point(pStart.X + i, newY1), colorData);
+            //    pixel.Draw(wb, new Point(pStart.X - i, newY1), colorData);
+
+            //    int newY2 = (int)(pStart.Y - Math.Sqrt((bInPowerTwo * (aInPowerTwo - i * i)) / aInPowerTwo));
+            //    pixel.Draw(wb, new Point(pStart.X + i, newY2), colorData);
+            //    pixel.Draw(wb, new Point(pStart.X - i, newY2), colorData);
+            //}
             double a = (pFinish.X > pStart.X) ? pFinish.X - pStart.X : pStart.X - pFinish.X;
             double b = (pFinish.Y > pStart.Y) ? pFinish.Y - pStart.Y : pStart.Y - pFinish.Y;
             double aInPowerTwo = a * a;
@@ -59,23 +85,49 @@ namespace Paint.Rastr
             for (int i = 0; i < b; i++)
             {
                 int newX1 = (int)(pStart.X + Math.Sqrt((aInPowerTwo * (bInPowerTwo - i * i)) / bInPowerTwo));
-                pixel.Draw(wb, new Point(newX1, pStart.Y + i), colorData);
-                pixel.Draw(wb, new Point(newX1, pStart.Y - i), colorData);
-
+                listOfPixels.Add(new Point(newX1, pStart.Y + i));
+            }
+            for (int i = 0; i < b; i++)
+            {
+                int newX1 = (int)(pStart.X + Math.Sqrt((aInPowerTwo * (bInPowerTwo - i * i)) / bInPowerTwo));
+                listOfPixels.Add(new Point(newX1, pStart.Y - i));
+            }
+            for (int i = 0; i < b; i++)
+            {
                 int newX2 = (int)(pStart.X - Math.Sqrt((aInPowerTwo * (bInPowerTwo - i * i)) / bInPowerTwo));
-                pixel.Draw(wb, new Point(newX2, pStart.Y + i), colorData);
-                pixel.Draw(wb, new Point(newX2, pStart.Y - i), colorData);
+                listOfPixels.Add(new Point(newX2, pStart.Y + i));
+            }
+            for (int i = 0; i < b; i++)
+            {
+                int newX2 = (int)(pStart.X - Math.Sqrt((aInPowerTwo * (bInPowerTwo - i * i)) / bInPowerTwo));
+                listOfPixels.Add(new Point(newX2, pStart.Y - i));
+            }
+
+            for (int i = 0; i < a; i++)
+            {
+                int newY1 = (int)(pStart.Y + Math.Sqrt((bInPowerTwo * (aInPowerTwo - i * i)) / aInPowerTwo));
+                listOfPixels.Add(new Point(pStart.X + i, newY1));
             }
             for (int i = 0; i < a; i++)
             {
                 int newY1 = (int)(pStart.Y + Math.Sqrt((bInPowerTwo * (aInPowerTwo - i * i)) / aInPowerTwo));
-                pixel.Draw(wb, new Point(pStart.X + i, newY1), colorData);
-                pixel.Draw(wb, new Point(pStart.X - i, newY1), colorData);
-
-                int newY2 = (int)(pStart.Y - Math.Sqrt((bInPowerTwo * (aInPowerTwo - i * i)) / aInPowerTwo));
-                pixel.Draw(wb, new Point(pStart.X + i, newY2), colorData);
-                pixel.Draw(wb, new Point(pStart.X - i, newY2), colorData);
+                listOfPixels.Add(new Point(pStart.X - i, newY1));
             }
+            for (int i = 0; i < a; i++)
+            {
+                int newY2 = (int)(pStart.Y - Math.Sqrt((bInPowerTwo * (aInPowerTwo - i * i)) / aInPowerTwo));
+                listOfPixels.Add(new Point(pStart.X + i, newY2));
+            }
+            for (int i = 0; i < a; i++)
+            {
+                int newY2 = (int)(pStart.Y - Math.Sqrt((bInPowerTwo * (aInPowerTwo - i * i)) / aInPowerTwo));
+                listOfPixels.Add(new Point(pStart.X - i, newY2));
+            }
+            for (int i = 0; i < listOfPixels.Count - 1; i++)
+            {
+                line.Draw(wb, listOfPixels[i], listOfPixels[i + 1], false);
+            }
+
         }
 
         /// <summary>
@@ -85,7 +137,7 @@ namespace Paint.Rastr
         /// <param name="pFinish">Конечная точка по клику</param>
         private void DrawCircle(WriteableBitmap wb, Point pStart, Point pFinish, bool shift)
         {
-            List<Point> listOfPixels = new List<Point>();
+            //List<Point> listOfPixels = new List<Point>();
             //wb = new WriteableBitmap(curState);
             int R = (int)Math.Sqrt((Math.Pow((pFinish.X - pStart.X), 2)) + (Math.Pow((pFinish.Y - pStart.Y), 2)));
             double a = Math.Sqrt(2) / 2;
