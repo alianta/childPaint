@@ -171,7 +171,7 @@ namespace Paint
                 {
                     figure = new Rectangle();
                     wb = new WriteableBitmap(curState);
-                    figure.Draw(wb, pStart, curPoint, shift);
+                    figure.Draw(wb, pStart, curPoint, thicknessLine, shift);
                     MainImage.Source = wb;
                 }
                 if (triangle)

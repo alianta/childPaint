@@ -25,5 +25,10 @@ namespace Paint.Rastr
 
         }
 
+        
+        public virtual void Draw(WriteableBitmap wb, Point pStart, Point pFinish, int thickness, bool shift) //фигуры должны вызывать этот метод! т.к. в нем есть толщина!
+        {
+
+        }
     }
 }

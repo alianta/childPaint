@@ -12,16 +12,16 @@ namespace Paint.Rastr
     {
         static byte[] colorData = { 0, 0, 0, 255 };
         private Figure line = new Line();
-        public override void Draw(WriteableBitmap wb, Point pStart, Point pFinish, bool shift)
+        public override void Draw(WriteableBitmap wb, Point pStart, Point pFinish,int  thickness,  bool shift)
         {
             {
                 if (shift)
                 {
-                    DrawTriangle(wb, pStart, pFinish, shift);
+                    DrawTriangle(wb, pStart, pFinish, thickness,shift);
                 }
                 else
                 {
-                    DrawIsoscelesTriangle(wb, pStart, pFinish, shift);
+                    DrawIsoscelesTriangle(wb, pStart, pFinish, thickness,  shift);
                 }
 
             }
@@ -32,7 +32,7 @@ namespace Paint.Rastr
         /// </summary>
         /// <param name="pStart">Начальная точка по клику</param>
         /// <param name="pFinish">Конечная точка по клику</param>
-        private void DrawTriangle(WriteableBitmap wb, Point pStart, Point pFinish, bool shift)
+        private void DrawTriangle(WriteableBitmap wb, Point pStart, Point pFinish,int thickness, bool shift)
         {
             double w = Math.Abs(pFinish.X - pStart.X);
             double h = Math.Abs(pFinish.Y - pStart.Y);
@@ -54,9 +54,9 @@ namespace Paint.Rastr
             pointC.Y = pointB.Y;
             pointC.X = pointB.X + w;
 
-            line.Draw(wb, pStart, pointC, shift);
-            line.Draw(wb, pStart, pointB, shift);
-            line.Draw(wb, pointB, pointC, shift);
+            line.Draw(wb, pStart, pointC, thickness, shift);
+            line.Draw(wb, pStart, pointB, thickness, shift);
+            line.Draw(wb, pointB, pointC, thickness, shift);
         }
 
         /// <summary>
@@ -66,7 +66,7 @@ namespace Paint.Rastr
         /// <param name="pStart"></param>
         /// <param name="pFinish"></param>
         /// <param name="shift"></param>
-        private void DrawIsoscelesTriangle(WriteableBitmap wb, Point pStart, Point pFinish, bool shift)
+        private void DrawIsoscelesTriangle(WriteableBitmap wb, Point pStart, Point pFinish, int thickness, bool shift)
         {
             double w = Math.Abs(pFinish.X - pStart.X);
 
@@ -79,9 +79,9 @@ namespace Paint.Rastr
             pointB.X = pFinish.X - (w * 2);
             pointB.Y = pFinish.Y;
 
-            line.Draw(wb, pStart, pFinish, shift);
-            line.Draw(wb, pStart, pointB, shift);
-            line.Draw(wb, pointB, pFinish, shift);
+            line.Draw(wb, pStart, pFinish, thickness, shift);
+            line.Draw(wb, pStart, pointB, thickness,  shift);
+            line.Draw(wb, pointB, pFinish, thickness, shift);
         }
     }
 }
