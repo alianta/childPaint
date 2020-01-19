@@ -16,8 +16,6 @@ namespace Paint.Rastr
 
         public override void Draw(WriteableBitmap wb, Point pStart, Point pFinish, bool shift)
         {
-
-
             if (shift)
             {
                 Draw_Squere(wb, pStart, pFinish, shift);
@@ -26,7 +24,6 @@ namespace Paint.Rastr
             {
                 Draw_Rectangle(wb, pStart, pFinish, shift);
             }
-
         }
 
         /// <summary>

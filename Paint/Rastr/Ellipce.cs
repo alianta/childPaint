@@ -87,7 +87,7 @@ namespace Paint.Rastr
                 int newX1 = (int)(pStart.X - Math.Sqrt(R * R - i * i));
                 pixel.Draw(wb, new Point(newX1, pStart.Y + i), colorData);
                 int newX2 = (int)(pStart.X + Math.Sqrt(R * R - i * i));
-                //pixel.Draw(wb, new Point(newX2, pStart.Y + i), colorData); 
+                pixel.Draw(wb, new Point(newX2, pStart.Y + i), colorData);
             }
         }
 
