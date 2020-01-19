@@ -176,7 +176,7 @@ namespace Paint
                 if (line)
                 {
                     type = 7;
-                    figure = new Line();
+                    figure = new Line(colorData);
                     prevPoint = curPoint;
                 }
                 if (circle)
@@ -187,17 +187,17 @@ namespace Paint
                 if (triangle)
                 {
                     type = 2;
-                    figure = new Triangle();
+                    figure = new Triangle(colorData);
                 }
                 if (rectangle)
                 {
                     type = 4;
-                    figure = new Rectangle();
+                    figure = new Rectangle(colorData);
                 }
                 if (polygon)
                 {
                     type = 6;
-                    figure = new Poligon();
+                    figure = new Poligon(colorData);
                     //Draw_Polygon(prevPoint, curPoint);
                 }
 

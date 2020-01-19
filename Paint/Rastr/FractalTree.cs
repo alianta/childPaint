@@ -10,14 +10,19 @@ namespace Paint.Rastr
 {
     class FractalTree : Figure
     {
-        static byte[] colorData = { 0, 0, 0, 255 };
-        private Figure line = new Line();
+        private byte[] colorData;
+        private Figure line;
         double angle = Math.PI / 2; //Угол поворота на 90 градусов
         double ang1 = Math.PI / 4;  //Угол поворота на 45 градусов
         double ang2 = Math.PI / 6;  //Угол поворота на 30 градусов
 
         double iter = 100;
 
+        public FractalTree(byte[] colorData)
+        {
+            this.colorData = colorData;
+            line = new Line(colorData);
+        }
         public override void Draw(WriteableBitmap wb, Point pStart, Point pFinish, bool shift)
         {
             DrawTree(wb, pStart, pFinish, shift, iter, angle);

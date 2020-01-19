@@ -11,9 +11,12 @@ namespace Paint.Rastr
     class Line : Figure
     {
         private Figure pixel = new Pixel();
-        static byte[] colorData = { 0, 0, 0, 255 };
+        private byte[] colorData;
 
-
+        public Line(byte[] colorData)
+        {
+            this.colorData = colorData;
+        }
 
         public override  void Draw(WriteableBitmap wb, Point pStart, Point pFinish, int thickness, bool shift)///запускается это
         {

@@ -15,8 +15,14 @@ namespace Paint.Rastr
         /// </summary>
         /// <param name="pStart"></param>
         /// <param name="pFinish"></param>
-        static byte[] colorData = { 0, 0, 0, 255 };
-        private Figure line = new Line();
+        private byte[] colorData = { 0, 0, 0, 255 };
+        private Figure line;
+
+        public Poligon(byte[] colorData)
+        {
+            this.colorData = colorData;
+            line = new Line(colorData);
+        }
         public override void Draw(WriteableBitmap wb, Point pStart, Point pFinish, string sides)
         {
             // wb = new WriteableBitmap(pFinish);
