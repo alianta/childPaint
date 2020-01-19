@@ -10,6 +10,7 @@ namespace Paint.Rastr
 {
     class Line : Figure
     {
+        private Figure pixel = new Pixel();
         static byte[] colorData = { 0, 0, 0, 255 };
 
         /// <summary>
@@ -46,6 +47,7 @@ namespace Paint.Rastr
         private void DrawLineInThirdTourthQuarters(WriteableBitmap wb, Point pStart, Point pFinish)
         {
             Point newP = new Point();
+
             double deltaX = Math.Abs(pFinish.X - pStart.X) + 1;
             double deltaY = Math.Abs(pFinish.Y - pStart.Y) + 1;
 
@@ -56,7 +58,7 @@ namespace Paint.Rastr
                 {
                     newP.Y = (k * i + pStart.Y);
                     newP.X = i + pStart.X;
-                    SetPixel(wb, newP, colorData);
+                    pixel.Draw(wb, newP, colorData);
                 }
             }
             else
@@ -66,7 +68,7 @@ namespace Paint.Rastr
                 {
                     newP.X = (k * i + pStart.X);
                     newP.Y = i + pStart.Y;
-                    SetPixel(wb, newP, colorData);
+                    pixel.Draw(wb, newP, colorData);
                 }
             }
         }
@@ -89,7 +91,7 @@ namespace Paint.Rastr
                 {
                     newP.Y = (k * i + pStart.Y);
                     newP.X = pStart.X - i;
-                    SetPixel(wb, newP, colorData);
+                    pixel.Draw(wb, newP, colorData);
                 }
             }
             else
@@ -101,28 +103,12 @@ namespace Paint.Rastr
                 double k = deltaX / deltaY;
                 for (int i = 0; i < deltaY; i++)
                 {
-
                     newP.X = (k * i + pStart.X);
                     newP.Y = pStart.Y - i;
-                    SetPixel(wb, newP, colorData);
+                    pixel.Draw(wb, newP, colorData);
                 }
             }
         }
 
-        ///// <summary>
-        ///// Метод устанавливает пиксель в заданных координатах в заданном цвете
-        ///// </summary>
-        ///// <param name="p">Point. Координаты точки</param>
-        ///// <param name="colorData">Массив. Цвет в aRGB</param>
-        //public void SetPixel(WriteableBitmap wb, Point p, byte[] colorData)
-        //{
-        //    if (p.X > 0 && p.X < (int)wb.Width && p.Y > 0 && p.Y < (int)wb.Height)
-        //    {
-        //        Int32Rect rect = new Int32Rect((int)p.X, (int)p.Y, 1, 1);
-        //        wb.WritePixels(rect, colorData, 4, 0);
-        //        //   curState.WritePixels(rect, colorData, 4, 0);
-        //        //MainImage.Source = wb; !!!!! не надо подменять, тк рисовалка уже указывает на этот холст, а при очистка надо пересоздавать !!!!!! (с) Иван
-        //    }
-        //}
     }
 }

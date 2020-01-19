@@ -10,6 +10,7 @@ namespace Paint.Rastr
 {
     class Ellipce : Figure
     {
+        private Figure pixel = new Pixel();
         static byte[] colorData = { 0, 0, 0, 255 };
 
         /// <summary>
@@ -24,7 +25,6 @@ namespace Paint.Rastr
             if (shift)
             {
                 DrawCircle(wb, pStart, pFinish, shift);
-                
             }
             else
             {
@@ -48,22 +48,22 @@ namespace Paint.Rastr
             for (int i = 0; i < b; i++)
             {
                 int newX1 = (int)(pStart.X + Math.Sqrt((aInPowerTwo * (bInPowerTwo - i * i)) / bInPowerTwo));
-                SetPixel(wb, new Point(newX1, pStart.Y + i), colorData);
-                SetPixel(wb, new Point(newX1, pStart.Y - i), colorData);
+                pixel.Draw(wb, new Point(newX1, pStart.Y + i), colorData);
+                pixel.Draw(wb, new Point(newX1, pStart.Y - i), colorData);
 
                 int newX2 = (int)(pStart.X - Math.Sqrt((aInPowerTwo * (bInPowerTwo - i * i)) / bInPowerTwo));
-                SetPixel(wb, new Point(newX2, pStart.Y + i), colorData);
-                SetPixel(wb, new Point(newX2, pStart.Y - i), colorData);
+                pixel.Draw(wb, new Point(newX2, pStart.Y + i), colorData);
+                pixel.Draw(wb, new Point(newX2, pStart.Y - i), colorData);
             }
             for (int i = 0; i < a; i++)
             {
                 int newY1 = (int)(pStart.Y + Math.Sqrt((bInPowerTwo * (aInPowerTwo - i * i)) / aInPowerTwo));
-                SetPixel(wb, new Point(pStart.X + i, newY1), colorData);
-                SetPixel(wb, new Point(pStart.X - i, newY1), colorData);
+                pixel.Draw(wb, new Point(pStart.X + i, newY1), colorData);
+                pixel.Draw(wb, new Point(pStart.X - i, newY1), colorData);
 
                 int newY2 = (int)(pStart.Y - Math.Sqrt((bInPowerTwo * (aInPowerTwo - i * i)) / aInPowerTwo));
-                SetPixel(wb, new Point(pStart.X + i, newY2), colorData);
-                SetPixel(wb, new Point(pStart.X - i, newY2), colorData);
+                pixel.Draw(wb, new Point(pStart.X + i, newY2), colorData);
+                pixel.Draw(wb, new Point(pStart.X - i, newY2), colorData);
             }
         }
 
@@ -82,22 +82,22 @@ namespace Paint.Rastr
             {
                 int newY1 = (int)(pStart.Y - Math.Sqrt(R * R - i * i));
 
-                SetPixel(wb, new Point(pStart.X + i, newY1), colorData);
-                SetPixel(wb, new Point(pStart.X - i, newY1), colorData);
+                pixel.Draw(wb, new Point(pStart.X + i, newY1), colorData);
+                pixel.Draw(wb, new Point(pStart.X - i, newY1), colorData);
 
                 int newY2 = (int)(pStart.Y + Math.Sqrt(R * R - i * i));
-                SetPixel(wb, new Point(pStart.X + i, newY2), colorData);
-                SetPixel(wb, new Point(pStart.X - i, newY2), colorData);
+                pixel.Draw(wb, new Point(pStart.X + i, newY2), colorData);
+                pixel.Draw(wb, new Point(pStart.X - i, newY2), colorData);
             }
             for (int i = (int)(-a * R); i < (int)(a * R); i++)
             {
                 int newX1 = (int)(pStart.X - Math.Sqrt(R * R - i * i));
 
-                SetPixel(wb, new Point(newX1, pStart.Y - i), colorData);
-                SetPixel(wb, new Point(newX1, pStart.Y + i), colorData);
+                pixel.Draw(wb, new Point(newX1, pStart.Y - i), colorData);
+                pixel.Draw(wb, new Point(newX1, pStart.Y + i), colorData);
                 int newX2 = (int)(pStart.X + Math.Sqrt(R * R - i * i));
-                SetPixel(wb, new Point(newX2, pStart.Y + i), colorData);
-                SetPixel(wb, new Point(newX2, pStart.Y - i), colorData);
+                pixel.Draw(wb, new Point(newX2, pStart.Y + i), colorData);
+                pixel.Draw(wb, new Point(newX2, pStart.Y - i), colorData);
             }
         }
 
