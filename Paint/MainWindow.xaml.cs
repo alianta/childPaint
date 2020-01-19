@@ -229,19 +229,20 @@ namespace Paint
         /// Метод обрабатывает клик по кнопке треугольника
         /// </summary>        /// <param name="sender"></param>
         /// <param name="e"></param>
-        //private void tree_Click(object sender, RoutedEventArgs e)
-        //{
-        //    if (sides.Text != "")
-        //    {
-        //        n = Convert.ToInt32(sides.Text);
-        //    }
-        //    else
-        //    {
-        //        n = 100;
-        //    }
-        //    type = 11;
-        //    figure = new FractalTree(n);
-        //}
+        private void tree_Click(object sender, RoutedEventArgs e)
+        {
+            if (sides.Text != "")
+            {
+                n = Convert.ToInt32(sides.Text);
+            }
+            else
+            {
+                n = 100;
+            }
+            type = 11;
+            figure = new FractalTree(n);
+
+        }
 
         /// <summary>
         /// Метод обрабатывает MouseDown на холсте
