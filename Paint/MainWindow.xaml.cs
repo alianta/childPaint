@@ -46,6 +46,7 @@ namespace Paint
             wb = new WriteableBitmap((int)MainImage.Width, (int)MainImage.Height, 96, 96, PixelFormats.Bgra32, null);
             MainImage.Source = wb;
             figure = new Rastr.Pixel();
+            ShowCurColorRGB(colorData);
         }
         //  ОБРАБОТКА СОБЫТИЙ
 
@@ -374,17 +375,17 @@ namespace Paint
             );
         }
 
-        /// <summary>        /// Метод выводит в 3 текстбокса текущий RGB цвет 
+        /// <summary>        /// Метод выводит в 3 текстбокса текущий RGB цвет (отображает пользователю текущий цвет в формате RGB)
         /// </summary>
         /// <param name="colorData">byte[] {alpha, red, green, blue}</param>
         private void ShowCurColorRGB(byte[] colorData)
         {
-            red = colorData[1];
+           /* red = colorData[1];
             green = colorData[2];
-            blue = colorData[3];
-            rColor.Text = Convert.ToString(red);
-            gColor.Text = Convert.ToString(green);
-            bColor.Text = Convert.ToString(blue);
+            blue = colorData[3];*/
+            rColor.Text = Convert.ToString(colorData[2]);
+            gColor.Text = Convert.ToString(colorData[1]);
+            bColor.Text = Convert.ToString(colorData[0]);
         }
 
         private void Button_Save(object sender, RoutedEventArgs e)
