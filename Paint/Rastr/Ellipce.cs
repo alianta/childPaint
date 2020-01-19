@@ -33,7 +33,7 @@ namespace Paint.Rastr
         }
 
         /// <summary>
-        /// Рисование прямоугольного треугольника попиксельноKeyboard.IsKeyDown(Key.LeftShift)
+        /// Рисование эллипса попиксельно
         /// </summary>
         /// <param name="pStart">Начальная точка по клику</param>
         /// <param name="pFinish">Конечная точка по клику</param>
@@ -68,7 +68,7 @@ namespace Paint.Rastr
         }
 
         /// <summary>
-        /// Рисование окружности попиксельно
+        /// Рисование окружности попиксельно Keyboard.IsKeyDown(Key.LeftShift)
         /// </summary>
         /// <param name="pStart">Начальная точка по клику</param>
         /// <param name="pFinish">Конечная точка по клику</param>
@@ -78,26 +78,16 @@ namespace Paint.Rastr
             int R = (int)Math.Sqrt((Math.Pow((pFinish.X - pStart.X), 2)) + (Math.Pow((pFinish.Y - pStart.Y), 2)));
             double a = Math.Sqrt(2) / 2;
 
-            for (int i = (int)(-a * R); i < (int)(a * R); i++)
+            for (int i = 0; i <= (int)(a * R); i++)
             {
                 int newY1 = (int)(pStart.Y - Math.Sqrt(R * R - i * i));
-
                 pixel.Draw(wb, new Point(pStart.X + i, newY1), colorData);
-                pixel.Draw(wb, new Point(pStart.X - i, newY1), colorData);
-
                 int newY2 = (int)(pStart.Y + Math.Sqrt(R * R - i * i));
                 pixel.Draw(wb, new Point(pStart.X + i, newY2), colorData);
-                pixel.Draw(wb, new Point(pStart.X - i, newY2), colorData);
-            }
-            for (int i = (int)(-a * R); i < (int)(a * R); i++)
-            {
                 int newX1 = (int)(pStart.X - Math.Sqrt(R * R - i * i));
-
-                pixel.Draw(wb, new Point(newX1, pStart.Y - i), colorData);
                 pixel.Draw(wb, new Point(newX1, pStart.Y + i), colorData);
                 int newX2 = (int)(pStart.X + Math.Sqrt(R * R - i * i));
-                pixel.Draw(wb, new Point(newX2, pStart.Y + i), colorData);
-                pixel.Draw(wb, new Point(newX2, pStart.Y - i), colorData);
+                //pixel.Draw(wb, new Point(newX2, pStart.Y + i), colorData); 
             }
         }
 

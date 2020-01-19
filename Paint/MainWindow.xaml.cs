@@ -15,10 +15,10 @@ namespace Paint
     {
         WriteableBitmap wb; //создает новый холст Image для рисования 
         WriteableBitmap curState;
-        byte blue = 0;
-        byte green = 0;
-        byte red = 0;
-        byte alpha = 255;
+        //byte blue = 0;
+        //byte green = 0;
+        //byte red = 0;
+        //byte alpha = 255;
         byte[] colorData = { 0, 0, 0, 255 }; //все для создания цвета
         bool isPressed = false; //передает состаяние мыши
         Point prevPoint; //точка начала коордиат
@@ -31,11 +31,10 @@ namespace Paint
         bool shift = false;
         bool line = false;
         bool rectangle = false;
-        bool circle = false;
-        bool oval = false;
+        bool ellipce = false;
         bool triangle = false;
         bool polygon = false;
-        // bool tree = false;
+        bool tree = false;
         bool lines = false;
         int n = 100;//количество сторон
         double R;//расстояние от центра до стороны
@@ -57,13 +56,13 @@ namespace Paint
         /// <param name="e"></param>
         private void btnFigure_Click(object sender, RoutedEventArgs e)
         {
-            line = false;
-            rectangle = false;
-            circle = false;
-            polygon = false;
-            triangle = false;
-            //  tree = false;
-            lines = false;
+            //line = false;
+            //rectangle = false;
+            //ellipce = false;
+            //polygon = false;
+            //triangle = false;
+            //tree = false;
+            //lines = false;
             if (sender.Equals(btnLine))
             {
                 line = true;
@@ -74,7 +73,7 @@ namespace Paint
             }
             else if (sender.Equals(btnCircle))
             {
-                circle = true;
+                ellipce = true;
             }
             else if (sender.Equals(btnTriangle))
             {
@@ -84,10 +83,10 @@ namespace Paint
             {
                 polygon = true;
             }
-            //else if (sender.Equals(btnTree))
-            //{
-            //    tree = true;
-            //}
+            else if (sender.Equals(btnTree))
+            {
+                tree = true;
+            }
             else if (sender.Equals(btnLines))
             {
                 lines = true;
@@ -141,71 +140,78 @@ namespace Paint
                 //    DrawLine(new Point(prevPoint.X, prevPoint.Y + 2), new Point(curPoint.X, curPoint.Y + 2));
                 //    DrawLine(new Point(prevPoint.X + 1, prevPoint.Y + 2), new Point(curPoint.X + 1, curPoint.Y + 2));
                 //}
-                if (type == 7)
+                //if (type == 3)
+                //{
+                //    wb = new WriteableBitmap(curState);
+                //    figure.Draw(wb, pStart, curPoint, shift);
+                //    MainImage.Source = wb;
+                //}
+                //if (type == 4)
+                //{
+                //    wb = new WriteableBitmap(curState);
+                //    figure.Draw(wb, pStart, curPoint, shift);
+                //    MainImage.Source = wb;
+                //}
+                //if (type == 11)
+                //{
+                //    wb = new WriteableBitmap(curState);
+                //    figure.Draw(wb, pStart, curPoint, shift);
+                //    MainImage.Source = wb;
+                //    // DrawTree(prevPoint, curPoint, n, angle);
+                //}
+
+                if (line)
                 {
+                    figure = new Line();
                     figure.Draw(wb, prevPoint, curPoint, shift);
+                    prevPoint = curPoint;
                     MainImage.Source = wb;
                 }
-                if (type == 2)
+                if (rectangle)
                 {
+                    figure = new Rectangle();
                     wb = new WriteableBitmap(curState);
                     figure.Draw(wb, pStart, curPoint, shift);
                     MainImage.Source = wb;
                 }
-                if (type == 3)
+                if (triangle)
                 {
+                    figure = new Triangle();
                     wb = new WriteableBitmap(curState);
                     figure.Draw(wb, pStart, curPoint, shift);
                     MainImage.Source = wb;
                 }
-                if (type == 4)
+                if (ellipce)
                 {
+                    figure = new Ellipce();
                     wb = new WriteableBitmap(curState);
                     figure.Draw(wb, pStart, curPoint, shift);
                     MainImage.Source = wb;
                 }
-                if (type == 6)
+                if (polygon)
                 {
+                    figure = new Poligon();
                     wb = new WriteableBitmap(curState);
                     figure.Draw(wb, pStart, curPoint, sides.Text);
                     MainImage.Source = wb;
                 }
-                if (type == 11)
+                if (tree)
                 {
+                    if (sides.Text != "")
+                    {
+                        n = Convert.ToInt32(sides.Text);
+                    }
+                    else
+                    {
+                        n = 100;
+                    }
+                    type = 11;
+                    figure = new FractalTree(n);
                     wb = new WriteableBitmap(curState);
-                    figure.Draw(wb, pStart, curPoint, shift);
+                    figure.Draw(wb, pStart, curPoint, sides.Text);
                     MainImage.Source = wb;
-                    // DrawTree(prevPoint, curPoint, n, angle);
                 }
 
-                if (line)
-                {
-                    type = 7;
-                    figure = new Line();
-                    prevPoint = curPoint;
-                }
-                if (circle)
-                {
-                    type = 3;
-                    figure = new Ellipce();
-                }
-                if (triangle)
-                {
-                    type = 2;
-                    figure = new Triangle();                                 
-                }
-                if (rectangle)
-                {
-                    type = 4;
-                    figure = new Rectangle();
-                }
-                if (polygon)
-                {
-                    type = 6;
-                    figure = new Poligon();
-                    //Draw_Polygon(prevPoint, curPoint);
-                }
-                
                 //if (lines)
                 //{
                 //    DrawByLines(prevPoint, curPoint, e);
@@ -225,25 +231,6 @@ namespace Paint
             ShowCurColorRGB(colorData);
         }
 
-        /// <summary>   
-        /// Метод обрабатывает клик по кнопке треугольника
-        /// </summary>        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void tree_Click(object sender, RoutedEventArgs e)
-        {
-            if (sides.Text != "")
-            {
-                n = Convert.ToInt32(sides.Text);
-            }
-            else
-            {
-                n = 100;
-            }
-            type = 11;
-            figure = new FractalTree(n);
-
-        }
-
         /// <summary>
         /// Метод обрабатывает MouseDown на холсте
         /// Ставит isPressed в true
@@ -258,7 +245,7 @@ namespace Paint
             temp = pStart;
             prevPoint = new Point((int)e.GetPosition(MainImage).X, (int)e.GetPosition(MainImage).Y);
             curState = new WriteableBitmap(wb);
-            //figure.Draw(wb, pStart, colorData);
+            figure.Draw(wb, pStart, colorData);
         }
 
         /// <summary>
@@ -338,22 +325,7 @@ namespace Paint
             rgbColor[1] = Convert.ToByte(int.Parse(s.Substring(4, 2), System.Globalization.NumberStyles.AllowHexSpecifier));
             rgbColor[0] = Convert.ToByte(int.Parse(s.Substring(6, 2), System.Globalization.NumberStyles.AllowHexSpecifier));
             return rgbColor;
-        }
-        /// <summary>
-        /// Метод устанавливает пиксель в заданных координатах в заданном цвете
-        /// </summary>
-        /// <param name="p">Point. Координаты точки</param>
-        /// <param name="colorData">Массив. Цвет в aRGB</param>
-        //private void SetPixel(Point p, byte[] colorData)
-        //{
-        //    if (p.X > 0 && p.X < (int)MainImage.Width && p.Y > 0 && p.Y < (int)MainImage.Height)
-        //    {
-        //        Int32Rect rect = new Int32Rect((int)p.X, (int)p.Y, 1, 1);
-        //        wb.WritePixels(rect, colorData, 4, 0);
-        //        //   curState.WritePixels(rect, colorData, 4, 0);
-        //        MainImage.Source = wb;
-        //    }
-        //}
+        }
 
         /// <summary>
         /// Метод выводит в 2 текстбокса координаты позиции мыши        /// </summary>
@@ -389,57 +361,23 @@ namespace Paint
             bColor.Text = Convert.ToString(colorData[0]);
         }
 
-        private void Button_Save(object sender, RoutedEventArgs e)
-        {
-            // Настраиваем параметры диалога
-            Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
-            Nullable<bool> result = dlg.ShowDialog();
-            dlg.FileName = "Document"; // Имя по-умолчанию
-            dlg.DefaultExt = ".jpg"; // Расширение по-умолчанию
+        private void Button_Save(object sender, RoutedEventArgs e)
+        {
+            // Настраиваем параметры диалога
+            Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
+            Nullable<bool> result = dlg.ShowDialog();
+            dlg.FileName = "Document"; // Имя по-умолчанию
+            dlg.DefaultExt = ".jpg"; // Расширение по-умолчанию
             dlg.Filter = "Jpeg Image (.jpg)|*.jpg"; // Фильтр по расширениям
-            // Обработка результата работы диалога
-            if (result == true)
-            {
-                var encoder = new PngBitmapEncoder();
-                encoder.Frames.Add(BitmapFrame.Create((BitmapSource)MainImage.Source));
-                using (FileStream stream = new FileStream(dlg.FileName, FileMode.Create))
-                    encoder.Save(stream);
+            // Обработка результата работы диалога
+            if (result == true)
+            {
+                var encoder = new PngBitmapEncoder();
+                encoder.Frames.Add(BitmapFrame.Create((BitmapSource)MainImage.Source));
+                using (FileStream stream = new FileStream(dlg.FileName, FileMode.Create))
+                    encoder.Save(stream);
             }
-        }
-        /// <summary>
-        /// Метод создает массив точек многоугольника
-        /// </summary>
-        /// <param name="angle"></param>
-        //private void lineAngle(double angle)
-        //{
-        //    double z = 0; int i = 0;
-        //    while (i < n + 1)
-        //    {
-        //        p[i].X = prevPoint.X + (int)(Math.Round(Math.Cos(z / 180 * Math.PI) * R));
-        //        p[i].Y = prevPoint.Y - (int)(Math.Round(Math.Sin(z / 180 * Math.PI) * R));
-        //        z = z + angle;
-        //        i++;
-        //    }
-        //}
-        ///// <summary>
-        ///// Метод рисует n-угольник
-        ///// </summary>
-        ///// <param name="pStart"></param>
-        ///// <param name="pFinish"></param>
-        //private void Draw_Polygon(Point pStart, Point pFinish)
-        //{
-        //    wb = new WriteableBitmap(curState);
-        //    n = Convert.ToInt32(sides.Text);
-        //    R = Math.Sqrt(Math.Pow((pFinish.X - pStart.X), 2) + Math.Pow((pFinish.Y - pStart.Y), 2));
-        //    p = new Point[n + 1];
-        //    lineAngle((double)(360.0 / (double)n));
-        //    int i = n;
-        //    while (i > 0)
-        //    {
-        //        DrawLine(p[i], p[i - 1]);
-        //        i = i - 1;
-        //    }
-        //}
+        }
         //public void DrawByLines(Point pStart, Point pFinish, MouseEventArgs e)
         //{
         //    wb = new WriteableBitmap(curState);

@@ -65,6 +65,7 @@
     </Compile>
     <Compile Include="Rastr\Ellipce.cs" />
     <Compile Include="Rastr\Figure.cs" />
+    <Compile Include="Rastr\FractalTree.cs" />
     <Compile Include="Rastr\Line.cs" />
     <Compile Include="Rastr\Poligon.cs" />
     <Compile Include="Rastr\Rectangle.cs" />
