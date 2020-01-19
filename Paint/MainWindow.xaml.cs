@@ -400,6 +400,11 @@ namespace Paint
             }
 
         }
+
+        private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
         /* ComboBox comboBox = (ComboBox)sender;
 ComboBoxItem selectedItem = (ComboBoxItem)comboBox.SelectedItem;
 MessageBox.Show(selectedItem.Content.ToString());*/

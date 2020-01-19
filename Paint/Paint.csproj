@@ -102,5 +102,22 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="white\b_1-line.png" />
+    <Resource Include="white\b_10-eraser.png" />
+    <Resource Include="white\b_11-selection.png" />
+    <Resource Include="white\b_12-move.png" />
+    <Resource Include="white\b_2-lineCoords.png" />
+    <Resource Include="white\b_3-ellipsis.png" />
+    <Resource Include="white\b_4-rectangle.png" />
+    <Resource Include="white\b_5-triangle.png" />
+    <Resource Include="white\b_6-nGon.png" />
+    <Resource Include="white\b_7-fillBucket.png" />
+    <Resource Include="white\b_8-lineWidth.png" />
+    <Resource Include="white\b_9-colorBar.ico" />
+    <Resource Include="white\b_9-colorBar.png" />
+    <Resource Include="white\b_9-fillColor.png" />
+    <Resource Include="white\b_9-lineColor.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -5,82 +5,133 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Paint"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="1000" MouseUp="Window_MouseUp">
+        Title="OurPain/T" Height="700" Width="1000" MouseUp="Window_MouseUp"
+        Icon="white/b_9-colorBar.ico" FontWeight="Bold">
 
     <Grid >
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="350"></ColumnDefinition>
-            <ColumnDefinition Width="650"></ColumnDefinition>
-        </Grid.ColumnDefinitions>
-        <Border Grid.Column="2" BorderThickness="1" BorderBrush="Red">
-			<Image Name="MainImage"  HorizontalAlignment="Left" VerticalAlignment="Top" Width="650" Height="600" MouseMove="Image_MouseMove" Stretch="None" MouseDown="MainImage_MouseDown" MouseEnter="MainImage_MouseEnter"/>
-        </Border>
+        <TabControl Background="#FFBDB9B9" SelectionChanged="TabControl_SelectionChanged" FontWeight="Bold">
+            <TabItem x:Name="bitmap" Header="BITMAP" />
+            <TabItem x:Name="vector" Header="VECTOR" />
+        </TabControl>
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="0,24,0,0" Background="White" Height="50">
+            <Button x:Name="btnLine" Height="35" Width="30" Background="White" BorderThickness="0" Click="btnFigure_Click">
+                <Image Source="white/b_1-line.png"></Image>
+            </Button>
+            <Button x:Name="btnLines" Height="35" Width="35" Background="White" BorderThickness="0" Click="btnFigure_Click">
+                <Image Source="white/b_2-lineCoords.png"></Image>
+            </Button>
+            <Button x:Name="btnCircle" Height="35" Width="35" Background="White" BorderThickness="0" Click="btnFigure_Click">
+                <Image Source="white/b_3-ellipsis.png"></Image>
+            </Button>
+            <Button x:Name="btnRectangle" Height="35" Width="35" Background="White" BorderThickness="0" Click="btnFigure_Click">
+                <Image Source="white/b_4-rectangle.png"></Image>
+            </Button>
+            <Button x:Name="btnTriangle" Height="35" Width="35" Background="White" BorderThickness="0" Click="btnFigure_Click">
+                <Image Source="white/b_5-triangle.png"></Image>
+            </Button>
+
+            <Button x:Name="btnPolygon" Height="35" Width="35" Background="White" BorderThickness="0" Click="btnFigure_Click">
+                <Image Source="white/b_6-nGon.png"></Image>
+            </Button>
+            <TextBox x:Name="sides" TextWrapping="Wrap"  Width="40" Margin="0,12,5,10" FontWeight="Normal" FontSize="6" VerticalAlignment="Center" Text="Введите количество строн"/>
 
 
-        <WrapPanel Margin="0,1,57,0">
-            <Button x:Name="clearBtn" Width="80" Content="Clear All" Height="30" Margin="5" Background="white" Click="Button_Clear"/>
-            
-            <Button x:Name="bntBlack" Width="30" Height="30" Margin="5" Background="#000000" Click="Button_Change_Color"/>
-            <Button x:Name="bntRed" Width="30" Height="30" Margin="5" Background="#ff0000" Click="Button_Change_Color"/>
-            <Button x:Name="bntGreen" Width="30" Height="30" Margin="5" Background="#008000" Click="Button_Change_Color"/>
-            <Button x:Name="bntBlue" Width="30" Height="30" Margin="5" Background="#0000ff" Click="Button_Change_Color"/>
-            <Button x:Name="bntAqua" Width="30" Height="30" Margin="5" Background="#00ffff" Click="Button_Change_Color" />
-            <Button x:Name="bntGrey" Width="30" Height="30" Margin="5" Background="#808080" Click="Button_Change_Color" />
-            <Button x:Name="bntNavy" Width="30" Height="30" Margin="5" Background="#000080" Click="Button_Change_Color" />
-            <Button x:Name="bntSilver" Width="30" Height="30" Margin="5" Background="#c0c0c0" Click="Button_Change_Color" />
-            <Button x:Name="bntOlive" Width="30" Height="30" Margin="5" Background="#808000" Click="Button_Change_Color" />
-            <Button x:Name="bntTeal" Width="30" Height="30" Margin="5" Background="#008080" Click="Button_Change_Color" />
-            <Button x:Name="bntLime" Width="30" Height="30" Margin="5" Background="#00ff00" Click="Button_Change_Color"/>
-            <Button x:Name="bntPurple" Width="30" Height="30" Margin="5" Background="#800080" Click="Button_Change_Color" />
-            <Button x:Name="bntMargenta" Width="30" Height="30" Margin="5" Background="#ff00ff" Click="Button_Change_Color" />
-            <Button x:Name="bntMaroon" Width="30" Height="30" Margin="5" Background="#800000" Click="Button_Change_Color" />
-            <Button x:Name="bntYellow" Width="30" Height="30" Margin="5" Background="#ffff00" Click="Button_Change_Color" />
-            
-            <Button x:Name="bntWhite" Width="30" Height="30" Margin="5" Background="#ffffff" Click="Button_Change_Color" Content="Л"/>
-			<!--<GroupBox Header ="Изменить размер кисти" Padding="5">
-				<StackPanel>
-			<Button x:Name="bntLineThickness1" Width="20" Height="20" Margin="5" Background="#ffffff" Click="Button_Change_Thickness" Content="x1"/>
-            <Button x:Name="bntLineThickness2" Width="20" Height="20" Margin="5" Background="#ffffff" Click="Button_Change_Thickness" Content="x2"/>
-            <Button x:Name="bntLineThickness3" Width="20" Height="30" Margin="5" Background="#ffffff" Click="Button_Change_Thickness" Content="x3"/>
-            <Button x:Name="bntLineThickness4" Width="20" Height="20" Margin="5" Background="#ffffff" Click="Button_Change_Thickness" Content="x4"/>
-				</StackPanel>
-			</GroupBox>-->
-            
-            <!--<Button x:Name="bntSquare" Width="30" Height="30" Margin="5" Background="#ffffff" Click="Button_Square" Content="К"/>
-            <Button x:Name="bntRectangle" Width="30" Height="30" Margin="5" Background="#ffffff" Click="Button_Rectangle" Content="П"/>-->
-            <Label Content="Толщина: " Height="28" HorizontalAlignment="Left"/>
-            <ComboBox Name="ThicknessList" VerticalAlignment="Center" SelectionChanged="Button_Change_Thickness">
-                <ComboBoxItem IsSelected="True">1</ComboBoxItem>
-                <ComboBoxItem>2</ComboBoxItem>
-                <ComboBoxItem>3</ComboBoxItem>
-                <ComboBoxItem>4</ComboBoxItem>
+            <!--выбор толщины линии-->
+            <ComboBox Height="40" Width="90" Background="White" BorderThickness="0" Name="ThicknessList" VerticalAlignment="Center" SelectionChanged="Button_Change_Thickness">
+                <ComboBoxItem IsSelected="True">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="white/b_8-lineWidth.png"  Width="40" />
+                        <TextBlock VerticalAlignment="Center" Margin="6,0,0,0">x1</TextBlock>
+                    </StackPanel>
+                </ComboBoxItem>
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="white/b_8-lineWidth.png"  Width="40" />
+                    <TextBlock VerticalAlignment="Center">x2</TextBlock>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="white/b_8-lineWidth.png"  Width="40" />
+                    <TextBlock VerticalAlignment="Center">x3</TextBlock>
+                </StackPanel>
             </ComboBox>
 
-            <Label Content="x : " Height="28" HorizontalAlignment="Left"/>
-            <TextBox x:Name="xPosition" Width="50"/>
-            <Label Content="y : " Height="28" HorizontalAlignment="Left"/>
-            <TextBox x:Name="yPosition" Width="50"/>
-            <Label Content="R : " Height="28" HorizontalAlignment="Left"/>
-            <TextBox x:Name="rColor" Width="50"/>
-            <Label Content="G : " Height="28" HorizontalAlignment="Left"/>
-            <TextBox x:Name="gColor" Width="50"/>
-            <Label Content="B : " Height="28" HorizontalAlignment="Left"/>
-            <TextBox x:Name="bColor" Width="50"/>
-            <Label Content="Количество сторон многоугольника"/>
-            <TextBox x:Name="sides" Height="23" TextWrapping="Wrap"  Width="28"/>
-            <Button x:Name="btnLine" Content="Линия" Width="75" Click="btnFigure_Click"/>
+            <Button x:Name="bntFillBucket" Height="35" Width="35" Background="White" BorderThickness="0">
+                <Image Source="white/b_7-fillBucket.png"></Image>
+            </Button>
 
-            <Button x:Name="btnRectangle" Content="Прямоугольник" Width="75" Click="btnFigure_Click"/>
-            <Button x:Name="btnCircle" Content="Овал" Width="75" Click="btnFigure_Click"/>
-            <!--<Button x:Name="btnOval" Content="Овал" Width="75" Click="btnFigure_Click"/>-->
-            <Button x:Name="btnTriangle" Content="Треугольник" Width="75" Click="btnFigure_Click"/>
-            <Button x:Name="btnPolygon" Content="Многоугольник" Width="75" Click="btnFigure_Click"/>
-            <Button x:Name="btnTree" Content="Дерево" Width="75" Click="btnFigure_Click"/>
-            <Button x:Name="btnLines" Content="Линии" Width="75" Click="btnFigure_Click"/>
+            <Button x:Name="bntWhite" Height="35" Width="35" Background="White" BorderThickness="0" Click="Button_Change_Color">
+                <Image Source="white/b_10-eraser.png"></Image>
+            </Button>
 
-            <Button x:Name="save" Width="200" Height="30" Margin="5" Background="#ffffff" Click="Button_Save" Content="Сохранить этот бред  в файл =)"/>
-        </WrapPanel>
+            <Button x:Name="bntPickOut" Height="35" Width="35" Background="White" BorderThickness="0">
+                <Image Source="white/b_11-selection.png"></Image>
+            </Button>
+
+            <Button x:Name="bntMove" Height="35" Width="35" Background="White" BorderThickness="0">
+                <Image Source="white/b_12-move.png"></Image>
+            </Button>
+
+            <!--палитра-->
+            <WrapPanel Width="180" Margin="3">
+                <Button x:Name="bntBlack" Width="20" Height="20" Margin="1" Background="#000000" Click="Button_Change_Color"/>
+                <Button x:Name="bntRed" Width="20" Height="20" Margin="1" Background="#ff0000" Click="Button_Change_Color"/>
+                <Button x:Name="bntGreen" Width="20" Height="20" Margin="1" Background="#008000" Click="Button_Change_Color"/>
+                <Button x:Name="bntBlue" Width="20" Height="20" Margin="1" Background="#0000ff" Click="Button_Change_Color"/>
+                <Button x:Name="bntAqua" Width="20" Height="20" Margin="1" Background="#00ffff" Click="Button_Change_Color"/>
+                <Button x:Name="bntGrey" Width="20" Height="20" Margin="1" Background="#808080" Click="Button_Change_Color"/>
+                <Button x:Name="bntNavy" Width="20" Height="20" Margin="1" Background="#000080" Click="Button_Change_Color"/>
+                <Button x:Name="bntSilver" Width="20" Height="20" Margin="1" Background="#c0c0c0" Click="Button_Change_Color"/>
+                <Button x:Name="bntOlive" Width="20" Height="20" Margin="1" Background="#808000" Click="Button_Change_Color"/>
+                <Button x:Name="bntTeal" Width="20" Height="20" Margin="1" Background="#008080" Click="Button_Change_Color"/>
+                <Button x:Name="bntLime" Width="20" Height="20" Margin="1" Background="#00ff00" Click="Button_Change_Color"/>
+                <Button x:Name="bntPurple" Width="20" Height="20" Margin="1" Background="#800080" Click="Button_Change_Color"/>
+                <Button x:Name="bntMargenta" Width="20" Height="20" Margin="1" Background="#ff00ff" Click="Button_Change_Color"/>
+                <Button x:Name="bntMaroon" Width="20" Height="20" Margin="1" Background="#800000" Click="Button_Change_Color"/>
+                <Button x:Name="bntYellow" Width="20" Height="20" Margin="1" Background="#ffff00" Click="Button_Change_Color"/>
+            </WrapPanel>
+
+            <Button x:Name="clearBtn" Height="30" Width="90" Margin="28,0,0,0" Background="White" Content="CLEAR CANVAS" FontSize="10" Click="Button_Clear"/>
+
+            <Label Content="FORMAT" VerticalAlignment="Center" FontSize="12" Margin="25,12,0,12"/>
+            <!--форматы-->
+            <ComboBox Height="30" Width="60" FontSize="12">
+                <ComboBoxItem IsSelected="True">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Margin="1">.png</TextBlock>
+                    </StackPanel>
+                </ComboBoxItem>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock >.png</TextBlock>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock>.png</TextBlock>
+                </StackPanel>
+            </ComboBox>
+            <Button x:Name="save" Height="30" Width="50" Margin="5" Background="White" Content="SAVE" FontSize="12" Click="Button_Save"/>
+
+
+        </StackPanel>
+
+        <Canvas Background="#FFFBF9F9" Width="800" Height="550" HorizontalAlignment="Left" Margin="0,80,0,40">
+            <Image Name="MainImage"  HorizontalAlignment="Left" VerticalAlignment="Top" Width="800" Height="550" OpacityMask="White" MouseMove="Image_MouseMove" Stretch="None" MouseDown="MainImage_MouseDown" MouseEnter="MainImage_MouseEnter"/>
+        </Canvas>
+
+        <StackPanel VerticalAlignment="Bottom" Orientation="Horizontal" Background="White">
+            <Label Content="X : " VerticalAlignment="Bottom" Height="28"/>
+            <TextBox x:Name="xPosition" HorizontalAlignment="Left" Height="25" TextWrapping="Wrap" VerticalAlignment="Bottom" Width="50"/>
+            <Label Content="Y : " HorizontalAlignment="Left"  VerticalAlignment="Bottom" RenderTransformOrigin="0.564,1.103"/>
+            <TextBox x:Name="yPosition" HorizontalAlignment="Left" Height="25" TextWrapping="Wrap" VerticalAlignment="Bottom" Width="50"/>
+
+            <Label Content="COLOR:" VerticalAlignment="Center" Margin="15,0,0,0"/>
+            <Label Content="R : " VerticalAlignment="Center"/>
+            <TextBox x:Name="rColor" Height="25" Width="50" VerticalAlignment="Center" />
+            <Label Content="G : " VerticalAlignment="Center"/>
+            <TextBox x:Name="gColor" Height="25" Width="50" VerticalAlignment="Center"/>
+            <Label Content="B : " VerticalAlignment="Center"/>
+            <TextBox x:Name="bColor" Height="25" Width="50" VerticalAlignment="Center"/>
+
+            <Button x:Name="btnTree" Content="Дерево" Width="75" Click="btnFigure_Click" Margin="150,0,0,0"/>
+        </StackPanel>
+
+
     </Grid>
-
-
 </Window>
