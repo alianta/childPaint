@@ -302,12 +302,33 @@ namespace Paint
 
         private void Button_Save(object sender, RoutedEventArgs e)
         {
-            // Настраиваем параметры диалога
             Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
-            Nullable<bool> result = dlg.ShowDialog();
+            ComboBoxItem selectedItem = (ComboBoxItem)fileTypesList.SelectedValue;
+            StackPanel selectedStackPanel = (StackPanel)selectedItem.Content;
+            UIElementCollection UIElCollection = selectedStackPanel.Children;
+            TextBlock tb = (TextBlock)UIElCollection[0];
+            string selectedFileType = Convert.ToString(tb.Text);
+
+            // Настраиваем параметры диалога
             dlg.FileName = "Document"; // Имя по-умолчанию
-            dlg.DefaultExt = ".jpg"; // Расширение по-умолчанию
-            dlg.Filter = "Jpeg Image (.jpg)|*.jpg"; // Фильтр по расширениям
+            dlg.Filter = "PNG Image (*.png)|*.png|JPEG Image (*.jpg)|*.jpg|BMP Image (*.bmp)|*.bmp|All files (*.*)|*.*";// Фильтр по расширениям
+            if (selectedFileType == ".jpg")
+            {
+                dlg.FilterIndex = 2;
+
+            }
+            if (selectedFileType == ".png")
+            {
+                dlg.FilterIndex = 1;
+
+            }
+            if (selectedFileType == ".bmp")
+            {
+                dlg.FilterIndex =3;
+
+            }
+
+            Nullable<bool> result = dlg.ShowDialog();
             // Обработка результата работы диалога
             if (result == true)
             {

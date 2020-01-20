@@ -97,18 +97,22 @@
 
             <Label Content="FORMAT" VerticalAlignment="Center" FontSize="12" Margin="25,12,0,12"/>
             <!--форматы-->
-            <ComboBox Height="30" Width="60" FontSize="12">
+            <ComboBox Name ="fileTypesList" Height="30" Width="60" FontSize="12">
                 <ComboBoxItem IsSelected="True">
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Margin="1">.png</TextBlock>
+                        <TextBlock Margin="1">.jpg</TextBlock>
                     </StackPanel>
                 </ComboBoxItem>
+                <ComboBoxItem>
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock >.png</TextBlock>
+                    <TextBlock >.bmp</TextBlock>
                 </StackPanel>
+                </ComboBoxItem>
+                <ComboBoxItem>
                 <StackPanel Orientation="Horizontal">
                     <TextBlock>.png</TextBlock>
                 </StackPanel>
+                </ComboBoxItem>
             </ComboBox>
             <Button x:Name="save" Height="30" Width="50" Margin="5" Background="White" Content="SAVE" FontSize="12" Click="Button_Save"/>
 
