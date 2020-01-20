@@ -23,6 +23,8 @@ namespace Paint
         Point pFinish;// Конечная точка
         Point temp;
         Rastr.Figure figure;
+        int n;//количество сторон
+
         bool shift = false;
         bool line = true;
         bool rectangle = false;
@@ -31,9 +33,9 @@ namespace Paint
         bool polygon = false;
         bool tree = false;
         bool lines = false;
-        int n = 100;//количество сторон
         //double R;//расстояние от центра до стороны
         //Point[] p; //массив точек будущего многоугольника
+
         public MainWindow()
         {
             InitializeComponent();
@@ -42,7 +44,11 @@ namespace Paint
             figure = new Rastr.Pixel();
             ShowCurColorRGB(colorData);
         }
+
+
         //  ОБРАБОТКА СОБЫТИЙ
+
+
         /// <summary>
         /// Метод обрабатывающий кнопки фигур
         /// </summary>
@@ -90,6 +96,7 @@ namespace Paint
                 xPosition.Text = "Алярма!";
             }
         }
+
         /// <summary>
         /// Метод обрабатывает двидение мыши по холсту
         /// </summary>
@@ -102,39 +109,17 @@ namespace Paint
             Point curPoint = SetToCurPoint(e);
             if (isPressed)
             {
-                //SetPixel(curPoint, colorData);
-                //if (thicknessLine == 2)
-                //{
-                //    DrawLine(prevPoint, curPoint);
-                //    DrawLine(new Point(prevPoint.X - 1, prevPoint.Y), new Point(curPoint.X - 1, curPoint.Y));
-                //    DrawLine(new Point(prevPoint.X, prevPoint.Y - 1), new Point(curPoint.X, curPoint.Y - 1));
-                //    DrawLine(new Point(prevPoint.X - 1, prevPoint.Y - 1), new Point(curPoint.X - 1, curPoint.Y - 1));
-                //}
-                //else if (thicknessLine == 3)
-                //{
-                //    DrawLine(prevPoint, curPoint);
-                //    DrawLine(new Point(prevPoint.X - 1, prevPoint.Y), new Point(curPoint.X - 1, curPoint.Y));
-                //    DrawLine(new Point(prevPoint.X + 1, prevPoint.Y), new Point(curPoint.X + 1, curPoint.Y));
-                //    DrawLine(new Point(prevPoint.X, prevPoint.Y - 1), new Point(curPoint.X, curPoint.Y - 1));
-                //    DrawLine(new Point(prevPoint.X, prevPoint.Y + 1), new Point(curPoint.X, curPoint.Y + 1));
-                //}
-                //else if (thicknessLine == 4)
-                //{
-                //    DrawLine(prevPoint, curPoint);
-                //    DrawLine(new Point(prevPoint.X, prevPoint.Y), new Point(curPoint.X, curPoint.Y));
-                //    DrawLine(new Point(prevPoint.X - 1, prevPoint.Y), new Point(curPoint.X - 1, curPoint.Y));
-                //    DrawLine(new Point(prevPoint.X + 1, prevPoint.Y), new Point(curPoint.X + 1, curPoint.Y));
-                //    DrawLine(new Point(prevPoint.X + 2, prevPoint.Y), new Point(curPoint.X + 2, curPoint.Y));
-                //    DrawLine(new Point(prevPoint.X - 1, prevPoint.Y - 1), new Point(curPoint.X - 1, curPoint.Y - 1));
-                //    DrawLine(new Point(prevPoint.X, prevPoint.Y - 1), new Point(curPoint.X, curPoint.Y - 1));
-                //    DrawLine(new Point(prevPoint.X + 1, prevPoint.Y - 1), new Point(curPoint.X + 1, curPoint.Y - 1));
-                //    DrawLine(new Point(prevPoint.X + 2, prevPoint.Y - 1), new Point(curPoint.X + 2, curPoint.Y - 1));
-                //    DrawLine(new Point(prevPoint.X, prevPoint.Y + 1), new Point(curPoint.X, curPoint.Y + 1));
-                //    DrawLine(new Point(prevPoint.X + 1, prevPoint.Y + 1), new Point(curPoint.X + 1, curPoint.Y + 1));
-                //    DrawLine(new Point(prevPoint.X, prevPoint.Y + 2), new Point(curPoint.X, curPoint.Y + 2));
-                //    DrawLine(new Point(prevPoint.X + 1, prevPoint.Y + 2), new Point(curPoint.X + 1, curPoint.Y + 2));
-                //}
                 MainImage.Source = wb;
+
+                if (circle || triangle || polygon || tree || rectangle)
+                {
+                    wb = new WriteableBitmap(curState);
+                }
+                 if (circle ||  polygon || tree || rectangle)
+                {
+                    figure.Draw(wb, pStart, curPoint, shift);
+                }
+
                 if (line)
                 {
                     figure.Draw(wb, prevPoint, curPoint, thicknessLine, false);
@@ -143,48 +128,41 @@ namespace Paint
                 }
                 if (circle)
                 {
-                    wb = new WriteableBitmap(curState);
-                    figure.Draw(wb, pStart, curPoint, shift);
                     figure = new Ellipce(colorData, thicknessLine);
                 }
                 if (triangle)
                 {
-                    wb = new WriteableBitmap(curState);
                     figure.Draw(wb, pStart, curPoint, thicknessLine, shift);
                     figure = new Triangle(colorData, thicknessLine);
                 }
                 if (rectangle)
                 {
-                    wb = new WriteableBitmap(curState);
-                    figure.Draw(wb, pStart, curPoint, shift);
                     figure = new Rectangle(colorData, thicknessLine);
                 }
                 if (polygon)
                 {
-                    wb = new WriteableBitmap(curState);
-                    figure.Draw(wb, pStart, curPoint, false);
-                    if (sides.Text != "")
-                    {
-                        n = Convert.ToInt32(sides.Text);
-                    }
-                    else
-                    {
-                        n = 5;
-                    }
+                    //if (sides.Text != "")
+                    //{
+                    //    n = Convert.ToInt32(sides.Text);
+                    //}
+                    //else
+                    //{
+                    //    n = 5;
+                    //}
+                    n = Convert.ToInt32(sides.Text);
                     figure = new Poligon(colorData, thicknessLine, n);
                 }
                 if (tree)
                 {
-                    wb = new WriteableBitmap(curState);
-                    figure.Draw(wb, pStart, curPoint, shift);
-                    if (sides.Text != "")
-                    {
-                        n = Convert.ToInt32(sides.Text);
-                    }
-                    else
-                    {
-                        n = 100;
-                    }
+                    //if (sides.Text != "")
+                    //{
+                    //    n = Convert.ToInt32(sides.Text);
+                    //}
+                    //else
+                    //{
+                    //    n = 100;
+                    //}
+                    n = Convert.ToInt32(sides.Text);
                     figure = new FractalTree(colorData, thicknessLine, n);
                 }
                 //if (lines)
@@ -193,6 +171,7 @@ namespace Paint
                 //}
             }
         }
+
         /// <summary>
         /// Метод обрабатывает клик по иконке с цветами
         /// </summary>
@@ -204,6 +183,12 @@ namespace Paint
             colorData = HexToRGBConverter(buttonStr);
             ShowCurColorRGB(colorData);
         }
+
+        /// <summary>
+        /// Метод обрабатывает нажатие левой кнопки мыши на холсте
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void MainImage_MouseDown(object sender, MouseButtonEventArgs e)
         {
             isPressed = true;
@@ -213,6 +198,7 @@ namespace Paint
             curState = new WriteableBitmap(wb);
             //figure.Draw(wb, pStart, colorData);
         }
+
         /// <summary>
         /// Метод обрабатывает MouseUp на холсте
         /// Возвращает isPressed в false
@@ -230,6 +216,7 @@ namespace Paint
             //    pStart = pFinish;
             //}
         }
+
         /// <summary>
         /// Метод обрывает рисование линии при выведении курсора из-за холста и продолжает, когда возвращаешься
         /// </summary>
@@ -242,6 +229,7 @@ namespace Paint
                 prevPoint = new Point((int)e.GetPosition(MainImage).X, (int)e.GetPosition(MainImage).Y);
             }
         }
+
         /// <summary>
         /// Метод обрабатывает нажатие на кнопку очищения холста     
         /// /// Задает новый битмап
@@ -254,32 +242,9 @@ namespace Paint
             wb = new WriteableBitmap((int)MainImage.Width, (int)MainImage.Height, 96, 96, PixelFormats.Bgra32, null);
             MainImage.Source = wb;
         }
-        /// <summary>
-        /// Метод обрабатывающй нажатие на кнопки изменения торщины линии
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-      /*  private void Button_Change_Thickness(object sender, RoutedEventArgs e)
-        {
-            string thickness = Convert.ToString(((Button)e.OriginalSource).Content);
-            if (thickness == "x1")
-            {
-                thicknessLine = 1;
-            }
-            else if (thickness == "x2")
-            {
-                thicknessLine = 2;
-            }
-            else if (thickness == "x3")
-            {
-                thicknessLine = 3;
-            }
-            else if (thickness == "x4")
-            {
-                thicknessLine = 4;
-            }
-        }*/
+
         //  ВНУТРЕННИЕ МЕТОДЫ
+
         /// <summary>
         /// Метод конвертирует цвета из hex в rgb
         /// </summary>
@@ -296,15 +261,18 @@ namespace Paint
             rgbColor[0] = Convert.ToByte(int.Parse(s.Substring(6, 2), System.Globalization.NumberStyles.AllowHexSpecifier));
             return rgbColor;
         }
+
         /// <summary>
         /// Метод выводит в 2 текстбокса координаты позиции мыши
         /// </summary>
         /// <param name="e"></param>
+        /// 
         private void ShowCurPoint(MouseEventArgs e)
         {
             xPosition.Text = Convert.ToString(e.GetPosition(MainImage).X);
             yPosition.Text = Convert.ToString(e.GetPosition(MainImage).Y);
         }
+
         /// <summary>
         /// Метод задает текущую точку
         /// </summary>
@@ -317,6 +285,7 @@ namespace Paint
                 (int)e.GetPosition(MainImage).Y
             );
         }
+
         /// <summary>
         /// Метод выводит в 3 текстбокса текущий RGB цвет (отображает пользователю текущий цвет в формате RGB)
         /// </summary>
@@ -330,14 +299,36 @@ namespace Paint
             gColor.Text = Convert.ToString(colorData[1]);
             bColor.Text = Convert.ToString(colorData[0]);
         }
+
         private void Button_Save(object sender, RoutedEventArgs e)
         {
-            // Настраиваем параметры диалога
             Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
-            Nullable<bool> result = dlg.ShowDialog();
+            ComboBoxItem selectedItem = (ComboBoxItem)fileTypesList.SelectedValue;
+            StackPanel selectedStackPanel = (StackPanel)selectedItem.Content;
+            UIElementCollection UIElCollection = selectedStackPanel.Children;
+            TextBlock tb = (TextBlock)UIElCollection[0];
+            string selectedFileType = Convert.ToString(tb.Text);
+
+            // Настраиваем параметры диалога
             dlg.FileName = "Document"; // Имя по-умолчанию
-            dlg.DefaultExt = ".jpg"; // Расширение по-умолчанию
-            dlg.Filter = "Jpeg Image (.jpg)|*.jpg"; // Фильтр по расширениям
+            dlg.Filter = "PNG Image (*.png)|*.png|JPEG Image (*.jpg)|*.jpg|BMP Image (*.bmp)|*.bmp|All files (*.*)|*.*";// Фильтр по расширениям
+            if (selectedFileType == ".jpg")
+            {
+                dlg.FilterIndex = 2;
+
+            }
+            if (selectedFileType == ".png")
+            {
+                dlg.FilterIndex = 1;
+
+            }
+            if (selectedFileType == ".bmp")
+            {
+                dlg.FilterIndex =3;
+
+            }
+
+            Nullable<bool> result = dlg.ShowDialog();
             // Обработка результата работы диалога
             if (result == true)
             {
@@ -347,13 +338,27 @@ namespace Paint
                     encoder.Save(stream);
             }
         }
+        /// <summary>
+        /// Метод обрабатывает кнопку изменения толщины линии
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Change_Thickness(object sender, SelectionChangedEventArgs e)
         {
             ComboBoxItem selectedItem = (ComboBoxItem)ThicknessList.SelectedValue;
-            if (selectedItem.Content != null)
+            if (selectedItem.Equals(thick1))
             {
-                thicknessLine = Convert.ToInt32(selectedItem.Content);
+                thicknessLine = 1;
             }
+            else if (selectedItem.Equals(thick2))
+            {
+                thicknessLine = 2;
+            }
+            else if (selectedItem.Equals(thick3))
+            {
+                thicknessLine = 3;
+            }
+
         }
 
         private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
