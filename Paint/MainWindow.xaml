@@ -93,7 +93,7 @@
                 <Button x:Name="bntYellow" Width="20" Height="20" Margin="1" Background="#ffff00" Click="Button_Change_Color"/>
             </WrapPanel>
 
-            <Button x:Name="clearBtn" Height="30" Width="90" Margin="28,0,0,0" Background="White" Content="CLEAR CANVAS" FontSize="10" Click="Button_Clear"/>
+            <Button x:Name="clearBtn" Height="30" Width="90" Margin="28,0,0,0" Background="White" Content="CLEAR ALL" FontSize="10" Click="Button_Clear"/>
 
             <Label Content="FORMAT" VerticalAlignment="Center" FontSize="12" Margin="25,12,0,12"/>
             <!--форматы-->
