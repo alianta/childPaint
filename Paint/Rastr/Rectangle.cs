@@ -42,24 +42,25 @@ namespace Paint.Rastr
         /// <param name="shift"></param>
         private void Draw_Squere(WriteableBitmap wb, Point pStart, Point pFinish, bool shift)
         {
-
-            line.Draw(wb,pStart, pFinish, thickness, shift);
-
-            double katet1, katet2;
-            katet1 = pStart.Y - pFinish.Y;
-            katet2 = pFinish.X - pStart.X;
-
+            double width = pFinish.X - pStart.X;
+            
             Point pointD = new Point();
-            pointD.X = pStart.X + katet1;
-            pointD.Y = pStart.Y + katet2;
+            pointD.X = pStart.X + width;
+            pointD.Y = pStart.Y;
 
             Point pointC = new Point();
-            pointC.X = pFinish.X + katet1;
-            pointC.Y = pFinish.Y + katet2;
+            pointC.X = pStart.X;
+            pointC.Y = pStart.Y + width;
 
-            line.Draw(wb,pFinish, pointC,thickness, shift);
-            line.Draw(wb,pointC, pointD, thickness, shift);
-            line.Draw(wb,pointD, pStart, thickness, shift);
+            Point pointB = new Point();
+            pointB.X = pStart.X + width;
+            pointB.Y = pStart.Y + width;
+
+            line.Draw(wb, pStart, pointD, shift);
+            line.Draw(wb, pStart, pointC, shift);
+            line.Draw(wb, pointD, pointB, shift);
+            line.Draw(wb, pointC, pointB, shift);
+
         }
 
 

@@ -15,26 +15,21 @@ namespace Paint
     {
         WriteableBitmap wb; //создает новый холст Image для рисования 
         WriteableBitmap curState;
+        Figure figure;
+        string flagFigure = "line";
         byte[] colorData = { 0, 0, 0, 255 }; //все для создания цвета
         bool isPressed = false; //передает состаяние мыши
         Point prevPoint; //точка начала коордиат
-        int thicknessLine = 1;//толщина линии
         Point pStart;// Начальная точка
         Point pFinish;// Конечная точка
-        Point temp;
-        Rastr.Figure figure;
+        int thicknessLine = 1;//толщина линии
         int n;//количество сторон
-
         bool shift = false;
-        bool line = true;
-        bool rectangle = false;
-        bool circle = false;
-        bool triangle = false;
-        bool polygon = false;
-        bool tree = false;
-        bool lines = false;
+        //Point temp; почему нельзя объявить в методе стр 166
+
         //double R;//расстояние от центра до стороны
         //Point[] p; //массив точек будущего многоугольника
+
 
         public MainWindow()
         {
@@ -56,40 +51,33 @@ namespace Paint
         /// <param name="e"></param>
         private void btnFigure_Click(object sender, RoutedEventArgs e)
         {
-            line = false;
-            rectangle = false;
-            circle = false;
-            polygon = false;
-            triangle = false;
-            tree = false;
-            lines = false;
             if (sender.Equals(btnLine))
             {
-                line = true;
+                flagFigure = "line";
             }
             else if (sender.Equals(btnRectangle))
             {
-                rectangle = true;
+                flagFigure = "rectangle";
             }
             else if (sender.Equals(btnCircle))
             {
-                circle = true;
+                flagFigure = "circle";
             }
             else if (sender.Equals(btnTriangle))
             {
-                triangle = true;
+                flagFigure = "triangle";
             }
             else if (sender.Equals(btnPolygon))
             {
-                polygon = true;
+                flagFigure = "polygon";
             }
             else if (sender.Equals(btnTree))
             {
-                tree = true;
+                flagFigure = "tree";
             }
             else if (sender.Equals(btnLines))
             {
-                lines = true;
+                flagFigure = "lines";
             }
             else
             {
@@ -111,64 +99,47 @@ namespace Paint
             {
                 MainImage.Source = wb;
 
-                if (circle || triangle || polygon || tree || rectangle)
+                switch (flagFigure)
                 {
-                    wb = new WriteableBitmap(curState);
-                }
-                 if (circle ||  polygon || tree || rectangle)
-                {
-                    figure.Draw(wb, pStart, curPoint, shift);
-                }
+                    case "line":
+                        figure.Draw(wb, prevPoint, curPoint, thicknessLine, false);
+                        figure = new Line(colorData, thicknessLine);
+                        prevPoint = curPoint;
+                        break;
+                    case "rectangle":
+                        wb = new WriteableBitmap(curState);
+                        figure.Draw(wb, pStart, curPoint, shift);
+                        figure = new Rectangle(colorData, thicknessLine);
+                        break;
+                    case "circle":
+                        wb = new WriteableBitmap(curState);
+                        figure.Draw(wb, pStart, curPoint, shift);
+                        figure = new Ellipce(colorData, thicknessLine);
+                        break;
+                    case "triangle":
+                        wb = new WriteableBitmap(curState);
+                        figure.Draw(wb, pStart, curPoint, thicknessLine, shift);
+                        figure = new Triangle(colorData, thicknessLine);
+                        break;
+                    case "polygon":
+                        wb = new WriteableBitmap(curState);
+                        figure.Draw(wb, pStart, curPoint, shift);
+                        n = Convert.ToInt32(sides.Text);
+                        figure = new Poligon(colorData, thicknessLine, n);
+                        break;
+                    case "tree":
+                        wb = new WriteableBitmap(curState);
+                        figure.Draw(wb, pStart, curPoint, shift);
+                        n = Convert.ToInt32(sides.Text);
+                        figure = new FractalTree(colorData, thicknessLine, n);
+                        break;
+                        //case "lines":
+                        //    wb = new WriteableBitmap(curState);
+                        //    figure.Draw(wb, pStart, curPoint, shift);
+                        //    figure = new FractalTree(colorData, thicknessLine, n);
+                        //    break;
 
-                if (line)
-                {
-                    figure.Draw(wb, prevPoint, curPoint, thicknessLine, false);
-                    figure = new Line(colorData, thicknessLine);
-                    prevPoint = curPoint;
                 }
-                if (circle)
-                {
-                    figure = new Ellipce(colorData, thicknessLine);
-                }
-                if (triangle)
-                {
-                    figure.Draw(wb, pStart, curPoint, thicknessLine, shift);
-                    figure = new Triangle(colorData, thicknessLine);
-                }
-                if (rectangle)
-                {
-                    figure = new Rectangle(colorData, thicknessLine);
-                }
-                if (polygon)
-                {
-                    //if (sides.Text != "")
-                    //{
-                    //    n = Convert.ToInt32(sides.Text);
-                    //}
-                    //else
-                    //{
-                    //    n = 5;
-                    //}
-                    n = Convert.ToInt32(sides.Text);
-                    figure = new Poligon(colorData, thicknessLine, n);
-                }
-                if (tree)
-                {
-                    //if (sides.Text != "")
-                    //{
-                    //    n = Convert.ToInt32(sides.Text);
-                    //}
-                    //else
-                    //{
-                    //    n = 100;
-                    //}
-                    n = Convert.ToInt32(sides.Text);
-                    figure = new FractalTree(colorData, thicknessLine, n);
-                }
-                //if (lines)
-                //{
-                //    DrawByLines(prevPoint, curPoint, e);
-                //}
             }
         }
 
@@ -193,7 +164,7 @@ namespace Paint
         {
             isPressed = true;
             pStart = SetToCurPoint(e);
-            temp = pStart;
+           // Point temp = pStart; Зачем она???????
             prevPoint = new Point((int)e.GetPosition(MainImage).X, (int)e.GetPosition(MainImage).Y);
             curState = new WriteableBitmap(wb);
             //figure.Draw(wb, pStart, colorData);
@@ -324,7 +295,7 @@ namespace Paint
             }
             if (selectedFileType == ".bmp")
             {
-                dlg.FilterIndex =3;
+                dlg.FilterIndex = 3;
 
             }
 
