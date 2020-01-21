@@ -43,7 +43,7 @@ namespace Paint.Rastr
         private void Draw_Squere(WriteableBitmap wb, Point pStart, Point pFinish, bool shift)
         {
 
-            line.Draw(wb,pStart, pFinish, shift);
+            line.Draw(wb,pStart, pFinish, thickness, shift);
 
             double katet1, katet2;
             katet1 = pStart.Y - pFinish.Y;
