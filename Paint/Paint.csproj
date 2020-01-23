@@ -63,6 +63,15 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Bitmap.cs" />
+    <Compile Include="Thickness\BoldThickness.cs" />
+    <Compile Include="Thickness\DefaultThickness.cs" />
+    <Compile Include="DrawByDots.cs" />
+    <Compile Include="DrawByLine.cs" />
+    <Compile Include="IDrawer.cs" />
+    <Compile Include="Thickness\HardThickness.cs" />
+    <Compile Include="Thickness\MediumThickness.cs" />
+    <Compile Include="Thickness\Thickness.cs" />
     <Compile Include="Rastr\Ellipce.cs" />
     <Compile Include="Rastr\Figure.cs" />
     <Compile Include="Rastr\FractalTree.cs" />

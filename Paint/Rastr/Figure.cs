@@ -10,6 +10,12 @@ namespace Paint.Rastr
 {
     abstract class Figure
     {
+        public void DoDraw() { }
+        List<Point> Points { get; set; }
+        IDrawer DrawerRealisation;
+
+
+
         public virtual void Draw(WriteableBitmap wb, Point pStart, Point pFinish, bool shift)
         {
 
