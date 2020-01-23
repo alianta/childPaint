@@ -16,7 +16,7 @@ namespace Paint
         WriteableBitmap wb; //создает новый холст Image для рисования 
         WriteableBitmap curState;
         Figure figure;
-        string flagFigure = "line";
+        string flagFigure = "pen";
         byte[] colorData = { 0, 0, 0, 255 }; //все для создания цвета
         bool isPressed = false; //передает состаяние мыши
         Point prevPoint; //точка начала коордиат
@@ -53,7 +53,7 @@ namespace Paint
         {
             if (sender.Equals(btnLine))
             {
-                flagFigure = "line";
+                flagFigure = "pen";
             }
             else if (sender.Equals(btnRectangle))
             {
@@ -79,6 +79,10 @@ namespace Paint
             {
                 flagFigure = "lines";
             }
+            else if (sender.Equals(btnStraightLine))
+            {
+                flagFigure = "StraightLine";
+            }
             else
             {
                 xPosition.Text = "Алярма!";
@@ -101,7 +105,7 @@ namespace Paint
 
                 switch (flagFigure)
                 {
-                    case "line":
+                    case "pen":
                         figure.Draw(wb, prevPoint, curPoint, thicknessLine, false);
                         figure = new Line(colorData, thicknessLine);
                         prevPoint = curPoint;
@@ -133,6 +137,13 @@ namespace Paint
                         n = Convert.ToInt32(sides.Text);
                         figure = new FractalTree(colorData, thicknessLine, n);
                         break;
+                    case "StraightLine":
+                        wb = new WriteableBitmap(curState);
+                        figure.Draw(wb, pStart, curPoint, shift);
+                        n = Convert.ToInt32(sides.Text);
+                        figure = new StraightLine(colorData, thicknessLine);
+                        break;
+
                         //case "lines":
                         //    wb = new WriteableBitmap(curState);
                         //    figure.Draw(wb, pStart, curPoint, shift);
