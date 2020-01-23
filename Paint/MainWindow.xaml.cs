@@ -329,10 +329,19 @@ namespace Paint
             {
                 thicknessLine = 3;
             }
+            else if (selectedItem.Equals(thick4))
+            {
+                thicknessLine = 4;
+            }
 
         }
 
         private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void MainImage_MouseEnter(object sender, MouseButtonEventArgs e)
         {
 
         }

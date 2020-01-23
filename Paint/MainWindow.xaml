@@ -56,6 +56,12 @@
                         <TextBlock  VerticalAlignment="Center">x3</TextBlock>
                     </StackPanel>
                 </ComboBoxItem>
+                <ComboBoxItem x:Name="thick4">
+                    <StackPanel   Orientation="Horizontal">
+                        <Image Source="white/b_8-lineWidth.png"  Width="40" />
+                        <TextBlock  VerticalAlignment="Center">x4</TextBlock>
+                    </StackPanel>
+                </ComboBoxItem>
             </ComboBox>
 
             <Button x:Name="bntFillBucket" Height="35" Width="35" Background="White" BorderThickness="0">
@@ -120,7 +126,7 @@
         </StackPanel>
 
         <Canvas Background="#FFFBF9F9" Width="800" Height="550" HorizontalAlignment="Left" Margin="0,80,0,40">
-            <Image Name="MainImage"  HorizontalAlignment="Left" VerticalAlignment="Top" Width="800" Height="550" OpacityMask="White" MouseMove="Image_MouseMove" Stretch="None" MouseDown="MainImage_MouseDown" MouseEnter="MainImage_MouseEnter"/>
+            <Image Name="MainImage"  HorizontalAlignment="Left" VerticalAlignment="Top" Width="800" Height="550" OpacityMask="White" MouseMove="Image_MouseMove" Stretch="None" MouseLeftButtonDown="MainImage_MouseDown" MouseLeftButtonUp="MainImage_MouseEnter"/>
         </Canvas>
 
         <StackPanel VerticalAlignment="Bottom" Orientation="Horizontal" Background="White">

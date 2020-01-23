@@ -66,7 +66,7 @@ namespace Paint.Rastr
 
             for (int i = 0; i < listOfPixels.Count - 1; i++)
             {
-                line.Draw(wb, listOfPixels[i], listOfPixels[i + 1], false);
+                line.Draw(wb, listOfPixels[i], listOfPixels[i + 1], thickness, false);
             }
         }
 
@@ -94,7 +94,7 @@ namespace Paint.Rastr
 
             for (int i = 0; i < listOfPixels.Count - 1; i++)
             {
-                line.Draw(wb, listOfPixels[i], listOfPixels[i + 1], false);
+                line.Draw(wb, listOfPixels[i], listOfPixels[i + 1], thickness, false);
             } 
         }
     }
