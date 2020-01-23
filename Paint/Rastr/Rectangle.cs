@@ -13,6 +13,8 @@ namespace Paint.Rastr
     {
         private byte[] colorData;
         private Figure line;
+        private Figure pixel = new Pixel();
+        List<Point> listOfPixels = new List<Point>();
         int thickness;
         public Rectangle(byte[] colorData, int thickness)
         {
@@ -42,28 +44,31 @@ namespace Paint.Rastr
         /// <param name="shift"></param>
         private void Draw_Squere(WriteableBitmap wb, Point pStart, Point pFinish, bool shift)
         {
-            double width = pFinish.X - pStart.X;
-            
-            Point pointD = new Point();
-            pointD.X = pStart.X + width;
-            pointD.Y = pStart.Y;
+            listOfPixels.Add(pStart);
 
-            Point pointC = new Point();
-            pointC.X = pStart.X;
-            pointC.Y = pStart.Y + width;
+            double xc = (pStart.X + pFinish.X) / 2;
+            double yc = (pStart.Y + pFinish.Y) / 2;
+
+            double dx = (pFinish.X - pStart.X) / 2;
+            double dy = (pFinish.Y - pStart.Y) / 2;
+
+            Point pointA = new Point();
+            pointA.X = xc + dy;
+            pointA.Y = yc - dx;
+            listOfPixels.Add(pointA);
+            listOfPixels.Add(pFinish);
 
             Point pointB = new Point();
-            pointB.X = pStart.X + width;
-            pointB.Y = pStart.Y + width;
+            pointB.X = xc - dy;
+            pointB.Y = yc + dx;
+            listOfPixels.Add(pointB);
+            listOfPixels.Add(pStart);
 
-            line.Draw(wb, pStart, pointD, shift);
-            line.Draw(wb, pStart, pointC, shift);
-            line.Draw(wb, pointD, pointB, shift);
-            line.Draw(wb, pointC, pointB, shift);
-
+            for (int i = 0; i < listOfPixels.Count - 1; i++)
+            {
+                line.Draw(wb, listOfPixels[i], listOfPixels[i + 1], false);
+            }
         }
-
-
 
         /// <summary>
         /// Метод рисует прямоугольник по двум точкам на противоположных углах
@@ -74,6 +79,7 @@ namespace Paint.Rastr
         /// <param name="shift"></param>
         private void Draw_Rectangle(WriteableBitmap wb, Point pStart, Point pFinish, bool shift)
         {
+            listOfPixels.Add(pStart);
             Point pointD = new Point();
             pointD.X = pStart.X;
             pointD.Y = pFinish.Y;
@@ -81,10 +87,15 @@ namespace Paint.Rastr
             Point pointB = new Point();
             pointB.X = pFinish.X;
             pointB.Y = pStart.Y;
-            line.Draw(wb,pStart, pointB, thickness, shift);
-            line.Draw(wb,pointB, pFinish, thickness, shift);
-            line.Draw(wb,pFinish, pointD, thickness, shift);
-            line.Draw(wb,pointD, pStart, thickness, shift);
+            listOfPixels.Add(pointB);
+            listOfPixels.Add(pFinish);
+            listOfPixels.Add(pointD);
+            listOfPixels.Add(pStart);
+
+            for (int i = 0; i < listOfPixels.Count - 1; i++)
+            {
+                line.Draw(wb, listOfPixels[i], listOfPixels[i + 1], false);
+            } 
         }
     }
 }
