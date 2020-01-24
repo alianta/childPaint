@@ -81,7 +81,7 @@ namespace Paint
             }
             else if (sender.Equals(btnStraightLine))
             {
-                flagFigure = "StraightLine";
+                flagFigure = "straightLine";
             }
             else
             {
@@ -94,7 +94,7 @@ namespace Paint
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Image_MouseMove(object sender, MouseEventArgs e)//движение мыши
+        private void Image_MouseMove(object sender, MouseEventArgs e)
         {
             shift = Keyboard.IsKeyDown(Key.LeftShift);
             ShowCurPoint(e);
@@ -106,42 +106,42 @@ namespace Paint
                 switch (flagFigure)
                 {
                     case "pen":
-                        figure.Draw(wb, prevPoint, curPoint, thicknessLine, false);
                         figure = new Line(colorData, thicknessLine);
+                        figure.Draw(wb, prevPoint, curPoint, thicknessLine, false);
                         prevPoint = curPoint;
                         break;
                     case "rectangle":
                         wb = new WriteableBitmap(curState);
-                        figure.Draw(wb, pStart, curPoint, shift);
                         figure = new Rectangle(colorData, thicknessLine);
+                        figure.Draw(wb, pStart, curPoint, shift);
                         break;
                     case "circle":
                         wb = new WriteableBitmap(curState);
-                        figure.Draw(wb, pStart, curPoint, shift);
                         figure = new Ellipce(colorData, thicknessLine);
+                        figure.Draw(wb, pStart, curPoint, shift);
                         break;
                     case "triangle":
                         wb = new WriteableBitmap(curState);
-                        figure.Draw(wb, pStart, curPoint, thicknessLine, shift);
                         figure = new Triangle(colorData, thicknessLine);
+                        figure.Draw(wb, pStart, curPoint, thicknessLine, shift);
                         break;
                     case "polygon":
                         wb = new WriteableBitmap(curState);
-                        figure.Draw(wb, pStart, curPoint, shift);
                         n = Convert.ToInt32(sides.Text);
                         figure = new Poligon(colorData, thicknessLine, n);
+                        figure.Draw(wb, pStart, curPoint, shift);
                         break;
                     case "tree":
                         wb = new WriteableBitmap(curState);
-                        figure.Draw(wb, pStart, curPoint, shift);
                         n = Convert.ToInt32(sides.Text);
                         figure = new FractalTree(colorData, thicknessLine, n);
-                        break;
-                    case "StraightLine":
-                        wb = new WriteableBitmap(curState);
                         figure.Draw(wb, pStart, curPoint, shift);
+                        break;
+                    case "straightLine":
+                        wb = new WriteableBitmap(curState);
                         n = Convert.ToInt32(sides.Text);
                         figure = new StraightLine(colorData, thicknessLine);
+                        figure.Draw(wb, pStart, curPoint, shift);
                         break;
 
                         //case "lines":
@@ -167,6 +167,18 @@ namespace Paint
         }
 
         /// <summary>
+        /// Метод обрабатывает нажатие на кнопку ластика
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void bntEraser_Click(object sender, RoutedEventArgs e)
+        {
+            colorData = new byte[] { 255, 255, 255, 255 };
+            flagFigure = "pen";
+            ShowCurColorRGB(colorData);
+        }
+
+        /// <summary>
         /// Метод обрабатывает нажатие левой кнопки мыши на холсте
         /// </summary>
         /// <param name="sender"></param>
@@ -175,10 +187,15 @@ namespace Paint
         {
             isPressed = true;
             pStart = SetToCurPoint(e);
-           // Point temp = pStart; Зачем она???????
+            // Point temp = pStart; Зачем она???????
             prevPoint = new Point((int)e.GetPosition(MainImage).X, (int)e.GetPosition(MainImage).Y);
             curState = new WriteableBitmap(wb);
             //figure.Draw(wb, pStart, colorData);
+            if (isBucket)
+            {
+                FillBucket(wb, colorData, pStart); 
+            }
+
         }
 
         /// <summary>
@@ -360,5 +377,93 @@ namespace Paint
 ComboBoxItem selectedItem = (ComboBoxItem)comboBox.SelectedItem;
 MessageBox.Show(selectedItem.Content.ToString());*/
         //hgfjknbfm 
+
+
+
+        //---------------------------------------------
+        private byte[] GetPixelColorData(WriteableBitmap wb, Point currentPoint)//возвращает цвет пикселя на битмапе
+        {
+            int bytePerPixel = 4;//?????????????????????????????????????????
+            int stride = 4 * Convert.ToInt32(wb.PixelWidth);//???????????????????????????????????????????
+            byte[] pixels = new byte[wb.PixelWidth * wb.PixelHeight * 4];
+            wb.CopyPixels(pixels, stride, 0);
+            int currentPixel = (int)currentPoint.X * bytePerPixel + (stride * (int)currentPoint.Y);
+            return new byte[] { pixels[currentPixel], pixels[currentPixel + 1], pixels[currentPixel + 2], 0 };
+        }
+
+        private bool IsColorsEqual(byte[] colorData1, byte[] colorData2)
+        {
+
+            if (colorData1[0] == colorData2[0] && colorData1[1] == colorData2[1] && colorData1[2] == colorData2[2])
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        bool isBucket = false;
+        private void bntFillBucket_Click(object sender, RoutedEventArgs e)
+        {
+            isBucket = true;
+        }
+
+
+
+
+        private void FillBucket(WriteableBitmap wb, byte[] colorData, Point startPoint)//битмап, цветзаливки, кудаткнули
+        {
+           byte[] colorStart = GetPixelColorData(wb, startPoint);
+
+            FillFigureStep(wb, colorData, colorStart, startPoint);
+        }
+
+        private void FillFigureStep(WriteableBitmap wb, byte[] colorData, byte[] startColorData, Point currentPoint)//битмап, цветзаливки, цветстартовогопикселя, кудаткнули
+        {
+            Pixel pixel = new Pixel();
+            Point tmpPoint = currentPoint;
+
+            while (IsColorsEqual(GetPixelColorData(wb, tmpPoint), startColorData) && tmpPoint.X > 0)
+            {
+                tmpPoint.X--;
+            }
+            if (!IsColorsEqual(GetPixelColorData(wb, tmpPoint), startColorData))
+            {
+                tmpPoint.X++;
+            }
+
+            Point left = tmpPoint;
+
+            while (IsColorsEqual(GetPixelColorData(wb, tmpPoint), startColorData) && tmpPoint.X < wb.Width - 1)
+            {
+                pixel.Draw(wb, tmpPoint, colorData);
+                tmpPoint.X++;
+            }
+            if (!IsColorsEqual(GetPixelColorData(wb, tmpPoint), startColorData))
+            {
+                tmpPoint.X--;
+            }
+            else
+            {
+                pixel.Draw(wb, tmpPoint, colorData);
+            }
+            Point right = tmpPoint;
+
+
+            for (int i = (int)left.X; i <= (int)right.X; i++)
+            {
+
+                Point point1 = new Point(i, tmpPoint.Y + 1);
+                Point point2 = new Point(i, tmpPoint.Y - 1);
+
+                if ((IsColorsEqual(GetPixelColorData(wb, tmpPoint), startColorData) && tmpPoint.Y > 0 && tmpPoint.Y < wb.Height - 1))//переделать под Y
+                    FillFigureStep(wb, colorData, startColorData, point1);
+                FillFigureStep(wb, colorData, startColorData, point2);
+
+
+            }
+        }
+
     }
 }
