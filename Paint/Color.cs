@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Paint
 {
-    class Color
+    public class Color
     {
         private string color;
 

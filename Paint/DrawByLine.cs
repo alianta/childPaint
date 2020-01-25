@@ -11,11 +11,13 @@ namespace Paint
 {
     class DrawByLine : IDrawer
     {
+        public Brush CurrentBrush { set; get; }
+
         public void Draw(List<Point> figurePoints, WriteableBitmap wb, Brush curBrush) {
             Pixel pixel = new Pixel();
             for (int i = 0; i < figurePoints.Count; i++)
             {
-                pixel.Draw(wb, figurePoints[i], curBrush.Color);
+                pixel.Draw(wb, figurePoints[i], curBrush.BrushColor);
             }
         }
     }

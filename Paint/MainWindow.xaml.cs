@@ -33,13 +33,11 @@ namespace Paint
         //double R;//расстояние от центра до стороны
         //Point[] p; //массив точек будущего многоугольника
 
-
         public MainWindow()
         {
             InitializeComponent();
             wb = new WriteableBitmap((int)MainImage.Width, (int)MainImage.Height, 96, 96, PixelFormats.Bgra32, null);
             MainImage.Source = wb;
-            figure = new Rastr.Pixel();
             ShowCurColorRGB(colorData);
 
             currentBrush = new Brush();
@@ -126,6 +124,7 @@ namespace Paint
                         //figure.Draw(wb, pStart, curPoint, shift);
                         break;
                     case FigureEnum.Circle:
+                        concreteCreator = new EllipceCreator();
                         //wb = new WriteableBitmap(curState);
                         //figure = new Ellipce(colorData, thicknessLine);
                         //figure.Draw(wb, pStart, curPoint, shift);
@@ -316,6 +315,11 @@ namespace Paint
             bColor.Text = Convert.ToString(colorData[0]);
         }
 
+        /// <summary>
+        /// Метод обрабатывает кнопку сохранения
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Save(object sender, RoutedEventArgs e)
         {
             Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
@@ -354,6 +358,7 @@ namespace Paint
                     encoder.Save(stream);
             }
         }
+        
         /// <summary>
         /// Метод обрабатывает кнопку изменения толщины линии
         /// </summary>

@@ -63,10 +63,11 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Bitmap.cs" />
+    <Compile Include="MyBitmap.cs" />
     <Compile Include="Brush.cs" />
     <Compile Include="Color.cs" />
-    <Compile Include="Fabric\EllipceByFabric.cs" />
+    <Compile Include="Fabric\EllipceCreator.cs" />
+    <Compile Include="Rastr\EllipceType.cs" />
     <Compile Include="Fabric\FigureCreator.cs" />
     <Compile Include="Fabric\TriangleCreator.cs" />
     <Compile Include="Rastr\FigureEnum.cs" />

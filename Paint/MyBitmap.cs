@@ -73,5 +73,10 @@ namespace Paint
         {
             return Btm;
         }
+
+        internal static ImageSource GetBitmapCopy()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

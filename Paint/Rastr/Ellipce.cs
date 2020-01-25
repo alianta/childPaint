@@ -23,6 +23,9 @@ namespace Paint.Rastr
             line = new Line(colorData, thickness);
         }
 
+        public Ellipce(List<Point> figurePoints) : base(figurePoints)
+        { }
+
         public Ellipce() { }
         
         //static byte[] colorData = { 0, 0, 0, 255 };
@@ -89,7 +92,6 @@ namespace Paint.Rastr
                 int newX2 = (int)(pStart.X - Math.Sqrt((aInPowerTwo * (bInPowerTwo - i * i)) / bInPowerTwo));
                 listOfPixels.Add(new Point(newX2, pStart.Y + i));
             }
-
             for (double i = 0; i < (Math.Sqrt(2) / 2) * b; i++)
             {
                 int newX2 = (int)(pStart.X - Math.Sqrt((aInPowerTwo * (bInPowerTwo - i * i)) / bInPowerTwo));
@@ -99,10 +101,6 @@ namespace Paint.Rastr
             {
                 int newY2 = (int)(pStart.Y - Math.Sqrt((bInPowerTwo * (aInPowerTwo - i * i)) / aInPowerTwo));
                 listOfPixels.Add(new Point(pStart.X - i, newY2));
-            }
-            for (int i = 0; i < listOfPixels.Count - 1; i++)
-            {
-                line.Draw(wb, listOfPixels[i], listOfPixels[i + 1], false);
             }
         }
 
@@ -158,12 +156,6 @@ namespace Paint.Rastr
                 int newY1 = (int)(pStart.Y - Math.Sqrt(R * R - i * i));
                 listOfPixels.Add(new Point(pStart.X - i, newY1));
             }
-
-            for (int i = 0; i < listOfPixels.Count - 1; i++)
-            {
-                line.Draw(wb, listOfPixels[i], listOfPixels[i + 1], false);
-            }
-
 
             //for (int i = 0; i <= (int)(a * R); i++)
             //{
