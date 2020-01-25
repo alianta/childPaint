@@ -9,6 +9,6 @@ namespace Paint
     public interface IDrawer
     {
         void Draw();
-        //Thickness strategy { get; set; }
+        Brush CurrentBrush { get; set; }
     }
 }

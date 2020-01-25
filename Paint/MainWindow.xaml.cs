@@ -1,4 +1,5 @@
-﻿using Paint.Rastr;
+﻿using Paint.Fabric;
+using Paint.Rastr;
 using System;
 using System.IO;
 using System.Windows;
@@ -14,9 +15,11 @@ namespace Paint
     public partial class MainWindow : Window
     {
         WriteableBitmap wb; //создает новый холст Image для рисования 
+        Brush currentBrush;
+        IDrawer defaultDrawerRealization;
         WriteableBitmap curState;
         Figure figure;
-        string flagFigure = "pen";
+        FigureEnum flagFigure = FigureEnum.Pen;
         byte[] colorData = { 0, 0, 0, 255 }; //все для создания цвета
         bool isPressed = false; //передает состаяние мыши
         Point prevPoint; //точка начала коордиат
@@ -38,8 +41,11 @@ namespace Paint
             MainImage.Source = wb;
             figure = new Rastr.Pixel();
             ShowCurColorRGB(colorData);
-        }
 
+            currentBrush = new Brush();
+            defaultDrawerRealization = new DrawByLine();
+            defaultDrawerRealization.Brush = currentBrush;
+        }
 
         //  ОБРАБОТКА СОБЫТИЙ
 
@@ -53,35 +59,35 @@ namespace Paint
         {
             if (sender.Equals(btnLine))
             {
-                flagFigure = "pen";
+                flagFigure = FigureEnum.Pen;
             }
             else if (sender.Equals(btnRectangle))
             {
-                flagFigure = "rectangle";
+                flagFigure = FigureEnum.Rectangle;
             }
             else if (sender.Equals(btnCircle))
             {
-                flagFigure = "circle";
+                flagFigure = FigureEnum.Circle;
             }
             else if (sender.Equals(btnTriangle))
             {
-                flagFigure = "triangle";
+                flagFigure = FigureEnum.Triangle;
             }
             else if (sender.Equals(btnPolygon))
             {
-                flagFigure = "polygon";
+                flagFigure = FigureEnum.Polygon;
             }
             else if (sender.Equals(btnTree))
             {
-                flagFigure = "tree";
+                flagFigure = FigureEnum.Tree;
             }
             else if (sender.Equals(btnLines))
             {
-                flagFigure = "lines";
+                //flagFigure = FigureEnum.StraightLine;
             }
             else if (sender.Equals(btnStraightLine))
             {
-                flagFigure = "straightLine";
+                flagFigure = FigureEnum.StraightLine;
             }
             else
             {
@@ -99,49 +105,54 @@ namespace Paint
             shift = Keyboard.IsKeyDown(Key.LeftShift);
             ShowCurPoint(e);
             Point curPoint = SetToCurPoint(e);
+
+            FigureCreator concreteCreator = null;
+            
             if (isPressed)
             {
                 MainImage.Source = wb;
 
                 switch (flagFigure)
                 {
-                    case "pen":
-                        figure = new Line(colorData, thicknessLine);
-                        figure.Draw(wb, prevPoint, curPoint, thicknessLine, false);
-                        prevPoint = curPoint;
+                    case FigureEnum.Pen:
+                        concreteCreator = new PenCreator();
+                        //figure = new Line(colorData, thicknessLine);
+                        //figure.Draw(wb, prevPoint, curPoint, thicknessLine, false);
+                        //prevPoint = curPoint;
                         break;
-                    case "rectangle":
-                        wb = new WriteableBitmap(curState);
-                        figure = new Rectangle(colorData, thicknessLine);
-                        figure.Draw(wb, pStart, curPoint, shift);
+                    case FigureEnum.Rectangle:
+                        //wb = new WriteableBitmap(curState);
+                        //figure = new Rectangle(colorData, thicknessLine);
+                        //figure.Draw(wb, pStart, curPoint, shift);
                         break;
-                    case "circle":
-                        wb = new WriteableBitmap(curState);
-                        figure = new Ellipce(colorData, thicknessLine);
-                        figure.Draw(wb, pStart, curPoint, shift);
+                    case FigureEnum.Circle:
+                        //wb = new WriteableBitmap(curState);
+                        //figure = new Ellipce(colorData, thicknessLine);
+                        //figure.Draw(wb, pStart, curPoint, shift);
                         break;
-                    case "triangle":
-                        wb = new WriteableBitmap(curState);
-                        figure = new Triangle(colorData, thicknessLine);
-                        figure.Draw(wb, pStart, curPoint, thicknessLine, shift);
+                    case FigureEnum.Triangle:
+                        concreteCreator = new TriangleCreator();
+                        //wb = new WriteableBitmap(curState);
+                        //figure = new Triangle(colorData, thicknessLine);
+                        //figure.Draw(wb, pStart, curPoint, thicknessLine, shift);
                         break;
-                    case "polygon":
-                        wb = new WriteableBitmap(curState);
-                        n = Convert.ToInt32(sides.Text);
-                        figure = new Poligon(colorData, thicknessLine, n);
-                        figure.Draw(wb, pStart, curPoint, shift);
+                    case FigureEnum.Polygon:
+                        //wb = new WriteableBitmap(curState);
+                        //n = Convert.ToInt32(sides.Text);
+                        //figure = new Poligon(colorData, thicknessLine, n);
+                        //figure.Draw(wb, pStart, curPoint, shift);
                         break;
-                    case "tree":
-                        wb = new WriteableBitmap(curState);
-                        n = Convert.ToInt32(sides.Text);
-                        figure = new FractalTree(colorData, thicknessLine, n);
-                        figure.Draw(wb, pStart, curPoint, shift);
+                    case FigureEnum.Tree:
+                        //wb = new WriteableBitmap(curState);
+                        //n = Convert.ToInt32(sides.Text);
+                        //figure = new FractalTree(colorData, thicknessLine, n);
+                        //figure.Draw(wb, pStart, curPoint, shift);
                         break;
-                    case "straightLine":
-                        wb = new WriteableBitmap(curState);
-                        n = Convert.ToInt32(sides.Text);
-                        figure = new StraightLine(colorData, thicknessLine);
-                        figure.Draw(wb, pStart, curPoint, shift);
+                    case FigureEnum.StraightLine:
+                        //wb = new WriteableBitmap(curState);
+                        //n = Convert.ToInt32(sides.Text);
+                        //figure = new StraightLine(colorData, thicknessLine);
+                        //figure.Draw(wb, pStart, curPoint, shift);
                         break;
 
                         //case "lines":
@@ -149,8 +160,14 @@ namespace Paint
                         //    figure.Draw(wb, pStart, curPoint, shift);
                         //    figure = new FractalTree(colorData, thicknessLine, n);
                         //    break;
-
                 }
+
+                if (concreteCreator == null)
+                    return;
+                Figure concreteFigure = concreteCreator.CreateFigure(prevPoint, curPoint);
+                concreteFigure.DrawerRealisation = defaultDrawerRealization;
+                concreteFigure.DoDraw();
+                MainImage.Source = MyBitmap.GetBitmapCopy();
             }
         }
 
@@ -174,7 +191,7 @@ namespace Paint
         private void bntEraser_Click(object sender, RoutedEventArgs e)
         {
             colorData = new byte[] { 255, 255, 255, 255 };
-            flagFigure = "pen";
+            flagFigure = FigureEnum.Pen;
             ShowCurColorRGB(colorData);
         }
 

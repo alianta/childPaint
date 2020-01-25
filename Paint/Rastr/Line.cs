@@ -14,6 +14,8 @@ namespace Paint.Rastr
         private byte[] colorData;
         int thickness;
 
+        public Line() { }
+
         public Line(byte[] colorData, int thickness)
         {
             this.colorData = colorData;

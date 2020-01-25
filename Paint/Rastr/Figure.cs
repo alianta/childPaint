@@ -10,31 +10,16 @@ namespace Paint.Rastr
 {
     abstract class Figure
     {
-        public void DoDraw() { }
-        List<Point> Points { get; set; }
-        IDrawer DrawerRealisation;
+        public List<Point> Points { get; set; }
+        public IDrawer DrawerRealisation { get; set; }
 
-
-
-        public virtual void Draw(WriteableBitmap wb, Point pStart, Point pFinish, bool shift)
+        public Figure(List<Point> points)
         {
-
+            Points = points;
         }
 
-        public virtual void Draw(WriteableBitmap wb, Point pStart, Point pFinish, string sides)
-        {
-
-        }
-
-        public virtual void Draw(WriteableBitmap wb, Point pStart, byte[] colorData)
-        {
-
-        }
-
-        
-        public virtual void Draw(WriteableBitmap wb, Point pStart, Point pFinish, int thickness, bool shift) //фигуры должны вызывать этот метод! т.к. в нем есть толщина!
-        {
-
+        public void DoDraw() {
+            DrawerRealisation.Draw();
         }
     }
 }

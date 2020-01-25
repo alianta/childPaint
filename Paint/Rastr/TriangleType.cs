@@ -4,9 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Paint.Thickness
+namespace Paint.Rastr
 {
-    class HardThickness : Thickness
+    public enum TriangleType
     {
+        Isoscaled = 1,
+        Rectangular,
+        Equilateral
     }
 }

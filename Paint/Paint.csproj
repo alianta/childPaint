@@ -64,21 +64,29 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Bitmap.cs" />
-    <Compile Include="Thickness\BoldThickness.cs" />
+    <Compile Include="Brush.cs" />
+    <Compile Include="Color.cs" />
+    <Compile Include="Fabric\EllipceByFabric.cs" />
+    <Compile Include="Fabric\FigureCreator.cs" />
+    <Compile Include="Fabric\TriangleCreator.cs" />
+    <Compile Include="Rastr\FigureEnum.cs" />
+    <Compile Include="Rastr\TriangleType.cs" />
+    <Compile Include="Sides.cs" />
+    <Compile Include="Thickness\ExtraboldThickness.cs" />
     <Compile Include="Thickness\DefaultThickness.cs" />
     <Compile Include="DrawByDots.cs" />
     <Compile Include="DrawByLine.cs" />
     <Compile Include="IDrawer.cs" />
-    <Compile Include="Thickness\HardThickness.cs" />
+    <Compile Include="Thickness\BoldThickness.cs" />
     <Compile Include="Thickness\MediumThickness.cs" />
-    <Compile Include="Thickness\Thickness.cs" />
+    <Compile Include="Thickness\ThicknessStrategy.cs" />
     <Compile Include="Rastr\Ellipce.cs" />
     <Compile Include="Rastr\Figure.cs" />
     <Compile Include="Rastr\FractalTree.cs" />
     <Compile Include="Rastr\Line.cs" />
     <Compile Include="Rastr\Poligon.cs" />
     <Compile Include="Rastr\Rectangle.cs" />
-    <Compile Include="Rastr\Pixel.cs" />
+    <Compile Include="Pixel.cs" />
     <Compile Include="Rastr\StraightLine.cs" />
     <Compile Include="Rastr\Triangle.cs" />
     <Compile Include="MainWindow.xaml.cs">
@@ -123,6 +131,9 @@
     <Resource Include="white\b_5-triangle.png" />
     <Resource Include="white\b_6-nGon.png" />
     <Resource Include="white\b_7-fillBucket.png" />
+    <Resource Include="white\b_8-lineWidth-1.png" />
+    <Resource Include="white\b_8-lineWidth-2.png" />
+    <Resource Include="white\b_8-lineWidth-3.png" />
     <Resource Include="white\b_8-lineWidth.png" />
     <Resource Include="white\b_9-colorBar.ico" />
     <Resource Include="white\b_9-colorBar.png" />
@@ -130,22 +141,13 @@
     <Resource Include="white\b_9-lineColor.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="b_14-pencil.png" />
+    <Resource Include="white\5005 %281%29.JPG" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="b_8-lineWidth-1.png" />
+    <Resource Include="white\b_14-pencil.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="b_8-lineWidth-2.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="b_8-lineWidth-3.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="5005.JPG" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="5005 %281%29.JPG" />
+    <Resource Include="white\b_13-tree.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

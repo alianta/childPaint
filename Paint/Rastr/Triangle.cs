@@ -14,6 +14,12 @@ namespace Paint.Rastr
         private Figure line;
         int thickness;
 
+        public Triangle()
+        { }
+
+        public Triangle(List<Point> figurePoints) : base(figurePoints)
+        { }
+
         public Triangle(byte[] colorData, int thickness)
         {
             this.thickness = thickness;

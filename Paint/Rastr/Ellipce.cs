@@ -22,6 +22,8 @@ namespace Paint.Rastr
             this.colorData = colorData;
             line = new Line(colorData, thickness);
         }
+
+        public Ellipce() { }
         
         //static byte[] colorData = { 0, 0, 0, 255 };
 

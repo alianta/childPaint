@@ -7,13 +7,17 @@ using System.Windows;
 
 namespace Paint.Thickness
 {
-    class MediumThickness : Thickness
+    class MediumThickness : ThicknessStrategy
     {
         readonly List<Point> list = new List<Point>();
 
-        private List<Point> Method(Point p)
+        public override List<Point> GetPoints(Point p)
         {
             list.Add(p);
+            list.Add(new Point(p.X - 1, p.Y));
+            list.Add(new Point(p.X, p.Y - 1));
+            list.Add(new Point(p.X - 1, p.Y - 1));
+
             return list;
         }
     }
