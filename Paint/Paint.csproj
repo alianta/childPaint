@@ -64,8 +64,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Fabric\FractalTreeCreator.cs" />
+    <Compile Include="Fabric\PenCreator.cs" />
     <Compile Include="Fabric\PolygonCreator.cs" />
     <Compile Include="Fabric\RectangleCreator.cs" />
+    <Compile Include="Fabric\StraightLineCreator.cs" />
     <Compile Include="MyBitmap.cs" />
     <Compile Include="Brush.cs" />
     <Compile Include="Color.cs" />
@@ -79,9 +81,9 @@
     <Compile Include="Sides.cs" />
     <Compile Include="Thickness\ExtraboldThickness.cs" />
     <Compile Include="Thickness\DefaultThickness.cs" />
-    <Compile Include="DrawByDots.cs" />
-    <Compile Include="DrawByLine.cs" />
-    <Compile Include="IDrawer.cs" />
+    <Compile Include="Draw\DrawByDots.cs" />
+    <Compile Include="Draw\DrawByLine.cs" />
+    <Compile Include="Draw\IDrawer.cs" />
     <Compile Include="Thickness\BoldThickness.cs" />
     <Compile Include="Thickness\MediumThickness.cs" />
     <Compile Include="Thickness\ThicknessStrategy.cs" />
