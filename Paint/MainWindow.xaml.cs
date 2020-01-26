@@ -109,43 +109,49 @@ namespace Paint
                 switch (flagFigure)
                 {
                     case FigureEnum.Pen:
-                        //concreteCreator = new PenCreator();
+                        concreteCreator = new PenCreator();
                         //figure = new Line(colorData, thicknessLine);
                         //figure.Draw(wb, prevPoint, curPoint, thicknessLine, false);
-                        //prevPoint = curPoint;
+                        prevPoint = curPoint;
                         break;
                     case FigureEnum.Rectangle:
+                        wb = new WriteableBitmap(curState);
                         concreteCreator = new RectangleCreator();
-                        //wb = new WriteableBitmap(curState);
+                        
                         //figure = new Rectangle(colorData, thicknessLine);
                         //figure.Draw(wb, pStart, curPoint, shift);
                         break;
                     case FigureEnum.Circle:
+                        wb = new WriteableBitmap(curState);
                         concreteCreator = new EllipceCreator();
-                        //wb = new WriteableBitmap(curState);
                         //figure = new Ellipce(colorData, thicknessLine);
                         //figure.Draw(wb, pStart, curPoint, shift);
                         break;
                     case FigureEnum.Triangle:
+                        wb = new WriteableBitmap(curState);
                         concreteCreator = new TriangleCreator();
-                        //wb = new WriteableBitmap(curState);
+                        
                         //figure = new Triangle(colorData, thicknessLine);
                         //figure.Draw(wb, pStart, curPoint, thicknessLine, shift);
                         break;
                     case FigureEnum.Polygon:
-                        //wb = new WriteableBitmap(curState);
+                        wb = new WriteableBitmap(curState);
                         numSides = Convert.ToInt32(sides.Text);
                         concreteCreator = new PolygonCreator(numSides);
                         //figure = new Poligon(colorData, thicknessLine, n);
                         //figure.Draw(wb, pStart, curPoint, shift);
                         break;
                     case FigureEnum.Tree:
-                        //wb = new WriteableBitmap(curState);
+                        wb = new WriteableBitmap(curState);
+                        numSides = Convert.ToInt32(sides.Text);
+                        concreteCreator = new FractalTreeCreator(numSides);
+                        
                         //n = Convert.ToInt32(sides.Text);
                         //figure = new FractalTree(colorData, thicknessLine, n);
                         //figure.Draw(wb, pStart, curPoint, shift);
                         break;
                     case FigureEnum.StraightLine:
+                        concreteCreator = new StraightLineCreator();
                         //wb = new WriteableBitmap(curState);
                         //n = Convert.ToInt32(sides.Text);
                         //figure = new StraightLine(colorData, thicknessLine);
@@ -163,8 +169,8 @@ namespace Paint
                     return;
                 Figure concreteFigure = concreteCreator.CreateFigure(prevPoint, curPoint);
                 concreteFigure.DrawerRealisation = defaultDrawerRealization;
-                concreteFigure.DoDraw();
-                MainImage.Source = MyBitmap.GetBitmapCopy();
+                concreteFigure.DoDraw(wb);
+                //MainImage.Source = MyBitmap.GetBitmapCopy();
             }
         }
 
