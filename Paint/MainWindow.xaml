@@ -36,7 +36,7 @@
             <Button x:Name="btnPolygon" Height="35" Width="35" Background="White" BorderThickness="0" Click="btnFigure_Click">
                 <Image Source="white/b_6-nGon.png"></Image>
             </Button>
-            <TextBox x:Name="sides" TextWrapping="Wrap"  Width="40" Margin="0,12,5,10" FontWeight="Normal"  VerticalAlignment="Center" Height="25" Text="5" TextAlignment="Center" FontSize="14"/>
+            <TextBox x:Name="sides" PreviewTextInput="Sides_OnPreviewTextInput" TextWrapping="Wrap"  Width="40" Margin="0,12,5,10" FontWeight="Normal"  VerticalAlignment="Center" Height="25" Text="5" TextAlignment="Center" FontSize="14"/>
 
 
             <!--выбор толщины линии-->
@@ -133,17 +133,17 @@
 
         <StackPanel VerticalAlignment="Bottom" Orientation="Horizontal" Background="White">
             <Label Content="X : " VerticalAlignment="Bottom" Height="28"/>
-            <TextBox x:Name="xPosition" HorizontalAlignment="Left" Height="25" TextWrapping="Wrap" VerticalAlignment="Bottom" Width="50"/>
+            <TextBox x:Name="xPosition" HorizontalAlignment="Left" Height="25" TextWrapping="Wrap" VerticalAlignment="Bottom" Width="50" IsReadOnly="True"/>
             <Label Content="Y : " HorizontalAlignment="Left"  VerticalAlignment="Bottom" RenderTransformOrigin="0.564,1.103"/>
-            <TextBox x:Name="yPosition" HorizontalAlignment="Left" Height="25" TextWrapping="Wrap" VerticalAlignment="Bottom" Width="50"/>
+            <TextBox x:Name="yPosition" HorizontalAlignment="Left" Height="25" TextWrapping="Wrap" VerticalAlignment="Bottom" Width="50" IsReadOnly="True"/>
 
             <Label Content="COLOR:" VerticalAlignment="Center" Margin="15,0,0,0"/>
             <Label Content="R : " VerticalAlignment="Center"/>
-            <TextBox x:Name="rColor" Height="25" Width="50" VerticalAlignment="Center" />
+            <TextBox x:Name="rColor" Height="25" Width="50" VerticalAlignment="Center" IsReadOnly="True"/>
             <Label Content="G : " VerticalAlignment="Center"/>
-            <TextBox x:Name="gColor" Height="25" Width="50" VerticalAlignment="Center"/>
+            <TextBox x:Name="gColor" Height="25" Width="50" VerticalAlignment="Center" IsReadOnly="True"/>
             <Label Content="B : " VerticalAlignment="Center"/>
-            <TextBox x:Name="bColor" Height="25" Width="50" VerticalAlignment="Center"/>
+            <TextBox x:Name="bColor" Height="25" Width="50" VerticalAlignment="Center" IsReadOnly="True"/>
 
             <Button x:Name="btnTree" Content="Дерево" Width="75" Click="btnFigure_Click" Margin="150,0,0,0"/>
         </StackPanel>

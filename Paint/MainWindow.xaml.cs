@@ -356,6 +356,12 @@ namespace Paint
         {
 
         }
+
+        private void Sides_OnPreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = !(Char.IsDigit(e.Text, 0));
+        }
+       
         /* ComboBox comboBox = (ComboBox)sender;
 ComboBoxItem selectedItem = (ComboBoxItem)comboBox.SelectedItem;
 MessageBox.Show(selectedItem.Content.ToString());*/
