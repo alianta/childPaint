@@ -17,7 +17,7 @@ namespace Paint
             Pixel pixel = new Pixel();
             for (int i = 0; i < figurePoints.Count; i++)
             {
-                pixel.Draw(wb, figurePoints[i], curBrush.BrushColor);
+                pixel.Draw(wb, figurePoints[i], curBrush.BrushColor.HexToRGBConverter());
             }
         }
     }

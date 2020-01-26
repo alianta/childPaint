@@ -10,9 +10,9 @@ namespace Paint.Rastr
 {
     class Triangle : Figure
     {
-        private byte[] colorData;
-        private Figure line;
-        int thickness;
+        //private byte[] colorData;
+        //private Figure line;
+        //int thickness;
 
         public Triangle()
         { }
@@ -20,26 +20,26 @@ namespace Paint.Rastr
         public Triangle(List<Point> figurePoints) : base(figurePoints)
         { }
 
-        public Triangle(byte[] colorData, int thickness)
-        {
-            this.thickness = thickness;
-            this.colorData = colorData;
-            line = new Line(colorData, thickness);
-        }
+        //public Triangle(byte[] colorData, int thickness)
+        //{
+        //    this.thickness = thickness;
+        //    this.colorData = colorData;
+        //    line = new Line(colorData, thickness);
+        //}
 
-        public override void Draw(WriteableBitmap wb, Point pStart, Point pFinish,int  thickness,  bool shift)
+        public override void Draw(WriteableBitmap wb, Point pStart, Point pFinish, int thickness, bool shift)
         {
+
+            if (shift)
             {
-                if (shift)
-                {
-                    DrawTriangle(wb, pStart, pFinish, thickness,shift);
-                }
-                else
-                {
-                    DrawIsoscelesTriangle(wb, pStart, pFinish, thickness,  shift);
-                }
-
+                DrawTriangle(wb, pStart, pFinish, thickness, shift);
             }
+            else
+            {
+                DrawIsoscelesTriangle(wb, pStart, pFinish, thickness, shift);
+            }
+
+
         }
 
         /// <summary>
@@ -47,7 +47,7 @@ namespace Paint.Rastr
         /// </summary>
         /// <param name="pStart">Начальная точка по клику</param>
         /// <param name="pFinish">Конечная точка по клику</param>
-        private void DrawTriangle(WriteableBitmap wb, Point pStart, Point pFinish,int thickness, bool shift)
+        private void DrawTriangle(WriteableBitmap wb, Point pStart, Point pFinish, int thickness, bool shift)
         {
             double w = Math.Abs(pFinish.X - pStart.X);
             double h = Math.Abs(pFinish.Y - pStart.Y);
@@ -95,7 +95,7 @@ namespace Paint.Rastr
             pointB.Y = pFinish.Y;
 
             line.Draw(wb, pStart, pFinish, thickness, shift);
-            line.Draw(wb, pStart, pointB, thickness,  shift);
+            line.Draw(wb, pStart, pointB, thickness, shift);
             line.Draw(wb, pointB, pFinish, thickness, shift);
         }
     }

@@ -11,17 +11,24 @@ namespace Paint.Rastr
 {
     class Rectangle : Figure
     {
-        private byte[] colorData;
-        private Figure line;
-        private Figure pixel = new Pixel();
+        //private byte[] colorData;
+        //private Figure line;
+        //private Figure pixel = new Pixel();
         List<Point> listOfPixels = new List<Point>();
-        int thickness;
-        public Rectangle(byte[] colorData, int thickness)
-        {
-            this.thickness = thickness;
-            this.colorData = colorData;
-            line = new Line(colorData, thickness);
-        }
+        //int thickness;
+
+        //public Rectangle(byte[] colorData, int thickness)
+        //{
+        //    this.thickness = thickness;
+        //    this.colorData = colorData;
+        //    line = new Line(colorData, thickness);
+        //}
+
+        public Rectangle()
+        { }
+
+        public Rectangle(List<Point> figurePoints) : base(figurePoints)
+        { }
 
         public override void Draw(WriteableBitmap wb, Point pStart, Point pFinish, bool shift)
         {

@@ -63,6 +63,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Fabric\RectangleCreator.cs" />
     <Compile Include="MyBitmap.cs" />
     <Compile Include="Brush.cs" />
     <Compile Include="Color.cs" />
@@ -71,6 +72,7 @@
     <Compile Include="Fabric\FigureCreator.cs" />
     <Compile Include="Fabric\TriangleCreator.cs" />
     <Compile Include="Rastr\FigureEnum.cs" />
+    <Compile Include="Rastr\RectangleType.cs" />
     <Compile Include="Rastr\TriangleType.cs" />
     <Compile Include="Sides.cs" />
     <Compile Include="Thickness\ExtraboldThickness.cs" />

@@ -45,25 +45,27 @@ namespace Paint.Fabric
             }
 
             figurePoints.Add(pStart);
-
-            Point pointB = new Point();
-            pointB.Y = pStart.Y + h;
-            pointB.X = pStart.X;
-
-            figurePoints.Add(pointB);
-
-            Point pointC = new Point();
-            pointC.Y = pointB.Y;
-            pointC.X = pointB.X + w;
-
-            figurePoints.Add(pointC);
+            figurePoints.Add(new Point(pStart.X, pStart.Y + h));
+            figurePoints.Add(new Point(pStart.X + w, pStart.Y));
 
             return new Triangle(figurePoints);
         }
 
         private Figure CreateRectangularTriangle(Point pStart, Point pFinish)
         {
-            return new Triangle();
+            List<Point> figurePoints = new List<Point>();
+            double w = Math.Abs(pFinish.X - pStart.X);
+
+            if (pFinish.X < pStart.X)
+            {
+                w *= -1;
+            }
+
+            figurePoints.Add(pStart);
+            figurePoints.Add(new Point(pFinish.X - (w * 2), pFinish.Y));
+            figurePoints.Add(pFinish);
+
+            return new Triangle(figurePoints);
         }
     }
 }

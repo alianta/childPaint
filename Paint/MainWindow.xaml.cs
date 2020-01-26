@@ -28,10 +28,6 @@ namespace Paint
         int thicknessLine = 1;//толщина линии
         int n;//количество сторон
         bool shift = false;
-        //Point temp; почему нельзя объявить в методе стр 166
-
-        //double R;//расстояние от центра до стороны
-        //Point[] p; //массив точек будущего многоугольника
 
         public MainWindow()
         {
@@ -42,7 +38,7 @@ namespace Paint
 
             currentBrush = new Brush();
             defaultDrawerRealization = new DrawByLine();
-            defaultDrawerRealization.Brush = currentBrush;
+            defaultDrawerRealization.CurrentBrush = currentBrush;
         }
 
         //  ОБРАБОТКА СОБЫТИЙ
@@ -113,12 +109,13 @@ namespace Paint
                 switch (flagFigure)
                 {
                     case FigureEnum.Pen:
-                        concreteCreator = new PenCreator();
+                        //concreteCreator = new PenCreator();
                         //figure = new Line(colorData, thicknessLine);
                         //figure.Draw(wb, prevPoint, curPoint, thicknessLine, false);
                         //prevPoint = curPoint;
                         break;
                     case FigureEnum.Rectangle:
+                        concreteCreator = new RectangleCreator();
                         //wb = new WriteableBitmap(curState);
                         //figure = new Rectangle(colorData, thicknessLine);
                         //figure.Draw(wb, pStart, curPoint, shift);
