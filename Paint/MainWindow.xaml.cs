@@ -26,7 +26,7 @@ namespace Paint
         Point pStart;// Начальная точка
         Point pFinish;// Конечная точка
         int thicknessLine = 1;//толщина линии
-        int n;//количество сторон
+        int numSides;//количество сторон
         bool shift = false;
 
         public MainWindow()
@@ -134,7 +134,8 @@ namespace Paint
                         break;
                     case FigureEnum.Polygon:
                         //wb = new WriteableBitmap(curState);
-                        //n = Convert.ToInt32(sides.Text);
+                        numSides = Convert.ToInt32(sides.Text);
+                        concreteCreator = new PolygonCreator(numSides);
                         //figure = new Poligon(colorData, thicknessLine, n);
                         //figure.Draw(wb, pStart, curPoint, shift);
                         break;
