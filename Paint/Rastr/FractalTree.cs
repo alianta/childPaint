@@ -19,13 +19,18 @@ namespace Paint.Rastr
         double iter = 100;
         int thickness;
 
-        public FractalTree(byte[] colorData, int thickness, int n)
-        {
-            this.thickness = thickness;
-            this.colorData = colorData;
-            line = new Line(colorData, thickness);
-            iter = n;
-        }
+        //public FractalTree(byte[] colorData, int thickness, int n)
+        //{
+        //    this.thickness = thickness;
+        //    this.colorData = colorData;
+        //    line = new Line(colorData, thickness);
+        //    iter = n;
+        //}
+        public FractalTree()
+        { }
+
+        public FractalTree(List<Point> figurePoints) : base(figurePoints)
+        { }
         public override void Draw(WriteableBitmap wb, Point pStart, Point pFinish, bool shift)
         {
             

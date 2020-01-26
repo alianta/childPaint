@@ -63,6 +63,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Fabric\FractalTreeCreator.cs" />
+    <Compile Include="Fabric\PolygonCreator.cs" />
     <Compile Include="Fabric\RectangleCreator.cs" />
     <Compile Include="MyBitmap.cs" />
     <Compile Include="Brush.cs" />
@@ -87,7 +89,7 @@
     <Compile Include="Rastr\Figure.cs" />
     <Compile Include="Rastr\FractalTree.cs" />
     <Compile Include="Rastr\Line.cs" />
-    <Compile Include="Rastr\Poligon.cs" />
+    <Compile Include="Rastr\Polygon.cs" />
     <Compile Include="Rastr\Rectangle.cs" />
     <Compile Include="Pixel.cs" />
     <Compile Include="Rastr\StraightLine.cs" />

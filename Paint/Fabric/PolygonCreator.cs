@@ -15,6 +15,7 @@ namespace Paint.Fabric
         {
             this.numSides = Convert.ToInt32(numSides);
         }
+
         public override Figure CreateFigure(Point pStart, Point pFinish)
         {
             return CreatePolygon(pStart, pFinish, numSides);
@@ -39,6 +40,29 @@ namespace Paint.Fabric
         }
 
         /// <summary>
+        /// Метод создает массив точек многоугольника
+        /// </summary>
+        /// <param name="angle"></param>
+        private void lineAngle(double angle, Point pStart, Point pFinish, int n, Point[] p, List<Point> figurePoints)
+        {
+            Point v = new Point(pFinish.X - pStart.X, pFinish.Y - pStart.Y);
+            double R = Math.Sqrt(Math.Pow(v.X, 2) + Math.Pow(v.Y, 2));
+
+            double z = GetAngle(pFinish, pStart, v, R);
+
+            int i = 0;
+            double x, y;
+            while (i <= n)
+            {
+                x = pStart.X + (int)(Math.Round(Math.Cos(z / 180 * Math.PI) * R));
+                y = pStart.Y - (int)(Math.Round(Math.Sin(z / 180 * Math.PI) * R));
+                figurePoints.Add(new Point(x, y));
+                z = z + angle;
+                i++;
+            }
+        }
+
+        /// <summary>
         /// Метод возвращает Угол между положительным направлением оси OX и нормированным направляющим вектором отрезка
         /// </summary>
         /// <param name="pStart"></param>
@@ -60,30 +84,5 @@ namespace Paint.Fabric
             else
                 return 360 - alpha;
         }
-        /// <summary>
-        /// Метод создает массив точек многоугольника
-        /// </summary>
-        /// <param name="angle"></param>
-        private void lineAngle(double angle, Point pStart, Point pFinish, int n, Point[] p, List<Point> figurePoints)
-        {
-
-            Point v = new Point(pFinish.X - pStart.X, pFinish.Y - pStart.Y);
-            double R = Math.Sqrt(Math.Pow(v.X, 2) + Math.Pow(v.Y, 2));
-
-            double z = GetAngle(pFinish, pStart, v, R);
-
-            int i = 0;
-            double x, y;
-            while (i <= n)
-            {
-                x = pStart.X + (int)(Math.Round(Math.Cos(z / 180 * Math.PI) * R));
-                y = pStart.Y - (int)(Math.Round(Math.Sin(z / 180 * Math.PI) * R));
-                figurePoints.Add(new Point(x, y));
-                z = z + angle;
-                i++;
-            }
-        }
-
-
     }
 }
