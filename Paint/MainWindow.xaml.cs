@@ -151,6 +151,7 @@ namespace Paint
                         //figure.Draw(wb, pStart, curPoint, shift);
                         break;
                     case FigureEnum.StraightLine:
+                        wb = new WriteableBitmap(curState);
                         concreteCreator = new StraightLineCreator();
                         //wb = new WriteableBitmap(curState);
                         //n = Convert.ToInt32(sides.Text);
@@ -463,7 +464,7 @@ MessageBox.Show(selectedItem.Content.ToString());*/
 
             while (IsColorsEqual(GetPixelColorData(wb, tmpPoint), startColorData) && tmpPoint.X < wb.Width - 1)
             {
-                pixel.Draw(wb, tmpPoint, colorData);
+                Pixel.Draw(wb, tmpPoint, colorData);
                 tmpPoint.X++;
             }
             if (!IsColorsEqual(GetPixelColorData(wb, tmpPoint), startColorData))
@@ -472,7 +473,7 @@ MessageBox.Show(selectedItem.Content.ToString());*/
             }
             else
             {
-                pixel.Draw(wb, tmpPoint, colorData);
+                Pixel.Draw(wb, tmpPoint, colorData);
             }
             Point right = tmpPoint;
 

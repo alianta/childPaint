@@ -15,10 +15,9 @@ namespace Paint
 
         public void Draw(List<Point> figurePoints, WriteableBitmap wb)
         {
-            Pixel pixel = new Pixel();
             for (int i = 0; i < figurePoints.Count; i += 10)
             {
-                pixel.Draw(wb, figurePoints[i + 5], CurrentBrush.BrushColor.HexToRGBConverter());
+                Pixel.Draw(wb, figurePoints[i + 5], CurrentBrush.BrushColor.HexToRGBConverter());
             }
         }
     }

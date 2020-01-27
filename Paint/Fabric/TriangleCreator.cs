@@ -45,8 +45,11 @@ namespace Paint.Fabric
             }
 
             figurePoints.Add(pStart);
+            figurePoints.Add(new Point(pStart.X + w, pFinish.Y));
+            figurePoints.Add(pStart);
             figurePoints.Add(new Point(pStart.X, pStart.Y + h));
-            figurePoints.Add(new Point(pStart.X + w, pStart.Y));
+            figurePoints.Add(new Point(pStart.X, pStart.Y + h));
+            figurePoints.Add(new Point(pStart.X + w, pFinish.Y));
 
             return new Triangle(figurePoints);
         }
@@ -62,6 +65,9 @@ namespace Paint.Fabric
             }
 
             figurePoints.Add(pStart);
+            figurePoints.Add(pFinish);
+            figurePoints.Add(pStart);
+            figurePoints.Add(new Point(pFinish.X - (w * 2), pFinish.Y));
             figurePoints.Add(new Point(pFinish.X - (w * 2), pFinish.Y));
             figurePoints.Add(pFinish);
 

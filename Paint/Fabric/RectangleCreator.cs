@@ -32,7 +32,7 @@ namespace Paint.Fabric
         private Figure CreateIsoscaleRectangle(Point pStart, Point pFinish)
         {
             List<Point> figurePoints = new List<Point>();
-
+            figurePoints.Add(pStart);
             figurePoints.Add(new Point(pStart.X, pFinish.Y));
             figurePoints.Add(pFinish);
             figurePoints.Add(new Point(pFinish.X, pStart.Y));
@@ -44,7 +44,7 @@ namespace Paint.Fabric
         private Figure CreateSquere(Point pStart, Point pFinish)
         {
             List<Point> figurePoints = new List<Point>();
-
+            figurePoints.Add(pStart);
             double xc = (pStart.X + pFinish.X) / 2;
             double yc = (pStart.Y + pFinish.Y) / 2;
 
@@ -55,6 +55,7 @@ namespace Paint.Fabric
             figurePoints.Add(pFinish);
             figurePoints.Add(new Point(xc - dy, yc + dx));
             figurePoints.Add(pStart);
+
 
             return new Rectangle(figurePoints);
         }
