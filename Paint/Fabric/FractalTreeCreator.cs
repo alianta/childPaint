@@ -18,7 +18,7 @@ namespace Paint.Fabric
             this.numInerations = Convert.ToInt32(numInerations);
         }
 
-        public override Figure CreateFigure(Point pStart, Point pFinish)
+        public override Figure CreateFigure(Point pStart, Point pFinish, bool shiftPressed)
         {
             return CreateTree(pStart, pFinish, numInerations, angle);
         }

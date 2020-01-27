@@ -16,6 +16,7 @@ namespace Paint
     {
         WriteableBitmap wb; //создает новый холст Image для рисования 
         Brush currentBrush;
+        MyBitmap myBitmap;
         IDrawer defaultDrawerRealization;
         WriteableBitmap curState;
         Figure figure;
@@ -28,7 +29,7 @@ namespace Paint
         Point pFinish;// Конечная точка
         int thicknessLine = 1;//толщина линии
         int numSides;//количество сторон
-        bool shift = false;
+        bool shiftPressed = false;
         bool isBucket = false;
         bool isDoubleClicked = false;
 
@@ -36,7 +37,8 @@ namespace Paint
         {
             InitializeComponent();
             wb = new WriteableBitmap((int)MainImage.Width, (int)MainImage.Height, 96, 96, PixelFormats.Bgra32, null);
-            MainImage.Source = wb;
+            myBitmap = MyBitmap.GetBitmap(wb);
+            MainImage.Source = myBitmap.btm;
             ShowCurColorRGB(colorData);
 
             currentBrush = new Brush();
@@ -99,7 +101,7 @@ namespace Paint
         /// <param name="e"></param>
         private void Image_MouseMove(object sender, MouseEventArgs e)
         {
-            shift = Keyboard.IsKeyDown(Key.LeftShift);
+            shiftPressed = Keyboard.IsKeyDown(Key.LeftShift);
             ShowCurPoint(e);
             Point curPoint = SetToCurPoint(e);
 
@@ -113,78 +115,40 @@ namespace Paint
                 {
                     case FigureEnum.Pen:
                         concreteCreator = new PenCreator();
-                        //figure = new Line(colorData, thicknessLine);
-                        //figure.Draw(wb, prevPoint, curPoint, thicknessLine, false);
                         prevPoint = curPoint;
                         break;
                     case FigureEnum.Rectangle:
-                        wb = new WriteableBitmap(curState);
                         concreteCreator = new RectangleCreator();
-
-                        //figure = new Rectangle(colorData, thicknessLine);
-                        //figure.Draw(wb, pStart, curPoint, shift);
                         break;
                     case FigureEnum.Circle:
-                        wb = new WriteableBitmap(curState);
                         concreteCreator = new EllipceCreator();
-                        //figure = new Ellipce(colorData, thicknessLine);
-                        //figure.Draw(wb, pStart, curPoint, shift);
                         break;
                     case FigureEnum.Triangle:
-                        wb = new WriteableBitmap(curState);
                         concreteCreator = new TriangleCreator();
-
-                        //figure = new Triangle(colorData, thicknessLine);
-                        //figure.Draw(wb, pStart, curPoint, thicknessLine, shift);
                         break;
                     case FigureEnum.Polygon:
-                        wb = new WriteableBitmap(curState);
                         numSides = Convert.ToInt32(sides.Text);
                         concreteCreator = new PolygonCreator(numSides);
-                        //figure = new Poligon(colorData, thicknessLine, n);
-                        //figure.Draw(wb, pStart, curPoint, shift);
                         break;
                     case FigureEnum.Tree:
-                        wb = new WriteableBitmap(curState);
                         numSides = Convert.ToInt32(sides.Text);
                         concreteCreator = new FractalTreeCreator(numSides);
-
-                        //n = Convert.ToInt32(sides.Text);
-                        //figure = new FractalTree(colorData, thicknessLine, n);
-                        //figure.Draw(wb, pStart, curPoint, shift);
                         break;
                     case FigureEnum.StraightLine:
-                        wb = new WriteableBitmap(curState);
                         concreteCreator = new StraightLineCreator();
-
-                        //wb = new WriteableBitmap(curState);
-                        //n = Convert.ToInt32(sides.Text);
-                        //figure = new StraightLine(colorData, thicknessLine);
-                        //figure.Draw(wb, pStart, curPoint, shift);
                         break;
                          case FigureEnum.ClosingLines:
-                        wb = new WriteableBitmap(curState);
                         concreteCreator = new StraightLineCreator();
-
-                        //wb = new WriteableBitmap(curState);
-                        //n = Convert.ToInt32(sides.Text);
-                        //figure = new StraightLine(colorData, thicknessLine);
-                        //figure.Draw(wb, pStart, curPoint, shift);
                         break;
-
-                        //case "lines":
-                        //    wb = new WriteableBitmap(curState);
-                        //    figure.Draw(wb, pStart, curPoint, shift);
-                        //    figure = new FractalTree(colorData, thicknessLine, n);
-                        //    break;
                 }
 
                 if (concreteCreator == null)
                     return;
-                Figure concreteFigure = concreteCreator.CreateFigure(prevPoint, curPoint);
+                Figure concreteFigure = concreteCreator.CreateFigure(prevPoint, curPoint, shiftPressed);
                 concreteFigure.DrawerRealisation = defaultDrawerRealization;
-                concreteFigure.DoDraw(wb);
-                //MainImage.Source = MyBitmap.GetBitmapCopy();
+                myBitmap.SetBitmapToCopy();
+                concreteFigure.DoDraw(myBitmap.btm);
+                MainImage.Source = myBitmap.btm;
             }
         }
 
@@ -230,11 +194,8 @@ namespace Paint
             else
             {
                 isPressed = true;
-
-                // Point temp = pStart; Зачем она???????
                 prevPoint = new Point((int)e.GetPosition(MainImage).X, (int)e.GetPosition(MainImage).Y);
-                curState = new WriteableBitmap(wb);
-                //figure.Draw(wb, pStart, colorData);
+                myBitmap.CreateCopy();
             }
         }
 
@@ -259,10 +220,6 @@ namespace Paint
             {
                 isDoubleClicked = false;
             }
-            //if (lines)
-            //{
-            //    isPressed = true;
-            //}
         }
 
         private void Window_MouseDoubleClick(object sender, MouseButtonEventArgs e)

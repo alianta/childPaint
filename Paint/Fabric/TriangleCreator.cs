@@ -10,22 +10,14 @@ namespace Paint.Fabric
 {
     class TriangleCreator : FigureCreator
     {
-        private TriangleType currentType;
-
-        public TriangleCreator(TriangleType triangleType = TriangleType.Isoscaled)
+        public override Figure CreateFigure(Point pStart, Point pFinish, bool shiftPressed)
         {
-            currentType = triangleType;
-        }
-
-        public override Figure CreateFigure(Point pStart, Point pFinish)
-        {
-            switch (currentType)
+            if (shiftPressed)
             {
-                case TriangleType.Rectangular:
-                    return CreateRectangularTriangle(pStart, pFinish);
-                default:
-                    return CreateIsoscaleTriangle(pStart, pFinish);
+                return CreateIsoscaleTriangle(pStart, pFinish);
             }
+
+            return CreateRectangularTriangle(pStart, pFinish);
         }
 
         private Figure CreateIsoscaleTriangle(Point pStart, Point pFinish)

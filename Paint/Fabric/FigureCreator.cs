@@ -12,7 +12,7 @@ namespace Paint.Fabric
 {
     abstract class FigureCreator
     {
-        public abstract Figure CreateFigure(Point pStart, Point pFinish);// создает объект фигуры
+        public abstract Figure CreateFigure(Point pStart, Point pFinish, bool shiftPressed);// создает объект фигуры
 
     }
 }

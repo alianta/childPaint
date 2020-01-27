@@ -10,22 +10,15 @@ namespace Paint.Fabric
 {
     class EllipceCreator : FigureCreator
     {
-        private EllipceType currentType;
 
-        public EllipceCreator(EllipceType ellipceType = EllipceType.Ellipce)
+        public override Figure CreateFigure(Point pStart, Point pFinish, bool shiftPressed)
         {
-            currentType = ellipceType;
-        }
-
-        public override Figure CreateFigure(Point pStart, Point pFinish)
-        {
-            switch (currentType)
+            if (shiftPressed)
             {
-                case EllipceType.Circle:
-                    return CreateCircle(pStart, pFinish);
-                default:
-                    return CreateEllipce(pStart, pFinish);
+                return CreateCircle(pStart, pFinish);
             }
+
+            return CreateEllipce(pStart, pFinish);
         }
 
         private Figure CreateCircle(Point pStart, Point pFinish)

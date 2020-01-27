@@ -10,7 +10,7 @@ namespace Paint.Fabric
 {
     class PenCreator : FigureCreator
     {
-        public override Figure CreateFigure(Point pStart, Point pFinish)
+        public override Figure CreateFigure(Point pStart, Point pFinish, bool shiftPressed)
         {
             List<Point> figurePoints = new List<Point>();
 

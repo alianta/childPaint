@@ -16,7 +16,7 @@ namespace Paint.Fabric
             this.numSides = Convert.ToInt32(numSides);
         }
 
-        public override Figure CreateFigure(Point pStart, Point pFinish)
+        public override Figure CreateFigure(Point pStart, Point pFinish, bool shiftPressed)
         {
             return CreatePolygon(pStart, pFinish, numSides);
         }

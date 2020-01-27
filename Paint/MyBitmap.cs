@@ -21,15 +21,12 @@ namespace Paint
         /// </summary>
         private static MyBitmap _instance;
 
+
         /// <summary>
         /// Данные, хранимые в классе.
         /// </summary>
-        private WriteableBitmap btm;
-
-        /// <summary>
-        /// Данные, используемые в классе.
-        /// </summary>
-        private WriteableBitmap Btm => btm;
+        public WriteableBitmap btm { get; private set; }
+        private WriteableBitmap btmCopy { get; set; }
 
         /// <summary>
         /// Защищенный конструктор для инициализации единственного экземпляра класса.
@@ -62,21 +59,23 @@ namespace Paint
         public static MyBitmap SetBitmap(WriteableBitmap wb)
         {
             _instance.btm = wb;
+            _instance.btmCopy = new WriteableBitmap(wb);
             return _instance;
         }
 
-        /// <summary>
-        /// Приведение объекта к bitmap.
-        /// </summary>
-        /// <returns>Данные класса в строковом формате.</returns>
-        public WriteableBitmap GetWriteableBitmap()
+        public void CreateCopy()
         {
-            return Btm;
+            btmCopy = new WriteableBitmap(_instance.btm);
         }
 
-        internal static ImageSource GetBitmapCopy()
+        public void SetBitmapToCopy()
         {
-            throw new NotImplementedException();
+            _instance.btm = new WriteableBitmap(_instance.btmCopy);
+        }
+
+        public WriteableBitmap GetBitmapCopy()
+        {
+            return _instance.btmCopy;
         }
     }
 }

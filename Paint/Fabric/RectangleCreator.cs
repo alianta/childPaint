@@ -11,22 +11,14 @@ namespace Paint.Fabric
 {
     class RectangleCreator : FigureCreator
     {
-        private RectangleType currentType;
-
-        public RectangleCreator(RectangleType rectangleType = RectangleType.Isoscaled)
+        public override Figure CreateFigure(Point pStart, Point pFinish, bool shiftPressed)
         {
-            currentType = rectangleType;
-        }
-
-        public override Figure CreateFigure(Point pStart, Point pFinish)
-        {
-            switch (currentType)
+            if (shiftPressed)
             {
-                case RectangleType.Squere:
-                    return CreateSquere(pStart, pFinish);
-                default:
-                    return CreateIsoscaleRectangle(pStart, pFinish);
+                return CreateSquere(pStart, pFinish);
             }
+
+            return CreateIsoscaleRectangle(pStart, pFinish);
         }
 
         private Figure CreateIsoscaleRectangle(Point pStart, Point pFinish)
