@@ -211,7 +211,7 @@ namespace Paint
             flagFigure = FigureEnum.Pen;
             ShowCurColorRGB(colorData);
         }
-
+        Point tmpPoint;
         /// <summary>
         /// Метод обрабатывает нажатие левой кнопки мыши на холсте
         /// </summary>
@@ -222,13 +222,19 @@ namespace Paint
             isPressed = true;
             pStart = SetToCurPoint(e);
             pStaticStart = pStart;
-            // Point temp = pStart; Зачем она???????
-            prevPoint = new Point((int)e.GetPosition(MainImage).X, (int)e.GetPosition(MainImage).Y);
-            curState = new WriteableBitmap(wb);
-            //figure.Draw(wb, pStart, colorData);
             if (isBucket)
             {
-                FillBucket(wb, colorData, pStart);
+                tmpPoint = pStart;
+                FillFigure(wb, colorData, pStart);
+            }
+            else
+            {
+                isPressed = true;
+
+                // Point temp = pStart; Зачем она???????
+                prevPoint = new Point((int)e.GetPosition(MainImage).X, (int)e.GetPosition(MainImage).Y);
+                curState = new WriteableBitmap(wb);
+                //figure.Draw(wb, pStart, colorData);
             }
         }
 
@@ -438,11 +444,14 @@ MessageBox.Show(selectedItem.Content.ToString());*/
         private byte[] GetPixelColorData(WriteableBitmap wb, Point currentPoint)//возвращает цвет пикселя на битмапе
         {
             int bytePerPixel = 4;//?????????????????????????????????????????
-            int stride = 4 * Convert.ToInt32(wb.PixelWidth);//???????????????????????????????????????????
+            int stride = 4 * Convert.ToInt32(wb.Width);
+            //  int stride = 4;//???????????????????????????????????????????
             byte[] pixels = new byte[wb.PixelWidth * wb.PixelHeight * 4];
             wb.CopyPixels(pixels, stride, 0);
             int currentPixel = (int)currentPoint.X * bytePerPixel + (stride * (int)currentPoint.Y);
-            return new byte[] { pixels[currentPixel], pixels[currentPixel + 1], pixels[currentPixel + 2], 0 };
+            byte[] color = new byte[] { pixels[currentPixel], pixels[currentPixel + 1], pixels[currentPixel + 2], 0 };
+
+            return color;
         }
 
         private bool IsColorsEqual(byte[] colorData1, byte[] colorData2)
@@ -458,16 +467,7 @@ MessageBox.Show(selectedItem.Content.ToString());*/
             }
         }
 
-
-        private void bntFillBucket_Click(object sender, RoutedEventArgs e)
-        {
-            isBucket = true;
-        }
-
-
-
-
-        private void FillBucket(WriteableBitmap wb, byte[] colorData, Point startPoint)//битмап, цветзаливки, кудаткнули
+        private void FillFigure(WriteableBitmap wb, byte[] colorData, Point startPoint)//битмап, цветзаливки, кудаткнули
         {
             byte[] colorStart = GetPixelColorData(wb, startPoint);
 
@@ -482,18 +482,20 @@ MessageBox.Show(selectedItem.Content.ToString());*/
             while (IsColorsEqual(GetPixelColorData(wb, tmpPoint), startColorData) && tmpPoint.X > 0)
             {
                 tmpPoint.X--;
+                Pixel.Draw(wb, tmpPoint, colorData);
             }
             if (!IsColorsEqual(GetPixelColorData(wb, tmpPoint), startColorData))
             {
                 tmpPoint.X++;
-            }
+                Pixel.Draw(wb, tmpPoint, colorData);
 
+            }
             Point left = tmpPoint;
 
             while (IsColorsEqual(GetPixelColorData(wb, tmpPoint), startColorData) && tmpPoint.X < wb.Width - 1)
             {
-                Pixel.Draw(wb, tmpPoint, colorData);
                 tmpPoint.X++;
+                Pixel.Draw(wb, tmpPoint, colorData);
             }
             if (!IsColorsEqual(GetPixelColorData(wb, tmpPoint), startColorData))
             {
@@ -509,15 +511,28 @@ MessageBox.Show(selectedItem.Content.ToString());*/
             for (int i = (int)left.X; i <= (int)right.X; i++)
             {
 
-                Point point1 = new Point(i, tmpPoint.Y + 1);
-                Point point2 = new Point(i, tmpPoint.Y - 1);
+                //Point point1 = new Point(i, tmpPoint.Y+1);
+                //Point point2 = new Point(i, tmpPoint.Y-1);
+                Point point1 = new Point(i, currentPoint.Y + 1);
+                Point point2 = new Point(i, currentPoint.Y - 1);
 
-                if ((IsColorsEqual(GetPixelColorData(wb, tmpPoint), startColorData) && tmpPoint.Y > 0 && tmpPoint.Y < wb.Height - 1))//переделать под Y
+                if ((IsColorsEqual(GetPixelColorData(wb, point1), startColorData) && point1.Y > 0))
+                {
                     FillFigureStep(wb, colorData, startColorData, point1);
-                FillFigureStep(wb, colorData, startColorData, point2);
 
+                }
 
+                if ((IsColorsEqual(GetPixelColorData(wb, point2), startColorData) && point2.Y < wb.Height - 1))
+                {
+                    FillFigureStep(wb, colorData, startColorData, point2);
+                }
             }
+        }
+
+        private void bntFillBucket_Click(object sender, RoutedEventArgs e)
+        {
+            isBucket = true;
+
         }
 
     }
