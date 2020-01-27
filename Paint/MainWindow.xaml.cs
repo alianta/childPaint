@@ -33,6 +33,8 @@ namespace Paint
         bool shiftPressed = false;
         bool isBucket = false;
         bool isDoubleClicked = false;
+        bool isFirstClicked = true;
+
 
         public MainWindow()
         {
@@ -45,7 +47,18 @@ namespace Paint
             currentBrush = new Brush();
             defaultDrawerRealization = new DrawByLine();
             defaultDrawerRealization.CurrentBrush = currentBrush;
+
+            for (int i = 0; i < (int)MainImage.Height; i++)
+            {
+                for (int j = 0; j < (int)MainImage.Width; j++)
+                {
+                    Pixel.Draw(wb, new Point(i, j), new byte[] { 255, 255, 255, 1 });
+                }
+            }
+
         }
+
+
 
         //  ОБРАБОТКА СОБЫТИЙ
 
@@ -138,7 +151,7 @@ namespace Paint
                     case FigureEnum.StraightLine:
                         concreteCreator = new StraightLineCreator();
                         break;
-                         case FigureEnum.ClosingLines:
+                    case FigureEnum.ClosingLines:
                         concreteCreator = new StraightLineCreator();
                         break;
                 }
@@ -184,9 +197,16 @@ namespace Paint
         /// <param name="e"></param>
         private void MainImage_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            isPressed = true;
+            //isPressed = true;
+            //pStart = SetToCurPoint(e);
+            //pStaticStart = pStart;
             pStart = SetToCurPoint(e);
-            pStaticStart = pStart;
+            isPressed = true;
+            if (isFirstClicked)
+            {
+                pStaticStart = pStart;
+                isFirstClicked = false;
+            }
             if (isBucket)
             {
                 tmpPoint = pStart;
@@ -194,7 +214,7 @@ namespace Paint
             }
             else
             {
-                isPressed = true;
+                //  isPressed = true;
                 prevPoint = new Point((int)e.GetPosition(MainImage).X, (int)e.GetPosition(MainImage).Y);
                 myBitmap.CreateCopy();
             }
@@ -217,9 +237,17 @@ namespace Paint
                 isPressed = true;
                 pStart = pFinish;
             }
-            if (isDoubleClicked)
+            if (isDoubleClicked && flagFigure == FigureEnum.ClosingLines)
             {
+                FigureCreator concreteCreator = new StraightLineCreator();
+                Figure concreteFigure = concreteCreator.CreateFigure(pFinish, pStaticStart, shiftPressed);
+                concreteFigure.DrawerRealisation = defaultDrawerRealization;
+                myBitmap.SetBitmapToCopy();
+                concreteFigure.DoDraw(myBitmap.btm);
+                MainImage.Source = myBitmap.btm;
                 isDoubleClicked = false;
+                isFirstClicked = true;
+
             }
         }
 
@@ -391,12 +419,7 @@ namespace Paint
         {
 
         }
-        /* ComboBox comboBox = (ComboBox)sender;
-ComboBoxItem selectedItem = (ComboBoxItem)comboBox.SelectedItem;
-MessageBox.Show(selectedItem.Content.ToString());*/
-        //hgfjknbfm 
-
-
+       
 
         //---------------------------------------------
         private byte[] GetPixelColorData(WriteableBitmap wb, Point currentPoint)//возвращает цвет пикселя на битмапе
@@ -439,21 +462,21 @@ MessageBox.Show(selectedItem.Content.ToString());*/
 
             while (IsColorsEqual(GetPixelColorData(wb, tmpPoint), startColorData) && tmpPoint.X > 0)
             {
-                tmpPoint.X--;
                 Pixel.Draw(wb, tmpPoint, colorData);
+                tmpPoint.X--;
             }
             if (!IsColorsEqual(GetPixelColorData(wb, tmpPoint), startColorData))
             {
                 tmpPoint.X++;
-                Pixel.Draw(wb, tmpPoint, colorData);
-
             }
+
             Point left = tmpPoint;
+            tmpPoint.X = currentPoint.X + 1;
 
             while (IsColorsEqual(GetPixelColorData(wb, tmpPoint), startColorData) && tmpPoint.X < wb.Width - 1)
             {
-                tmpPoint.X++;
                 Pixel.Draw(wb, tmpPoint, colorData);
+                tmpPoint.X++;
             }
             if (!IsColorsEqual(GetPixelColorData(wb, tmpPoint), startColorData))
             {
@@ -468,9 +491,6 @@ MessageBox.Show(selectedItem.Content.ToString());*/
 
             for (int i = (int)left.X; i <= (int)right.X; i++)
             {
-
-                //Point point1 = new Point(i, tmpPoint.Y+1);
-                //Point point2 = new Point(i, tmpPoint.Y-1);
                 Point point1 = new Point(i, currentPoint.Y + 1);
                 Point point2 = new Point(i, currentPoint.Y - 1);
 
