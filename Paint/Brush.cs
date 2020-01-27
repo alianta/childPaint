@@ -16,7 +16,7 @@ namespace Paint
         public Brush()
         {
             BrushThickness = new DefaultThickness();
-            BrushColor = new Color("#000000");
+            BrushColor = new Color("#FF000000");
         }
 
         public Brush (ThicknessStrategy brushThickness, Color brushColor)
