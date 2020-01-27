@@ -14,6 +14,7 @@ namespace Paint.Rastr
         Triangle,
         Polygon,
         Tree,
-        StraightLine
+        StraightLine,
+        ClosingLines
     }
 }

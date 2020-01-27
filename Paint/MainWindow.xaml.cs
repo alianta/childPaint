@@ -24,10 +24,13 @@ namespace Paint
         bool isPressed = false; //передает состаяние мыши
         Point prevPoint; //точка начала коордиат
         Point pStart;// Начальная точка
+        Point pStaticStart;// Неизменная начальная точка для ломаной линии
         Point pFinish;// Конечная точка
         int thicknessLine = 1;//толщина линии
         int numSides;//количество сторон
         bool shift = false;
+        bool isBucket = false;
+        bool isDoubleClicked = false;
 
         public MainWindow()
         {
@@ -75,9 +78,9 @@ namespace Paint
             {
                 flagFigure = FigureEnum.Tree;
             }
-            else if (sender.Equals(btnLines))
+            else if (sender.Equals(btnClosingLines))
             {
-                //flagFigure = FigureEnum.StraightLine;
+                flagFigure = FigureEnum.ClosingLines;
             }
             else if (sender.Equals(btnStraightLine))
             {
@@ -101,7 +104,7 @@ namespace Paint
             Point curPoint = SetToCurPoint(e);
 
             FigureCreator concreteCreator = null;
-            
+
             if (isPressed)
             {
                 MainImage.Source = wb;
@@ -117,7 +120,7 @@ namespace Paint
                     case FigureEnum.Rectangle:
                         wb = new WriteableBitmap(curState);
                         concreteCreator = new RectangleCreator();
-                        
+
                         //figure = new Rectangle(colorData, thicknessLine);
                         //figure.Draw(wb, pStart, curPoint, shift);
                         break;
@@ -130,7 +133,7 @@ namespace Paint
                     case FigureEnum.Triangle:
                         wb = new WriteableBitmap(curState);
                         concreteCreator = new TriangleCreator();
-                        
+
                         //figure = new Triangle(colorData, thicknessLine);
                         //figure.Draw(wb, pStart, curPoint, thicknessLine, shift);
                         break;
@@ -145,7 +148,7 @@ namespace Paint
                         wb = new WriteableBitmap(curState);
                         numSides = Convert.ToInt32(sides.Text);
                         concreteCreator = new FractalTreeCreator(numSides);
-                        
+
                         //n = Convert.ToInt32(sides.Text);
                         //figure = new FractalTree(colorData, thicknessLine, n);
                         //figure.Draw(wb, pStart, curPoint, shift);
@@ -153,6 +156,16 @@ namespace Paint
                     case FigureEnum.StraightLine:
                         wb = new WriteableBitmap(curState);
                         concreteCreator = new StraightLineCreator();
+
+                        //wb = new WriteableBitmap(curState);
+                        //n = Convert.ToInt32(sides.Text);
+                        //figure = new StraightLine(colorData, thicknessLine);
+                        //figure.Draw(wb, pStart, curPoint, shift);
+                        break;
+                         case FigureEnum.ClosingLines:
+                        wb = new WriteableBitmap(curState);
+                        concreteCreator = new StraightLineCreator();
+
                         //wb = new WriteableBitmap(curState);
                         //n = Convert.ToInt32(sides.Text);
                         //figure = new StraightLine(colorData, thicknessLine);
@@ -208,15 +221,15 @@ namespace Paint
         {
             isPressed = true;
             pStart = SetToCurPoint(e);
+            pStaticStart = pStart;
             // Point temp = pStart; Зачем она???????
             prevPoint = new Point((int)e.GetPosition(MainImage).X, (int)e.GetPosition(MainImage).Y);
             curState = new WriteableBitmap(wb);
             //figure.Draw(wb, pStart, colorData);
             if (isBucket)
             {
-                FillBucket(wb, colorData, pStart); 
+                FillBucket(wb, colorData, pStart);
             }
-
         }
 
         /// <summary>
@@ -230,11 +243,25 @@ namespace Paint
         {
             isPressed = false;
             pFinish = SetToCurPoint(e);
+
+            if (!isDoubleClicked && flagFigure == FigureEnum.ClosingLines)
+            {
+                isPressed = true;
+                pStart = pFinish;
+            }
+            if (isDoubleClicked)
+            {
+                isDoubleClicked = false;
+            }
             //if (lines)
             //{
             //    isPressed = true;
-            //    pStart = pFinish;
             //}
+        }
+
+        private void Window_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            isDoubleClicked = true;
         }
 
         /// <summary>
@@ -363,7 +390,7 @@ namespace Paint
                     encoder.Save(stream);
             }
         }
-        
+
         /// <summary>
         /// Метод обрабатывает кнопку изменения толщины линии
         /// </summary>
@@ -430,7 +457,8 @@ MessageBox.Show(selectedItem.Content.ToString());*/
                 return false;
             }
         }
-        bool isBucket = false;
+
+
         private void bntFillBucket_Click(object sender, RoutedEventArgs e)
         {
             isBucket = true;
@@ -441,7 +469,7 @@ MessageBox.Show(selectedItem.Content.ToString());*/
 
         private void FillBucket(WriteableBitmap wb, byte[] colorData, Point startPoint)//битмап, цветзаливки, кудаткнули
         {
-           byte[] colorStart = GetPixelColorData(wb, startPoint);
+            byte[] colorStart = GetPixelColorData(wb, startPoint);
 
             FillFigureStep(wb, colorData, colorStart, startPoint);
         }
