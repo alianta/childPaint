@@ -1,5 +1,6 @@
 ﻿using Paint.Fabric;
 using Paint.Rastr;
+using Paint.Thickness;
 using System;
 using System.IO;
 using System.Windows;
@@ -364,19 +365,19 @@ namespace Paint
             ComboBoxItem selectedItem = (ComboBoxItem)ThicknessList.SelectedValue;
             if (selectedItem.Equals(thick1))
             {
-                thicknessLine = 1;
+                currentBrush = new Brush(new DefaultThickness(), new Color("#FF000000"));
             }
             else if (selectedItem.Equals(thick2))
             {
-                thicknessLine = 2;
+                currentBrush = new Brush(new MediumThickness(), new Color("#FF000000"));
             }
             else if (selectedItem.Equals(thick3))
             {
-                thicknessLine = 3;
+                currentBrush = new Brush(new BoldThickness(), new Color("#FF000000"));
             }
             else if (selectedItem.Equals(thick4))
             {
-                thicknessLine = 4;
+                currentBrush = new Brush(new ExtraboldThickness(), new Color("#FF000000"));
             }
 
         }

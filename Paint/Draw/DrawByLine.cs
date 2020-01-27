@@ -13,13 +13,32 @@ namespace Paint
     {
         static byte[] colorData = { 0, 0, 0, 255 };
         public Brush CurrentBrush { set; get; }
-        public void Draw(List<Point> figurePoints, WriteableBitmap wb) {
-            
-            for (int i = 0; i < figurePoints.Count -1; i++)
+        public void Draw(List<Point> figurePoints, WriteableBitmap wb)
+        {
+
+            for (int i = 0; i < figurePoints.Count - 1; i++)
             {
-                DrawLine(wb, figurePoints[i], figurePoints[i+1]);
+                DrawLine(wb, figurePoints[i], figurePoints[i + 1]);
             }
         }
+
+
+        // ТОЛСТАЯ ОТРИСОВКА ФИГУР
+        //public void Draw(List<Point> figurePoints, WriteableBitmap wb)
+        //{
+        //    List<Point> first = new List<Point>();
+        //    List<Point> second = new List<Point>();
+        //    for (int i = 0; i < figurePoints.Count - 1; i += 2)
+        //    {
+        //        first.AddRange(CurrentBrush.BrushThickness.GetPoints(figurePoints[i]));
+        //        second.AddRange(CurrentBrush.BrushThickness.GetPoints(figurePoints[i + 1]));
+        //        for (int j = 0; j < first.Count - 1; j++)
+        //        {
+        //            DrawLine(wb, first[j], second[j]);
+        //        }
+        //    }
+        //}
+
 
         /// <summary>
         /// Рисование линии попиксельно
