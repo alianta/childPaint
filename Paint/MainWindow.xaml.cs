@@ -19,8 +19,6 @@ namespace Paint
         Brush currentBrush;
         MyBitmap myBitmap;
         IDrawer defaultDrawerRealization;
-        WriteableBitmap curState;
-        Figure figure;
         FigureEnum flagFigure = FigureEnum.Pen;
         byte[] colorData = { 0, 0, 0, 255 }; //все для создания цвета
         bool isPressed = false; //передает состаяние мыши
@@ -28,7 +26,6 @@ namespace Paint
         Point pStart;// Начальная точка
         Point pStaticStart;// Неизменная начальная точка для ломаной линии
         Point pFinish;// Конечная точка
-        int thicknessLine = 1;//толщина линии
         int numSides;//количество сторон
         bool shiftPressed = false;
         bool isBucket = false;
@@ -57,8 +54,6 @@ namespace Paint
             }
 
         }
-
-
 
         //  ОБРАБОТКА СОБЫТИЙ
 
@@ -96,7 +91,7 @@ namespace Paint
             }
             else if (sender.Equals(btnClosingLines))
             {
-                flagFigure = FigureEnum.ClosingLines;
+               flagFigure = FigureEnum.ClosingLines;
             }
             else if (sender.Equals(btnStraightLine))
             {
@@ -124,7 +119,7 @@ namespace Paint
             if (isPressed)
             {
                 MainImage.Source = wb;
-
+                
                 switch (flagFigure)
                 {
                     case FigureEnum.Pen:
@@ -155,14 +150,16 @@ namespace Paint
                         concreteCreator = new StraightLineCreator();
                         break;
                 }
-
+                
                 if (concreteCreator == null)
                     return;
+
                 Figure concreteFigure = concreteCreator.CreateFigure(prevPoint, curPoint, shiftPressed);
                 concreteFigure.DrawerRealisation = defaultDrawerRealization;
                 myBitmap.SetBitmapToCopy();
                 concreteFigure.DoDraw(myBitmap.btm);
                 MainImage.Source = myBitmap.btm;
+                
             }
         }
 
@@ -279,7 +276,8 @@ namespace Paint
         private void Button_Clear(object sender, RoutedEventArgs e)
         {
             wb = new WriteableBitmap((int)MainImage.Width, (int)MainImage.Height, 96, 96, PixelFormats.Bgra32, null);
-            MainImage.Source = wb;
+            myBitmap = MyBitmap.GetBitmap(wb);
+            MainImage.Source = myBitmap.btm;
         }
 
         //  ВНУТРЕННИЕ МЕТОДЫ

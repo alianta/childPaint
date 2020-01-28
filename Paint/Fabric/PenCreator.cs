@@ -14,22 +14,24 @@ namespace Paint.Fabric
         {
             List<Point> figurePoints = new List<Point>();
 
-            if (pFinish.X >= pStart.X && pFinish.Y >= pStart.Y)//прямая начинается с права с верху в низ
-            {
-                figurePoints = DrawLineInThirdTourthQuarters(pStart, pFinish);
-            }
-            else if (pFinish.X <= pStart.X && pFinish.Y <= pStart.Y)//прямая начинается с права с низу в верх
-            {
-                figurePoints = DrawLineInThirdTourthQuarters(pFinish, pStart);
-            }
-            else if (pFinish.X > pStart.X && pFinish.Y < pStart.Y)//прямая начинается с лева с низу в верх
-            {
-                figurePoints = DrawLineInFirstSecondQuarters(pFinish, pStart);
-            }
-            else if (pFinish.X < pStart.X && pFinish.Y > pStart.Y)//прямая начинается с лева с верху в низ
-            {
-                figurePoints = DrawLineInFirstSecondQuarters(pStart, pFinish);
-            }
+            figurePoints.Add(pStart);
+            figurePoints.Add(pFinish);
+            //if (pFinish.X >= pStart.X && pFinish.Y >= pStart.Y)//прямая начинается с права с верху в низ
+            //{
+            //    figurePoints = DrawLineInThirdTourthQuarters(pStart, pFinish);
+            //}
+            //else if (pFinish.X <= pStart.X && pFinish.Y <= pStart.Y)//прямая начинается с права с низу в верх
+            //{
+            //    figurePoints = DrawLineInThirdTourthQuarters(pFinish, pStart);
+            //}
+            //else if (pFinish.X > pStart.X && pFinish.Y < pStart.Y)//прямая начинается с лева с низу в верх
+            //{
+            //    figurePoints = DrawLineInFirstSecondQuarters(pFinish, pStart);
+            //}
+            //else if (pFinish.X < pStart.X && pFinish.Y > pStart.Y)//прямая начинается с лева с верху в низ
+            //{
+            //    figurePoints = DrawLineInFirstSecondQuarters(pStart, pFinish);
+            //}
 
             return new Line(figurePoints);
         }

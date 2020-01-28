@@ -25,7 +25,7 @@ namespace Paint
         /// <summary>
         /// Данные, хранимые в классе.
         /// </summary>
-        public WriteableBitmap btm { get; private set; }
+        public WriteableBitmap btm { get; set; }
         private WriteableBitmap btmCopy { get; set; }
 
         /// <summary>
@@ -52,30 +52,19 @@ namespace Paint
         }
 
         /// <summary>
-        /// Перезаписать экземпляр класса.
+        /// Сохранили текщий в копию.
         /// </summary>
-        /// <param name="data">Инициализирующие данные класса.</param>
-        /// <returns>Уникальный экземпляр класса.</returns>
-        public static MyBitmap SetBitmap(WriteableBitmap wb)
-        {
-            _instance.btm = wb;
-            _instance.btmCopy = new WriteableBitmap(wb);
-            return _instance;
-        }
-
         public void CreateCopy()
         {
             btmCopy = new WriteableBitmap(_instance.btm);
         }
 
+        /// <summary>
+        /// Поменяли местами.
+        /// </summary>
         public void SetBitmapToCopy()
         {
             _instance.btm = new WriteableBitmap(_instance.btmCopy);
-        }
-
-        public WriteableBitmap GetBitmapCopy()
-        {
-            return _instance.btmCopy;
         }
     }
 }

@@ -11,7 +11,6 @@ namespace Paint
 {
     class DrawByLine : IDrawer
     {
-        static byte[] colorData = { 0, 0, 0, 255 };
         public Brush CurrentBrush { set; get; }
         public void Draw(List<Point> figurePoints, WriteableBitmap wb)
         {
@@ -73,7 +72,6 @@ namespace Paint
         /// <param name="pFinish">Point точка финиша</param>
         private void DrawLineInThirdTourthQuarters(WriteableBitmap wb, Point pStart, Point pFinish)
         {
-            byte[] colorData = { 0, 0, 0, 255 };
             Point newP = new Point();
 
             double deltaX = Math.Abs(pFinish.X - pStart.X) + 1;
@@ -86,7 +84,7 @@ namespace Paint
                 {
                     newP.Y = (k * i + pStart.Y);
                     newP.X = i + pStart.X;
-                    Pixel.Draw(wb, newP, colorData);
+                    Pixel.Draw(wb, newP, CurrentBrush.BrushColor.HexToRGBConverter());
                 }
             }
             else
@@ -96,7 +94,7 @@ namespace Paint
                 {
                     newP.X = (k * i + pStart.X);
                     newP.Y = i + pStart.Y;
-                    Pixel.Draw(wb, newP, colorData);
+                    Pixel.Draw(wb, newP, CurrentBrush.BrushColor.HexToRGBConverter());
                 }
             }
         }
@@ -119,7 +117,7 @@ namespace Paint
                 {
                     newP.Y = (k * i + pStart.Y);
                     newP.X = pStart.X - i;
-                    Pixel.Draw(wb, newP, colorData);
+                    Pixel.Draw(wb, newP, CurrentBrush.BrushColor.HexToRGBConverter());
                 }
             }
             else
@@ -133,7 +131,7 @@ namespace Paint
                 {
                     newP.X = (k * i + pStart.X);
                     newP.Y = pStart.Y - i;
-                    Pixel.Draw(wb, newP, colorData);
+                    Pixel.Draw(wb, newP, CurrentBrush.BrushColor.HexToRGBConverter());
                 }
             }
         }

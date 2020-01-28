@@ -17,8 +17,6 @@ namespace Paint.Rastr
             {
                 Int32Rect rect = new Int32Rect((int)p.X, (int)p.Y, 1, 1);
                 wb.WritePixels(rect, colorData, 4, 0);
-                //   curState.WritePixels(rect, colorData, 4, 0);
-                //MainImage.Source = wb;
             }
         }
 

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Paint"
         mc:Ignorable="d"
-        Title="OurPain/T" Height="700" Width="1000" MouseUp="Window_MouseUp"
+        Title="OurPain/T" Height="710" Width="1000" MouseUp="Window_MouseUp"
         Icon="white/b_9-colorBar.ico" FontWeight="Bold" MouseDoubleClick="Window_MouseDoubleClick">
 
     <Grid >
