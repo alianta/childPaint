@@ -10,9 +10,10 @@ namespace Paint.Rastr
 {
     class Pixel
     {
-        static byte[] colorData = { 0, 0, 0, 255 };
         public static void Draw(WriteableBitmap wb, Point p, byte[] colorData)
         {
+            MyBitmap petia = MyBitmap.GetBitmap();
+
             if (p.X > 0 && p.X < (int)wb.Width && p.Y > 0 && p.Y < (int)wb.Height)
             {
                 Int32Rect rect = new Int32Rect((int)p.X, (int)p.Y, 1, 1);

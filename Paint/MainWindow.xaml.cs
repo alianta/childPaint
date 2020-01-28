@@ -37,7 +37,8 @@ namespace Paint
         {
             InitializeComponent();
             wb = new WriteableBitmap((int)MainImage.Width, (int)MainImage.Height, 96, 96, PixelFormats.Bgra32, null);
-            myBitmap = MyBitmap.GetBitmap(wb);
+            myBitmap = MyBitmap.GetBitmap();
+            myBitmap.btm = wb;
             MainImage.Source = myBitmap.btm;
             ShowCurColorRGB(colorData);
 
@@ -51,11 +52,12 @@ namespace Paint
         //  ОБРАБОТКА СОБЫТИЙ
         private void FillBitmap()
         {
+            currentBrush = new Brush(currentBrush.BrushThickness, new Color("FFFFFFFF"));
             for (int i = 0; i < (int)MainImage.Height; i++)
             {
                 for (int j = 0; j < (int)MainImage.Width; j++)
                 {
-                    Pixel.Draw(wb, new Point(i, j), new byte[] { 255, 255, 255, 1 });
+                    Pixel.Draw(wb, new Point (j, i), currentBrush.BrushColor.HexToRGBConverter());
                 }
             }
         }
@@ -174,6 +176,7 @@ namespace Paint
         private void Button_Change_Color(object sender, RoutedEventArgs e)
         {
             string buttonStr = Convert.ToString(((Button)e.OriginalSource).Background);
+            currentBrush = new Brush(currentBrush.BrushThickness, new Color(buttonStr));
             colorData = HexToRGBConverter(buttonStr);
             ShowCurColorRGB(colorData);
         }
@@ -278,7 +281,8 @@ namespace Paint
         /// <param name="e"></param>
         private void Button_Clear(object sender, RoutedEventArgs e)
         {
-            wb = new WriteableBitmap((int)MainImage.Width, (int)MainImage.Height, 96, 96, PixelFormats.Bgra32, null);
+            //wb = new WriteableBitmap((int)MainImage.Width, (int)MainImage.Height, 96, 96, PixelFormats.Bgra32, null);
+            myBitmap = MyBitmap.GetBitmap();
             FillBitmap();
             myBitmap.btm = wb;
             MainImage.Source = myBitmap.btm;

@@ -32,9 +32,8 @@ namespace Paint
         /// Защищенный конструктор для инициализации единственного экземпляра класса.
         /// </summary>
         /// <param name="wb">Данные, используемые в классе.</param>
-        private MyBitmap(WriteableBitmap wb)
+        private MyBitmap()
         {
-            btm = wb;
         }
 
         /// <summary>
@@ -42,11 +41,11 @@ namespace Paint
         /// </summary>
         /// <param name="wb">Инициализирующие данные класса.</param>
         /// <returns>Уникальный экземпляр класса.</returns>
-        public static MyBitmap GetBitmap(WriteableBitmap wb)
+        public static MyBitmap GetBitmap()
         {
             if (_instance == null)
             {
-                _instance = new MyBitmap(wb);
+                _instance = new MyBitmap();
             }
             return _instance;
         }
