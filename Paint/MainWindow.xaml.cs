@@ -8,6 +8,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+
 namespace Paint
 {
     /// <summary>
@@ -16,6 +17,7 @@ namespace Paint
     public partial class MainWindow : Window
     {
         WriteableBitmap wb; //создает новый холст Image для рисования 
+        byte[] pixelsCopy = new byte[] { };
         Brush currentBrush;
         MyBitmap myBitmap;
         IDrawer defaultDrawerRealization;
@@ -53,12 +55,12 @@ namespace Paint
         //  ОБРАБОТКА СОБЫТИЙ
         private void FillBitmap()
         {
-            currentBrush = new Brush(currentBrush.BrushThickness, new Color("FFFFFFFF"));
-            for (int i = 0; i < (int)MainImage.Height; i++)
+            currentBrush = new Brush(currentBrush.BrushThickness, new Color("FF0000FF"));
+            for (int j = 0; j < (int)MainImage.Height; j++)
             {
-                for (int j = 0; j < (int)MainImage.Width; j++)
+                for (int i = 0; i < (int)MainImage.Width; i++)
                 {
-                    Pixel.Draw(new Point (j, i), currentBrush.BrushColor.HexToRGBConverter());
+                    Pixel.Draw(new Point (i, j), currentBrush.BrushColor.HexToRGBConverter());
                 }
             }
         }
@@ -71,6 +73,8 @@ namespace Paint
         /// <param name="e"></param>
         private void btnFigure_Click(object sender, RoutedEventArgs e)
         {
+            isBucket = false;
+
             if (sender.Equals(btnLine))
             {
                 flagFigure = FigureEnum.Pen;
@@ -215,6 +219,7 @@ namespace Paint
             {
                 tmpPoint = pStart;
                 FillFigure(wb, colorData, pStart);
+                MainImage.Source = myBitmap.btm;
             }
             else
             {
@@ -432,7 +437,6 @@ namespace Paint
         {
             int bytePerPixel = 4;//?????????????????????????????????????????
             int stride = 4 * Convert.ToInt32(wb.Width);
-            //  int stride = 4;//???????????????????????????????????????????
             byte[] pixels = new byte[wb.PixelWidth * wb.PixelHeight * 4];
             wb.CopyPixels(pixels, stride, 0);
             int currentPixel = (int)currentPoint.X * bytePerPixel + (stride * (int)currentPoint.Y);
@@ -444,7 +448,7 @@ namespace Paint
         private bool IsColorsEqual(byte[] colorData1, byte[] colorData2)
         {
 
-            if (colorData1[0] == colorData2[0] && colorData1[1] == colorData2[1] && colorData1[2] == colorData2[2])
+            if (colorData1[0] == colorData2[0] && colorData1[1] == colorData2[1] && colorData1[2] == colorData2[2] && colorData1[3] == colorData2[3])
             {
                 return true;
             }
@@ -456,9 +460,21 @@ namespace Paint
 
         private void FillFigure(WriteableBitmap wb, byte[] colorData, Point startPoint)//битмап, цветзаливки, кудаткнули
         {
+            int bytePerPixel = 4;//?????????????????????????????????????????
+            int stride = bytePerPixel * Convert.ToInt32(wb.Width);
+            //  int stride = 4;//???????????????????????????????????????????
+            pixelsCopy = new byte[wb.PixelWidth * wb.PixelHeight * bytePerPixel];
+            wb.CopyPixels(pixelsCopy, stride, 0);
             byte[] colorStart = GetPixelColorData(wb, startPoint);
-
-            FillFigureStep(wb, colorData, colorStart, startPoint);
+                FillFigureStep(wb, colorData, colorStart, startPoint);
+            //try
+            //{
+            //    myBitmap.btm.Lock();
+            //}
+            //finally
+            //{
+            //    myBitmap.btm.Unlock();
+            //}
         }
 
         private void FillFigureStep(WriteableBitmap wb, byte[] colorData, byte[] startColorData, Point currentPoint)//битмап, цветзаливки, цветстартовогопикселя, кудаткнули
@@ -466,12 +482,12 @@ namespace Paint
             Pixel pixel = new Pixel();
             Point tmpPoint = currentPoint;
 
-            while (IsColorsEqual(GetPixelColorData(wb, tmpPoint), startColorData) && tmpPoint.X > 0)
+            while (IsColorsEqual(GetPixelColorData(myBitmap.btm, tmpPoint), startColorData) && tmpPoint.X > 0)
             {
                 Pixel.Draw(tmpPoint, colorData);
                 tmpPoint.X--;
             }
-            if (!IsColorsEqual(GetPixelColorData(wb, tmpPoint), startColorData))
+            if (!IsColorsEqual(GetPixelColorData(myBitmap.btm, tmpPoint), startColorData))
             {
                 tmpPoint.X++;
             }
@@ -479,12 +495,12 @@ namespace Paint
             Point left = tmpPoint;
             tmpPoint.X = currentPoint.X + 1;
 
-            while (IsColorsEqual(GetPixelColorData(wb, tmpPoint), startColorData) && tmpPoint.X < wb.Width - 1)
+            while (IsColorsEqual(GetPixelColorData(myBitmap.btm, tmpPoint), startColorData) && tmpPoint.X < wb.Width - 1)
             {
                 Pixel.Draw(tmpPoint, colorData);
                 tmpPoint.X++;
             }
-            if (!IsColorsEqual(GetPixelColorData(wb, tmpPoint), startColorData))
+            if (!IsColorsEqual(GetPixelColorData(myBitmap.btm, tmpPoint), startColorData))
             {
                 tmpPoint.X--;
             }
@@ -498,19 +514,36 @@ namespace Paint
             for (int i = (int)left.X; i <= (int)right.X; i++)
             {
                 Point point1 = new Point(i, currentPoint.Y + 1);
+
+                if ((IsColorsEqual(GetPixelColorData(myBitmap.btm, point1), startColorData) && point1.Y < wb.Height - 1))
+                {
+                    FillFigureStep(myBitmap.btm, colorData, startColorData, point1);
+
+                }
+
+                //if ((IsColorsEqual(GetPixelColorData(wb, point2), startColorData) && point2.Y < wb.Height - 1))
+                //{
+                //    FillFigureStep(wb, colorData, startColorData, point2);
+                //}
+            }
+
+            for (int i = (int)left.X; i <= (int)right.X; i++)
+            {
+                //Point point1 = new Point(i, currentPoint.Y + 1);
                 Point point2 = new Point(i, currentPoint.Y - 1);
 
-                if ((IsColorsEqual(GetPixelColorData(wb, point1), startColorData) && point1.Y > 0))
-                {
-                    FillFigureStep(wb, colorData, startColorData, point1);
+                //if ((IsColorsEqual(GetPixelColorData(wb, point1), startColorData) && point1.Y > 0))
+                //{
+                //    FillFigureStep(wb, colorData, startColorData, point1);
 
-                }
+                //}
 
-                if ((IsColorsEqual(GetPixelColorData(wb, point2), startColorData) && point2.Y < wb.Height - 1))
+                if ((IsColorsEqual(GetPixelColorData(myBitmap.btm, point2), startColorData) && point2.Y > 0))
                 {
-                    FillFigureStep(wb, colorData, startColorData, point2);
+                    FillFigureStep(myBitmap.btm, colorData, startColorData, point2);
                 }
             }
+            isPressed = false;
         }
 
         private void bntFillBucket_Click(object sender, RoutedEventArgs e)
