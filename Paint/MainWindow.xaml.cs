@@ -37,6 +37,10 @@ namespace Paint
 
         public MainWindow()
         {
+            defaultDrawerRealization = new DrawByLine();
+            defaultDrawerRealization.CurrentBrush = new Brush();
+            currentBrush = defaultDrawerRealization.CurrentBrush;
+            
             InitializeComponent();
             wb = new WriteableBitmap((int)MainImage.Width, (int)MainImage.Height, 96, 96, PixelFormats.Bgra32, null);
             myBitmap = MyBitmap.GetBitmap();
@@ -44,9 +48,6 @@ namespace Paint
             MainImage.Source = myBitmap.btm;
             ShowCurColorRGB(colorData);
 
-            defaultDrawerRealization = new DrawByLine();
-            defaultDrawerRealization.CurrentBrush = new Brush();
-            currentBrush = defaultDrawerRealization.CurrentBrush;
             ////defaultDrawerRealization.CurrentBrush = currentBrush;
 
             FillBitmap();
@@ -134,7 +135,7 @@ namespace Paint
                 {
                     case FigureEnum.Pen:
                         concreteCreator = new PenCreator();
-                        prevPoint = curPoint;
+                        //prevPoint = curPoint;
                         break;
                     case FigureEnum.Rectangle:
                         concreteCreator = new RectangleCreator();
@@ -169,7 +170,6 @@ namespace Paint
                 myBitmap.SetBitmapToCopy();
                 concreteFigure.DoDraw();
                 MainImage.Source = myBitmap.btm;
-                
             }
         }
 
@@ -181,7 +181,7 @@ namespace Paint
         private void Button_Change_Color(object sender, RoutedEventArgs e)
         {
             string buttonStr = Convert.ToString(((Button)e.OriginalSource).Background);
-            currentBrush.BrushColor= new Color(buttonStr);
+            defaultDrawerRealization.CurrentBrush.BrushColor= new Color(buttonStr);
             colorData = HexToRGBConverter(buttonStr);
             ShowCurColorRGB(colorData);
         }
@@ -256,7 +256,6 @@ namespace Paint
                 MainImage.Source = myBitmap.btm;
                 isDoubleClicked = false;
                 isFirstClicked = true;
-
             }
         }
 
@@ -402,23 +401,23 @@ namespace Paint
         /// <param name="e"></param>
         private void Button_Change_Thickness(object sender, SelectionChangedEventArgs e)
         {
-            //ComboBoxItem selectedItem = (ComboBoxItem)ThicknessList.SelectedValue;
-            //if (selectedItem.Equals(thick1))
-            //{
-            //    currentBrush.BrushThickness = new DefaultThickness();
-            //}
-            //else if (selectedItem.Equals(thick2))
-            //{
-            //    currentBrush.BrushThickness = new MediumThickness();
-            //}
-            //else if (selectedItem.Equals(thick3))
-            //{
-            //    currentBrush.BrushThickness = new BoldThickness();
-            //}
-            //else if (selectedItem.Equals(thick4))
-            //{
-            //    currentBrush.BrushThickness = new ExtraboldThickness();
-            //}
+            ComboBoxItem selectedItem = (ComboBoxItem)ThicknessList.SelectedValue;
+            if (selectedItem.Equals(thick1))
+            {
+                defaultDrawerRealization.CurrentBrush.BrushThickness = new DefaultThickness();
+            }
+            else if (selectedItem.Equals(thick2))
+            {
+                defaultDrawerRealization.CurrentBrush.BrushThickness = new MediumThickness();
+            }
+            else if (selectedItem.Equals(thick3))
+            {
+                defaultDrawerRealization.CurrentBrush.BrushThickness = new BoldThickness();
+            }
+            else if (selectedItem.Equals(thick4))
+            {
+                defaultDrawerRealization.CurrentBrush.BrushThickness = new ExtraboldThickness();
+            }
         }
 
         private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)

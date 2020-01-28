@@ -13,12 +13,12 @@ namespace Paint
     {
         public Brush CurrentBrush { set; get; }
 
-        public void Draw(List<Point> figurePoints)
+        public void Draw(Point pStart, Point pFinish)
         {
-            for (int i = 0; i < figurePoints.Count; i += 10)
-            {
-                Pixel.Draw( figurePoints[i + 5], CurrentBrush.BrushColor.HexToRGBConverter());
-            }
+            //for (int i = 0; i < figurePoints.Count; i += 10)
+            //{
+            //    Pixel.Draw(figurePoints[i + 5], CurrentBrush.BrushColor.HexToRGBConverter());
+            //}
         }
     }
 }

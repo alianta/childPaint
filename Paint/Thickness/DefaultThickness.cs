@@ -15,7 +15,10 @@ namespace Paint.Thickness
 
         public override List<Point> GetPoints(Point p)
         {
-            list.Add(p);
+            List<Point> list = new List<Point>
+            {
+                p
+            };
             return list;
         }
     }

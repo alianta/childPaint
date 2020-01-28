@@ -15,5 +15,6 @@ namespace Paint.Rastr
 
         public Triangle(List<Point> figurePoints) : base(figurePoints)
         { }
+
     }
 }

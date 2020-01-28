@@ -11,6 +11,6 @@ namespace Paint
     public interface IDrawer
     {
         Brush CurrentBrush { get; set; }
-        void Draw(List<Point> figurePoints);
+        void Draw(Point pStart, Point pFinish);
     }
 }

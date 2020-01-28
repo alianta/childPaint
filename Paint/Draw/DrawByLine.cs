@@ -12,32 +12,16 @@ namespace Paint
     class DrawByLine : IDrawer
     {
         public Brush CurrentBrush { set; get; }
-        public void Draw(List<Point> figurePoints)
-        {
 
-            for (int i = 0; i < figurePoints.Count - 1; i++)
+        public void Draw(Point pStart, Point pFinish)
+        {
+            List<Point> first = CurrentBrush.BrushThickness.GetPoints(pStart);
+            List<Point> second = CurrentBrush.BrushThickness.GetPoints(pFinish);
+            for (int i = 0; i < first.Count; i++)
             {
-                DrawLine(figurePoints[i], figurePoints[i + 1]);
+                DrawLine(first[i], second[i]);
             }
         }
-
-
-        // ТОЛСТАЯ ОТРИСОВКА ФИГУР
-        //public void Draw(List<Point> figurePoints, WriteableBitmap wb)
-        //{
-        //    List<Point> first = new List<Point>();
-        //    List<Point> second = new List<Point>();
-        //    for (int i = 0; i < figurePoints.Count - 1; i += 2)
-        //    {
-        //        first.AddRange(CurrentBrush.BrushThickness.GetPoints(figurePoints[i]));
-        //        second.AddRange(CurrentBrush.BrushThickness.GetPoints(figurePoints[i + 1]));
-        //        for (int j = 0; j < first.Count - 1; j++)
-        //        {
-        //            DrawLine(wb, first[j], second[j]);
-        //        }
-        //    }
-        //}
-
 
         /// <summary>
         /// Рисование линии попиксельно
@@ -135,5 +119,7 @@ namespace Paint
                 }
             }
         }
+
+        
     }
 }

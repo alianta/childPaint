@@ -9,6 +9,7 @@ namespace Paint.Thickness
 {
     public abstract class ThicknessStrategy
     {
+
         public abstract List<Point> GetPoints(Point p);
     }
 }
