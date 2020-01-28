@@ -18,8 +18,8 @@ namespace Paint.Rastr
             Points = points;
         }
 
-        public void DoDraw(WriteableBitmap wb) {
-            DrawerRealisation.Draw(Points, wb);
+        public void DoDraw() {
+            DrawerRealisation.Draw(Points);
         }
     }
 }

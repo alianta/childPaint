@@ -12,12 +12,12 @@ namespace Paint
     class DrawByLine : IDrawer
     {
         public Brush CurrentBrush { set; get; }
-        public void Draw(List<Point> figurePoints, WriteableBitmap wb)
+        public void Draw(List<Point> figurePoints)
         {
 
             for (int i = 0; i < figurePoints.Count - 1; i++)
             {
-                DrawLine(wb, figurePoints[i], figurePoints[i + 1]);
+                DrawLine(figurePoints[i], figurePoints[i + 1]);
             }
         }
 
@@ -45,23 +45,23 @@ namespace Paint
         /// <param name="wb">Холст</param>
         /// <param name="pStart">Начальная точка</param>
         /// <param name="pFinish">конечная точка</param>
-        public void DrawLine(WriteableBitmap wb, Point pStart, Point pFinish) //переписать в private как все фигуры передалем не предыдущий метод с толщиой (в фигурах должен вызываться предыдущий метод с толщиной)
+        public void DrawLine(Point pStart, Point pFinish) //переписать в private как все фигуры передалем не предыдущий метод с толщиой (в фигурах должен вызываться предыдущий метод с толщиной)
         {
             if (pFinish.X >= pStart.X && pFinish.Y >= pStart.Y)//прямая начинается с права с верху в низ
             {
-                DrawLineInThirdTourthQuarters(wb, pStart, pFinish);
+                DrawLineInThirdTourthQuarters(pStart, pFinish);
             }
             else if (pFinish.X <= pStart.X && pFinish.Y <= pStart.Y)//прямая начинается с права с низу в верх
             {
-                DrawLineInThirdTourthQuarters(wb, pFinish, pStart);
+                DrawLineInThirdTourthQuarters(pFinish, pStart);
             }
             else if (pFinish.X > pStart.X && pFinish.Y < pStart.Y)//прямая начинается с лева с низу в верх
             {
-                DrawLineInFirstSecondQuarters(wb, pFinish, pStart);
+                DrawLineInFirstSecondQuarters(pFinish, pStart);
             }
             else if (pFinish.X < pStart.X && pFinish.Y > pStart.Y)//прямая начинается с лева с верху в низ
             {
-                DrawLineInFirstSecondQuarters(wb, pStart, pFinish);
+                DrawLineInFirstSecondQuarters(pStart, pFinish);
             }
         }
 
@@ -70,7 +70,7 @@ namespace Paint
         /// </summary>
         /// <param name="pStart">Point точка старта</param>
         /// <param name="pFinish">Point точка финиша</param>
-        private void DrawLineInThirdTourthQuarters(WriteableBitmap wb, Point pStart, Point pFinish)
+        private void DrawLineInThirdTourthQuarters(Point pStart, Point pFinish)
         {
             Point newP = new Point();
 
@@ -84,7 +84,7 @@ namespace Paint
                 {
                     newP.Y = (k * i + pStart.Y);
                     newP.X = i + pStart.X;
-                    Pixel.Draw(wb, newP, CurrentBrush.BrushColor.HexToRGBConverter());
+                    Pixel.Draw(newP, CurrentBrush.BrushColor.HexToRGBConverter());
                 }
             }
             else
@@ -94,7 +94,7 @@ namespace Paint
                 {
                     newP.X = (k * i + pStart.X);
                     newP.Y = i + pStart.Y;
-                    Pixel.Draw(wb, newP, CurrentBrush.BrushColor.HexToRGBConverter());
+                    Pixel.Draw(newP, CurrentBrush.BrushColor.HexToRGBConverter());
                 }
             }
         }
@@ -104,7 +104,7 @@ namespace Paint
         /// </summary>
         /// <param name="pStart"></param>
         /// <param name="pFinish"></param>
-        private void DrawLineInFirstSecondQuarters(WriteableBitmap wb, Point pStart, Point pFinish)
+        private void DrawLineInFirstSecondQuarters(Point pStart, Point pFinish)
         {
             Point newP = new Point();
             double deltaX = Math.Abs(pFinish.X - pStart.X) + 1;
@@ -117,7 +117,7 @@ namespace Paint
                 {
                     newP.Y = (k * i + pStart.Y);
                     newP.X = pStart.X - i;
-                    Pixel.Draw(wb, newP, CurrentBrush.BrushColor.HexToRGBConverter());
+                    Pixel.Draw( newP, CurrentBrush.BrushColor.HexToRGBConverter());
                 }
             }
             else
@@ -131,7 +131,7 @@ namespace Paint
                 {
                     newP.X = (k * i + pStart.X);
                     newP.Y = pStart.Y - i;
-                    Pixel.Draw(wb, newP, CurrentBrush.BrushColor.HexToRGBConverter());
+                    Pixel.Draw( newP, CurrentBrush.BrushColor.HexToRGBConverter());
                 }
             }
         }

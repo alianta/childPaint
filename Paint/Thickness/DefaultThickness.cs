@@ -9,7 +9,7 @@ using System.Collections;
 
 namespace Paint.Thickness
 {
-    class DefaultThickness : ThicknessStrategy
+   public class DefaultThickness : ThicknessStrategy
     {
         private readonly List<Point> list = new List<Point>();
 

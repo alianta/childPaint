@@ -42,9 +42,10 @@ namespace Paint
             MainImage.Source = myBitmap.btm;
             ShowCurColorRGB(colorData);
 
-            currentBrush = new Brush();
             defaultDrawerRealization = new DrawByLine();
-            defaultDrawerRealization.CurrentBrush = currentBrush;
+            defaultDrawerRealization.CurrentBrush = new Brush();
+            currentBrush = defaultDrawerRealization.CurrentBrush;
+            ////defaultDrawerRealization.CurrentBrush = currentBrush;
 
             FillBitmap();
         }
@@ -57,7 +58,7 @@ namespace Paint
             {
                 for (int j = 0; j < (int)MainImage.Width; j++)
                 {
-                    Pixel.Draw(wb, new Point (j, i), currentBrush.BrushColor.HexToRGBConverter());
+                    Pixel.Draw(new Point (j, i), currentBrush.BrushColor.HexToRGBConverter());
                 }
             }
         }
@@ -158,11 +159,11 @@ namespace Paint
                 
                 if (concreteCreator == null)
                     return;
-
+                currentBrush.BrushColor =new Color("#FFFF0000");
                 Figure concreteFigure = concreteCreator.CreateFigure(prevPoint, curPoint, shiftPressed);
                 concreteFigure.DrawerRealisation = defaultDrawerRealization;
                 myBitmap.SetBitmapToCopy();
-                concreteFigure.DoDraw(myBitmap.btm);
+                concreteFigure.DoDraw();
                 MainImage.Source = myBitmap.btm;
                 
             }
@@ -176,7 +177,7 @@ namespace Paint
         private void Button_Change_Color(object sender, RoutedEventArgs e)
         {
             string buttonStr = Convert.ToString(((Button)e.OriginalSource).Background);
-            currentBrush = new Brush(currentBrush.BrushThickness, new Color(buttonStr));
+            currentBrush.BrushColor= new Color(buttonStr);
             colorData = HexToRGBConverter(buttonStr);
             ShowCurColorRGB(colorData);
         }
@@ -246,7 +247,7 @@ namespace Paint
                 Figure concreteFigure = concreteCreator.CreateFigure(pFinish, pStaticStart, shiftPressed);
                 concreteFigure.DrawerRealisation = defaultDrawerRealization;
                 myBitmap.SetBitmapToCopy();
-                concreteFigure.DoDraw(myBitmap.btm);
+                concreteFigure.DoDraw();
                 MainImage.Source = myBitmap.btm;
                 isDoubleClicked = false;
                 isFirstClicked = true;
@@ -396,24 +397,23 @@ namespace Paint
         /// <param name="e"></param>
         private void Button_Change_Thickness(object sender, SelectionChangedEventArgs e)
         {
-            ComboBoxItem selectedItem = (ComboBoxItem)ThicknessList.SelectedValue;
-            if (selectedItem.Equals(thick1))
-            {
-                currentBrush = new Brush(new DefaultThickness(), new Color("#FF000000"));
-            }
-            else if (selectedItem.Equals(thick2))
-            {
-                currentBrush = new Brush(new MediumThickness(), new Color("#FF000000"));
-            }
-            else if (selectedItem.Equals(thick3))
-            {
-                currentBrush = new Brush(new BoldThickness(), new Color("#FF000000"));
-            }
-            else if (selectedItem.Equals(thick4))
-            {
-                currentBrush = new Brush(new ExtraboldThickness(), new Color("#FF000000"));
-            }
-
+            //ComboBoxItem selectedItem = (ComboBoxItem)ThicknessList.SelectedValue;
+            //if (selectedItem.Equals(thick1))
+            //{
+            //    currentBrush.BrushThickness = new DefaultThickness();
+            //}
+            //else if (selectedItem.Equals(thick2))
+            //{
+            //    currentBrush.BrushThickness = new MediumThickness();
+            //}
+            //else if (selectedItem.Equals(thick3))
+            //{
+            //    currentBrush.BrushThickness = new BoldThickness();
+            //}
+            //else if (selectedItem.Equals(thick4))
+            //{
+            //    currentBrush.BrushThickness = new ExtraboldThickness();
+            //}
         }
 
         private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -468,7 +468,7 @@ namespace Paint
 
             while (IsColorsEqual(GetPixelColorData(wb, tmpPoint), startColorData) && tmpPoint.X > 0)
             {
-                Pixel.Draw(wb, tmpPoint, colorData);
+                Pixel.Draw(tmpPoint, colorData);
                 tmpPoint.X--;
             }
             if (!IsColorsEqual(GetPixelColorData(wb, tmpPoint), startColorData))
@@ -481,7 +481,7 @@ namespace Paint
 
             while (IsColorsEqual(GetPixelColorData(wb, tmpPoint), startColorData) && tmpPoint.X < wb.Width - 1)
             {
-                Pixel.Draw(wb, tmpPoint, colorData);
+                Pixel.Draw(tmpPoint, colorData);
                 tmpPoint.X++;
             }
             if (!IsColorsEqual(GetPixelColorData(wb, tmpPoint), startColorData))
@@ -490,7 +490,7 @@ namespace Paint
             }
             else
             {
-                Pixel.Draw(wb, tmpPoint, colorData);
+                Pixel.Draw(tmpPoint, colorData);
             }
             Point right = tmpPoint;
 
