@@ -276,7 +276,7 @@ namespace Paint
         private void Button_Clear(object sender, RoutedEventArgs e)
         {
             wb = new WriteableBitmap((int)MainImage.Width, (int)MainImage.Height, 96, 96, PixelFormats.Bgra32, null);
-            myBitmap = MyBitmap.GetBitmap(wb);
+            myBitmap.btm = wb;
             MainImage.Source = myBitmap.btm;
         }
 
