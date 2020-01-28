@@ -45,6 +45,12 @@ namespace Paint
             defaultDrawerRealization = new DrawByLine();
             defaultDrawerRealization.CurrentBrush = currentBrush;
 
+            FillBitmap();
+        }
+
+        //  ОБРАБОТКА СОБЫТИЙ
+        private void FillBitmap()
+        {
             for (int i = 0; i < (int)MainImage.Height; i++)
             {
                 for (int j = 0; j < (int)MainImage.Width; j++)
@@ -52,11 +58,8 @@ namespace Paint
                     Pixel.Draw(wb, new Point(i, j), new byte[] { 255, 255, 255, 1 });
                 }
             }
-
         }
-
-        //  ОБРАБОТКА СОБЫТИЙ
-
+             
 
         /// <summary>
         /// Метод обрабатывающий кнопки фигур
@@ -276,6 +279,7 @@ namespace Paint
         private void Button_Clear(object sender, RoutedEventArgs e)
         {
             wb = new WriteableBitmap((int)MainImage.Width, (int)MainImage.Height, 96, 96, PixelFormats.Bgra32, null);
+            FillBitmap();
             myBitmap.btm = wb;
             MainImage.Source = myBitmap.btm;
         }
