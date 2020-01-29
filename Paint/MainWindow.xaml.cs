@@ -228,7 +228,7 @@ namespace Paint
             //pStaticStart = pStart;
             pStart = SetToCurPoint(e);
             isPressed = true;
-            if (isFirstClicked)
+            if (isFirstClicked && flagFigure == FigureEnum.ClosingLines)
             {
                 pStaticStart = pStart;
                 isFirstClicked = false;
