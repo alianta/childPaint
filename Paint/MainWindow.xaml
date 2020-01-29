@@ -103,8 +103,9 @@
                 <Button x:Name="bntMargenta" Width="20" Height="20" Margin="1" Background="#ff00ff" Click="Button_Change_Color"/>
                 <Button x:Name="bntMaroon" Width="20" Height="20" Margin="1" Background="#800000" Click="Button_Change_Color"/>
                 <Button x:Name="bntYellow" Width="20" Height="20" Margin="1" Background="#ffff00" Click="Button_Change_Color"/>
+                <Button x:Name="bntWhite" Width="20" Height="20" Margin="1" Background="White" Click="Button_Change_Color"/>
             </WrapPanel>
-            <Button x:Name="clearBtn" Height="30" Width="90" Margin="150,10,0,10" Background="White" Content="CLEAR ALL" FontSize="11" Click="Button_Clear"/>
+            <Button x:Name="clearBtn" Height="30" Width="90" Margin="150,9,0,10.6" Background="White" Content="CLEAR ALL" FontSize="11" Click="Button_Clear"/>
 
 
 

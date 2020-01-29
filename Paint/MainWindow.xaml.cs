@@ -22,7 +22,7 @@ namespace Paint
         MyBitmap myBitmap;
         IDrawer defaultDrawerRealization;
         FigureEnum flagFigure = FigureEnum.Pen;
-        string flagFigure1 = "Pen";
+        //string flagFigure1 = "Pen";
         byte[] colorData = { 0, 0, 0, 255 }; //все для создания цвета
         bool isPressed = false; //передает состаяние мыши
         Point prevPoint; //точка начала коордиат
@@ -34,16 +34,15 @@ namespace Paint
         bool isBucket = false;
         bool isDoubleClicked = false;
         bool isFirstClicked = true;
-        Pen pen;
-
+        //Pen pen;
 
         public MainWindow()
         {
             defaultDrawerRealization = new DrawByLine();
             defaultDrawerRealization.CurrentBrush = new Brush();
             currentBrush = defaultDrawerRealization.CurrentBrush;
-            pen = new Pen();
-            pen.CurrentBrush = new Brush();
+            //pen = new Pen();
+            //pen.CurrentBrush = new Brush();
 
             InitializeComponent();
             wb = new WriteableBitmap((int)MainImage.Width, (int)MainImage.Height, 96, 96, PixelFormats.Bgra32, null);
@@ -83,7 +82,7 @@ namespace Paint
 
             if (sender.Equals(btnLine))
             {
-                flagFigure1 = "Pen";
+                flagFigure = FigureEnum.Pen;
             }
             else if (sender.Equals(btnRectangle))
             {
@@ -138,12 +137,12 @@ namespace Paint
                 
                 switch (flagFigure)
                 {
-                    //case FigureEnum.Pen:
-                    //    //concreteCreator = new Pen();
-                    //    Pen pen = new Pen();
-                    //    pen.DrawLine(prevPoint, curPoint);
-                    //    prevPoint = curPoint;
-                    //    break;
+                    case FigureEnum.Pen:
+                        concreteCreator = new PenCreator();
+                        //Pen pen = new Pen();
+                        //pen.DrawLine(prevPoint, curPoint);
+                        prevPoint = curPoint;
+                        break;
                     case FigureEnum.Rectangle:
                         concreteCreator = new RectangleCreator();
                         break;
@@ -169,12 +168,12 @@ namespace Paint
                         break;
                 }
 
-                if (flagFigure1 == "Pen")
-                {
-                    pen.CurrentBrush = new Brush();
-                    pen.DrawLine(prevPoint, curPoint);
-                    prevPoint = curPoint;
-                }
+                //if (flagFigure1 == "Pen")
+                //{
+                //    pen.CurrentBrush = new Brush();
+                //    pen.DrawLine(prevPoint, curPoint);
+                //    prevPoint = curPoint;
+                //}
 
                 if (concreteCreator == null)
                     return;
@@ -196,7 +195,7 @@ namespace Paint
         {
             string buttonStr = Convert.ToString(((Button)e.OriginalSource).Background);
             defaultDrawerRealization.CurrentBrush.BrushColor= new Color(buttonStr);
-            pen.CurrentBrush.BrushColor = new Color(buttonStr);
+            //pen.CurrentBrush.BrushColor = new Color(buttonStr);
             colorData = HexToRGBConverter(buttonStr);
             ShowCurColorRGB(colorData);
         }
@@ -208,9 +207,13 @@ namespace Paint
         /// <param name="e"></param>
         private void bntEraser_Click(object sender, RoutedEventArgs e)
         {
-            colorData = new byte[] { 255, 255, 255, 255 };
+            //defaultDrawerRealization.CurrentBrush.BrushThickness = new MediumThickness();
+            Brush eraserBrush = new Brush();
+            eraserBrush.BrushThickness = new EraserThickness();
+            eraserBrush.BrushColor = new Color("#FFFFFFFF");
             flagFigure = FigureEnum.Pen;
-            ShowCurColorRGB(colorData);
+
+            //ShowCurColorRGB(colorData);
         }
         Point tmpPoint;
         /// <summary>
@@ -420,22 +423,22 @@ namespace Paint
             if (selectedItem.Equals(thick1))
             {
                 defaultDrawerRealization.CurrentBrush.BrushThickness = new DefaultThickness();
-                pen.CurrentBrush.BrushThickness = new DefaultThickness();
+                //pen.CurrentBrush.BrushThickness = new DefaultThickness();
             }
             else if (selectedItem.Equals(thick2))
             {
                 defaultDrawerRealization.CurrentBrush.BrushThickness = new MediumThickness();
-                pen.CurrentBrush.BrushThickness = new MediumThickness();
+                //pen.CurrentBrush.BrushThickness = new MediumThickness();
             }
             else if (selectedItem.Equals(thick3))
             {
                 defaultDrawerRealization.CurrentBrush.BrushThickness = new BoldThickness();
-                pen.CurrentBrush.BrushThickness = new BoldThickness();
+                //pen.CurrentBrush.BrushThickness = new BoldThickness();
             }
             else if (selectedItem.Equals(thick4))
             {
                 defaultDrawerRealization.CurrentBrush.BrushThickness = new ExtraboldThickness();
-                pen.CurrentBrush.BrushThickness = new ExtraboldThickness();
+                //pen.CurrentBrush.BrushThickness = new ExtraboldThickness();
             }
         }
 
