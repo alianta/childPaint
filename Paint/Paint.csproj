@@ -78,7 +78,6 @@
     <Compile Include="Fabric\FigureCreator.cs" />
     <Compile Include="Fabric\TriangleCreator.cs" />
     <Compile Include="Rastr\FigureEnum.cs" />
-    <Compile Include="Pen.cs" />
     <Compile Include="Thickness\EraserThickness.cs" />
     <Compile Include="Thickness\ExtraboldThickness.cs" />
     <Compile Include="Thickness\DefaultThickness.cs" />

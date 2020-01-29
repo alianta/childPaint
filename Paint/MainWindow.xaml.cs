@@ -139,9 +139,6 @@ namespace Paint
                 {
                     case FigureEnum.Pen:
                         concreteCreator = new PenCreator();
-                        //Pen pen = new Pen();
-                        //pen.DrawLine(prevPoint, curPoint);
-                        prevPoint = curPoint;
                         break;
                     case FigureEnum.Rectangle:
                         concreteCreator = new RectangleCreator();
@@ -167,20 +164,21 @@ namespace Paint
                         concreteCreator = new StraightLineCreator();
                         break;
                 }
-
-                //if (flagFigure1 == "Pen")
-                //{
-                //    pen.CurrentBrush = new Brush();
-                //    pen.DrawLine(prevPoint, curPoint);
-                //    prevPoint = curPoint;
-                //}
-
                 if (concreteCreator == null)
                     return;
-                currentBrush.BrushColor =new Color("#FFFF0000");
+
                 Figure concreteFigure = concreteCreator.CreateFigure(prevPoint, curPoint, shiftPressed);
                 concreteFigure.DrawerRealisation = defaultDrawerRealization;
-                myBitmap.SetBitmapToCopy();
+
+                if (flagFigure != FigureEnum.Pen)
+                {
+                    myBitmap.SetBitmapToCopy();
+                }
+                else
+                {
+                    prevPoint = curPoint;
+                }
+                
                 concreteFigure.DoDraw();
                 MainImage.Source = myBitmap.btm;
             }
@@ -195,7 +193,6 @@ namespace Paint
         {
             string buttonStr = Convert.ToString(((Button)e.OriginalSource).Background);
             defaultDrawerRealization.CurrentBrush.BrushColor= new Color(buttonStr);
-            //pen.CurrentBrush.BrushColor = new Color(buttonStr);
             colorData = HexToRGBConverter(buttonStr);
             ShowCurColorRGB(colorData);
         }
@@ -223,9 +220,6 @@ namespace Paint
         /// <param name="e"></param>
         private void MainImage_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            //isPressed = true;
-            //pStart = SetToCurPoint(e);
-            //pStaticStart = pStart;
             pStart = SetToCurPoint(e);
             isPressed = true;
             if (isFirstClicked && flagFigure == FigureEnum.ClosingLines)
@@ -241,7 +235,6 @@ namespace Paint
             }
             else
             {
-                //  isPressed = true;
                 prevPoint = new Point((int)e.GetPosition(MainImage).X, (int)e.GetPosition(MainImage).Y);
                 myBitmap.CreateCopy();
             }
@@ -304,8 +297,7 @@ namespace Paint
         /// <param name="e"></param>
         private void Button_Clear(object sender, RoutedEventArgs e)
         {
-            //wb = new WriteableBitmap((int)MainImage.Width, (int)MainImage.Height, 96, 96, PixelFormats.Bgra32, null);
-            myBitmap = MyBitmap.GetBitmap();
+            wb = new WriteableBitmap((int)MainImage.Width, (int)MainImage.Height, 96, 96, PixelFormats.Bgra32, null);
             FillBitmap();
             myBitmap.btm = wb;
             MainImage.Source = myBitmap.btm;
