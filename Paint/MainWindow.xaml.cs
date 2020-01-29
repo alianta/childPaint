@@ -33,7 +33,8 @@ namespace Paint
         bool shiftPressed = false;
         bool isBucket = false;
         bool isDoubleClicked = false;
-        bool isFirstClicked = true;
+        int clickCount = 0;
+
         //Pen pen;
 
         public MainWindow()
@@ -49,7 +50,7 @@ namespace Paint
             myBitmap = MyBitmap.GetBitmap();
             myBitmap.btm = wb;
             MainImage.Source = myBitmap.btm;
-            
+
             ShowCurColorRGB(colorData);
 
             ////defaultDrawerRealization.CurrentBrush = currentBrush;
@@ -65,11 +66,11 @@ namespace Paint
             {
                 for (int i = 0; i < (int)MainImage.Width; i++)
                 {
-                    Pixel.Draw(new Point (i, j), currentBrush.BrushColor.HexToRGBConverter());
+                    Pixel.Draw(new Point(i, j), currentBrush.BrushColor.HexToRGBConverter());
                 }
             }
         }
-             
+
 
         /// <summary>
         /// Метод обрабатывающий кнопки фигур
@@ -106,7 +107,7 @@ namespace Paint
             }
             else if (sender.Equals(btnClosingLines))
             {
-               flagFigure = FigureEnum.ClosingLines;
+                flagFigure = FigureEnum.ClosingLines;
             }
             else if (sender.Equals(btnStraightLine))
             {
@@ -118,6 +119,8 @@ namespace Paint
             }
         }
 
+        FigureCreator concreteCreator = null;
+        Figure concreteFigure = null;
         /// <summary>
         /// Метод обрабатывает двидение мыши по холсту
         /// </summary>
@@ -129,12 +132,11 @@ namespace Paint
             ShowCurPoint(e);
             Point curPoint = SetToCurPoint(e);
 
-            FigureCreator concreteCreator = null;
 
             if (isPressed)
             {
                 MainImage.Source = wb;
-                
+
                 switch (flagFigure)
                 {
                     case FigureEnum.Pen:
@@ -161,14 +163,21 @@ namespace Paint
                         concreteCreator = new StraightLineCreator();
                         break;
                     case FigureEnum.ClosingLines:
-                        concreteCreator = new StraightLineCreator();
                         break;
                 }
 
                 if (concreteCreator == null)
                     return;
 
-                Figure concreteFigure = concreteCreator.CreateFigure(prevPoint, curPoint, shiftPressed);
+                if (flagFigure == FigureEnum.ClosingLines && clickCount < 2)
+                {
+                    concreteFigure = concreteCreator.CreateFigure(prevPoint, curPoint, isDoubleClicked);
+                }
+                else if (flagFigure != FigureEnum.ClosingLines)
+                {
+                    concreteFigure = concreteCreator.CreateFigure(prevPoint, curPoint, shiftPressed);
+                }
+
                 concreteFigure.DrawerRealisation = defaultDrawerRealization;
 
                 if (flagFigure != FigureEnum.Pen)
@@ -179,7 +188,7 @@ namespace Paint
                 {
                     prevPoint = curPoint;
                 }
-                
+
                 concreteFigure.DoDraw();
                 MainImage.Source = myBitmap.btm;
             }
@@ -193,7 +202,7 @@ namespace Paint
         private void Button_Change_Color(object sender, RoutedEventArgs e)
         {
             string buttonStr = Convert.ToString(((Button)e.OriginalSource).Background);
-            defaultDrawerRealization.CurrentBrush.BrushColor= new Color(buttonStr);
+            defaultDrawerRealization.CurrentBrush.BrushColor = new Color(buttonStr);
             colorData = HexToRGBConverter(buttonStr);
             ShowCurColorRGB(colorData);
         }
@@ -221,13 +230,20 @@ namespace Paint
         /// <param name="e"></param>
         private void MainImage_MouseDown(object sender, MouseButtonEventArgs e)
         {
+            if (clickCount < 2)
+            {
+                clickCount++;
+            }
+
             pStart = SetToCurPoint(e);
             isPressed = true;
-            if (isFirstClicked && flagFigure == FigureEnum.ClosingLines)
+
+            if (clickCount == 1 && flagFigure == FigureEnum.ClosingLines)
             {
+                concreteCreator = new ClosingLinesCreator();
                 pStaticStart = pStart;
-                isFirstClicked = false;
             }
+
             if (isBucket)
             {
                 tmpPoint = pStart;
@@ -256,18 +272,26 @@ namespace Paint
             if (!isDoubleClicked && flagFigure == FigureEnum.ClosingLines)
             {
                 isPressed = true;
-                pStart = pFinish;
             }
-            if (isDoubleClicked && flagFigure == FigureEnum.ClosingLines)
+            if (clickCount > 1 && flagFigure == FigureEnum.ClosingLines)
             {
-                FigureCreator concreteCreator = new StraightLineCreator();
-                Figure concreteFigure = concreteCreator.CreateFigure(pFinish, pStaticStart, shiftPressed);
+                concreteFigure = concreteCreator.CreateFigure(tmpPoint, pFinish, isDoubleClicked);
                 concreteFigure.DrawerRealisation = defaultDrawerRealization;
                 myBitmap.SetBitmapToCopy();
                 concreteFigure.DoDraw();
                 MainImage.Source = myBitmap.btm;
-                isDoubleClicked = false;
-                isFirstClicked = true;
+
+                if (isDoubleClicked)
+                {
+                    isDoubleClicked = false;
+                    isPressed = false;
+                    clickCount = 0;
+                }
+            }
+
+            if (flagFigure == FigureEnum.ClosingLines)
+            {
+                tmpPoint = pFinish;
             }
         }
 
@@ -444,7 +468,7 @@ namespace Paint
         {
 
         }
-       
+
 
         //---------------------------------------------
         private byte[] GetPixelColorData(WriteableBitmap wb, Point currentPoint)//возвращает цвет пикселя на битмапе
@@ -480,7 +504,7 @@ namespace Paint
             pixelsCopy = new byte[wb.PixelWidth * wb.PixelHeight * bytePerPixel];
             wb.CopyPixels(pixelsCopy, stride, 0);
             byte[] colorStart = GetPixelColorData(wb, startPoint);
-                FillFigureStep(wb, colorData, colorStart, startPoint);
+            FillFigureStep(wb, colorData, colorStart, startPoint);
             //try
             //{
             //    myBitmap.btm.Lock();
