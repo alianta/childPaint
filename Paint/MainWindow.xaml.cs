@@ -164,6 +164,7 @@ namespace Paint
                         concreteCreator = new StraightLineCreator();
                         break;
                 }
+
                 if (concreteCreator == null)
                     return;
 

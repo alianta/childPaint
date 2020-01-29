@@ -113,7 +113,7 @@
         </StackPanel>
 
         <Canvas Background="White" Width="800" Height="550" HorizontalAlignment="Left" Margin="0,80,0,40">
-            <Image Name="MainImage"  HorizontalAlignment="Left" VerticalAlignment="Top" Width="800" Height="550" OpacityMask="White" MouseMove="Image_MouseMove" Stretch="None" MouseLeftButtonDown="MainImage_MouseDown" MouseLeftButtonUp="MainImage_MouseEnter"/>
+            <Image Name="MainImage"  HorizontalAlignment="Left" VerticalAlignment="Top" Width="800" Height="550" OpacityMask="White" MouseMove="Image_MouseMove" Stretch="None" MouseLeftButtonDown="MainImage_MouseDown" MouseLeftButtonUp="MainImage_MouseEnter" Cursor="Pen"/>
         </Canvas>
 
         <StackPanel VerticalAlignment="Bottom" Orientation="Horizontal" Background="White" Height="34">
