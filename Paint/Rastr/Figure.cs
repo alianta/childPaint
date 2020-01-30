@@ -14,7 +14,7 @@ namespace Paint.Rastr
             Points = points;
         }
 
-        public void DoDraw() {
+        public virtual void DoDraw() {
             for (int i = 0; i < Points.Count - 1; i++)
             {
                 DrawerRealisation.Draw(Points[i], Points[i + 1]);

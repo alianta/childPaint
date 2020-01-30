@@ -8,7 +8,7 @@ using System.Drawing;
 
 namespace Paint.Fabric
 {
-    class PenCreator : FigureCreator
+    class EraserCreator : FigureCreator
     {
         public override Figure CreateFigure(Point pStart, Point pFinish, bool shiftPressed)
         {
@@ -17,7 +17,7 @@ namespace Paint.Fabric
             figurePoints.Add(pStart);
             figurePoints.Add(pFinish);
 
-            return new Line(figurePoints);
+            return new NeLine(figurePoints);
         }
     }
 }

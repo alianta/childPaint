@@ -13,6 +13,7 @@ namespace Paint.Rastr
         //public Line()
         //{ }
 
+
         public Line(List<Point> figurePoints) : base(figurePoints)
         { }
 

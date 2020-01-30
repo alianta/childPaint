@@ -68,6 +68,7 @@
     </Compile>
     <Compile Include="Eraser.cs" />
     <Compile Include="Fabric\ClosingLinesCreator.cs" />
+    <Compile Include="Fabric\EraserCreator.cs" />
     <Compile Include="Fabric\FractalTreeCreator.cs" />
     <Compile Include="Fabric\PenCreator.cs" />
     <Compile Include="Fabric\PolygonCreator.cs" />
@@ -79,6 +80,7 @@
     <Compile Include="Fabric\EllipceCreator.cs" />
     <Compile Include="Fabric\FigureCreator.cs" />
     <Compile Include="Fabric\TriangleCreator.cs" />
+    <Compile Include="Rastr\NeLine.cs" />
     <Compile Include="Rastr\ClosingLines.cs" />
     <Compile Include="Rastr\FigureEnum.cs" />
     <Compile Include="Thickness\EraserThickness.cs" />

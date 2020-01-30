@@ -21,6 +21,7 @@ namespace Paint
         WriteableBitmap wb; //создает новый холст Image для рисования 
         byte[] pixelsCopy = new byte[] { };
         Brush currentBrush;
+        //IDrawer eraserDrawerRealization;
         MyBitmap myBitmap;
         IDrawer defaultDrawerRealization;
         FigureEnum flagFigure = FigureEnum.Pen;
@@ -34,7 +35,6 @@ namespace Paint
         bool isBucket = false;
         bool isDoubleClicked = false;
         int clickCount = 0;
-
         //Pen pen;
 
         public MainWindow()
@@ -42,9 +42,7 @@ namespace Paint
             defaultDrawerRealization = new DrawByLine();
             defaultDrawerRealization.CurrentBrush = new Brush();
             currentBrush = defaultDrawerRealization.CurrentBrush;
-            //pen = new Pen();
-            //pen.CurrentBrush = new Brush();
-
+       
             InitializeComponent();
             wb = new WriteableBitmap((int)MainImage.Width, (int)MainImage.Height, 96, 96, PixelFormats.Bgra32, null);
             myBitmap = MyBitmap.GetBitmap();
@@ -113,6 +111,10 @@ namespace Paint
             {
                 flagFigure = FigureEnum.StraightLine;
             }
+            else if (sender.Equals(btnEraser))
+            {
+                flagFigure = FigureEnum.Eraser;
+            }
             else
             {
                 xPosition.Text = "Алярма!";
@@ -131,7 +133,6 @@ namespace Paint
             shiftPressed = Keyboard.IsKeyDown(Key.LeftShift);
             ShowCurPoint(e);
             Point curPoint = SetToCurPoint(e);
-
 
             if (isPressed)
             {
@@ -162,6 +163,9 @@ namespace Paint
                     case FigureEnum.StraightLine:
                         concreteCreator = new StraightLineCreator();
                         break;
+                    case FigureEnum.Eraser:
+                        concreteCreator = new EraserCreator();
+                        break;
                     case FigureEnum.ClosingLines:
                         break;
                 }
@@ -178,15 +182,16 @@ namespace Paint
                     concreteFigure = concreteCreator.CreateFigure(prevPoint, curPoint, shiftPressed);
                 }
 
-                concreteFigure.DrawerRealisation = defaultDrawerRealization;
               
-                if (flagFigure != FigureEnum.Pen)
+                    concreteFigure.DrawerRealisation = defaultDrawerRealization;
+              
+                if (flagFigure == FigureEnum.Pen || flagFigure == FigureEnum.Eraser)
                 {
-                    myBitmap.SetBitmapToCopy();
+                    prevPoint = curPoint;
                 }
                 else
                 {
-                    prevPoint = curPoint;
+                    myBitmap.SetBitmapToCopy();
                 }
 
                 concreteFigure.DoDraw();
@@ -212,16 +217,15 @@ namespace Paint
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void bntEraser_Click(object sender, RoutedEventArgs e)
-        {
-            //defaultDrawerRealization.CurrentBrush.BrushThickness = new MediumThickness();
-            Brush eraserBrush = new Brush();
-            eraserBrush.BrushThickness = new EraserThickness();
-            eraserBrush.BrushColor = new Color("#FFFFFFFF");
-            flagFigure = FigureEnum.Pen;
+        //private void BtnEraser_Click(object sender, RoutedEventArgs e)
+        //{
+        //    eraserDrawerRealization = new DrawByLine();
+        //    eraserDrawerRealization.CurrentBrush = new Brush(new MediumThickness(), new Color("#FFFFFFFF"));
 
-            //ShowCurColorRGB(colorData);
-        }
+   
+        //    //ShowCurColorRGB(colorData);
+        //}
+
         Point tmpPoint;
         /// <summary>
         /// Метод обрабатывает нажатие левой кнопки мыши на холсте
@@ -585,7 +589,6 @@ namespace Paint
         private void bntFillBucket_Click(object sender, RoutedEventArgs e)
         {
             isBucket = true;
-
         }
 
     }

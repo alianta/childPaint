@@ -74,7 +74,7 @@
                 <Image Source="white/b_7-fillBucket.png"></Image>
             </Button>
 
-            <Button x:Name="bntEraser" Height="35" Width="35" Background="White" BorderThickness="0" Click="bntEraser_Click" >
+            <Button x:Name="btnEraser" Height="35" Width="35" Background="White" BorderThickness="0" Click="btnFigure_Click" >
                 <Image Source="white/b_10-eraser.png"></Image>
             </Button>
 

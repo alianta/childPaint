@@ -15,6 +15,7 @@ namespace Paint.Rastr
         Polygon,
         Tree,
         StraightLine,
-        ClosingLines
+        ClosingLines,
+        Eraser
     }
 }
