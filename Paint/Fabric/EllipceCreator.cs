@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
+using System.Drawing;
 
 namespace Paint.Fabric
 {
@@ -81,42 +81,42 @@ namespace Paint.Fabric
             for (double i = 0; i < (Math.Sqrt(2) / 2) * a; i++)
             {
                 int newY2 = (int)(pStart.Y - Math.Sqrt((bInPowerTwo * (aInPowerTwo - i * i)) / aInPowerTwo));
-                listOfPixels.Add(new Point(pStart.X + i, newY2));
+                listOfPixels.Add(new Point((int)(pStart.X + i), newY2));
             }
             for (double i = (Math.Sqrt(2) / 2) * b; i > 0; i--)
             {
                 int newX1 = (int)(pStart.X + Math.Sqrt((aInPowerTwo * (bInPowerTwo - i * i)) / bInPowerTwo));
-                listOfPixels.Add(new Point(newX1, pStart.Y - i));
+                listOfPixels.Add(new Point(newX1, (int)(pStart.Y - i)));
             }
             for (double i = 0; i < (Math.Sqrt(2) / 2) * b; i++)
             {
                 int newX1 = (int)(pStart.X + Math.Sqrt((aInPowerTwo * (bInPowerTwo - i * i)) / bInPowerTwo));
-                listOfPixels.Add(new Point(newX1, pStart.Y + i));
+                listOfPixels.Add(new Point(newX1, (int)(pStart.Y + i)));
             }
             for (double i = (Math.Sqrt(2) / 2) * a; i > 0; i--)
             {
                 int newY1 = (int)(pStart.Y + Math.Sqrt((bInPowerTwo * (aInPowerTwo - i * i)) / aInPowerTwo));
-                listOfPixels.Add(new Point(pStart.X + i, newY1));
+                listOfPixels.Add(new Point((int)(pStart.X + i), newY1));
             }
             for (double i = 0; i < (Math.Sqrt(2) / 2) * a; i++)
             {
                 int newY1 = (int)(pStart.Y + Math.Sqrt((bInPowerTwo * (aInPowerTwo - i * i)) / aInPowerTwo));
-                listOfPixels.Add(new Point(pStart.X - i, newY1));
+                listOfPixels.Add(new Point((int)(pStart.X - i), newY1));
             }
             for (double i = (Math.Sqrt(2) / 2) * b; i > 0; i--)
             {
                 int newX2 = (int)(pStart.X - Math.Sqrt((aInPowerTwo * (bInPowerTwo - i * i)) / bInPowerTwo));
-                listOfPixels.Add(new Point(newX2, pStart.Y + i));
+                listOfPixels.Add(new Point(newX2, (int)(pStart.Y + i)));
             }
             for (double i = 0; i < (Math.Sqrt(2) / 2) * b; i++)
             {
                 int newX2 = (int)(pStart.X - Math.Sqrt((aInPowerTwo * (bInPowerTwo - i * i)) / bInPowerTwo));
-                listOfPixels.Add(new Point(newX2, pStart.Y - i));
+                listOfPixels.Add(new Point(newX2, (int)(pStart.Y - i)));
             }
             for (double i = (Math.Sqrt(2) / 2) * a; i > 0; i--)
             {
                 int newY2 = (int)(pStart.Y - Math.Sqrt((bInPowerTwo * (aInPowerTwo - i * i)) / aInPowerTwo));
-                listOfPixels.Add(new Point(pStart.X - i, newY2));
+                listOfPixels.Add(new Point((int)(pStart.X - i), newY2));
             }
             return new Ellipce(listOfPixels);
         }

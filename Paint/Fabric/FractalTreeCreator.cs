@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
+using System.Drawing;
 
 namespace Paint.Fabric
 {
@@ -44,8 +44,8 @@ namespace Paint.Fabric
             {
                 numInerations *= 0.7; //Меняем параметр a
                                       //Считаем координаты для вершины-ребенка
-                pFinish.X = Math.Round(x + numInerations * Math.Cos(angle));
-                pFinish.Y = Math.Round(y - numInerations * Math.Sin(angle));
+                pFinish.X = (int)Math.Round(x + numInerations * Math.Cos(angle));
+                pFinish.Y = (int)Math.Round(y - numInerations * Math.Sin(angle));
                 //рисуем линию между вершинами          
                 figurePoints.Add(pStart);
                 figurePoints.Add(pFinish);

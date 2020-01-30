@@ -1,10 +1,11 @@
 ﻿using Paint.Rastr;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
+
 using System.Windows.Media.Imaging;
 
 namespace Paint
@@ -66,7 +67,7 @@ namespace Paint
                 double k = deltaY / deltaX;
                 for (int i = 0; i < deltaX; i++)
                 {
-                    newP.Y = (k * i + pStart.Y);
+                    newP.Y = ((int)(k * i + pStart.Y));
                     newP.X = i + pStart.X;
                     Pixel.Draw(newP, CurrentBrush.BrushColor.HexToRGBConverter());
                 }
@@ -76,7 +77,7 @@ namespace Paint
                 double k = deltaX / deltaY;
                 for (int i = 0; i < deltaY; i++)
                 {
-                    newP.X = (k * i + pStart.X);
+                    newP.X = ((int)(k * i + pStart.X));
                     newP.Y = i + pStart.Y;
                     Pixel.Draw(newP, CurrentBrush.BrushColor.HexToRGBConverter());
                 }
@@ -99,9 +100,9 @@ namespace Paint
                 double k = deltaY / deltaX;
                 for (int i = 0; i < deltaX; i++)
                 {
-                    newP.Y = (k * i + pStart.Y);
+                    newP.Y = ((int)(k * i + pStart.Y));
                     newP.X = pStart.X - i;
-                    Pixel.Draw( newP, CurrentBrush.BrushColor.HexToRGBConverter());
+                    Pixel.Draw(newP, CurrentBrush.BrushColor.HexToRGBConverter());
                 }
             }
             else
@@ -113,13 +114,13 @@ namespace Paint
                 double k = deltaX / deltaY;
                 for (int i = 0; i < deltaY; i++)
                 {
-                    newP.X = (k * i + pStart.X);
+                    newP.X = ((int)(k * i + pStart.X));
                     newP.Y = pStart.Y - i;
-                    Pixel.Draw( newP, CurrentBrush.BrushColor.HexToRGBConverter());
+                    Pixel.Draw(newP, CurrentBrush.BrushColor.HexToRGBConverter());
                 }
             }
         }
 
-        
+
     }
 }

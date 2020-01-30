@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media.Imaging;
+using System.Drawing;
+using Point = System.Drawing.Point;
 
 namespace Paint.Rastr
 {

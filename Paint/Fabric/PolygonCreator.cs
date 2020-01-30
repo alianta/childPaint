@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
+using System.Drawing;
 
 namespace Paint.Fabric
 {
@@ -56,7 +56,7 @@ namespace Paint.Fabric
             {
                 x = pStart.X + (int)(Math.Round(Math.Cos(z / 180 * Math.PI) * R));
                 y = pStart.Y - (int)(Math.Round(Math.Sin(z / 180 * Math.PI) * R));
-                figurePoints.Add(new Point(x, y));
+                figurePoints.Add(new Point((int)x, (int)y));
                 z = z + angle;
                 i++;
             }
@@ -73,7 +73,7 @@ namespace Paint.Fabric
         float GetAngle(Point pStart, Point pFinish, Point pV, double R)
         {
             /// Нормированный направляющий вектор отрезка
-            Point pV1 = new Point(pV.X / R, pV.Y / R);
+            Point pV1 = new Point((int)(pV.X / R), (int)(pV.Y / R));
 
             /// Угол между положительным направлением оси OX (вектор (1;0)) 
             /// и нормированным направляющим вектором отрезка

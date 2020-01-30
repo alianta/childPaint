@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
+using System.Drawing;
 
 namespace Paint.Fabric
 {
@@ -37,11 +37,11 @@ namespace Paint.Fabric
             }
 
             figurePoints.Add(pStart);
-            figurePoints.Add(new Point(pStart.X + w, pFinish.Y));
+            figurePoints.Add(new Point((int)(pStart.X + w), pFinish.Y));
             figurePoints.Add(pStart);
-            figurePoints.Add(new Point(pStart.X, pStart.Y + h));
-            figurePoints.Add(new Point(pStart.X, pStart.Y + h));
-            figurePoints.Add(new Point(pStart.X + w, pFinish.Y));
+            figurePoints.Add(new Point(pStart.X, (int)(pStart.Y + h)));
+            figurePoints.Add(new Point(pStart.X, (int)(pStart.Y + h)));
+            figurePoints.Add(new Point((int)(pStart.X + w), pFinish.Y));
 
             return new Triangle(figurePoints);
         }
@@ -59,8 +59,8 @@ namespace Paint.Fabric
             figurePoints.Add(pStart);
             figurePoints.Add(pFinish);
             figurePoints.Add(pStart);
-            figurePoints.Add(new Point(pFinish.X - (w * 2), pFinish.Y));
-            figurePoints.Add(new Point(pFinish.X - (w * 2), pFinish.Y));
+            figurePoints.Add(new Point((int)(pFinish.X - (w * 2)), pFinish.Y));
+            figurePoints.Add(new Point((int)(pFinish.X - (w * 2)), pFinish.Y));
             figurePoints.Add(pFinish);
 
             return new Triangle(figurePoints);

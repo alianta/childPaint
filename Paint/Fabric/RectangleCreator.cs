@@ -4,8 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
+using System.Drawing;
 using System.Windows.Media.Imaging;
+using Rectangle = Paint.Rastr.Rectangle;
 
 namespace Paint.Fabric
 {
@@ -43,9 +44,9 @@ namespace Paint.Fabric
             double dx = (pFinish.X - pStart.X) / 2;
             double dy = (pFinish.Y - pStart.Y) / 2;
 
-            figurePoints.Add(new Point(xc + dy, yc - dx));
+            figurePoints.Add(new Point((int)(xc + dy), (int)(yc - dx)));
             figurePoints.Add(pFinish);
-            figurePoints.Add(new Point(xc - dy, yc + dx));
+            figurePoints.Add(new Point((int)(xc - dy), (int)(yc + dx)));
             figurePoints.Add(pStart);
 
 
