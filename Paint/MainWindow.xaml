@@ -129,7 +129,8 @@
             <TextBox x:Name="gColor" Height="25" Width="50" VerticalAlignment="Center"/>
             <Label Content="B : " VerticalAlignment="Center"/>
             <TextBox x:Name="bColor" Height="25" Width="50" VerticalAlignment="Center"/>
-            <Label Content="FORMAT" VerticalAlignment="Center" FontSize="12" Margin="350,3,0,3" Height="24"/>
+
+            <Label Content="FORMAT" VerticalAlignment="Center" FontSize="12" Margin="300,3,0,3" Height="24"/>
             <ComboBox x:Name ="fileTypesList" Height="24" Width="60" FontSize="12">
                 <ComboBoxItem IsSelected="True">
                     <StackPanel Orientation="Horizontal">

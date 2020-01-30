@@ -10,6 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Drawing;
 using Point = System.Drawing.Point;
+using System.Media;
 
 namespace Paint
 {
@@ -39,6 +40,7 @@ namespace Paint
 
         public MainWindow()
         {
+            Scream();
             defaultDrawerRealization = new DrawByLine();
             defaultDrawerRealization.CurrentBrush = new Brush();
             currentBrush = defaultDrawerRealization.CurrentBrush;
@@ -56,6 +58,19 @@ namespace Paint
             ////defaultDrawerRealization.CurrentBrush = currentBrush;
 
             FillBitmap();
+            
+        }
+
+        private void Scream()
+        {
+            SoundPlayer player = new SoundPlayer();
+            player.SoundLocation = "C:/Users/User/Desktop/childPaint/Paint/white/female_scream.wav";
+            try
+            {
+                player.Load();
+                player.Play();
+            }
+            catch (Exception E) { }
         }
 
         //  ОБРАБОТКА СОБЫТИЙ
@@ -588,5 +603,6 @@ namespace Paint
 
         }
 
+        
     }
 }
