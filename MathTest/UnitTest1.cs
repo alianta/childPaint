@@ -43,6 +43,14 @@ namespace Paint.Fabric
                     return new Point(20, 40);
                 case "pointFinishSquer1":
                     return new Point(30, 100);
+                case "pointStartIsoscaleTriangle1":
+                    return new Point(10,20);
+                case "pointFinishIsoscaleTriangle1":
+                    return new Point(30,10);
+                case "pointStartIsoscaleTriangle2":
+                    return new Point(129, 170);
+                case "pointFinishIsoscaleTriangle2":
+                    return new Point(331,40);
                 default:
                     return new Point();
             }
@@ -102,6 +110,24 @@ namespace Paint.Fabric
                         new Point(30,50),
                         new Point(20,50),
                     };
+                case "pointListIsoscaleTriangle1":
+                    return new List<Point>() {
+                        new Point(10,20),
+                        new Point(30,10),
+                        new Point(10,20),
+                        new Point(10,10),
+                        new Point(10,10),
+                        new Point(30,10),
+                    };
+                case "pointListIsoscaleTriangle2":
+                    return new List<Point>() {
+                        new Point(129,170),
+                        new Point(331,40),
+                        new Point(129,170),
+                        new Point(129,40),
+                        new Point(129,40),
+                        new Point(331,40),
+                    };
                 default:
                     return new List<Point>();
             }
@@ -138,6 +164,26 @@ namespace Paint.Fabric
             List<Point> expected = GetPointsListByName(expectedPointsListName);
 
             List<Point> actual = rect.CreateIsoscaleRectangle(pStart, pFinish).Points;
+
+            CollectionAssert.AreEqual(expected, actual);
+        }
+
+
+
+
+
+        [TestCase("pointStartIsoscaleTriangle1", "pointFinishIsoscaleTriangle1", "pointListIsoscaleTriangle1")]
+        [TestCase("pointStartIsoscaleTriangle2", "pointFinishIsoscaleTriangle2", "pointListIsoscaleTriangle2")]
+        //[TestCase("point9", "point10", "pointList5")]
+        //[TestCase("point11", "point12", "pointList6")]
+        public void CreateIsoscaleTriangleTest(string pStartName, string pFinishName, string expectedPointsListName)
+        {
+            TriangleCreator rect = new TriangleCreator();
+            Point pStart = GetPointByName(pStartName);
+            Point pFinish = GetPointByName(pFinishName);
+            List<Point> expected = GetPointsListByName(expectedPointsListName);
+
+            List<Point> actual = rect.CreateIsoscaleTriangle(pStart, pFinish).Points;
 
             CollectionAssert.AreEqual(expected, actual);
         }

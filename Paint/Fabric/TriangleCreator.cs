@@ -8,19 +8,25 @@ using System.Drawing;
 
 namespace Paint.Fabric
 {
-    class TriangleCreator : FigureCreator
+    public class TriangleCreator : FigureCreator
     {
         public override Figure CreateFigure(Point pStart, Point pFinish, bool shiftPressed)
         {
             if (shiftPressed)
             {
-                return CreateIsoscaleTriangle(pStart, pFinish);
+                return CreateRectangularTriangle(pStart, pFinish);
             }
 
-            return CreateRectangularTriangle(pStart, pFinish);
+            return CreateIsoscaleTriangle (pStart, pFinish);
         }
 
-        private Figure CreateIsoscaleTriangle(Point pStart, Point pFinish)
+        /// <summary>
+        /// равнобедренный треугольник
+        /// </summary>
+        /// <param name="pStart"></param>
+        /// <param name="pFinish"></param>
+        /// <returns></returns>
+        public Figure CreateIsoscaleTriangle(Point pStart, Point pFinish)
         {
             List<Point> figurePoints = new List<Point>();
             double w = Math.Abs(pFinish.X - pStart.X);
@@ -46,7 +52,7 @@ namespace Paint.Fabric
             return new Triangle(figurePoints);
         }
 
-        private Figure CreateRectangularTriangle(Point pStart, Point pFinish)
+        public Figure CreateRectangularTriangle(Point pStart, Point pFinish)
         {
             List<Point> figurePoints = new List<Point>();
             double w = Math.Abs(pFinish.X - pStart.X);

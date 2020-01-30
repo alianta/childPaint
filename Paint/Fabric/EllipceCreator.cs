@@ -8,7 +8,7 @@ using System.Drawing;
 
 namespace Paint.Fabric
 {
-    class EllipceCreator : FigureCreator
+   public class EllipceCreator : FigureCreator
     {
 
         public override Figure CreateFigure(Point pStart, Point pFinish, bool shiftPressed)
@@ -21,7 +21,7 @@ namespace Paint.Fabric
             return CreateEllipce(pStart, pFinish);
         }
 
-        private Figure CreateCircle(Point pStart, Point pFinish)
+        public Figure CreateCircle(Point pStart, Point pFinish)
         {
             List<Point> listOfPixels = new List<Point>();
             int R = (int)Math.Sqrt((Math.Pow((pFinish.X - pStart.X), 2)) + (Math.Pow((pFinish.Y - pStart.Y), 2)));

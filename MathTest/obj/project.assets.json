@@ -5280,11 +5280,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\User\\Desktop\\ggg\\childPaint\\MathTest\\MathTest.csproj",
+      "projectUniqueName": "C:\\Users\\User\\Desktop\\kraken\\childPaint\\MathTest\\MathTest.csproj",
       "projectName": "MathTest",
-      "projectPath": "C:\\Users\\User\\Desktop\\ggg\\childPaint\\MathTest\\MathTest.csproj",
+      "projectPath": "C:\\Users\\User\\Desktop\\kraken\\childPaint\\MathTest\\MathTest.csproj",
       "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\User\\Desktop\\ggg\\childPaint\\MathTest\\obj\\",
+      "outputPath": "C:\\Users\\User\\Desktop\\kraken\\childPaint\\MathTest\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -5300,8 +5300,8 @@
       "frameworks": {
         "netcoreapp3.0": {
           "projectReferences": {
-            "C:\\Users\\User\\Desktop\\ggg\\childPaint\\Paint\\Paint.csproj": {
-              "projectPath": "C:\\Users\\User\\Desktop\\ggg\\childPaint\\Paint\\Paint.csproj"
+            "C:\\Users\\User\\Desktop\\kraken\\childPaint\\Paint\\Paint.csproj": {
+              "projectPath": "C:\\Users\\User\\Desktop\\kraken\\childPaint\\Paint\\Paint.csproj"
             }
           }
         }
@@ -5338,12 +5338,26 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
+        "downloadDependencies": [
+          {
+            "name": "Microsoft.AspNetCore.App.Ref",
+            "version": "[3.0.1, 3.0.1]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Ref",
+            "version": "[3.0.0, 3.0.0]"
+          },
+          {
+            "name": "Microsoft.WindowsDesktop.App.Ref",
+            "version": "[3.0.0, 3.0.0]"
+          }
+        ],
         "frameworkReferences": {
           "Microsoft.NETCore.App": {
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.102\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.101\\RuntimeIdentifierGraph.json"
       }
     }
   }
