@@ -164,5 +164,8 @@
   <ItemGroup>
     <Folder Include="Vector\" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="white\female_scream.wav" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
