@@ -22,17 +22,29 @@ namespace Paint.Fabric
             return CreateIsoscaleRectangle(pStart, pFinish);
         }
 
-        private Figure CreateIsoscaleRectangle(Point pStart, Point pFinish)
+        public Figure CreateIsoscaleRectangle(Point pStart, Point pFinish)
         {
             List<Point> figurePoints = new List<Point>();
             figurePoints.Add(pStart);
-            figurePoints.Add(new Point(pStart.X, pFinish.Y));
+
+            Point pointA = new Point();
+            pointA.X= pStart.X;
+            pointA.Y = pFinish.Y;
+
+            Point pointB = new Point();
+            pointB.X = pFinish.X;
+            pointB.Y = pStart.Y;
+
+            figurePoints.Add(pointA);
             figurePoints.Add(pFinish);
-            figurePoints.Add(new Point(pFinish.X, pStart.Y));
-            figurePoints.Add(pStart);
+            figurePoints.Add(pointB);
+            //figurePoints.Add(pStart);
 
             return new Rectangle(figurePoints);
         }
+
+
+
 
         public Figure CreateSquere(Point pStart, Point pFinish)
         {
