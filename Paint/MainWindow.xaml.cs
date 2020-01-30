@@ -1,4 +1,4 @@
-﻿using Paint.Fabric;
+using Paint.Fabric;
 using Paint.Rastr;
 using Paint.Thickness;
 using System;
@@ -22,12 +22,10 @@ namespace Paint
         MyBitmap myBitmap;
         IDrawer defaultDrawerRealization;
         FigureEnum flagFigure = FigureEnum.Pen;
-        //string flagFigure1 = "Pen";
         byte[] colorData = { 0, 0, 0, 255 }; //все для создания цвета
         bool isPressed = false; //передает состаяние мыши
         Point prevPoint; //точка начала коордиат
         Point pStart;// Начальная точка
-        Point pStaticStart;// Неизменная начальная точка для ломаной линии
         Point pFinish;// Конечная точка
         int numSides;//количество сторон
         bool shiftPressed = false;
@@ -179,7 +177,7 @@ namespace Paint
                 }
 
                 concreteFigure.DrawerRealisation = defaultDrawerRealization;
-
+              
                 if (flagFigure != FigureEnum.Pen)
                 {
                     myBitmap.SetBitmapToCopy();
@@ -230,7 +228,7 @@ namespace Paint
         /// <param name="e"></param>
         private void MainImage_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (clickCount < 2)
+            if (clickCount < 2 && flagFigure == FigureEnum.ClosingLines)
             {
                 clickCount++;
             }
@@ -241,7 +239,6 @@ namespace Paint
             if (clickCount == 1 && flagFigure == FigureEnum.ClosingLines)
             {
                 concreteCreator = new ClosingLinesCreator();
-                pStaticStart = pStart;
             }
 
             if (isBucket)
@@ -277,7 +274,6 @@ namespace Paint
             {
                 concreteFigure = concreteCreator.CreateFigure(tmpPoint, pFinish, isDoubleClicked);
                 concreteFigure.DrawerRealisation = defaultDrawerRealization;
-                myBitmap.SetBitmapToCopy();
                 concreteFigure.DoDraw();
                 MainImage.Source = myBitmap.btm;
 
@@ -354,8 +350,8 @@ namespace Paint
         /// 
         private void ShowCurPoint(MouseEventArgs e)
         {
-            xPosition.Text = Convert.ToString(e.GetPosition(MainImage).X);
-            yPosition.Text = Convert.ToString(e.GetPosition(MainImage).Y);
+            xPosition.Text = Convert.ToString(Convert.ToInt32(e.GetPosition(MainImage).X));
+            yPosition.Text = Convert.ToString(Convert.ToInt32(e.GetPosition(MainImage).Y));
         }
 
         /// <summary>
