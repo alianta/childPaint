@@ -74,6 +74,7 @@
     <Compile Include="Fabric\PolygonCreator.cs" />
     <Compile Include="Fabric\RectangleCreator.cs" />
     <Compile Include="Fabric\StraightLineCreator.cs" />
+    <Compile Include="Fill.cs" />
     <Compile Include="MyBitmap.cs" />
     <Compile Include="Brush.cs" />
     <Compile Include="Color.cs" />
