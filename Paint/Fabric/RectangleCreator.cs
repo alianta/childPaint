@@ -10,7 +10,7 @@ using Rectangle = Paint.Rastr.Rectangle;
 
 namespace Paint.Fabric
 {
-    class RectangleCreator : FigureCreator
+  public class RectangleCreator : FigureCreator
     {
         public override Figure CreateFigure(Point pStart, Point pFinish, bool shiftPressed)
         {
@@ -34,20 +34,24 @@ namespace Paint.Fabric
             return new Rectangle(figurePoints);
         }
 
-        private Figure CreateSquere(Point pStart, Point pFinish)
+        public Figure CreateSquere(Point pStart, Point pFinish)
         {
             List<Point> figurePoints = new List<Point>();
             figurePoints.Add(pStart);
-            double xc = (pStart.X + pFinish.X) / 2;
-            double yc = (pStart.Y + pFinish.Y) / 2;
 
-            double dx = (pFinish.X - pStart.X) / 2;
-            double dy = (pFinish.Y - pStart.Y) / 2;
+            Point pointA = new Point();
+            pointA.X = pFinish.X;
+            pointA.Y = pStart.Y;
 
-            figurePoints.Add(new Point((int)(xc + dy), (int)(yc - dx)));
+            Point pointB = new Point();
+            pointB.X = pStart.X;
+            pointB.Y = pStart.Y + (pFinish.X - pStart.X);
+
+            pFinish.Y = pStart.Y + (pFinish.X - pStart.X);
+
+            figurePoints.Add(pointA);
             figurePoints.Add(pFinish);
-            figurePoints.Add(new Point((int)(xc - dy), (int)(yc + dx)));
-            figurePoints.Add(pStart);
+            figurePoints.Add(pointB);
 
 
             return new Rectangle(figurePoints);

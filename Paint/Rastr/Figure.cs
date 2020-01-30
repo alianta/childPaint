@@ -4,7 +4,7 @@ using System.Drawing;
 
 namespace Paint.Rastr
 {
-    abstract class Figure
+  public abstract class Figure
     {
         public List<Point> Points { get; set; }
         public IDrawer DrawerRealisation { get; set; }
