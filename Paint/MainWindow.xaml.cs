@@ -8,7 +8,6 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Drawing;
 using Point = System.Drawing.Point;
 using System.Media;
 
@@ -62,8 +61,10 @@ namespace Paint
 
         private void Scream()
         {
-            SoundPlayer player = new SoundPlayer();
-            player.SoundLocation = "C:/Users/User/Desktop/childPaint/Paint/white/female_scream.wav";
+            SoundPlayer player = new SoundPlayer();            
+            string path = Directory.GetCurrentDirectory();
+            player.SoundLocation = path + "\\white\\female_scream.wav";
+           
             try
             {
                 player.Load();
@@ -72,7 +73,6 @@ namespace Paint
             catch (Exception E) { }
         }
 
-        //  ОБРАБОТКА СОБЫТИЙ
         private void FillBitmap()
         {
             currentBrush = new Brush(currentBrush.BrushThickness, new Color("FFFFFFFF"));
@@ -84,6 +84,8 @@ namespace Paint
                 }
             }
         }
+
+        //  ОБРАБОТКА СОБЫТИЙ
 
 
         /// <summary>
@@ -139,6 +141,7 @@ namespace Paint
 
         FigureCreator concreteCreator = null;
         Figure concreteFigure = null;
+
         /// <summary>
         /// Метод обрабатывает двидение мыши по холсту
         /// </summary>
@@ -198,7 +201,6 @@ namespace Paint
                     concreteFigure = concreteCreator.CreateFigure(prevPoint, curPoint, shiftPressed);
                 }
 
-              
                     concreteFigure.DrawerRealisation = defaultDrawerRealization;
               
                 if (flagFigure == FigureEnum.Pen || flagFigure == FigureEnum.Eraser)

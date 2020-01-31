@@ -73,11 +73,11 @@ namespace Paint.Fabric
         float GetAngle(Point pStart, Point pFinish, Point pV, double R)
         {
             /// Нормированный направляющий вектор отрезка
-            Point pV1 = new Point((int)(pV.X / R), (int)(pV.Y / R));
+            double v1x = pV.X / R;
 
             /// Угол между положительным направлением оси OX (вектор (1;0)) 
             /// и нормированным направляющим вектором отрезка
-            float alpha = (float)(Math.Acos(pV1.X) * 180 / Math.PI);
+            float alpha = (float)(Math.Acos(v1x) * 180 / Math.PI);
 
             if (pStart.Y < pFinish.Y)
                 return alpha;
