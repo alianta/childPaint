@@ -30,32 +30,35 @@ namespace Paint
         /// <param name="wb">Холст</param>
         /// <param name="pStart">Начальная точка</param>
         /// <param name="pFinish">конечная точка</param>
-        public void DrawLine(Point pStart, Point pFinish) //переписать в private как все фигуры передалем не предыдущий метод с толщиой (в фигурах должен вызываться предыдущий метод с толщиной)
+        public void DrawLine(Point pStart, Point pFinish)
         {
+            int d = 1;
             if (pFinish.X >= pStart.X && pFinish.Y >= pStart.Y)//прямая начинается с права с верху в низ
             {
-                DrawLineInThirdTourthQuarters(pStart, pFinish);
+                DrawLineInThirdTourthQuarters(pStart, pFinish, d);
             }
             else if (pFinish.X <= pStart.X && pFinish.Y <= pStart.Y)//прямая начинается с права с низу в верх
             {
-                DrawLineInThirdTourthQuarters(pFinish, pStart);
+                DrawLineInThirdTourthQuarters(pFinish, pStart, d);
             }
             else if (pFinish.X > pStart.X && pFinish.Y < pStart.Y)//прямая начинается с лева с низу в верх
             {
-                DrawLineInFirstSecondQuarters(pFinish, pStart);
+                d *= -1;
+                DrawLineInThirdTourthQuarters(pFinish, pStart, d);
             }
             else if (pFinish.X < pStart.X && pFinish.Y > pStart.Y)//прямая начинается с лева с верху в низ
             {
-                DrawLineInFirstSecondQuarters(pStart, pFinish);
+                d *= -1;
+                DrawLineInThirdTourthQuarters(pStart, pFinish, d);
             }
         }
 
         /// <summary>
-        /// Метод риcует линию по двум координатам дял 3 и 4 четвертей 
+        /// Метод риcует линию по двум координатам 
         /// </summary>
         /// <param name="pStart">Point точка старта</param>
         /// <param name="pFinish">Point точка финиша</param>
-        private void DrawLineInThirdTourthQuarters(Point pStart, Point pFinish)
+        private void DrawLineInThirdTourthQuarters(Point pStart, Point pFinish, int d)
         {
             Point newP = new Point();
 
@@ -68,46 +71,13 @@ namespace Paint
                 for (int i = 0; i < deltaX; i++)
                 {
                     newP.Y = ((int)(k * i + pStart.Y));
-                    newP.X = i + pStart.X;
+                    newP.X = pStart.X + i * d;
                     Pixel.Draw(newP, CurrentBrush.BrushColor.HexToRGBConverter());
                 }
             }
             else
             {
-                double k = deltaX / deltaY;
-                for (int i = 0; i < deltaY; i++)
-                {
-                    newP.X = ((int)(k * i + pStart.X));
-                    newP.Y = i + pStart.Y;
-                    Pixel.Draw(newP, CurrentBrush.BrushColor.HexToRGBConverter());
-                }
-            }
-        }
-
-        /// <summary>
-        /// Метод римует линию по по двум координатам для 1 и 2 четвертей
-        /// </summary>
-        /// <param name="pStart"></param>
-        /// <param name="pFinish"></param>
-        private void DrawLineInFirstSecondQuarters(Point pStart, Point pFinish)
-        {
-            Point newP = new Point();
-            double deltaX = Math.Abs(pFinish.X - pStart.X) + 1;
-            double deltaY = Math.Abs(pFinish.Y - pStart.Y) + 1;
-
-            if (deltaX > deltaY)
-            {
-                double k = deltaY / deltaX;
-                for (int i = 0; i < deltaX; i++)
-                {
-                    newP.Y = ((int)(k * i + pStart.Y));
-                    newP.X = pStart.X - i;
-                    Pixel.Draw(newP, CurrentBrush.BrushColor.HexToRGBConverter());
-                }
-            }
-            else
-            {
-                if (pFinish.X < pStart.X && pFinish.Y > pStart.Y)
+                if (pFinish.X < pStart.X)
                 {
                     pStart = pFinish;
                 }
@@ -115,12 +85,10 @@ namespace Paint
                 for (int i = 0; i < deltaY; i++)
                 {
                     newP.X = ((int)(k * i + pStart.X));
-                    newP.Y = pStart.Y - i;
+                    newP.Y = pStart.Y + i * d;
                     Pixel.Draw(newP, CurrentBrush.BrushColor.HexToRGBConverter());
                 }
             }
         }
-
-
     }
 }

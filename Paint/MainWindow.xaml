@@ -14,6 +14,10 @@
             <TabItem x:Name="vector" Header="VECTOR" />
         </TabControl>
         <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="0,24,0,0" Background="White" Height="50">
+
+            <Button x:Name="btnBack" Height="35" Width="30" Background="White" BorderThickness="0" Click="BtnBackForward_Click" FontFamily="Segoe MDL2 Assets" Content="&#xE72B;"/>
+            <Button x:Name="btnForward" Height="35" Width="30" Background="White" BorderThickness="0" Click="BtnBackForward_Click" FontFamily="Segoe MDL2 Assets" Content="&#xE72A;"/>
+            
             <Button x:Name="btnLine" Height="35" Width="30" Background="White" BorderThickness="0" Click="btnFigure_Click">
                 <Image Source="white/b_14-pencil.png"></Image>
             </Button>
@@ -105,7 +109,7 @@
                 <Button x:Name="bntYellow" Width="20" Height="20" Margin="1" Background="#ffff00" Click="Button_Change_Color"/>
                 <Button x:Name="bntWhite" Width="20" Height="20" Margin="1" Background="White" Click="Button_Change_Color"/>
             </WrapPanel>
-            <Button x:Name="clearBtn" Height="30" Width="90" Margin="150,9,0,10.6" Background="White" Content="CLEAR ALL" FontSize="11" Click="Button_Clear"/>
+            <Button x:Name="clearBtn" Height="30" Width="80" Margin="80,9,0,10.6" Background="White" Content="CLEAR ALL" FontSize="11" Click="Button_Clear"/>
 
 
 

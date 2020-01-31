@@ -26,7 +26,7 @@ namespace Paint
         /// Данные, хранимые в классе.
         /// </summary>
         public WriteableBitmap btm { get; set; }
-        private WriteableBitmap btmCopy { get; set; }
+        public WriteableBitmap btmCopy { get; set; }
 
         /// <summary>
         /// Защищенный конструктор для инициализации единственного экземпляра класса.

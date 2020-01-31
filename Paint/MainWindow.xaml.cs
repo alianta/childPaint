@@ -497,6 +497,16 @@ namespace Paint
             isBucket = true;
         }
 
-        
+        private void BtnBackForward_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender.Equals(btnBack))
+            {
+                MainImage.Source = myBitmap.btmCopy;
+            }
+            if (sender.Equals(btnForward))
+            {
+                MainImage.Source = myBitmap.btm;
+            }
+        }
     }
 }
