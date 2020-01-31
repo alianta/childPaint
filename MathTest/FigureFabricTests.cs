@@ -89,6 +89,17 @@ namespace Paint.Fabric
                 case "pointFinishPolygon3":
                     return new Point(400, 400);
 
+
+                case "pointStartCircle1":
+                    return new Point(0, 0);
+                case "pointFinishCircle1":
+                    return new Point(3, 4);
+
+                case "pointStartEllipce1":
+                    return new Point(8, 3);
+                case "pointFinishEllipce1":
+                    return new Point(10, 6);
+
                 default:
                     return new Point();
             }
@@ -247,6 +258,73 @@ namespace Paint.Fabric
                         new Point(200, 400),
                         new Point(300, 441)
                     };
+                case "pointListCircle1":
+                    return new List<Point>() {
+                        //первый фор
+                        new Point(-0,-5),
+                        new Point(1,(int)-4.8989794855663561963945681494118),
+                        new Point(2,(int)-4.582575694955840006588047193728),
+                        new Point(3,-4),
+                        //второй фор
+                        new Point(4,-3),
+                        new Point((int)4.582575694955840006588047193728,-2),
+                        new Point((int)4.8989794855663561963945681494118,-1),
+                        //третий фор
+                        new Point(5,0),
+                        new Point((int)4.8989794855663561963945681494118,1),
+                        new Point((int)4.582575694955840006588047193728,2),
+                        new Point(4,3),
+                        //четвертый фор
+                        new Point(3,4),
+                        new Point(2,(int)4.582575694955840006588047193728),
+                        new Point(1,(int)4.8989794855663561963945681494118),
+                        //п€тый фор
+                        new Point(0,5),
+                        new Point(-1,(int)4.8989794855663561963945681494118),
+                        new Point(-2,(int)4.582575694955840006588047193728),
+                        new Point(-3,4),
+                        //шестой фор
+                        new Point(-4,3),
+                        new Point((int)-4.582575694955840006588047193728,2),
+                        new Point((int)-4.8989794855663561963945681494118,1),
+                        //седьмой фор
+                        new Point(-5,0),
+                        new Point((int)-4.8989794855663561963945681494118,-1),
+                        new Point((int)-4.582575694955840006588047193728,-2),
+                        new Point(-4,-3),
+                        //восьмой фор
+                        new Point(-3,-4),
+                        new Point(-2,(int)-4.582575694955840006588047193728),
+                        new Point(-1,(int)-4.8989794855663561963945681494118),
+
+                    };
+
+                case "pointListEllipce1":
+                    return new List<Point>() {
+                        new Point(8,0),
+                        new Point(9,0),
+                        new Point(9,0),
+                        new Point(9,1),
+                        new Point(9,2),
+                        new Point(10,3),
+                        new Point(9,4),
+                        new Point(9,5),
+                        new Point(9,5),
+                        new Point(8,5),
+                        new Point(8,6),
+                        new Point(7,5),
+                        new Point(6,5),
+                        new Point(6,4),
+                        new Point(6,3),
+                        new Point(6,3),
+                        new Point(6,2),
+                        new Point(6,1),
+                        new Point(6,0),
+                        new Point(7,0),
+                    };
+
+
+
                 default:
                     return new List<Point>();
             }
@@ -335,6 +413,34 @@ namespace Paint.Fabric
             List<Point> expected = GetPointsListByName(expectedPointsListName);
 
             List<Point> actual = polygon.CreatePolygon(pStart, pFinish, sides).Points;
+
+            CollectionAssert.AreEqual(expected, actual);
+        }
+
+        // –”√
+        [TestCase("pointStartCircle1", "pointFinishCircle1", "pointListCircle1")]
+        public void CreateCircle(string pStartName, string pFinishName, string expectedPointsListName)
+        {
+            EllipceCreator rect = new EllipceCreator();
+            Point pStart = GetPointByName(pStartName);
+            Point pFinish = GetPointByName(pFinishName);
+            List<Point> expected = GetPointsListByName(expectedPointsListName);
+
+            List<Point> actual = rect.CreateCircle(pStart, pFinish).Points;
+
+            CollectionAssert.AreEqual(expected, actual);
+        }
+
+        //ЁЋЋ»ѕ—
+        [TestCase("pointStartEllipce1", "pointFinishEllipce1", "pointListEllipce1")]
+        public void CreateEllipce(string pStartName, string pFinishName, string expectedPointsListName)
+        {
+            EllipceCreator rect = new EllipceCreator();
+            Point pStart = GetPointByName(pStartName);
+            Point pFinish = GetPointByName(pFinishName);
+            List<Point> expected = GetPointsListByName(expectedPointsListName);
+
+            List<Point> actual = rect.CreateEllipce(pStart, pFinish).Points;
 
             CollectionAssert.AreEqual(expected, actual);
         }

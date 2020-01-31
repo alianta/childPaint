@@ -70,7 +70,7 @@ namespace Paint.Fabric
             return new Ellipce(listOfPixels);
         }
 
-        private Figure CreateEllipce(Point pStart, Point pFinish)
+        public Figure CreateEllipce(Point pStart, Point pFinish)
         {
             List<Point> listOfPixels = new List<Point>();
             double a = (pFinish.X > pStart.X) ? pFinish.X - pStart.X : pStart.X - pFinish.X;
