@@ -5275,19 +5275,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\User\\.nuget\\packages\\": {}
+    "C:\\Users\\Star\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\User\\Desktop\\kraken\\childPaint\\MathTest\\MathTest.csproj",
+      "projectUniqueName": "D:\\Новая папка\\кракен\\childPaint\\MathTest\\MathTest.csproj",
       "projectName": "MathTest",
-      "projectPath": "C:\\Users\\User\\Desktop\\kraken\\childPaint\\MathTest\\MathTest.csproj",
-      "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\User\\Desktop\\kraken\\childPaint\\MathTest\\obj\\",
+      "projectPath": "D:\\Новая папка\\кракен\\childPaint\\MathTest\\MathTest.csproj",
+      "packagesPath": "C:\\Users\\Star\\.nuget\\packages\\",
+      "outputPath": "D:\\Новая папка\\кракен\\childPaint\\MathTest\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Star\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -5300,8 +5300,8 @@
       "frameworks": {
         "netcoreapp3.0": {
           "projectReferences": {
-            "C:\\Users\\User\\Desktop\\kraken\\childPaint\\Paint\\Paint.csproj": {
-              "projectPath": "C:\\Users\\User\\Desktop\\kraken\\childPaint\\Paint\\Paint.csproj"
+            "D:\\Новая папка\\кракен\\childPaint\\Paint\\Paint.csproj": {
+              "projectPath": "D:\\Новая папка\\кракен\\childPaint\\Paint\\Paint.csproj"
             }
           }
         }
@@ -5357,7 +5357,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.101\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.100\\RuntimeIdentifierGraph.json"
       }
     }
   }
