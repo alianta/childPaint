@@ -21,7 +21,6 @@ namespace Paint
         WriteableBitmap wb; //создает новый холст Image для рисования 
         byte[] pixelsCopy = new byte[] { };
         Brush currentBrush;
-        //IDrawer eraserDrawerRealization;
         MyBitmap myBitmap;
         IDrawer defaultDrawerRealization;
         ColoredFiguresStrategy defaultFillRealization;
@@ -37,7 +36,8 @@ namespace Paint
         bool isDoubleClicked = false;
         int clickCount = 0;
         Fill fill = new Fill();
-        //Pen pen;
+        Stack stackBack = new Stack();
+        Stack stackForward = new Stack();
 
         public MainWindow()
         {
@@ -50,22 +50,20 @@ namespace Paint
             wb = new WriteableBitmap((int)MainImage.Width, (int)MainImage.Height, 96, 96, PixelFormats.Bgra32, null);
             myBitmap = MyBitmap.GetBitmap();
             myBitmap.btm = wb;
+            stackBack.AddMyBitmap(myBitmap.btm);
             MainImage.Source = myBitmap.btm;
 
             ShowCurColorRGB(colorData);
-
-            ////defaultDrawerRealization.CurrentBrush = currentBrush;
-
             FillBitmap();
-            
+
         }
 
         private void Scream()
         {
-            SoundPlayer player = new SoundPlayer();            
+            SoundPlayer player = new SoundPlayer();
             string path = Directory.GetCurrentDirectory();
             player.SoundLocation = path + "\\white\\female_scream.wav";
-           
+
             try
             {
                 player.Load();
@@ -156,7 +154,7 @@ namespace Paint
 
             if (isPressed)
             {
-                MainImage.Source = wb;
+                MainImage.Source = myBitmap.btm;
 
                 switch (flagFigure)
                 {
@@ -197,13 +195,10 @@ namespace Paint
                 {
                     concreteFigure = concreteCreator.CreateFigure(prevPoint, curPoint, isDoubleClicked);
                 }
-                else if (flagFigure != FigureEnum.ClosingLines)
-                {
-                    concreteFigure = concreteCreator.CreateFigure(prevPoint, curPoint, shiftPressed);
-                }
 
-                    concreteFigure.DrawerRealisation = defaultDrawerRealization;
-              
+                concreteFigure = concreteCreator.CreateFigure(prevPoint, curPoint, shiftPressed);
+                concreteFigure.DrawerRealisation = defaultDrawerRealization;
+
                 if (flagFigure == FigureEnum.Pen || flagFigure == FigureEnum.Eraser)
                 {
                     prevPoint = curPoint;
@@ -211,10 +206,10 @@ namespace Paint
                 else
                 {
                     myBitmap.SetBitmapToCopy();
+                    
                 }
 
                 concreteFigure.DoDraw();
-                MainImage.Source = myBitmap.btm;
             }
         }
 
@@ -230,20 +225,6 @@ namespace Paint
             colorData = HexToRGBConverter(buttonStr);
             ShowCurColorRGB(colorData);
         }
-
-        /// <summary>
-        /// Метод обрабатывает нажатие на кнопку ластика
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        //private void BtnEraser_Click(object sender, RoutedEventArgs e)
-        //{
-        //    eraserDrawerRealization = new DrawByLine();
-        //    eraserDrawerRealization.CurrentBrush = new Brush(new MediumThickness(), new Color("#FFFFFFFF"));
-
-   
-        //    //ShowCurColorRGB(colorData);
-        //}
 
         Point tmpPoint;
         /// <summary>
@@ -290,10 +271,17 @@ namespace Paint
         {
             isPressed = false;
             pFinish = SetToCurPoint(e);
+            
 
-            if (!isDoubleClicked && flagFigure == FigureEnum.ClosingLines)
+            if (!isDoubleClicked)
             {
-                isPressed = true;
+                stackBack.AddMyBitmap(myBitmap.btm);
+
+                if (flagFigure == FigureEnum.ClosingLines)
+                {
+                    isPressed = true;
+                }
+                
             }
             if (clickCount > 1 && flagFigure == FigureEnum.ClosingLines)
             {
@@ -398,9 +386,6 @@ namespace Paint
         /// <param name="colorData">byte[] {alpha, red, green, blue}</param>
         private void ShowCurColorRGB(byte[] colorData)
         {
-            /* red = colorData[1];
-             green = colorData[2];
-             blue = colorData[3];*/
             rColor.Text = Convert.ToString(colorData[2]);
             gColor.Text = Convert.ToString(colorData[1]);
             bColor.Text = Convert.ToString(colorData[0]);
@@ -461,22 +446,18 @@ namespace Paint
             if (selectedItem.Equals(thick1))
             {
                 defaultDrawerRealization.CurrentBrush.BrushThickness = new DefaultThickness();
-                //pen.CurrentBrush.BrushThickness = new DefaultThickness();
             }
             else if (selectedItem.Equals(thick2))
             {
                 defaultDrawerRealization.CurrentBrush.BrushThickness = new MediumThickness();
-                //pen.CurrentBrush.BrushThickness = new MediumThickness();
             }
             else if (selectedItem.Equals(thick3))
             {
                 defaultDrawerRealization.CurrentBrush.BrushThickness = new BoldThickness();
-                //pen.CurrentBrush.BrushThickness = new BoldThickness();
             }
             else if (selectedItem.Equals(thick4))
             {
                 defaultDrawerRealization.CurrentBrush.BrushThickness = new ExtraboldThickness();
-                //pen.CurrentBrush.BrushThickness = new ExtraboldThickness();
             }
         }
 
@@ -485,14 +466,6 @@ namespace Paint
 
         }
 
-        private void MainImage_MouseEnter(object sender, MouseButtonEventArgs e)
-        {
-
-        }
-
-
-       
-
         private void bntFillBucket_Click(object sender, RoutedEventArgs e)
         {
             isBucket = true;
@@ -500,15 +473,23 @@ namespace Paint
 
         private void BtnBackForward_Click(object sender, RoutedEventArgs e)
         {
+            
             if (sender.Equals(btnBack))
             {
-                MainImage.Source = myBitmap.btmCopy;
+                if (stackBack.GetSize() > 1)
+                {
+                    stackForward.AddMyBitmap(stackBack.GetMyBitmap());
+                }
+
+                myBitmap.btm = stackBack.GetMyBitmap();
+                MainImage.Source = myBitmap.btm;
+                stackBack.AddMyBitmap(myBitmap.btm);
             }
-            if (sender.Equals(btnForward))
+            if (sender.Equals(btnForward) && stackForward.GetSize() > 0)
             {
+                myBitmap.btm = stackForward.GetMyBitmap();
                 MainImage.Source = myBitmap.btm;
             }
-
         }
         private void clrdFigure_Click(object sender, RoutedEventArgs e)
         {

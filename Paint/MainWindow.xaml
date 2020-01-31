@@ -109,7 +109,7 @@
 				<Button x:Name="bntYellow" Width="20" Height="20" Margin="1" Background="#ffff00" Click="Button_Change_Color"/>
 				<Button x:Name="bntWhite" Width="20" Height="20" Margin="1" Background="White" Click="Button_Change_Color"/>
 			</WrapPanel>
-			<Button x:Name="clearBtn" Height="30" Width="80" Margin="80,9,0,10.6" Background="White" Content="CLEAR ALL" FontSize="11" Click="Button_Clear"/>
+			<Button x:Name="clearBtn" Height="30" Width="80" Margin="60,9,0,10.6" Background="White" Content="CLEAR ALL" FontSize="11" Click="Button_Clear"/>
 
 
 

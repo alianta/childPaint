@@ -17,7 +17,7 @@ namespace Paint
 
 
 
-        bool isPressed = false;
+        //bool isPressed = false;
 
         private byte[] GetPixelColorData(Point currentPoint)//возвращает цвет пикселя на битмапе
         {
@@ -114,7 +114,7 @@ namespace Paint
                     FillFigureStep(new byte[4] { 255, 0, 0, 255 }, startColorData, point2);
                 }
             }
-            isPressed = false;
+            //isPressed = false;
 
 
 

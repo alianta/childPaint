@@ -87,6 +87,7 @@
     <Compile Include="Rastr\NeLine.cs" />
     <Compile Include="Rastr\ClosingLines.cs" />
     <Compile Include="Rastr\FigureEnum.cs" />
+    <Compile Include="Stack.cs" />
     <Compile Include="Thickness\EraserThickness.cs" />
     <Compile Include="Thickness\ExtraboldThickness.cs" />
     <Compile Include="Thickness\DefaultThickness.cs" />
