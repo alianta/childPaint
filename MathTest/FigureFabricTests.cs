@@ -76,6 +76,19 @@ namespace Paint.Fabric
                 case "pointFinishRectangularTriangle12":
                     return new Point(-200, -200);
 
+                case "pointStartPolugon1":
+                    return new Point(500, 200);
+                case "pointFinishPolygon1":
+                    return new Point(300, 100);
+                case "pointStartPolugon2":
+                    return new Point(50, 500);
+                case "pointFinishPolygon2":
+                    return new Point(400, 400);
+                case "pointStartPolugon3":
+                    return new Point(300, 300);
+                case "pointFinishPolygon3":
+                    return new Point(400, 400);
+
                 default:
                     return new Point();
             }
@@ -209,6 +222,31 @@ namespace Paint.Fabric
                         new Point(-200,-200),
                         new Point(-200,-200),
                     };
+                case "pointListPolygon1":
+                    return new List<Point>() {
+                        new Point(300, 100),
+                        new Point(513, 423),
+                        new Point(687, 77)
+                    };
+                case "pointListPolygon2":
+                    return new List<Point>() {
+                        new Point(400, 400),
+                        new Point(63, 136),
+                        new Point(-292, 375),
+                        new Point(-174, 787),
+                        new Point(253, 802)
+                    };
+                case "pointListPolygon3":
+                    return new List<Point>() {
+                        new Point(400, 400),
+                        new Point(441, 300),
+                        new Point(400, 200),
+                        new Point(300, 159),
+                        new Point(200, 200),
+                        new Point(159, 300),
+                        new Point(200, 400),
+                        new Point(300, 441)
+                    };
                 default:
                     return new List<Point>();
             }
@@ -282,10 +320,24 @@ namespace Paint.Fabric
 
             CollectionAssert.AreEqual(expected, actual);
         }
+        
 
+        // ÃŒ√Œ”√ŒÀ‹Õ» 
 
+        [TestCase("pointStartPolugon1", "pointFinishPolygon1", 3, "pointListPolygon1")]
+        [TestCase("pointStartPolugon2", "pointFinishPolygon2", 5, "pointListPolygon2")]
+        [TestCase("pointStartPolugon3", "pointFinishPolygon3", 8, "pointListPolygon3")]
+        public void CreatePolygonTriangle(string pStartName, string pFinishName, int sides, string expectedPointsListName)
+        {
+            PolygonCreator polygon = new PolygonCreator(sides);
+            Point pStart = GetPointByName(pStartName);
+            Point pFinish = GetPointByName(pFinishName);
+            List<Point> expected = GetPointsListByName(expectedPointsListName);
 
+            List<Point> actual = polygon.CreatePolygon(pStart, pFinish, sides).Points;
 
+            CollectionAssert.AreEqual(expected, actual);
+        }
     }
 
 }

@@ -8,7 +8,7 @@ using System.Drawing;
 
 namespace Paint.Fabric
 {
-    class PolygonCreator : FigureCreator
+    public class PolygonCreator : FigureCreator
     {
         private int numSides;
         public PolygonCreator(int numSides)
@@ -20,9 +20,7 @@ namespace Paint.Fabric
         {
             return CreatePolygon(pStart, pFinish, numSides);
         }
-
-
-
+        
         /// <summary>
         /// Метод рисует многоугольник
         /// </summary>
@@ -39,6 +37,8 @@ namespace Paint.Fabric
             return new Polygon(figurePoints);
         }
 
+
+
         /// <summary>
         /// Метод создает массив точек многоугольника
         /// </summary>
@@ -51,13 +51,13 @@ namespace Paint.Fabric
             double z = GetAngle(pFinish, pStart, v, R);
 
             int i = 0;
-            double x, y;
-            while (i <= n)
+            int x, y;
+            while (i < n)
             {
                 x = pStart.X + (int)(Math.Round(Math.Cos(z / 180 * Math.PI) * R));
                 y = pStart.Y - (int)(Math.Round(Math.Sin(z / 180 * Math.PI) * R));
-                figurePoints.Add(new Point((int)x, (int)y));
-                z = z + angle;
+                figurePoints.Add(new Point(x, y));
+                z += angle;
                 i++;
             }
         }
@@ -70,14 +70,14 @@ namespace Paint.Fabric
         /// <param name="pV"></param>
         /// <param name="R"></param>
         /// <returns></returns>
-        float GetAngle(Point pStart, Point pFinish, Point pV, double R)
+        private double GetAngle(Point pStart, Point pFinish, Point pV, double R)
         {
             /// Нормированный направляющий вектор отрезка
-            double v1x = pV.X / R;
+            double v1x = (pV.X / R);
 
             /// Угол между положительным направлением оси OX (вектор (1;0)) 
             /// и нормированным направляющим вектором отрезка
-            float alpha = (float)(Math.Acos(v1x) * 180 / Math.PI);
+            double alpha = (Math.Acos(v1x) * 180 / Math.PI);
 
             if (pStart.Y < pFinish.Y)
                 return alpha;
