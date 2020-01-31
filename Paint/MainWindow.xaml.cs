@@ -24,6 +24,7 @@ namespace Paint
         //IDrawer eraserDrawerRealization;
         MyBitmap myBitmap;
         IDrawer defaultDrawerRealization;
+        ColoredFiguresStrategy defaultFillRealization;
         FigureEnum flagFigure = FigureEnum.Pen;
         byte[] colorData = { 0, 0, 0, 255 }; //все для создания цвета
         bool isPressed = false; //передает состаяние мыши
@@ -44,7 +45,7 @@ namespace Paint
             defaultDrawerRealization = new DrawByLine();
             defaultDrawerRealization.CurrentBrush = new Brush();
             currentBrush = defaultDrawerRealization.CurrentBrush;
-       
+            defaultFillRealization = new NoFill();
             InitializeComponent();
             wb = new WriteableBitmap((int)MainImage.Width, (int)MainImage.Height, 96, 96, PixelFormats.Bgra32, null);
             myBitmap = MyBitmap.GetBitmap();
@@ -507,6 +508,11 @@ namespace Paint
             {
                 MainImage.Source = myBitmap.btm;
             }
+
+        }
+        private void clrdFigure_Click(object sender, RoutedEventArgs e)
+        {
+            defaultFillRealization = new SolidFill();
         }
     }
 }
