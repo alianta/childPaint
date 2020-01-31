@@ -8,7 +8,7 @@ using System.Drawing;
 
 namespace Paint.Fabric
 {
-    class ClosingLinesCreator : FigureCreator
+    public class ClosingLinesCreator : FigureCreator
     {
 
         List<Point> allFigurePoints = new List<Point>();

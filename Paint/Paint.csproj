@@ -170,7 +170,9 @@
     <Folder Include="Vector\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="white\female_scream.wav" />
+    <Content Include="white\female_scream.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

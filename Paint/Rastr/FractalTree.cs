@@ -9,11 +9,16 @@ using System.Windows.Media.Imaging;
 namespace Paint.Rastr
 {
     class FractalTree : Figure
-    {
-        //public FractalTree()
-        //{ }
-
+    {        
         public FractalTree(List<Point> figurePoints) : base(figurePoints)
         { }
+
+        public override void DoDraw()
+        {
+            for (int i = 0; i < Points.Count - 1; i++)
+            {
+                DrawerRealisation.Draw(Points[i], Points[i + 1]);
+            }           
+        }
     }
 }

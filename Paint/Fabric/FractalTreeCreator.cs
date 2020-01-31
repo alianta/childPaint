@@ -11,6 +11,8 @@ namespace Paint.Fabric
     class FractalTreeCreator : FigureCreator
     {
 
+        List<Point> figurePoints = new List<Point>();
+
         private int numInerations;
         double angle = Math.PI / 2; //Угол поворота на 90 градусов
         public FractalTreeCreator(int numInerations)
@@ -33,7 +35,6 @@ namespace Paint.Fabric
         /// <returns></returns>
         public Figure CreateTree(Point pStart, Point pFinish, double numInerations, double angle)
         {
-            List<Point> figurePoints = new List<Point>();
             double ang1 = Math.PI / 4;  //Угол поворота на 45 градусов
             double ang2 = Math.PI / 6;  //Угол поворота на 30 градусов
 
@@ -49,15 +50,12 @@ namespace Paint.Fabric
                 //рисуем линию между вершинами          
                 figurePoints.Add(pStart);
                 figurePoints.Add(pFinish);
+
                 CreateTree(pFinish, pFinish, numInerations, angle + ang1);
                 CreateTree(pFinish, pFinish, numInerations, angle - ang2);
             }
             return new FractalTree(figurePoints);
-            // для дерева надо что б в DrawByLine было  i < figurePoints.Count - 1 ------------ !!! =>
-            //for (int i = 0; i < figurePoints.Count - 1; i++)
-            //{
-            //    line.Draw(wb, figurePoints[i], figurePoints[i + 1], false);
-            //}
+
         }
     }
 }
