@@ -1,126 +1,263 @@
-﻿using System;
+﻿using Paint;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using System.Drawing;
+using System.Windows;
 using System.Windows.Media.Imaging;
+using System.Windows.Threading;
 
-namespace Paint.Rastr
+namespace Paint
 {
-
-    public class Fill
+    public class Filling
     {
-        byte[] pixelsCopy = new byte[] { };
+        //public int x { get; set; }
+        //public int y { get; set; }
 
-
-
-
-
-        bool isPressed = false;
-        private byte[] GetPixelColorData(Point currentPoint)//возвращает цвет пикселя на битмапе
+        public Filling(Color color)
         {
-            WriteableBitmap wb = MyBitmap.GetBitmap().btm;
-            int bytePerPixel = 4;//?????????????????????????????????????????
-            int stride = 4 * Convert.ToInt32(wb.Width);
-            byte[] pixels = new byte[wb.PixelWidth * wb.PixelHeight * 4];
-            wb.CopyPixels(pixels, stride, 0);
-            int currentPixel = (int)currentPoint.X * bytePerPixel + (stride * (int)currentPoint.Y);
-            byte[] color = new byte[] { pixels[currentPixel], pixels[currentPixel + 1], pixels[currentPixel + 2], 0 };
+            Color = color;
+        }
+        struct XLine
+        {
+            public int startX;
+            public int endX;
+        }
+        //int Width = 640;
+        //int Height = 480;
 
+        WriteableBitmap wb = MyBitmap.GetBitmap().btm;
+
+        Color Color { set; get; }
+
+        private XLine FillLineHorizontal(ref byte[][][] canvasMem, int x, int y, byte[] oldColor)
+        {
+            XLine rs;
+            rs.startX = x;
+            rs.endX = x;
+
+            int lY = y;
+
+            if (!canvasMem[lY][x].SequenceEqual(oldColor))
+                return rs;
+
+            Array.Copy(Color.HexToRGBConverter(), 0, canvasMem[lY][rs.startX], 0, 4);
+
+            rs.startX = x - 1;
+            rs.endX = x + 1;
+
+            while (rs.startX > 0 && canvasMem[lY][rs.startX].SequenceEqual(oldColor))
+            {
+                Array.Copy(Color.HexToRGBConverter(), 0, canvasMem[lY][rs.startX], 0, 4);
+                //canvasMem[lY][rs.startX] = oldColor;
+                rs.startX--;
+            }
+            //rs.startX++;
+
+            while (rs.endX < wb.Width - 1 && (canvasMem[lY][rs.endX]).SequenceEqual(oldColor))
+            {
+                Array.Copy(Color.HexToRGBConverter(), 0, canvasMem[lY][rs.endX], 0, 4);
+                //canvasMem[lY][rs.endX] = oldColor;
+                rs.endX++;
+            }
+            //rs.endX--;
+
+            SetPixelLine(++rs.startX, rs.endX, lY);
+
+
+            //System.Threading.Thread.Sleep(5);
+            //Application.Current.Dispatcher.Invoke(DispatcherPriority.Background,
+            //                              new Action(delegate { }));
+            return rs;
+        }
+
+        private void RecLineTop(ref byte[][][] canvasMem, XLine rs, int y, byte[] oldColor)
+        {
+            int lY = y - 1;
+            if (lY == -1) return;
+            for (int i = rs.startX; i < rs.endX; i++)
+            {
+                //while (canvasMem[lY][i].SequenceEqual(oldColor))
+                //{
+                XLine sub = FillLineHorizontal(ref canvasMem, i, lY, oldColor);
+                i = sub.endX;
+
+                RecLineTop(ref canvasMem, sub, lY, oldColor);
+
+                if (sub.endX > rs.endX)
+                {
+
+                    sub.startX = rs.endX;
+
+                    RecLineBottom(ref canvasMem, sub, lY, oldColor);
+
+
+                }
+                if (sub.startX < rs.startX)
+                {
+                    sub.endX = rs.startX;
+                    //Trace.WriteLine("BOTTOM: " + sub.startX + " " + sub.endX + " Y: " + lY);
+                    RecLineBottom(ref canvasMem, sub, lY, oldColor);
+                }
+                // }
+            }
+        }
+
+        private void RecLineBottom(ref byte[][][] canvasMem, XLine rs, int y, byte[] oldColor)
+        {
+
+            int lY = y + 1;
+            if (lY == (int)wb.Height - 1) return;
+
+            for (int i = rs.startX; i < rs.endX; i++)
+            {
+                //while (canvasMem[lY][i].SequenceEqual(oldColor))
+                //{
+                XLine sub = FillLineHorizontal(ref canvasMem, i, lY, oldColor);
+                i = sub.endX;
+
+                RecLineBottom(ref canvasMem, sub, lY, oldColor);
+
+
+                if (sub.endX > rs.endX)
+                {
+
+                    sub.startX = rs.endX;
+
+                    RecLineTop(ref canvasMem, sub, lY, oldColor);
+
+
+                }
+
+                if (sub.startX < rs.startX)
+                {
+                    sub.endX = rs.startX;
+                    //Trace.WriteLine("BOTTOM: " + sub.startX + " " + sub.endX + " Y: " + lY);
+                    RecLineTop(ref canvasMem, sub, lY, oldColor);
+                }
+                //}
+            }
+        }
+
+
+        private void Fill(int x, int y, byte[] oldColor, int recursionDepth = 0)
+        {
+            byte[] oldColor1 = new byte[4];//= oldColor;
+            Array.Copy(oldColor, 0, oldColor1, 0, 4);
+
+            if (recursionDepth > 1) return;
+            //recursionDepth++;
+            byte[] pixels = GetPixelArrayLength();
+            wb.CopyPixels(pixels, GetStride(), 0);
+
+
+            byte[][][] canvasMem = new byte[(int)wb.Height][][];
+            //[(int)PaintField.Height][4];
+
+            int m = 0;
+
+            for (int i = 0; i < wb.Height; i++)
+            {
+                canvasMem[i] = new byte[(int)wb.Width][];
+
+                for (int j = 0; j < wb.Width; j++)
+                {
+                    canvasMem[i][j] = new byte[4];
+
+                    for (int k = 0; k < 4; k++)
+                    {
+                        canvasMem[i][j][k] = pixels[m + k];
+                    }
+                    m += 4;
+                }
+            }
+
+            XLine rs = FillLineHorizontal(ref canvasMem, x, y, oldColor1);
+            RecLineTop(ref canvasMem, rs, y, oldColor1);
+
+            RecLineBottom(ref canvasMem, rs, y, oldColor1);
+
+
+        }
+
+        public void PixelFill(int x, int y)
+        {
+            byte[] currentColor = GetPixel(new Point(x, y));
+            Fill(x, y, currentColor);
+
+        }
+        #region  GetPixel, GetBytesPerPixel, GetStride, GetPixelArrayLength
+        private byte[] GetPixel(Point point)
+        {
+            Point currentPoint = point;
+            byte[] pixels = GetPixelArrayLength();
+            wb.CopyPixels(pixels, GetStride(), 0);
+            int currentPixel = (int)currentPoint.X * GetBytesPerPixel() + (int)currentPoint.Y * GetStride();
+            byte[] color = new byte[] { pixels[currentPixel], pixels[currentPixel + 1], pixels[currentPixel + 2], 255 };
             return color;
         }
-
-        private bool IsColorsEqual(byte[] colorData1, byte[] colorData2)
+        private int GetBytesPerPixel()
         {
+            return (wb.Format.BitsPerPixel + 7) / 8;
+        }
 
-            if (colorData1[0] == colorData2[0] && colorData1[1] == colorData2[1] && colorData1[2] == colorData2[2] && colorData1[3] == colorData2[3])
+        private int GetStride()
+        {
+            return GetBytesPerPixel() * (int)wb.Width;
+        }
+
+        private byte[] GetPixelArrayLength()
+        {
+            int stride = GetStride();
+            byte[] pixels = new byte[stride * (int)wb.Height];
+            return pixels;
+        }
+        #endregion
+        #region SetPixelLine для X и Y
+        public void SetPixelLine(int xStart, int xEnd, int y)
+        {
+            if ((xStart < wb.Width && xStart > 0) && (xEnd < wb.Width && xEnd > 0) && (y < wb.Height && y > 0))
             {
-                return true;
-            }
-            else
-            {
-                return false;
+                Int32Rect rect = new Int32Rect(
+                    xStart,
+                    y,
+                    xEnd - xStart,
+                    1);
+
+                byte[] ColorData = new byte[4 * (xEnd - xStart)];
+                byte[] nColor = Color.HexToRGBConverter();
+
+                for (int i = 0; i < 4 * (xEnd - xStart); i += 4)
+                {
+
+                    Array.Copy(nColor, 0, ColorData, i, 4);
+                }
+
+                wb.WritePixels(rect, ColorData, 4 * (xEnd - xStart), 0);
             }
         }
 
-        public void FillFigure(byte[] colorData, Point startPoint)//битмап, цветзаливки, кудаткнули
+        public void SetPixelLineY(int yStart, int yEnd, int x)
         {
-            WriteableBitmap wb = MyBitmap.GetBitmap().btm;
-            int bytePerPixel = 4;//?????????????????????????????????????????
-            int stride = bytePerPixel * Convert.ToInt32(wb.Width);
-            //  int stride = 4;//???????????????????????????????????????????
-            pixelsCopy = new byte[wb.PixelWidth * wb.PixelHeight * bytePerPixel];
-            wb.CopyPixels(pixelsCopy, stride, 0);
-            byte[] colorStart = GetPixelColorData(startPoint);
-            FillFigureStep(colorData, colorStart, startPoint);
-            //try
-            //{
-            //    myBitmap.btm.Lock();
-            //}
-            //finally
-            //{
-            //    myBitmap.btm.Unlock();
-            //}
-        }
-
-        private void FillFigureStep(byte[] colorData, byte[] startColorData, Point currentPoint)//битмап, цветзаливки, цветстартовогопикселя, кудаткнули
-        {
-            Pixel pixel = new Pixel();
-            WriteableBitmap wb = MyBitmap.GetBitmap().btm;
-            Point tmpPoint = currentPoint;
-
-            while (IsColorsEqual(GetPixelColorData(tmpPoint), startColorData) && tmpPoint.X > 0)
+            if ((yStart < wb.Height && yStart > 0) && (yEnd < wb.Height && yEnd > 0) && (x < wb.Width && x > 0))
             {
-                Pixel.Draw(tmpPoint, colorData);
-                tmpPoint.X--;
-            }
-            if (!IsColorsEqual(GetPixelColorData(tmpPoint), startColorData))
-            {
-                tmpPoint.X++;
-            }
+                Int32Rect rect = new Int32Rect(
+                    x,
+                    yStart,
+                    1,
+                    yEnd - yStart);
 
-            Point left = tmpPoint;
-            tmpPoint.X = currentPoint.X + 1;
+                byte[] ColorData = new byte[4 * (yEnd - yStart)];
+                byte[] nColor = Color.HexToRGBConverter();
 
-            while (IsColorsEqual(GetPixelColorData(tmpPoint), startColorData) && tmpPoint.X < wb.Width - 1)
-            {
-                Pixel.Draw(tmpPoint, colorData);
-                tmpPoint.X++;
-            }
-            if (!IsColorsEqual(GetPixelColorData(tmpPoint), startColorData))
-            {
-                tmpPoint.X--;
-            }
-            else
-            {
-                Pixel.Draw(tmpPoint, colorData);
-            }
-            Point right = tmpPoint;
-
-
-            for (int i = (int)left.X; i <= (int)right.X; i++)
-            {
-                Point point1 = new Point(i, currentPoint.Y + 1);
-
-                if ((IsColorsEqual(GetPixelColorData(point1), startColorData) && point1.Y < wb.Height - 1))
+                for (int i = 0; i < 4 * (yEnd - yStart); i += 4)
                 {
-                    FillFigureStep(colorData, startColorData, point1);
+                    Array.Copy(nColor, 0, ColorData, i, 4);
                 }
 
-
+                wb.WritePixels(rect, ColorData, 4, 0);
             }
-
-            for (int i = (int)left.X; i <= (int)right.X; i++)
-            {
-                Point point2 = new Point(i, currentPoint.Y - 1);
-
-                if ((IsColorsEqual(GetPixelColorData(point2), startColorData) && point2.Y > 0))
-                {
-                    FillFigureStep(colorData, startColorData, point2);
-                }
-            }
-            isPressed = false;
         }
     }
-}
+} 
+#endregion

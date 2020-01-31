@@ -35,7 +35,7 @@ namespace Paint
         bool isBucket = false;
         bool isDoubleClicked = false;
         int clickCount = 0;
-        Fill fill = new Fill();
+        //Fill fill = new Fill();
         Stack stackBack = new Stack();
         Stack stackForward = new Stack();
 
@@ -250,7 +250,9 @@ namespace Paint
             if (isBucket)
             {
                 tmpPoint = pStart;
-                fill.FillFigure(colorData, pStart);
+                Filling fill = new Filling(defaultDrawerRealization.CurrentBrush.BrushColor);
+                
+                fill.PixelFill(pStart.X, pStart.Y);
                 MainImage.Source = myBitmap.btm;
             }
             else
@@ -258,6 +260,7 @@ namespace Paint
                 prevPoint = new Point((int)e.GetPosition(MainImage).X, (int)e.GetPosition(MainImage).Y);
                 myBitmap.CreateCopy();
             }
+            
         }
 
         /// <summary>
