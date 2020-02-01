@@ -25,7 +25,6 @@ namespace Paint
         IDrawer defaultDrawerRealization;
         ColoredFiguresStrategy defaultFillRealization;
         FigureEnum flagFigure = FigureEnum.Pen;
-        byte[] colorData = { 0, 0, 0, 255 }; //все для создания цвета
         bool isPressed = false; //передает состаяние мыши
         Point prevPoint; //точка начала коордиат
         Point pStart;// Начальная точка
@@ -52,10 +51,7 @@ namespace Paint
             myBitmap.btm = wb;
             stackBack.AddMyBitmap(myBitmap.btm);
             MainImage.Source = myBitmap.btm;
-
-            ShowCurColorRGB(colorData);
             FillBitmap();
-
         }
 
         private void Scream()
@@ -222,8 +218,6 @@ namespace Paint
         {
             string buttonStr = Convert.ToString(((Button)e.OriginalSource).Background);
             defaultDrawerRealization.CurrentBrush.BrushColor = new Color(buttonStr);
-            colorData = HexToRGBConverter(buttonStr);
-            ShowCurColorRGB(colorData);
         }
 
         Point tmpPoint;
@@ -343,23 +337,6 @@ namespace Paint
         //  ВНУТРЕННИЕ МЕТОДЫ
 
         /// <summary>
-        /// Метод конвертирует цвета из hex в rgb
-        /// </summary>
-        /// <param name="s">Строка. Цвет в формате hex </param>
-        /// <returns>Возвращает массив byte[] {alpha, red, green, blue}</returns>
-        private byte[] HexToRGBConverter(String s)
-        {
-            if (s.IndexOf('#') != -1)
-                s = s.Replace("#", "");
-            byte[] rgbColor = new byte[4]; // sARGB
-            rgbColor[3] = Convert.ToByte(int.Parse(s.Substring(0, 2), System.Globalization.NumberStyles.AllowHexSpecifier));
-            rgbColor[2] = Convert.ToByte(int.Parse(s.Substring(2, 2), System.Globalization.NumberStyles.AllowHexSpecifier));
-            rgbColor[1] = Convert.ToByte(int.Parse(s.Substring(4, 2), System.Globalization.NumberStyles.AllowHexSpecifier));
-            rgbColor[0] = Convert.ToByte(int.Parse(s.Substring(6, 2), System.Globalization.NumberStyles.AllowHexSpecifier));
-            return rgbColor;
-        }
-
-        /// <summary>
         /// Метод выводит в 2 текстбокса координаты позиции мыши
         /// </summary>
         /// <param name="e"></param>
@@ -381,17 +358,6 @@ namespace Paint
                 (int)e.GetPosition(MainImage).X,
                 (int)e.GetPosition(MainImage).Y
             );
-        }
-
-        /// <summary>
-        /// Метод выводит в 3 текстбокса текущий RGB цвет (отображает пользователю текущий цвет в формате RGB)
-        /// </summary>
-        /// <param name="colorData">byte[] {alpha, red, green, blue}</param>
-        private void ShowCurColorRGB(byte[] colorData)
-        {
-            rColor.Text = Convert.ToString(colorData[2]);
-            gColor.Text = Convert.ToString(colorData[1]);
-            bColor.Text = Convert.ToString(colorData[0]);
         }
 
         /// <summary>
@@ -466,6 +432,15 @@ namespace Paint
 
         private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            switch (((TabItem)e.AddedItems[0]).Header)
+            {
+                case "BITMAP":
+
+                    break;
+                case "VECTOR":
+
+                    break;
+            }
 
         }
 

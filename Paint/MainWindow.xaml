@@ -124,17 +124,9 @@
 			<Label Content="X : " VerticalAlignment="Center" Height="28"/>
 			<TextBox x:Name="xPosition" HorizontalAlignment="Left" Height="25" TextWrapping="Wrap" VerticalAlignment="Center" Width="50"/>
 			<Label Content="Y : " HorizontalAlignment="Left"  VerticalAlignment="Center" RenderTransformOrigin="0.564,1.103"/>
-			<TextBox x:Name="yPosition" HorizontalAlignment="Left" Height="25" TextWrapping="Wrap" VerticalAlignment="Center" Width="50"/>
+            <TextBox x:Name="yPosition" HorizontalAlignment="Left" Height="25" TextWrapping="Wrap" VerticalAlignment="Center" Width="50"/>
 
-			<Label Content="COLOR:" VerticalAlignment="Center" Margin="15,0,0,0"/>
-			<Label Content="R : " VerticalAlignment="Center"/>
-			<TextBox x:Name="rColor" Height="25" Width="50" VerticalAlignment="Center" />
-			<Label Content="G : " VerticalAlignment="Center"/>
-			<TextBox x:Name="gColor" Height="25" Width="50" VerticalAlignment="Center"/>
-			<Label Content="B : " VerticalAlignment="Center"/>
-			<TextBox x:Name="bColor" Height="25" Width="50" VerticalAlignment="Center"/>
-
-			<Label Content="FORMAT" VerticalAlignment="Center" FontSize="12" Margin="300,3,0,3" Height="24"/>
+            <Label Content="FORMAT" VerticalAlignment="Center" FontSize="12" Margin="630,3,0,3" Height="24"/>
 			<ComboBox x:Name ="fileTypesList" Height="24" Width="60" FontSize="12">
 				<ComboBoxItem IsSelected="True">
 					<StackPanel Orientation="Horizontal">
