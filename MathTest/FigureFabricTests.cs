@@ -262,40 +262,39 @@ namespace Paint.Fabric
                     return new List<Point>() {
                         //первый фор
                         new Point(-0,-5),
-                        new Point(1,(int)-4.8989794855663561963945681494118),
-                        new Point(2,(int)-4.582575694955840006588047193728),
+                        new Point(1,-4),
+                        new Point(2,-4),
                         new Point(3,-4),
                         //второй фор
                         new Point(4,-3),
-                        new Point((int)4.582575694955840006588047193728,-2),
-                        new Point((int)4.8989794855663561963945681494118,-1),
+                        new Point(4,-2),
+                        new Point(4,-1),
                         //третий фор
                         new Point(5,0),
-                        new Point((int)4.8989794855663561963945681494118,1),
-                        new Point((int)4.582575694955840006588047193728,2),
+                        new Point(4,1),
+                        new Point(4,2),
                         new Point(4,3),
                         //четвертый фор
                         new Point(3,4),
-                        new Point(2,(int)4.582575694955840006588047193728),
-                        new Point(1,(int)4.8989794855663561963945681494118),
-                        //пятый фор
+                        new Point(2,4),
+                        new Point(1,4),
                         new Point(0,5),
-                        new Point(-1,(int)4.8989794855663561963945681494118),
-                        new Point(-2,(int)4.582575694955840006588047193728),
+                        new Point(-1,4),
+                        new Point(-2,4),
                         new Point(-3,4),
                         //шестой фор
                         new Point(-4,3),
-                        new Point((int)-4.582575694955840006588047193728,2),
-                        new Point((int)-4.8989794855663561963945681494118,1),
+                        new Point(-4,2),
+                        new Point(-4,1),
                         //седьмой фор
                         new Point(-5,0),
-                        new Point((int)-4.8989794855663561963945681494118,-1),
-                        new Point((int)-4.582575694955840006588047193728,-2),
+                        new Point(-4,-1),
+                        new Point(-4,-2),
                         new Point(-4,-3),
                         //восьмой фор
                         new Point(-3,-4),
-                        new Point(-2,(int)-4.582575694955840006588047193728),
-                        new Point(-1,(int)-4.8989794855663561963945681494118),
+                        new Point(-2,-4),
+                        new Point(-1,-4),
 
                     };
 

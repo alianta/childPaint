@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\DevEducation\\Paint\\childPaint\\MathTest\\MathTest.csproj": {}
+    "C:\\Users\\User\\Desktop\\Новая папка\\кракен\\childPaint\\MathTest\\MathTest.csproj": {}
   },
   "projects": {
-    "D:\\DevEducation\\Paint\\childPaint\\MathTest\\MathTest.csproj": {
+    "C:\\Users\\User\\Desktop\\Новая папка\\кракен\\childPaint\\MathTest\\MathTest.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\DevEducation\\Paint\\childPaint\\MathTest\\MathTest.csproj",
+        "projectUniqueName": "C:\\Users\\User\\Desktop\\Новая папка\\кракен\\childPaint\\MathTest\\MathTest.csproj",
         "projectName": "MathTest",
-        "projectPath": "D:\\DevEducation\\Paint\\childPaint\\MathTest\\MathTest.csproj",
-        "packagesPath": "C:\\Users\\yan-v\\.nuget\\packages\\",
-        "outputPath": "D:\\DevEducation\\Paint\\childPaint\\MathTest\\obj\\",
+        "projectPath": "C:\\Users\\User\\Desktop\\Новая папка\\кракен\\childPaint\\MathTest\\MathTest.csproj",
+        "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\User\\Desktop\\Новая папка\\кракен\\childPaint\\MathTest\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\yan-v\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -27,8 +27,8 @@
         "frameworks": {
           "netcoreapp3.0": {
             "projectReferences": {
-              "D:\\DevEducation\\Paint\\childPaint\\Paint\\Paint.csproj": {
-                "projectPath": "D:\\DevEducation\\Paint\\childPaint\\Paint\\Paint.csproj"
+              "C:\\Users\\User\\Desktop\\Новая папка\\кракен\\childPaint\\Paint\\Paint.csproj": {
+                "projectPath": "C:\\Users\\User\\Desktop\\Новая папка\\кракен\\childPaint\\Paint\\Paint.csproj"
               }
             }
           }
@@ -84,16 +84,16 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.100\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\DevEducation\\Paint\\childPaint\\Paint\\Paint.csproj": {
+    "C:\\Users\\User\\Desktop\\Новая папка\\кракен\\childPaint\\Paint\\Paint.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\DevEducation\\Paint\\childPaint\\Paint\\Paint.csproj",
+        "projectUniqueName": "C:\\Users\\User\\Desktop\\Новая папка\\кракен\\childPaint\\Paint\\Paint.csproj",
         "projectName": "Paint",
-        "projectPath": "D:\\DevEducation\\Paint\\childPaint\\Paint\\Paint.csproj"
+        "projectPath": "C:\\Users\\User\\Desktop\\Новая папка\\кракен\\childPaint\\Paint\\Paint.csproj"
       },
       "frameworks": {
         "net472": {}
