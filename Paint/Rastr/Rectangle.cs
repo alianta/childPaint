@@ -9,7 +9,7 @@ using System.Windows.Media.Imaging;
 
 namespace Paint.Rastr
 {
-    class Rectangle : Figure
+    public class Rectangle : Figure
     {
         //public Rectangle()
         //{ }

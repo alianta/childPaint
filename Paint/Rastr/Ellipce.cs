@@ -9,7 +9,7 @@ using System.Collections;
 
 namespace Paint.Rastr
 {
-    class Ellipce : Figure
+    public class Ellipce : Figure
     {
         public Ellipce(List<Point> figurePoints) : base(figurePoints)
         { }

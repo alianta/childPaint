@@ -8,7 +8,7 @@ using System.Windows.Media.Imaging;
 
 namespace Paint.Rastr
 {
-    class Triangle : Figure
+    public class Triangle : Figure
     {
         //public Triangle()
         //{ }

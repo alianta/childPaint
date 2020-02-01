@@ -8,7 +8,7 @@ using System.Windows.Media.Imaging;
 
 namespace Paint.Rastr
 {
-    class Polygon : Figure
+    public class Polygon : Figure
     {
         //public Polygon()
         //{ }
