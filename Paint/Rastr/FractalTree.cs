@@ -17,7 +17,7 @@ namespace Paint.Rastr
         {
             for (int i = 0; i < Points.Count - 1; i++)
             {
-                DrawerRealisation.Draw(Points[i], Points[i + 1]);
+                DrawerRealisation.DrawOnSurface(Points[i], Points[i + 1]);
             }           
         }
     }

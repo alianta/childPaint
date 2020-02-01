@@ -84,6 +84,9 @@
     <Compile Include="Fabric\EllipceCreator.cs" />
     <Compile Include="Fabric\FigureCreator.cs" />
     <Compile Include="Fabric\TriangleCreator.cs" />
+    <Compile Include="SurfaceStrategy\DrawOnBitmap.cs" />
+    <Compile Include="SurfaceStrategy\DrawOnCanvas.cs" />
+    <Compile Include="SurfaceStrategy\ISurfaceStrategy.cs" />
     <Compile Include="Rastr\NeLine.cs" />
     <Compile Include="Rastr\ClosingLines.cs" />
     <Compile Include="Rastr\FigureEnum.cs" />

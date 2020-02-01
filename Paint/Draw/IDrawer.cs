@@ -5,12 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 using System.Windows.Media.Imaging;
+using Paint.SurfaceStrategy;
 
 namespace Paint
 {
     public interface IDrawer
-    {
-        Brush CurrentBrush { get; set; }
-        void Draw(Point pStart, Point pFinish);
+    {        
+        ISurfaceStrategy SurfaceStrategy { get; set; }
+        void DrawOnSurface(Point pStart, Point pFinish);
     }
 }

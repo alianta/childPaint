@@ -6,14 +6,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 using System.Windows.Media.Imaging;
+using Paint.SurfaceStrategy;
 
 namespace Paint
 {
     class DrawByDots : IDrawer
     {
-        public Brush CurrentBrush { set; get; }
+        public ISurfaceStrategy SurfaceStrategy { get; set; }
 
-        public void Draw(Point pStart, Point pFinish)
+        public void DrawOnSurface(Point pStart, Point pFinish)
         {
             //for (int i = 0; i < figurePoints.Count; i += 10)
             //{

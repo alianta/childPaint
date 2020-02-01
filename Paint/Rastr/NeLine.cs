@@ -20,18 +20,18 @@ namespace Paint.Rastr
 
         public override void DoDraw()
         {
-            Color tmp = DrawerRealisation.CurrentBrush.BrushColor;
-            DrawerRealisation.CurrentBrush.BrushColor=new Color("#FFFFFFFF");
+            Color tmp = DrawerRealisation.SurfaceStrategy.CurrentBrush.BrushColor;
+            DrawerRealisation.SurfaceStrategy.CurrentBrush.BrushColor=new Color("#FFFFFFFF");
 
 
             for (int i = 0; i < Points.Count - 1; i++)
             {
-                DrawerRealisation.Draw(Points[i], Points[i + 1]);
+                DrawerRealisation.DrawOnSurface(Points[i], Points[i + 1]);
             }
-            DrawerRealisation.Draw(Points[0], Points[Points.Count - 1]);
+            DrawerRealisation.DrawOnSurface(Points[0], Points[Points.Count - 1]);
 
 
-            DrawerRealisation.CurrentBrush.BrushColor = tmp;
+            DrawerRealisation.SurfaceStrategy.CurrentBrush.BrushColor = tmp;
         }
 
 

@@ -10,6 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Point = System.Drawing.Point;
 using System.Media;
+using Paint.SurfaceStrategy;
 
 namespace Paint
 {
@@ -23,6 +24,7 @@ namespace Paint
         Brush currentBrush;
         MyBitmap myBitmap;
         IDrawer defaultDrawerRealization;
+        ISurfaceStrategy currentSurfaceStrategy;
         ColoredFiguresStrategy defaultFillRealization;
         FigureEnum flagFigure = FigureEnum.Pen;
         bool isPressed = false; //передает состаяние мыши
@@ -42,9 +44,9 @@ namespace Paint
         {
             Scream();
             defaultDrawerRealization = new DrawByLine();
-            defaultDrawerRealization.CurrentBrush = new Brush();
-            currentBrush = defaultDrawerRealization.CurrentBrush;
+            currentBrush = new Brush();            
             defaultFillRealization = new NoFill();
+            currentSurfaceStrategy = new DrawOnBitmap();
             InitializeComponent();
             wb = new WriteableBitmap((int)MainImage.Width, (int)MainImage.Height, 96, 96, PixelFormats.Bgra32, null);
             myBitmap = MyBitmap.GetBitmap();
@@ -193,7 +195,7 @@ namespace Paint
                 }
 
                 concreteFigure = concreteCreator.CreateFigure(prevPoint, curPoint, shiftPressed);
-                concreteFigure.DrawerRealisation = defaultDrawerRealization;
+                InitFigure(concreteFigure);
 
                 if (flagFigure == FigureEnum.Pen || flagFigure == FigureEnum.Eraser)
                 {
@@ -217,7 +219,7 @@ namespace Paint
         private void Button_Change_Color(object sender, RoutedEventArgs e)
         {
             string buttonStr = Convert.ToString(((Button)e.OriginalSource).Background);
-            defaultDrawerRealization.CurrentBrush.BrushColor = new Color(buttonStr);
+            currentBrush.BrushColor = new Color(buttonStr);
         }
 
         Point tmpPoint;
@@ -244,7 +246,7 @@ namespace Paint
             if (isBucket)
             {
                 tmpPoint = pStart;
-                Filling fill = new Filling(defaultDrawerRealization.CurrentBrush.BrushColor);
+                Filling fill = new Filling(currentBrush.BrushColor);
                 
                 fill.PixelFill(pStart.X, pStart.Y);
                 MainImage.Source = myBitmap.btm;
@@ -414,19 +416,19 @@ namespace Paint
             ComboBoxItem selectedItem = (ComboBoxItem)ThicknessList.SelectedValue;
             if (selectedItem.Equals(thick1))
             {
-                defaultDrawerRealization.CurrentBrush.BrushThickness = new DefaultThickness();
+                currentBrush.BrushThickness = new DefaultThickness();
             }
             else if (selectedItem.Equals(thick2))
             {
-                defaultDrawerRealization.CurrentBrush.BrushThickness = new MediumThickness();
+                currentBrush.BrushThickness = new MediumThickness();
             }
             else if (selectedItem.Equals(thick3))
             {
-                defaultDrawerRealization.CurrentBrush.BrushThickness = new BoldThickness();
+                currentBrush.BrushThickness = new BoldThickness();
             }
             else if (selectedItem.Equals(thick4))
             {
-                defaultDrawerRealization.CurrentBrush.BrushThickness = new ExtraboldThickness();
+                currentBrush.BrushThickness = new ExtraboldThickness();
             }
         }
 
@@ -472,6 +474,13 @@ namespace Paint
         private void clrdFigure_Click(object sender, RoutedEventArgs e)
         {
             defaultFillRealization = new SolidFill();
+        }
+
+        private void InitFigure(Figure figure)
+        {
+            figure.DrawerRealisation = defaultDrawerRealization;
+            figure.DrawerRealisation.SurfaceStrategy = currentSurfaceStrategy;
+            figure.DrawerRealisation.SurfaceStrategy.CurrentBrush = currentBrush;
         }
     }
 }

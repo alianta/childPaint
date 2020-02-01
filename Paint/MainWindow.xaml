@@ -10,9 +10,17 @@
 
 	<Grid >
 		<TabControl Background="#FFBDB9B9" SelectionChanged="TabControl_SelectionChanged" FontWeight="Bold">
-			<TabItem x:Name="bitmap" Header="BITMAP" />
-			<TabItem x:Name="vector" Header="VECTOR" />
-		</TabControl>
+			<TabItem x:Name="bitmap" Header="BITMAP" >
+                <Canvas Background="White" Width="800" Height="550" HorizontalAlignment="Left" Margin="0,80,0,40">
+                    <Image Name="MainImage"  HorizontalAlignment="Left" VerticalAlignment="Top" Width="800" Height="550" OpacityMask="White" MouseMove="Image_MouseMove" Stretch="None" MouseLeftButtonDown="MainImage_MouseDown" MouseLeftButtonUp="MainImage_MouseEnter" Cursor="Pen"/>
+                </Canvas>
+            </TabItem>
+            <TabItem x:Name="vector" Header="VECTOR" >
+                <Canvas Background="Yellow" Width="800" Height="550" HorizontalAlignment="Left" Margin="0,80,0,40">
+                   
+                </Canvas>
+            </TabItem>
+        </TabControl>
 		<StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="0,24,0,0" Background="White" Height="50">
 
 			<Button x:Name="btnBack" Height="35" Width="30" Background="White" BorderThickness="0" Click="BtnBackForward_Click" FontFamily="Segoe MDL2 Assets" Content="&#xE72B;"/>
@@ -115,10 +123,6 @@
 
 
 		</StackPanel>
-
-		<Canvas Background="White" Width="800" Height="550" HorizontalAlignment="Left" Margin="0,80,0,40">
-			<Image Name="MainImage"  HorizontalAlignment="Left" VerticalAlignment="Top" Width="800" Height="550" OpacityMask="White" MouseMove="Image_MouseMove" Stretch="None" MouseLeftButtonDown="MainImage_MouseDown" MouseLeftButtonUp="MainImage_MouseEnter" Cursor="Pen"/>
-		</Canvas>
 
 		<StackPanel VerticalAlignment="Bottom" Orientation="Horizontal" Background="White" Height="34">
 			<Label Content="X : " VerticalAlignment="Center" Height="28"/>
