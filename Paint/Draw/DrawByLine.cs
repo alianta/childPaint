@@ -20,7 +20,8 @@ namespace Paint
             if (SurfaceStrategy == null)
                 return; // идите в жопу
 
-            SurfaceStrategy.DrawLine(pStart, pFinish);
+           // SurfaceStrategy.DrawLine(pStart, pFinish);
+            SurfaceStrategy.Draw(pStart, pFinish);
 
             //List<Point> first = CurrentBrush.BrushThickness.GetPoints(pStart);
             //List<Point> second = CurrentBrush.BrushThickness.GetPoints(pFinish);

@@ -66,7 +66,7 @@ namespace Paint.SurfaceStrategy
             if (deltaX > deltaY)
             {
                 double k = deltaY / deltaX;
-                for (int i = 0; i < deltaX; i++)
+                for (int i = 0; i < deltaX; i = (i % 2==0) ? i + 1 : i + 3)
                 {
                     newP.Y = ((int)(k * i + pStart.Y));
                     newP.X = pStart.X + i * d;
@@ -80,7 +80,7 @@ namespace Paint.SurfaceStrategy
                     pStart = pFinish;
                 }
                 double k = deltaX / deltaY;
-                for (int i = 0; i < deltaY; i++)
+                for (int i = 0; i < deltaY; i = (i % 2==0) ? i + 1 : i + 3)
                 {
                     newP.X = ((int)(k * i + pStart.X));
                     newP.Y = pStart.Y + i * d;
