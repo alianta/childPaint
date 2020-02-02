@@ -47,7 +47,7 @@ namespace Paint
         {
             //Scream();
             defaultDrawerRealization = new DrawByLine();
-            currentBrush = new Brush();            
+            currentBrush = new Brush();
             defaultFillRealization = new NoFill();
             currentSurfaceStrategy = new DrawOnBitmap();
             InitializeComponent();
@@ -202,7 +202,7 @@ namespace Paint
                 else
                 {
                     myBitmap.SetBitmapToCopy();
-                    
+
                 }
 
                 concreteFigure.DoDraw();
@@ -244,7 +244,7 @@ namespace Paint
             {
                 tmpPoint = pStart;
                 Filling fill = new Filling(currentBrush.BrushColor);
-                
+
                 fill.PixelFill(pStart.X, pStart.Y);
                 MainImage.Source = myBitmap.btm;
             }
@@ -253,7 +253,7 @@ namespace Paint
                 prevPoint = new Point((int)e.GetPosition(MainImage).X, (int)e.GetPosition(MainImage).Y);
                 myBitmap.CreateCopy();
             }
-            
+
         }
 
         /// <summary>
@@ -267,7 +267,7 @@ namespace Paint
         {
             isPressed = false;
             pFinish = SetToCurPoint(e);
-            
+
 
             if (!isDoubleClicked)
             {
@@ -277,7 +277,7 @@ namespace Paint
                 {
                     isPressed = true;
                 }
-                
+
             }
             if (clickCount > 1 && flagFigure == FigureEnum.ClosingLines)
             {
@@ -392,11 +392,29 @@ namespace Paint
             // Обработка результата работы диалога
             if (result == true)
             {
-                var encoder = new PngBitmapEncoder();
-                encoder.Frames.Add(BitmapFrame.Create((BitmapSource)MainImage.Source));
-                using (FileStream stream = new FileStream(dlg.FileName, FileMode.Create))
-                    encoder.Save(stream);
+                Type str = currentSurfaceStrategy.GetType();
+
+                if (str.Name == "DrawOnCanvas")
+                {
+                    FileStream fs = new FileStream(dlg.FileName, FileMode.Create);
+                    RenderTargetBitmap bmp = new RenderTargetBitmap((int)myCanvas.ActualWidth,
+                        (int)myCanvas.ActualHeight, 1 / 96, 1 / 96, PixelFormats.Pbgra32);
+                    bmp.Render(myCanvas);
+                    BitmapEncoder encoder = new TiffBitmapEncoder();
+                    encoder.Frames.Add(BitmapFrame.Create(bmp));
+                    encoder.Save(fs);
+                    fs.Close();
+                }
+                else if (str.Name == "DrawOnBitmap")
+                {
+                    var encoder = new PngBitmapEncoder();
+                    encoder.Frames.Add(BitmapFrame.Create((BitmapSource)MainImage.Source));
+                    using (FileStream stream = new FileStream(dlg.FileName, FileMode.Create))
+                        encoder.Save(stream);
+                }
             }
+
+
         }
 
         /// <summary>
@@ -435,7 +453,7 @@ namespace Paint
                     break;
                 case "VECTOR":
                     currentSurfaceStrategy = new DrawOnCanvas();
- 
+
                     break;
             }
         }
@@ -448,24 +466,24 @@ namespace Paint
 
         private void myCanvas_MouseDown(object sender, MouseEventArgs e)
         {
-            isPressed = true; 
+            isPressed = true;
         }
 
         private void myCanvas_MouseMove(object sender, MouseEventArgs e)
         {
             //if (isPressed)
             //{
-                System.Windows.Shapes.Line a = new System.Windows.Shapes.Line();
-                a.X1 = A.X;
-                a.X2 = e.GetPosition(myCanvas).X;
-                a.Y1 = A.Y;
-                a.Y2 = e.GetPosition(myCanvas).Y;
-                a.StrokeThickness = 2;
-                a.Stroke = Brushes.Red;
-                A = e.GetPosition(myCanvas);
-                myCanvas.Children.Add(a);
+            System.Windows.Shapes.Line a = new System.Windows.Shapes.Line();
+            a.X1 = A.X;
+            a.X2 = e.GetPosition(myCanvas).X;
+            a.Y1 = A.Y;
+            a.Y2 = e.GetPosition(myCanvas).Y;
+            a.StrokeThickness = 2;
+            a.Stroke = Brushes.Red;
+            A = e.GetPosition(myCanvas);
+            myCanvas.Children.Add(a);
             //}
-            
+
         }
 
 
@@ -477,7 +495,7 @@ namespace Paint
 
         private void BtnBackForward_Click(object sender, RoutedEventArgs e)
         {
-            
+
             if (sender.Equals(btnBack))
             {
                 if (stackBack.GetSize() > 1)
@@ -495,7 +513,7 @@ namespace Paint
                 MainImage.Source = myBitmap.btm;
             }
         }
-        
+
         private void clrdFigure_Click(object sender, RoutedEventArgs e)
         {
             defaultFillRealization = new SolidFill();
