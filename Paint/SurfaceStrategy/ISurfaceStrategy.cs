@@ -10,7 +10,6 @@ namespace Paint.SurfaceStrategy
     public interface ISurfaceStrategy
     {
         Brush CurrentBrush { get; set; }
-        void DrawLine(Point pStart, Point pFinish);
         void Draw(Point pStart, Point pFinish);
     }
 }

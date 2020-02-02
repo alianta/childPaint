@@ -14,8 +14,6 @@ namespace Paint.SurfaceStrategy
         public Brush CurrentBrush { get; set; }
 
         public void Draw(Point pStart, Point pFinish)
-        { }
-            public void DrawLine(Point pStart, Point pFinish)
         {
             Line line = new Line();
 
