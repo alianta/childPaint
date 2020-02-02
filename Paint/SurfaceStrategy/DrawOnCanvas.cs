@@ -4,6 +4,8 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
+using System.Windows.Shapes;
 
 namespace Paint.SurfaceStrategy
 {
@@ -13,7 +15,13 @@ namespace Paint.SurfaceStrategy
 
         public void DrawLine(Point pStart, Point pFinish)
         {
-            throw new NotImplementedException();
+            Line line = new Line();
+
+            line.Stroke = System.Windows.Media.Brushes.Black;
+            line.X1 = pStart.X;
+            line.Y1 = pStart.Y;
+            line.X2 = pFinish.X;
+            line.Y2 = pFinish.Y;
         }
     }
 }

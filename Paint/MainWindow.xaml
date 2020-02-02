@@ -16,8 +16,9 @@
                 </Canvas>
             </TabItem>
             <TabItem x:Name="vector" Header="VECTOR" >
-                <Canvas Background="Yellow" Width="800" Height="550" HorizontalAlignment="Left" Margin="0,80,0,40">
-                   
+                <Canvas x:Name="myCanvas" Background="Yellow" Width="800" Height="550" HorizontalAlignment="Left" Margin="0,80,0,40"
+                    MouseEnter="myCanvas_MouseEnter"
+					MouseMove="myCanvas_MouseMove">
                 </Canvas>
             </TabItem>
         </TabControl>

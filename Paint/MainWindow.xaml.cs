@@ -10,7 +10,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Point = System.Drawing.Point;
 using System.Media;
+using System.Windows.Shapes;
 using Paint.SurfaceStrategy;
+
 
 namespace Paint
 {
@@ -19,8 +21,6 @@ namespace Paint
     /// </summary>
     public partial class MainWindow : Window
     {
-        WriteableBitmap wb; //создает новый холст Image для рисования 
-        byte[] pixelsCopy = new byte[] { };
         Brush currentBrush;
         MyBitmap myBitmap;
         IDrawer defaultDrawerRealization;
@@ -39,18 +39,20 @@ namespace Paint
         //Fill fill = new Fill();
         Stack stackBack = new Stack();
         Stack stackForward = new Stack();
+        FigureCreator concreteCreator = null;
+        Figure concreteFigure = null;
+        Point tmpPoint;
 
         public MainWindow()
         {
-            Scream();
+            //Scream();
             defaultDrawerRealization = new DrawByLine();
             currentBrush = new Brush();            
             defaultFillRealization = new NoFill();
             currentSurfaceStrategy = new DrawOnBitmap();
             InitializeComponent();
-            wb = new WriteableBitmap((int)MainImage.Width, (int)MainImage.Height, 96, 96, PixelFormats.Bgra32, null);
             myBitmap = MyBitmap.GetBitmap();
-            myBitmap.btm = wb;
+            myBitmap.btm = new WriteableBitmap((int)MainImage.Width, (int)MainImage.Height, 96, 96, PixelFormats.Bgra32, null);
             stackBack.AddMyBitmap(myBitmap.btm);
             MainImage.Source = myBitmap.btm;
             FillBitmap();
@@ -72,12 +74,11 @@ namespace Paint
 
         private void FillBitmap()
         {
-            currentBrush = new Brush(currentBrush.BrushThickness, new Color("FFFFFFFF"));
             for (int j = 0; j < (int)MainImage.Height; j++)
             {
                 for (int i = 0; i < (int)MainImage.Width; i++)
                 {
-                    Pixel.Draw(new Point(i, j), currentBrush.BrushColor.HexToRGBConverter());
+                    Pixel.Draw(new Point(i, j), new Color("FFFFFFFF").HexToRGBConverter());
                 }
             }
         }
@@ -135,9 +136,6 @@ namespace Paint
                 xPosition.Text = "Алярма!";
             }
         }
-
-        FigureCreator concreteCreator = null;
-        Figure concreteFigure = null;
 
         /// <summary>
         /// Метод обрабатывает двидение мыши по холсту
@@ -222,7 +220,6 @@ namespace Paint
             currentBrush.BrushColor = new Color(buttonStr);
         }
 
-        Point tmpPoint;
         /// <summary>
         /// Метод обрабатывает нажатие левой кнопки мыши на холсте
         /// </summary>
@@ -330,9 +327,8 @@ namespace Paint
         /// <param name="e"></param>
         private void Button_Clear(object sender, RoutedEventArgs e)
         {
-            wb = new WriteableBitmap((int)MainImage.Width, (int)MainImage.Height, 96, 96, PixelFormats.Bgra32, null);
             FillBitmap();
-            myBitmap.btm = wb;
+            myBitmap.btm = new WriteableBitmap((int)MainImage.Width, (int)MainImage.Height, 96, 96, PixelFormats.Bgra32, null);
             MainImage.Source = myBitmap.btm;
         }
 
@@ -379,20 +375,17 @@ namespace Paint
             // Настраиваем параметры диалога
             dlg.FileName = "Document"; // Имя по-умолчанию
             dlg.Filter = "PNG Image (*.png)|*.png|JPEG Image (*.jpg)|*.jpg|BMP Image (*.bmp)|*.bmp|All files (*.*)|*.*";// Фильтр по расширениям
-            if (selectedFileType == ".jpg")
+            switch (selectedFileType)
             {
-                dlg.FilterIndex = 2;
-
-            }
-            if (selectedFileType == ".png")
-            {
-                dlg.FilterIndex = 1;
-
-            }
-            if (selectedFileType == ".bmp")
-            {
-                dlg.FilterIndex = 3;
-
+                case (".jpg"):
+                    dlg.FilterIndex = 2;
+                    break;
+                case (".png"):
+                    dlg.FilterIndex = 1;
+                    break;
+                case (".bmp"):
+                    dlg.FilterIndex = 3;
+                    break;
             }
 
             Nullable<bool> result = dlg.ShowDialog();
@@ -437,14 +430,45 @@ namespace Paint
             switch (((TabItem)e.AddedItems[0]).Header)
             {
                 case "BITMAP":
-
+                    currentSurfaceStrategy = new DrawOnBitmap();
+                    MainImage.Source = myBitmap.btm;
                     break;
                 case "VECTOR":
-
+                    currentSurfaceStrategy = new DrawOnCanvas();
+ 
                     break;
             }
-
         }
+
+        System.Windows.Point A;
+        private void myCanvas_MouseEnter(object sender, MouseEventArgs e)
+        {
+            A = e.GetPosition(myCanvas);
+        }
+
+        private void myCanvas_MouseDown(object sender, MouseEventArgs e)
+        {
+            isPressed = true; 
+        }
+
+        private void myCanvas_MouseMove(object sender, MouseEventArgs e)
+        {
+            //if (isPressed)
+            //{
+                System.Windows.Shapes.Line a = new System.Windows.Shapes.Line();
+                a.X1 = A.X;
+                a.X2 = e.GetPosition(myCanvas).X;
+                a.Y1 = A.Y;
+                a.Y2 = e.GetPosition(myCanvas).Y;
+                a.StrokeThickness = 2;
+                a.Stroke = Brushes.Red;
+                A = e.GetPosition(myCanvas);
+                myCanvas.Children.Add(a);
+            //}
+            
+        }
+
+
 
         private void bntFillBucket_Click(object sender, RoutedEventArgs e)
         {
@@ -471,6 +495,7 @@ namespace Paint
                 MainImage.Source = myBitmap.btm;
             }
         }
+        
         private void clrdFigure_Click(object sender, RoutedEventArgs e)
         {
             defaultFillRealization = new SolidFill();
