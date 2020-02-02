@@ -8,7 +8,7 @@ using System.Drawing;
 
 namespace Paint.Fabric
 {
-    class StraightLineCreator : FigureCreator
+   public class StraightLineCreator : FigureCreator
     {
         public override Figure CreateFigure(Point pStart, Point pFinish, bool shiftPressed)
         {

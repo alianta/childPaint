@@ -8,7 +8,7 @@ using System.Windows.Media.Imaging;
 
 namespace Paint.Rastr
 {
-    class StraightLine : Figure
+    public class StraightLine : Figure
     {
         public StraightLine(List<Point> figurePoints) : base(figurePoints)
         { }

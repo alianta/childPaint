@@ -8,7 +8,7 @@ using System.Drawing;
 
 namespace Paint.Fabric
 {
-    class EraserCreator : FigureCreator
+    public class EraserCreator : FigureCreator
     {
         public override Figure CreateFigure(Point pStart, Point pFinish, bool shiftPressed)
         {

@@ -11,6 +11,7 @@ namespace Paint.Fabric
     [TestFixture]
     public class CreatorTests
     {
+       
 
         [TestCase()]
         public void EllipceCreatorTest()
@@ -64,14 +65,49 @@ namespace Paint.Fabric
 
             Assert.IsTrue(squere is Rectangle);
         }
+
+
         //[TestCase()]
         //public void PolygonCreatorTest()
-        //{
-        //    PolygonCreator figureCreator = new PolygonCreator();
-        //    Figure polygon = figureCreator.CreatePolygon(new Point(), new Point());
+        //{   
+        //PolygonCreator figureCreator = new PolygonCreator();
+        //    int numSides = 6;
+        //    Figure polygon = figureCreator.CreatePolygon(new Point(), new Point(), numSides);
 
         //    Assert.IsTrue(polygon is Polygon);
         //}
+
+        [TestCase()]
+        public void EraserCreatorTest()
+        {
+            EraserCreator figureCreator = new EraserCreator();
+            bool shiftPressed = false;
+            Figure neLine = figureCreator.CreateFigure(new Point(), new Point(), shiftPressed);
+
+            Assert.IsTrue(neLine is NeLine);
+        }
+
+
+        [TestCase()]
+        public void ClosingLinesCreatorTest()
+        {
+            ClosingLinesCreator figureCreator = new ClosingLinesCreator();
+
+            bool isDoubleClicked = false;
+            Figure closingLines = figureCreator.CreateFigure(new Point(), new Point(), isDoubleClicked);
+
+            Assert.IsTrue(closingLines is ClosingLines);
+        }
+
+
+        [TestCase()]
+        public void StraightLineCreatorTest()
+        {
+            StraightLineCreator figureCreator = new StraightLineCreator();
+            bool shiftPressed = false;
+            Figure straightLine = figureCreator.CreateFigure(new Point(), new Point(), shiftPressed);
+            Assert.IsTrue(straightLine is StraightLine);
+        }
 
 
 

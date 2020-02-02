@@ -8,7 +8,7 @@ using System.Windows.Media.Imaging;
 
 namespace Paint.Rastr
 {
-    class ClosingLines : Figure
+    public class ClosingLines : Figure
     {
         public ClosingLines(List<Point> figurePoints) : base(figurePoints)
         { }

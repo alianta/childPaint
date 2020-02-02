@@ -8,7 +8,7 @@ using System.Windows.Media.Imaging;
 
 namespace Paint.Rastr
 {
-    class NeLine : Figure
+    public class NeLine : Figure
     {
         //public Line()
         //{ }
