@@ -23,39 +23,39 @@
         </TabControl>
 		<StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="0,24,0,0" Background="White" Height="50">
 
-			<Button x:Name="btnBack" Height="35" Width="30" Background="White" BorderThickness="0" Click="BtnBackForward_Click" FontFamily="Segoe MDL2 Assets" Content="&#xE72B;"/>
-			<Button x:Name="btnForward" Height="35" Width="30" Background="White" BorderThickness="0" Click="BtnBackForward_Click" FontFamily="Segoe MDL2 Assets" Content="&#xE72A;"/>
+            <Button x:Name="btnBack"  ToolTip="Back" Height="35" Width="30" Background="White" BorderThickness="0" Click="BtnBackForward_Click" FontFamily="Segoe MDL2 Assets" Content="&#xE72B;"/>
+            <Button x:Name="btnForward"  ToolTip="Forward" Height="35" Width="30" Background="White" BorderThickness="0" Click="BtnBackForward_Click" FontFamily="Segoe MDL2 Assets" Content="&#xE72A;"/>
 
-			<Button x:Name="btnLine" Height="35" Width="30" Background="White" BorderThickness="0" Click="btnFigure_Click">
+            <Button x:Name="btnLine" Height="35" Width="30" Background="White" BorderThickness="0" ToolTip="Pencil" Click="btnFigure_Click">
 				<Image Source="white/b_14-pencil.png"></Image>
 			</Button>
-			<Button x:Name="btnStraightLine" Height="35" Width="30" Background="White" BorderThickness="0" Click="btnFigure_Click">
+            <Button x:Name="btnStraightLine" Height="35" Width="30" Background="White" BorderThickness="0"  ToolTip="Straight line" Click="btnFigure_Click">
 				<Image Source="white/b_1-line.png"></Image>
 			</Button>
-			<Button x:Name="btnClosingLines" Height="35" Width="35" Background="White" BorderThickness="0" Click="btnFigure_Click">
+            <Button x:Name="btnClosingLines" Height="35" Width="35" Background="White" BorderThickness="0" ToolTip="Closing line" Click="btnFigure_Click">
 				<Image Source="white/b_2-lineCoords.png"></Image>
 			</Button>
-			<Button x:Name="btnCircle" Height="35" Width="35" Background="White" BorderThickness="0" Click="btnFigure_Click">
+            <Button x:Name="btnCircle" Height="35" Width="35" Background="White" BorderThickness="0" ToolTip="Ellipce (Circle with Shift)"  Click="btnFigure_Click">
 				<Image Source="white/b_3-ellipsis.png"></Image>
 			</Button>
-			<Button x:Name="btnRectangle" Height="35" Width="35" Background="White" BorderThickness="0" Click="btnFigure_Click">
+            <Button x:Name="btnRectangle" Height="35" Width="35" Background="White" BorderThickness="0" ToolTip="Rectangle (Square with Shift)" Click="btnFigure_Click">
 				<Image Source="white/b_4-rectangle.png"></Image>
 			</Button>
-			<Button x:Name="btnTriangle" Height="35" Width="35" Background="White" BorderThickness="0" Click="btnFigure_Click">
+            <Button x:Name="btnTriangle" Height="35" Width="35" Background="White" BorderThickness="0" ToolTip="Isoscale triangle (Rectangular triangle with Shift)" Click="btnFigure_Click">
 				<Image Source="white/b_5-triangle.png"></Image>
 			</Button>
 
-			<Button x:Name="btnPolygon" Height="35" Width="35" Background="White" BorderThickness="0" Click="btnFigure_Click">
+            <Button x:Name="btnPolygon" Height="35" Width="35" Background="White" BorderThickness="0" ToolTip="Polygon"  Click="btnFigure_Click">
 				<Image Source="white/b_6-nGon.png"></Image>
 			</Button>
-			<Button x:Name="btnTree" Height="35" Width="35" Background="White" BorderThickness="0" Click="btnFigure_Click">
+            <Button x:Name="btnTree" Height="35" Width="35" Background="White" BorderThickness="0" ToolTip="Pythagorean tree"  Click="btnFigure_Click">
 				<Image Source="white/b_13-tree.png"></Image>
 			</Button>
-			<TextBox x:Name="sides" TextWrapping="Wrap"  Width="40" Margin="0,12,5,10" FontWeight="Normal"  VerticalAlignment="Center" Height="25" Text="5" TextAlignment="Center" FontSize="14"/>
+            <TextBox x:Name="sides" TextWrapping="Wrap"  Width="40" Margin="0,12,5,10" FontWeight="Normal"  VerticalAlignment="Center" Height="25" Text="5" TextAlignment="Center" FontSize="14" ToolTip="Number for Polygon and Pythagorean tree" PreviewTextInput="Sides_OnPreviewTextInput"/>
 
 
 			<!--выбор толщины линии-->
-			<ComboBox Height="40" Width="100" Background="White" BorderThickness="0" Name="ThicknessList" VerticalAlignment="Center" SelectionChanged="Button_Change_Thickness">
+            <ComboBox Height="40" Width="100" Background="White" BorderThickness="0" Name="ThicknessList" VerticalAlignment="Center" SelectionChanged="Button_Change_Thickness" ToolTip="Line thickness">
 				<ComboBoxItem  x:Name="thick1" IsSelected="True">
 					<StackPanel  Orientation="Horizontal">
 						<Image Source="white/b_8-lineWidth-1.png"  Width="40" />
@@ -82,22 +82,22 @@
 				</ComboBoxItem>
 			</ComboBox>
 
-			<Button x:Name="bntFillBucket" Height="35" Width="35" Background="White" BorderThickness="0" Click="bntFillBucket_Click">
+            <Button x:Name="bntFillBucket" Height="35" Width="35" Background="White" BorderThickness="0" Click="bntFillBucket_Click" ToolTip="Color fill">
 				<Image Source="white/b_7-fillBucket.png"></Image>
 			</Button>
 
-			<Button x:Name="btnEraser" Height="35" Width="35" Background="White" BorderThickness="0" Click="btnFigure_Click" >
+            <Button x:Name="btnEraser" Height="35" Width="35" Background="White" BorderThickness="0" Click="btnFigure_Click" ToolTip="Eraser">
 				<Image Source="white/b_10-eraser.png"></Image>
 			</Button>
 
-			<Button x:Name="bntPickOut" Height="35" Width="35" Background="White" BorderThickness="0">
+            <Button x:Name="bntPickOut" Height="35" Width="35" Background="White" BorderThickness="0" ToolTip="Pick out">
 				<Image Source="white/b_11-selection.png"></Image>
 			</Button>
 
-			<Button x:Name="bntMove" Height="35" Width="35" Background="White" BorderThickness="0">
+            <Button x:Name="bntMove" Height="35" Width="35" Background="White" BorderThickness="0" ToolTip="Move">
 				<Image Source="white/b_12-move.png"></Image>
 			</Button>
-			<Button x:Name="clrdFigure" Width="35" Background="White" BorderThickness="0" Content="Залитая фигура" Click="clrdFigure_Click" Margin="0,8,0,7"/>
+            <Button x:Name="clrdFigure" Width="35" Background="White" BorderThickness="0" Content="Залитая фигура" Click="clrdFigure_Click" Margin="0,8,0,7" ToolTip="Filled figure"/>
 			<!--палитра-->
 			<WrapPanel Width="180" Margin="3">
 				<Button x:Name="bntBlack" Width="20" Height="20" Margin="1" Background="#000000" Click="Button_Change_Color"/>
@@ -117,7 +117,7 @@
 				<Button x:Name="bntYellow" Width="20" Height="20" Margin="1" Background="#ffff00" Click="Button_Change_Color"/>
 				<Button x:Name="bntWhite" Width="20" Height="20" Margin="1" Background="White" Click="Button_Change_Color"/>
 			</WrapPanel>
-			<Button x:Name="clearBtn" Height="30" Width="80" Margin="60,9,0,10.6" Background="White" Content="CLEAR ALL" FontSize="11" Click="Button_Clear"/>
+            <Button x:Name="clearBtn" Height="30" Width="80" Margin="60,9,0,10.6" Background="White" Content="CLEAR ALL" FontSize="11" ToolTip="Clear canvas" Click="Button_Clear"/>
 
 
 
@@ -126,9 +126,9 @@
 
 		<StackPanel VerticalAlignment="Bottom" Orientation="Horizontal" Background="White" Height="34">
 			<Label Content="X : " VerticalAlignment="Center" Height="28"/>
-			<TextBox x:Name="xPosition" HorizontalAlignment="Left" Height="25" TextWrapping="Wrap" VerticalAlignment="Center" Width="50"/>
+            <TextBox x:Name="xPosition" HorizontalAlignment="Left" Height="25" TextWrapping="Wrap" VerticalAlignment="Center" Width="50" IsReadOnly="True"/>
 			<Label Content="Y : " HorizontalAlignment="Left"  VerticalAlignment="Center" RenderTransformOrigin="0.564,1.103"/>
-            <TextBox x:Name="yPosition" HorizontalAlignment="Left" Height="25" TextWrapping="Wrap" VerticalAlignment="Center" Width="50"/>
+            <TextBox x:Name="yPosition" HorizontalAlignment="Left" Height="25" TextWrapping="Wrap" VerticalAlignment="Center" Width="50" IsReadOnly="True"/>
 
             <Label Content="FORMAT" VerticalAlignment="Center" FontSize="12" Margin="630,3,0,3" Height="24"/>
 			<ComboBox x:Name ="fileTypesList" Height="24" Width="60" FontSize="12">
@@ -148,7 +148,7 @@
 					</StackPanel>
 				</ComboBoxItem>
 			</ComboBox>
-			<Button x:Name="save" Height="24" Width="50" Margin="5" Background="White" Content="SAVE" FontSize="12" Click="Button_Save" VerticalAlignment="Center"/>
+            <Button x:Name="save" Height="24" Width="50" Margin="5" Background="White" Content="SAVE" FontSize="12" Click="Button_Save" VerticalAlignment="Center" ToolTip="Save to file"/>
 			<!--форматы-->
 		</StackPanel>
 

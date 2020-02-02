@@ -482,5 +482,11 @@ namespace Paint
             figure.DrawerRealisation.SurfaceStrategy = currentSurfaceStrategy;
             figure.DrawerRealisation.SurfaceStrategy.CurrentBrush = currentBrush;
         }
+
+        private void Sides_OnPreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            //блокировка ввода всего кроме цифр
+            e.Handled = !(Char.IsDigit(e.Text, 0));
+        }
     }
 }
