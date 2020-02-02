@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Paint"
         mc:Ignorable="d"
         Title="OurPain/T" Height="710" Width="1000" MouseUp="Window_MouseUp"
-        Icon="white/b_9-colorBar.ico" FontWeight="Bold" MouseDoubleClick="Window_MouseDoubleClick">
+        Icon="white/b_9-colorBar.ico" FontWeight="Bold" MouseDoubleClick="Window_MouseDoubleClick" KeyDown="Window_KeyDown">
 
 	<Grid >
 		<TabControl Background="#FFBDB9B9" SelectionChanged="TabControl_SelectionChanged" FontWeight="Bold">

@@ -58,6 +58,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="InfoPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -78,6 +82,9 @@
     <Compile Include="Fabric\RectangleCreator.cs" />
     <Compile Include="Fabric\StraightLineCreator.cs" />
     <Compile Include="Fill.cs" />
+    <Compile Include="InfoPage.xaml.cs">
+      <DependentUpon>InfoPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MyBitmap.cs" />
     <Compile Include="Brush.cs" />
     <Compile Include="Color.cs" />
@@ -173,6 +180,14 @@
     <Folder Include="Vector\" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="white\hudgehog.png" />
+    <Resource Include="white\kopatich.png" />
+    <Resource Include="white\krosh.png" />
+    <Resource Include="white\losash.png" />
+    <Resource Include="white\misharik.png" />
+    <Resource Include="white\sova.png" />
+    <Resource Include="white\barash.png" />
+    <Resource Include="white\bibi.png" />
     <Content Include="white\female_scream.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

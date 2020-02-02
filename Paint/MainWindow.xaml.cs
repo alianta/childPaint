@@ -531,5 +531,14 @@ namespace Paint
             //блокировка ввода всего кроме цифр
             e.Handled = !(Char.IsDigit(e.Text, 0));
         }
+
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.Key == Key.F1)
+            {
+                InfoPage info = new InfoPage();
+                info.ShowDialog();
+            }
+        }
     }
 }
