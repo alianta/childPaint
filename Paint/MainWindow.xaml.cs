@@ -336,9 +336,19 @@ namespace Paint
         /// <param name="e"></param>
         private void Button_Clear(object sender, RoutedEventArgs e)
         {
-            FillBitmap();
-            myBitmap.btm = new WriteableBitmap((int)MainImage.Width, (int)MainImage.Height, 96, 96, PixelFormats.Bgra32, null);
-            MainImage.Source = myBitmap.btm;
+            Type canvaType = currentSurfaceStrategy.GetType();
+
+            if (canvaType.Name == "DrawOnCanvas")
+            {
+                myCanvas.Children.Clear();
+            }
+            else
+            {
+
+                FillBitmap();
+                myBitmap.btm = new WriteableBitmap((int)MainImage.Width, (int)MainImage.Height, 96, 96, PixelFormats.Bgra32, null);
+                MainImage.Source = myBitmap.btm;
+            }
         }
 
         //  ВНУТРЕННИЕ МЕТОДЫ
