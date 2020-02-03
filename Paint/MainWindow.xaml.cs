@@ -26,21 +26,24 @@ namespace Paint
         private MyBitmap myBitmap;
         private IDrawer defaultDrawerRealization;
         private ISurfaceStrategy currentSurfaceStrategy;
-        ColoredFiguresStrategy defaultFillRealization;
-        FigureEnum flagFigure = FigureEnum.Pen;
-        bool isPressed = false;
-        bool shiftPressed = false;
-        bool isBucket = false;
-        bool isDoubleClicked = false;
-        Point prevPoint, pStart, pFinish, tmpPoint;
-        int numSides;
-        int clickCount = 0;
-        int vectorThickness;
-        //Fill fill = new Fill();
+        private ColoredFiguresStrategy defaultFillRealization;
+        private FigureEnum flagFigure = FigureEnum.Pen;
+        private Point prevPoint, pStart, pFinish, tmpPoint;
+        private FigureCreator concreteCreator = null;
+        private Figure concreteFigure = null;
+        private SolidColorBrush stroke1 = Brushes.Black;
+        private bool isPressed = false;
+        private bool shiftPressed = false;
+        private bool isBucket = false;
+        private bool isDoubleClicked = false;
+        private int numSides;
+        private int clickCount = 0;
+        private int vectorThickness;
+        // private Fill fill = new Fill();
         private Stack stackBack = new Stack();
+        private System.Windows.Point A;
         private Stack stackForward = new Stack();
-        FigureCreator concreteCreator = null;
-        Figure concreteFigure = null;
+
 
         public MainWindow()
         {
@@ -57,33 +60,7 @@ namespace Paint
             FillBitmap();
         }
 
-        private void Scream()
-        {
-            SoundPlayer player = new SoundPlayer();
-            string path = Directory.GetCurrentDirectory();
-            player.SoundLocation = path + "\\white\\female_scream.wav";
-
-            try
-            {
-                player.Load();
-                player.Play();
-            }
-            catch (Exception) { }
-        }
-
-        private void FillBitmap()
-        {
-            for (int j = 0; j < (int)MainImage.Height; j++)
-            {
-                for (int i = 0; i < (int)MainImage.Width; i++)
-                {
-                    Pixel.Draw(new Point(i, j), new Color("FFFFFFFF").HexToRGBConverter());
-                }
-            }
-        }
-
         //  ОБРАБОТКА СОБЫТИЙ
-
 
         /// <summary>
         /// Метод обрабатывающий кнопки фигур
@@ -137,94 +114,6 @@ namespace Paint
         }
 
         /// <summary>
-        /// Метод обрабатывает двидение мыши по холсту
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Image_MouseMove(object sender, MouseEventArgs e)
-        {
-            shiftPressed = Keyboard.IsKeyDown(Key.LeftShift);
-            ShowCurPoint(e);
-            Point curPoint = SetToCurPoint(e);
-
-            if (isPressed)
-            {
-                MainImage.Source = myBitmap.Btm;
-                if (!isBucket)
-                {
-                    switch (flagFigure)
-                    {
-                        case FigureEnum.Pen:
-                            concreteCreator = new PenCreator();
-                            break;
-                        case FigureEnum.Rectangle:
-                            concreteCreator = new RectangleCreator();
-                            break;
-                        case FigureEnum.Circle:
-                            concreteCreator = new EllipceCreator();
-                            break;
-                        case FigureEnum.Triangle:
-                            concreteCreator = new TriangleCreator();
-                            break;
-                        case FigureEnum.Polygon:
-                            numSides = Convert.ToInt32(sides.Text);
-                            concreteCreator = new PolygonCreator(numSides);
-                            break;
-                        case FigureEnum.Tree:
-                            numSides = Convert.ToInt32(sides.Text);
-                            concreteCreator = new FractalTreeCreator(numSides);
-                            break;
-                        case FigureEnum.StraightLine:
-                            concreteCreator = new StraightLineCreator();
-                            break;
-                        case FigureEnum.Eraser:
-                            concreteCreator = new EraserCreator();
-                            break;
-                        case FigureEnum.ClosingLines:
-                            break;
-                    }
-
-                    if (concreteCreator == null)
-                        return;
-
-                    if (flagFigure == FigureEnum.ClosingLines && clickCount < 2)
-                    {
-                        concreteFigure = concreteCreator.CreateFigure(prevPoint, curPoint, isDoubleClicked);
-                    }
-
-                    concreteFigure = concreteCreator.CreateFigure(prevPoint, curPoint, shiftPressed);
-                    InitFigure(concreteFigure);
-
-                    if (flagFigure == FigureEnum.Pen || flagFigure == FigureEnum.Eraser)
-                    {
-                        prevPoint = curPoint;
-                    }
-                    else
-                    {
-                        myBitmap.SetBitmapToCopy();
-
-                    }
-                }
-                concreteFigure.DoDraw();
-            }
-        }
-
-        SolidColorBrush stroke1 = Brushes.Black;
-
-        /// <summary>
-        /// Метод обрабатывает клик по иконке с цветами
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Button_Change_Color(object sender, RoutedEventArgs e)
-        {
-            string buttonStr = Convert.ToString(((Button)e.OriginalSource).Background);
-            currentBrush.BrushColor = new Color(buttonStr);
-            stroke1 = new SolidColorBrush((System.Windows.Media.Color)ColorConverter.ConvertFromString(buttonStr));
-
-        }
-
-        /// <summary>
         /// Метод обрабатывает нажатие левой кнопки мыши на холсте
         /// </summary>
         /// <param name="sender"></param>
@@ -257,7 +146,48 @@ namespace Paint
                 prevPoint = new Point((int)e.GetPosition(MainImage).X, (int)e.GetPosition(MainImage).Y);
                 myBitmap.CreateCopy();
             }
+        }
 
+        /// <summary>
+        /// Метод обрабатывает двидение мыши по холсту
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Image_MouseMove(object sender, MouseEventArgs e)
+        {
+            shiftPressed = Keyboard.IsKeyDown(Key.LeftShift);
+            ShowCurPoint(e);
+            Point curPoint = SetToCurPoint(e);
+
+            if (isPressed)
+            {
+                MainImage.Source = myBitmap.Btm;
+                if (!isBucket)
+                {
+                    SelectConcreteCreator(flagFigure);
+
+                    if (concreteCreator == null)
+                        return;
+
+                    if (flagFigure == FigureEnum.ClosingLines && clickCount < 2)
+                    {
+                        concreteFigure = concreteCreator.CreateFigure(prevPoint, curPoint, isDoubleClicked);
+                    }
+
+                    concreteFigure = concreteCreator.CreateFigure(prevPoint, curPoint, shiftPressed);
+                    InitFigure(concreteFigure);
+
+                    if (flagFigure == FigureEnum.Pen || flagFigure == FigureEnum.Eraser)
+                    {
+                        prevPoint = curPoint;
+                    }
+                    else
+                    {
+                        myBitmap.SetBitmapToCopy();
+                    }
+                }
+                concreteFigure.DoDraw();
+            }
         }
 
         /// <summary>
@@ -280,7 +210,6 @@ namespace Paint
                 {
                     isPressed = true;
                 }
-
             }
             if (clickCount > 1 && flagFigure == FigureEnum.ClosingLines)
             {
@@ -309,16 +238,15 @@ namespace Paint
         }
 
         /// <summary>
-        /// Метод обрывает рисование линии при выведении курсора из-за холста и продолжает, когда возвращаешься
+        /// Метод обрабатывает клик по иконке с цветами
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void MainImage_MouseEnter(object sender, MouseEventArgs e)
+        private void Button_Change_Color(object sender, RoutedEventArgs e)
         {
-            if (isPressed == true)
-            {
-                prevPoint = new Point((int)e.GetPosition(MainImage).X, (int)e.GetPosition(MainImage).Y);
-            }
+            string buttonStr = Convert.ToString(((Button)e.OriginalSource).Background);
+            currentBrush.BrushColor = new Color(buttonStr);
+            stroke1 = new SolidColorBrush((System.Windows.Media.Color)ColorConverter.ConvertFromString(buttonStr));
         }
 
         /// <summary>
@@ -338,37 +266,23 @@ namespace Paint
             }
             else
             {
-
                 FillBitmap();
                 myBitmap.Btm = new WriteableBitmap((int)MainImage.Width, (int)MainImage.Height, 96, 96, PixelFormats.Bgra32, null);
                 MainImage.Source = myBitmap.Btm;
             }
         }
 
-        //  ВНУТРЕННИЕ МЕТОДЫ
-
         /// <summary>
-        /// Метод выводит в 2 текстбокса координаты позиции мыши
+        /// Метод обрывает рисование линии при выведении курсора из-за холста и продолжает, когда возвращаешься
         /// </summary>
+        /// <param name="sender"></param>
         /// <param name="e"></param>
-        /// 
-        private void ShowCurPoint(MouseEventArgs e)
+        private void MainImage_MouseEnter(object sender, MouseEventArgs e)
         {
-            xPosition.Text = Convert.ToString(Convert.ToInt32(e.GetPosition(MainImage).X));
-            yPosition.Text = Convert.ToString(Convert.ToInt32(e.GetPosition(MainImage).Y));
-        }
-
-        /// <summary>
-        /// Метод задает текущую точку
-        /// </summary>
-        /// <param name="e"></param>
-        /// <returns>Возвращает Point с текущими координатами</returns>
-        private Point SetToCurPoint(MouseEventArgs e)
-        {
-            return new Point(
-                (int)e.GetPosition(MainImage).X,
-                (int)e.GetPosition(MainImage).Y
-            );
+            if (isPressed == true)
+            {
+                prevPoint = new Point((int)e.GetPosition(MainImage).X, (int)e.GetPosition(MainImage).Y);
+            }
         }
 
         /// <summary>
@@ -427,7 +341,7 @@ namespace Paint
                 }
             }
         }
-        
+
         /// <summary>
         /// Метод обрабатывает кнопку изменения толщины линии
         /// </summary>
@@ -458,6 +372,11 @@ namespace Paint
             }
         }
 
+        /// <summary>
+        /// Выбор растр или вектор
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             switch (((TabItem)e.AddedItems[0]).Header)
@@ -465,20 +384,16 @@ namespace Paint
                 case "BITMAP":
                     currentSurfaceStrategy = new DrawOnBitmap();
                     MainImage.Source = myBitmap.Btm;
-
                     break;
                 case "VECTOR":
                     currentSurfaceStrategy = new DrawOnCanvas();
-
                     break;
             }
         }
 
-        
-        System.Windows.Point A;
+
         private void MyCanvas_MouseEnter(object sender, MouseEventArgs e)
         {
-
             if (e.MouseDevice.LeftButton == MouseButtonState.Pressed)
             {
                 A = e.GetPosition(myCanvas);
@@ -490,7 +405,6 @@ namespace Paint
         }
         private void MyCanvas_MouseUp(object sender, MouseEventArgs e)
         {
-            isPressed = true;
         }
 
         private void MyCanvas_MouseMove(object sender, MouseEventArgs e)
@@ -505,20 +419,29 @@ namespace Paint
                     Y2 = e.GetPosition(myCanvas).Y,
                     StrokeThickness = vectorThickness,
                     Stroke = stroke1,
-                }); 
+                });
 
-            } A = e.GetPosition(myCanvas);
-
+            }
+            A = e.GetPosition(myCanvas);
         }
 
+        /// <summary>
+        /// Метод обрабатывает нажатие на кнопку заливки
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BntFillBucket_Click(object sender, RoutedEventArgs e)
         {
             isBucket = true;
         }
 
+        /// <summary>
+        /// Метод обрабатывает нажатие на кнопки вперед / назад
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnBackForward_Click(object sender, RoutedEventArgs e)
         {
-
             if (sender.Equals(btnBack))
             {
                 if (stackBack.GetSize() > 1)
@@ -537,11 +460,98 @@ namespace Paint
             }
         }
 
+        /// <summary>
+        /// Метод обрабатывает нажатие на кнопки F1
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.F1)
+            {
+                InfoPage info = new InfoPage();
+                info.ShowDialog();
+            }
+        }
+
+
+        //  ВНУТРЕННИЕ МЕТОДЫ
+
+
+
+        /// <summary>
+        /// Создание креейтера выбраной фигуры 
+        /// </summary>
+        /// <param name="flagFigure"></param>
+        private void SelectConcreteCreator(FigureEnum flagFigure)
+        {
+            switch (flagFigure)
+            {
+                case FigureEnum.Pen:
+                    concreteCreator = new PenCreator();
+                    break;
+                case FigureEnum.Rectangle:
+                    concreteCreator = new RectangleCreator();
+                    break;
+                case FigureEnum.Circle:
+                    concreteCreator = new EllipceCreator();
+                    break;
+                case FigureEnum.Triangle:
+                    concreteCreator = new TriangleCreator();
+                    break;
+                case FigureEnum.Polygon:
+                    numSides = Convert.ToInt32(sides.Text);
+                    concreteCreator = new PolygonCreator(numSides);
+                    break;
+                case FigureEnum.Tree:
+                    numSides = Convert.ToInt32(sides.Text);
+                    concreteCreator = new FractalTreeCreator(numSides);
+                    break;
+                case FigureEnum.StraightLine:
+                    concreteCreator = new StraightLineCreator();
+                    break;
+                case FigureEnum.Eraser:
+                    concreteCreator = new EraserCreator();
+                    break;
+                case FigureEnum.ClosingLines:
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// Метод выводит в 2 текстбокса координаты позиции мыши
+        /// </summary>
+        /// <param name="e"></param>
+        /// 
+        private void ShowCurPoint(MouseEventArgs e)
+        {
+            xPosition.Text = Convert.ToString(Convert.ToInt32(e.GetPosition(MainImage).X));
+            yPosition.Text = Convert.ToString(Convert.ToInt32(e.GetPosition(MainImage).Y));
+        }
+
+        /// <summary>
+        /// Метод задает текущую точку
+        /// </summary>
+        /// <param name="e"></param>
+        /// <returns>Возвращает Point с текущими координатами</returns>
+        private Point SetToCurPoint(MouseEventArgs e)
+        {
+            return new Point(
+                (int)e.GetPosition(MainImage).X,
+                (int)e.GetPosition(MainImage).Y
+            );
+        }
+
+
         private void ClrdFigure_Click(object sender, RoutedEventArgs e)
         {
             defaultFillRealization = new SolidFill();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="figure"></param>
         private void InitFigure(Figure figure)
         {
             figure.DrawerRealisation = defaultDrawerRealization;
@@ -555,13 +565,35 @@ namespace Paint
             e.Handled = !(Char.IsDigit(e.Text, 0));
         }
 
-        private void Window_KeyDown(object sender, KeyEventArgs e)
+        /// <summary>
+        /// Метод заливает белым цветом весь битмап
+        /// </summary>
+        private void FillBitmap()
         {
-            if (e.Key == Key.F1)
+            for (int j = 0; j < (int)MainImage.Height; j++)
             {
-                InfoPage info = new InfoPage();
-                info.ShowDialog();
+                for (int i = 0; i < (int)MainImage.Width; i++)
+                {
+                    Pixel.Draw(new Point(i, j), new Color("FFFFFFFF").HexToRGBConverter());
+                }
             }
+        }
+
+        /// <summary>
+        /// Метод описывает звуковое сопровождение при разработке
+        /// </summary>
+        private void Scream()
+        {
+            SoundPlayer player = new SoundPlayer();
+            string path = Directory.GetCurrentDirectory();
+            player.SoundLocation = path + "\\white\\female_scream.wav";
+
+            try
+            {
+                player.Load();
+                player.Play();
+            }
+            catch (Exception) { }
         }
     }
 }
