@@ -12,6 +12,7 @@ using Point = System.Drawing.Point;
 using System.Media;
 using System.Windows.Shapes;
 using Paint.SurfaceStrategy;
+using Line = System.Windows.Shapes.Line;
 
 
 namespace Paint
@@ -209,6 +210,8 @@ namespace Paint
             }
         }
 
+        SolidColorBrush stroke1 = Brushes.Black;
+
         /// <summary>
         /// Метод обрабатывает клик по иконке с цветами
         /// </summary>
@@ -218,6 +221,25 @@ namespace Paint
         {
             string buttonStr = Convert.ToString(((Button)e.OriginalSource).Background);
             currentBrush.BrushColor = new Color(buttonStr);
+            switch (buttonStr)
+            {
+                case "#FFFF0000":
+                    stroke1 = Brushes.Red;
+                    break;
+                case "#FF008000":
+                    stroke1 = Brushes.Green;
+                    break;
+                default:
+                    stroke1 = Brushes.Black;
+                    break;
+            }
+        }
+
+        
+
+        private void TranslateColor(object sender, RoutedEventArgs e)
+        {
+            string buttonStr = Convert.ToString(((Button)e.OriginalSource).Background);
         }
 
         /// <summary>
@@ -267,7 +289,6 @@ namespace Paint
         {
             isPressed = false;
             pFinish = SetToCurPoint(e);
-
 
             if (!isDoubleClicked)
             {
@@ -417,6 +438,8 @@ namespace Paint
 
         }
 
+        Shape strokeThickness;
+
         /// <summary>
         /// Метод обрабатывает кнопку изменения толщины линии
         /// </summary>
@@ -428,6 +451,7 @@ namespace Paint
             if (selectedItem.Equals(thick1))
             {
                 currentBrush.BrushThickness = new DefaultThickness();
+              //  strokeThickness = 1;
             }
             else if (selectedItem.Equals(thick2))
             {
@@ -450,6 +474,7 @@ namespace Paint
                 case "BITMAP":
                     currentSurfaceStrategy = new DrawOnBitmap();
                     MainImage.Source = myBitmap.btm;
+
                     break;
                 case "VECTOR":
                     currentSurfaceStrategy = new DrawOnCanvas();
@@ -461,7 +486,11 @@ namespace Paint
         System.Windows.Point A;
         private void myCanvas_MouseEnter(object sender, MouseEventArgs e)
         {
-            A = e.GetPosition(myCanvas);
+
+            if (e.MouseDevice.LeftButton == MouseButtonState.Pressed)
+            {
+                A = e.GetPosition(myCanvas);
+            }
         }
 
         private void myCanvas_MouseDown(object sender, MouseEventArgs e)
@@ -471,19 +500,19 @@ namespace Paint
 
         private void myCanvas_MouseMove(object sender, MouseEventArgs e)
         {
-            //if (isPressed)
-            //{
-            System.Windows.Shapes.Line a = new System.Windows.Shapes.Line();
-            a.X1 = A.X;
-            a.X2 = e.GetPosition(myCanvas).X;
-            a.Y1 = A.Y;
-            a.Y2 = e.GetPosition(myCanvas).Y;
-            a.StrokeThickness = 2;
-            a.Stroke = Brushes.Red;
-            A = e.GetPosition(myCanvas);
-            myCanvas.Children.Add(a);
-            //}
+            if (e.MouseDevice.LeftButton == MouseButtonState.Pressed)
+            {
+                myCanvas.Children.Add(new Line
+                {
+                    X1 = A.X,
+                    Y1 = A.Y,
+                    X2 = e.GetPosition(myCanvas).X,
+                    Y2 = e.GetPosition(myCanvas).Y,
+                    StrokeThickness = 1,
+                    Stroke = stroke1,
+                }); 
 
+            } A = e.GetPosition(myCanvas);
         }
 
 
@@ -534,7 +563,7 @@ namespace Paint
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
-            if(e.Key == Key.F1)
+            if (e.Key == Key.F1)
             {
                 InfoPage info = new InfoPage();
                 info.ShowDialog();

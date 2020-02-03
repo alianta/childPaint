@@ -98,12 +98,13 @@
             <Button x:Name="bntMove" Height="35" Width="35" Background="White" BorderThickness="0" ToolTip="Move">
 				<Image Source="white/b_12-move.png"></Image>
 			</Button>
-            <Button x:Name="clrdFigure" Width="35" Background="White" BorderThickness="0" Content="Залитая фигура" Click="clrdFigure_Click" Margin="0,8,0,7" ToolTip="Filled figure"/>
+            <!--
+            <Button x:Name="clrdFigure" Width="35" Background="White" BorderThickness="0" Content="Залитая фигура" Click="clrdFigure_Click" Margin="0,8,0,7" ToolTip="Filled figure"/>-->
 			<!--палитра-->
 			<WrapPanel Width="180" Margin="3">
-				<Button x:Name="bntBlack" Width="20" Height="20" Margin="1" Background="#000000" Click="Button_Change_Color"/>
-				<Button x:Name="bntRed" Width="20" Height="20" Margin="1" Background="#ff0000" Click="Button_Change_Color"/>
-				<Button x:Name="bntGreen" Width="20" Height="20" Margin="1" Background="#008000" Click="Button_Change_Color"/>
+                <Button x:Name="bntBlack" Width="20" Height="20" Margin="1" Background="#000000" Click="Button_Change_Color"/>
+                <Button x:Name="bntRed" Width="20" Height="20" Margin="1" Background="#ff0000" Click="Button_Change_Color"/>
+                <Button x:Name="bntGreen" Width="20" Height="20" Margin="1" Background="#008000" Click="Button_Change_Color"/>
 				<Button x:Name="bntBlue" Width="20" Height="20" Margin="1" Background="#0000ff" Click="Button_Change_Color"/>
 				<Button x:Name="bntAqua" Width="20" Height="20" Margin="1" Background="#00ffff" Click="Button_Change_Color"/>
 				<Button x:Name="bntGrey" Width="20" Height="20" Margin="1" Background="#808080" Click="Button_Change_Color"/>
