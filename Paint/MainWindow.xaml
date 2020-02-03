@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Paint"
         mc:Ignorable="d"
         Title="PAIN/T" Height="710" Width="1000" MouseUp="Window_MouseUp"
-        Icon="white/b_9-colorBar.ico" FontWeight="Bold" MouseDoubleClick="Window_MouseDoubleClick" KeyDown="Window_KeyDown">
+        Icon="white/2.ico" FontWeight="Bold" MouseDoubleClick="Window_MouseDoubleClick" KeyDown="Window_KeyDown">
 
 	<Grid >
 		<TabControl Background="#FFBDB9B9" SelectionChanged="TabControl_SelectionChanged" FontWeight="Bold">
@@ -97,11 +97,9 @@
 			</Button>
 
             <Button x:Name="bntMove" Height="35" Width="35" Background="White" BorderThickness="0" ToolTip="Move">
-				<Image Source="white/b_12-move.png"></Image>
-			</Button>
-            <!--
-            <Button x:Name="clrdFigure" Width="35" Background="White" BorderThickness="0" Content="Залитая фигура" Click="clrdFigure_Click" Margin="0,8,0,7" ToolTip="Filled figure"/>-->
-			<!--палитра-->
+                <Image Source="white/b_12-move.png"></Image>
+            </Button>
+            <!--палитра-->
 			<WrapPanel Width="180" Margin="3">
                 <Button x:Name="bntBlack" Width="20" Height="20" Margin="1" Background="#000000" Click="Button_Change_Color"/>
                 <Button x:Name="bntRed" Width="20" Height="20" Margin="1" Background="#ff0000" Click="Button_Change_Color"/>

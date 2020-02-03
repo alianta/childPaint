@@ -162,7 +162,6 @@
     <Resource Include="white\b_8-lineWidth-2.png" />
     <Resource Include="white\b_8-lineWidth-3.png" />
     <Resource Include="white\b_8-lineWidth.png" />
-    <Resource Include="white\b_9-colorBar.ico" />
     <Resource Include="white\b_9-colorBar.png" />
     <Resource Include="white\b_9-fillColor.png" />
     <Resource Include="white\b_9-lineColor.png" />
@@ -180,6 +179,7 @@
     <Folder Include="Vector\" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="white\2.ico" />
     <Resource Include="white\hudgehog.png" />
     <Resource Include="white\kopatich.png" />
     <Resource Include="white\krosh.png" />

@@ -232,6 +232,12 @@ namespace Paint
             }
         }
 
+        /// <summary>
+        /// Метод обрабатывает DoubleClick на холсте
+        /// Возвращает isDoubleClick в false
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Window_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             isDoubleClicked = true;
@@ -391,7 +397,11 @@ namespace Paint
             }
         }
 
-
+        /// <summary>
+        /// Метод обрабатывает наведение курсора на векторный холст
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void MyCanvas_MouseEnter(object sender, MouseEventArgs e)
         {
             if (e.MouseDevice.LeftButton == MouseButtonState.Pressed)
@@ -407,6 +417,11 @@ namespace Paint
         {
         }
 
+        /// <summary>
+        /// Метод обрабатывает движение по векторному холсту
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void MyCanvas_MouseMove(object sender, MouseEventArgs e)
         {
             if (e.MouseDevice.LeftButton == MouseButtonState.Pressed)
@@ -478,7 +493,6 @@ namespace Paint
         //  ВНУТРЕННИЕ МЕТОДЫ
 
 
-
         /// <summary>
         /// Создание креейтера выбраной фигуры 
         /// </summary>
@@ -542,14 +556,8 @@ namespace Paint
             );
         }
 
-
-        private void ClrdFigure_Click(object sender, RoutedEventArgs e)
-        {
-            defaultFillRealization = new SolidFill();
-        }
-
         /// <summary>
-        /// 
+        /// Метод инициализирует свойства, необходимые для рисования
         /// </summary>
         /// <param name="figure"></param>
         private void InitFigure(Figure figure)
@@ -559,9 +567,12 @@ namespace Paint
             figure.DrawerRealisation.SurfaceStrategy.CurrentBrush = currentBrush;
         }
 
+        /// <summary>
+        /// Метод ограничивает ввод в текстовые поля всего, кроме цифр
+        /// </summary>
+        /// <param name="e"></param>
         private void Sides_OnPreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            //блокировка ввода всего кроме цифр
             e.Handled = !(Char.IsDigit(e.Text, 0));
         }
 
