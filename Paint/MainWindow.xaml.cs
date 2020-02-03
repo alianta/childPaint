@@ -493,20 +493,20 @@ namespace Paint
 
         private void myCanvas_MouseMove(object sender, MouseEventArgs e)
         {
-            //if (isPressed)
-            //{
-            System.Windows.Shapes.Line a = new System.Windows.Shapes.Line();
-            a.X1 = A.X;
-            a.X2 = e.GetPosition(myCanvas).X;
-            a.Y1 = A.Y;
-            a.Y2 = e.GetPosition(myCanvas).Y;
-            a.StrokeThickness = 2;
-            a.Stroke = Brushes.Red;
-            A = e.GetPosition(myCanvas);
-            myCanvas.Children.Add(a);
-            //}
+            if (e.MouseDevice.LeftButton == MouseButtonState.Pressed)
+            {
+                myCanvas.Children.Add(new Line
+                {
+                    X1 = A.X,
+                    Y1 = A.Y,
+                    X2 = e.GetPosition(myCanvas).X,
+                    Y2 = e.GetPosition(myCanvas).Y,
+                    StrokeThickness = 1,
+                    Stroke = stroke1,
+                }); 
 
             } A = e.GetPosition(myCanvas);
+
         }
 
         private void bntFillBucket_Click(object sender, RoutedEventArgs e)
