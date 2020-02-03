@@ -22,7 +22,7 @@ namespace Paint
         private byte[] GetPixelColorData(Point currentPoint)//возвращает цвет пикселя на битмапе
         {
 
-            WriteableBitmap wb = MyBitmap.GetBitmap().btm;
+            WriteableBitmap wb = MyBitmap.GetBitmap().Btm;
             int bytePerPixel = 4;
             int stride = 4 * Convert.ToInt32(wb.Width);
             byte[] pixels = new byte[wb.PixelWidth * wb.PixelHeight * 4];
@@ -48,7 +48,7 @@ namespace Paint
 
         public void FillFigure(byte[] colorData, Point startPoint)// цветзаливки, кудаткнули
         {
-            WriteableBitmap wb = MyBitmap.GetBitmap().btm;
+            WriteableBitmap wb = MyBitmap.GetBitmap().Btm;
             int bytePerPixel = 4;
             int stride = bytePerPixel * Convert.ToInt32(wb.Width);
             pixelsCopy = new byte[wb.PixelWidth * wb.PixelHeight * bytePerPixel];
@@ -60,7 +60,7 @@ namespace Paint
         public void FillFigureStep(byte[] colorData, byte[] startColorData, Point currentPoint)// цветзаливки, цветстартовогопикселя, кудаткнули
         {
             Pixel pixel = new Pixel();
-            WriteableBitmap wb = MyBitmap.GetBitmap().btm;
+            WriteableBitmap wb = MyBitmap.GetBitmap().Btm;
             Point tmpPoint = currentPoint;
 
             while (IsColorsEqual(GetPixelColorData(tmpPoint), startColorData) && tmpPoint.X > 0)

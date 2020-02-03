@@ -21,7 +21,7 @@ namespace Paint
             public int endX;
         }
 
-        WriteableBitmap wb = MyBitmap.GetBitmap().btm;
+        WriteableBitmap wb = MyBitmap.GetBitmap().Btm;
 
         Color Color { set; get; }
 

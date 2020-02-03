@@ -22,10 +22,10 @@ namespace Paint
     /// </summary>
     public partial class MainWindow : Window
     {
-        Brush currentBrush;
-        MyBitmap myBitmap;
-        IDrawer defaultDrawerRealization;
-        ISurfaceStrategy currentSurfaceStrategy;
+        private Brush currentBrush;
+        private MyBitmap myBitmap;
+        private IDrawer defaultDrawerRealization;
+        private ISurfaceStrategy currentSurfaceStrategy;
         ColoredFiguresStrategy defaultFillRealization;
         FigureEnum flagFigure = FigureEnum.Pen;
         bool isPressed = false;
@@ -37,8 +37,8 @@ namespace Paint
         int clickCount = 0;
         int vectorThickness;
         //Fill fill = new Fill();
-        Stack stackBack = new Stack();
-        Stack stackForward = new Stack();
+        private Stack stackBack = new Stack();
+        private Stack stackForward = new Stack();
         FigureCreator concreteCreator = null;
         Figure concreteFigure = null;
 
@@ -51,9 +51,9 @@ namespace Paint
             currentSurfaceStrategy = new DrawOnBitmap();
             InitializeComponent();
             myBitmap = MyBitmap.GetBitmap();
-            myBitmap.btm = new WriteableBitmap((int)MainImage.Width, (int)MainImage.Height, 96, 96, PixelFormats.Bgra32, null);
-            stackBack.AddMyBitmap(myBitmap.btm);
-            MainImage.Source = myBitmap.btm;
+            myBitmap.Btm = new WriteableBitmap((int)MainImage.Width, (int)MainImage.Height, 96, 96, PixelFormats.Bgra32, null);
+            stackBack.AddMyBitmap(myBitmap.Btm);
+            MainImage.Source = myBitmap.Btm;
             FillBitmap();
         }
 
@@ -90,7 +90,7 @@ namespace Paint
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void btnFigure_Click(object sender, RoutedEventArgs e)
+        private void BtnFigure_Click(object sender, RoutedEventArgs e)
         {
             isBucket = false;
 
@@ -149,7 +149,7 @@ namespace Paint
 
             if (isPressed)
             {
-                MainImage.Source = myBitmap.btm;
+                MainImage.Source = myBitmap.Btm;
                 if (!isBucket)
                 {
                     switch (flagFigure)
@@ -224,13 +224,6 @@ namespace Paint
 
         }
 
-        
-
-        private void TranslateColor(object sender, RoutedEventArgs e)
-        {
-            string buttonStr = Convert.ToString(((Button)e.OriginalSource).Background);
-        }
-
         /// <summary>
         /// Метод обрабатывает нажатие левой кнопки мыши на холсте
         /// </summary>
@@ -257,7 +250,7 @@ namespace Paint
                 Filling fill = new Filling(currentBrush.BrushColor);
 
                 fill.PixelFill(pStart.X, pStart.Y);
-                MainImage.Source = myBitmap.btm;
+                MainImage.Source = myBitmap.Btm;
             }
             else
             {
@@ -281,7 +274,7 @@ namespace Paint
 
             if (!isDoubleClicked)
             {
-                stackBack.AddMyBitmap(myBitmap.btm);
+                stackBack.AddMyBitmap(myBitmap.Btm);
 
                 if (flagFigure == FigureEnum.ClosingLines)
                 {
@@ -294,7 +287,7 @@ namespace Paint
                 concreteFigure = concreteCreator.CreateFigure(tmpPoint, pFinish, isDoubleClicked);
                 concreteFigure.DrawerRealisation = defaultDrawerRealization;
                 concreteFigure.DoDraw();
-                MainImage.Source = myBitmap.btm;
+                MainImage.Source = myBitmap.Btm;
 
                 if (isDoubleClicked)
                 {
@@ -347,8 +340,8 @@ namespace Paint
             {
 
                 FillBitmap();
-                myBitmap.btm = new WriteableBitmap((int)MainImage.Width, (int)MainImage.Height, 96, 96, PixelFormats.Bgra32, null);
-                MainImage.Source = myBitmap.btm;
+                myBitmap.Btm = new WriteableBitmap((int)MainImage.Width, (int)MainImage.Height, 96, 96, PixelFormats.Bgra32, null);
+                MainImage.Source = myBitmap.Btm;
             }
         }
 
@@ -471,7 +464,7 @@ namespace Paint
             {
                 case "BITMAP":
                     currentSurfaceStrategy = new DrawOnBitmap();
-                    MainImage.Source = myBitmap.btm;
+                    MainImage.Source = myBitmap.Btm;
 
                     break;
                 case "VECTOR":
@@ -483,7 +476,7 @@ namespace Paint
 
         
         System.Windows.Point A;
-        private void myCanvas_MouseEnter(object sender, MouseEventArgs e)
+        private void MyCanvas_MouseEnter(object sender, MouseEventArgs e)
         {
 
             if (e.MouseDevice.LeftButton == MouseButtonState.Pressed)
@@ -492,15 +485,15 @@ namespace Paint
             }
         }
 
-        private void myCanvas_MouseDown(object sender, MouseEventArgs e)
+        private void MyCanvas_MouseDown(object sender, MouseEventArgs e)
         {
         }
-        private void myCanvas_MouseUp(object sender, MouseEventArgs e)
+        private void MyCanvas_MouseUp(object sender, MouseEventArgs e)
         {
             isPressed = true;
         }
 
-        private void myCanvas_MouseMove(object sender, MouseEventArgs e)
+        private void MyCanvas_MouseMove(object sender, MouseEventArgs e)
         {
             if (e.MouseDevice.LeftButton == MouseButtonState.Pressed)
             {
@@ -518,7 +511,7 @@ namespace Paint
 
         }
 
-        private void bntFillBucket_Click(object sender, RoutedEventArgs e)
+        private void BntFillBucket_Click(object sender, RoutedEventArgs e)
         {
             isBucket = true;
         }
@@ -533,18 +526,18 @@ namespace Paint
                     stackForward.AddMyBitmap(stackBack.GetMyBitmap());
                 }
 
-                myBitmap.btm = stackBack.GetMyBitmap();
-                MainImage.Source = myBitmap.btm;
-                stackBack.AddMyBitmap(myBitmap.btm);
+                myBitmap.Btm = stackBack.GetMyBitmap();
+                MainImage.Source = myBitmap.Btm;
+                stackBack.AddMyBitmap(myBitmap.Btm);
             }
             if (sender.Equals(btnForward) && stackForward.GetSize() > 0)
             {
-                myBitmap.btm = stackForward.GetMyBitmap();
-                MainImage.Source = myBitmap.btm;
+                myBitmap.Btm = stackForward.GetMyBitmap();
+                MainImage.Source = myBitmap.Btm;
             }
         }
 
-        private void clrdFigure_Click(object sender, RoutedEventArgs e)
+        private void ClrdFigure_Click(object sender, RoutedEventArgs e)
         {
             defaultFillRealization = new SolidFill();
         }

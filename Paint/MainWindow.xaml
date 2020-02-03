@@ -17,9 +17,9 @@
             </TabItem>
             <TabItem x:Name="vector" Header="VECTOR" >
                 <Canvas x:Name="myCanvas" Background="White" Width="800" Height="550" HorizontalAlignment="Left" Margin="0,55,0,40"
-                    MouseEnter="myCanvas_MouseEnter"
-					MouseMove="myCanvas_MouseMove"
-                    MouseUp="myCanvas_MouseUp">
+                    MouseEnter="MyCanvas_MouseEnter"
+					MouseMove="MyCanvas_MouseMove"
+                    MouseUp="MyCanvas_MouseUp">
                 </Canvas>
             </TabItem>
         </TabControl>
@@ -28,29 +28,29 @@
             <Button x:Name="btnBack"  ToolTip="Back" Height="35" Width="30" Background="White" BorderThickness="0" Click="BtnBackForward_Click" FontFamily="Segoe MDL2 Assets" Content="&#xE72B;"/>
             <Button x:Name="btnForward"  ToolTip="Forward" Height="35" Width="30" Background="White" BorderThickness="0" Click="BtnBackForward_Click" FontFamily="Segoe MDL2 Assets" Content="&#xE72A;"/>
 
-            <Button x:Name="btnLine" Height="35" Width="30" Background="White" BorderThickness="0" ToolTip="Pencil" Click="btnFigure_Click">
+            <Button x:Name="btnLine" Height="35" Width="30" Background="White" BorderThickness="0" ToolTip="Pencil" Click="BtnFigure_Click">
 				<Image Source="white/b_14-pencil.png"></Image>
 			</Button>
-            <Button x:Name="btnStraightLine" Height="35" Width="30" Background="White" BorderThickness="0"  ToolTip="Straight line" Click="btnFigure_Click">
+            <Button x:Name="btnStraightLine" Height="35" Width="30" Background="White" BorderThickness="0"  ToolTip="Straight line" Click="BtnFigure_Click">
 				<Image Source="white/b_1-line.png"></Image>
 			</Button>
-            <Button x:Name="btnClosingLines" Height="35" Width="35" Background="White" BorderThickness="0" ToolTip="Closing line" Click="btnFigure_Click">
+            <Button x:Name="btnClosingLines" Height="35" Width="35" Background="White" BorderThickness="0" ToolTip="Closing line" Click="BtnFigure_Click">
 				<Image Source="white/b_2-lineCoords.png"></Image>
 			</Button>
-            <Button x:Name="btnCircle" Height="35" Width="35" Background="White" BorderThickness="0" ToolTip="Ellipce (Circle with Shift)"  Click="btnFigure_Click">
+            <Button x:Name="btnCircle" Height="35" Width="35" Background="White" BorderThickness="0" ToolTip="Ellipce (Circle with Shift)"  Click="BtnFigure_Click">
 				<Image Source="white/b_3-ellipsis.png"></Image>
 			</Button>
-            <Button x:Name="btnRectangle" Height="35" Width="35" Background="White" BorderThickness="0" ToolTip="Rectangle (Square with Shift)" Click="btnFigure_Click">
+            <Button x:Name="btnRectangle" Height="35" Width="35" Background="White" BorderThickness="0" ToolTip="Rectangle (Square with Shift)" Click="BtnFigure_Click">
 				<Image Source="white/b_4-rectangle.png"></Image>
 			</Button>
-            <Button x:Name="btnTriangle" Height="35" Width="35" Background="White" BorderThickness="0" ToolTip="Isoscale triangle (Rectangular triangle with Shift)" Click="btnFigure_Click">
+            <Button x:Name="btnTriangle" Height="35" Width="35" Background="White" BorderThickness="0" ToolTip="Isoscale triangle (Rectangular triangle with Shift)" Click="BtnFigure_Click">
 				<Image Source="white/b_5-triangle.png"></Image>
 			</Button>
 
-            <Button x:Name="btnPolygon" Height="35" Width="35" Background="White" BorderThickness="0" ToolTip="Polygon"  Click="btnFigure_Click">
+            <Button x:Name="btnPolygon" Height="35" Width="35" Background="White" BorderThickness="0" ToolTip="Polygon"  Click="BtnFigure_Click">
 				<Image Source="white/b_6-nGon.png"></Image>
 			</Button>
-            <Button x:Name="btnTree" Height="35" Width="35" Background="White" BorderThickness="0" ToolTip="Pythagorean tree"  Click="btnFigure_Click">
+            <Button x:Name="btnTree" Height="35" Width="35" Background="White" BorderThickness="0" ToolTip="Pythagorean tree"  Click="BtnFigure_Click">
 				<Image Source="white/b_13-tree.png"></Image>
 			</Button>
             <TextBox x:Name="sides" TextWrapping="Wrap"  Width="40" Margin="0,12,5,10" FontWeight="Normal"  VerticalAlignment="Center" Height="25" Text="5" TextAlignment="Center" FontSize="14" ToolTip="Number for Polygon and Pythagorean tree" PreviewTextInput="Sides_OnPreviewTextInput"/>
@@ -84,11 +84,11 @@
 				</ComboBoxItem>
 			</ComboBox>
 
-            <Button x:Name="bntFillBucket" Height="35" Width="35" Background="White" BorderThickness="0" Click="bntFillBucket_Click" ToolTip="Color fill">
+            <Button x:Name="bntFillBucket" Height="35" Width="35" Background="White" BorderThickness="0" Click="BntFillBucket_Click" ToolTip="Color fill">
 				<Image Source="white/b_7-fillBucket.png"></Image>
 			</Button>
 
-            <Button x:Name="btnEraser" Height="35" Width="35" Background="White" BorderThickness="0" Click="btnFigure_Click" ToolTip="Eraser">
+            <Button x:Name="btnEraser" Height="35" Width="35" Background="White" BorderThickness="0" Click="BtnFigure_Click" ToolTip="Eraser">
 				<Image Source="white/b_10-eraser.png"></Image>
 			</Button>
 

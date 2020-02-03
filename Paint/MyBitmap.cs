@@ -25,8 +25,8 @@ namespace Paint
         /// <summary>
         /// Данные, хранимые в классе.
         /// </summary>
-        public WriteableBitmap btm { get; set; }
-        public WriteableBitmap btmCopy { get; set; }
+        public WriteableBitmap Btm { get; set; }
+        public WriteableBitmap BtmCopy { get; set; }
 
         /// <summary>
         /// Защищенный конструктор для инициализации единственного экземпляра класса.
@@ -55,7 +55,7 @@ namespace Paint
         /// </summary>
         public void CreateCopy()
         {
-            btmCopy = new WriteableBitmap(_instance.btm);
+            BtmCopy = new WriteableBitmap(_instance.Btm);
         }
 
         /// <summary>
@@ -63,7 +63,7 @@ namespace Paint
         /// </summary>
         public void SetBitmapToCopy()
         {
-            _instance.btm = new WriteableBitmap(_instance.btmCopy);
+            _instance.Btm = new WriteableBitmap(_instance.BtmCopy);
         }
     }
 }
