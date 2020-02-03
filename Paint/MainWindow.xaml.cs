@@ -35,6 +35,7 @@ namespace Paint
         Point prevPoint, pStart, pFinish, tmpPoint;
         int numSides;
         int clickCount = 0;
+        int vectorThickness;
         //Fill fill = new Fill();
         Stack stackBack = new Stack();
         Stack stackForward = new Stack();
@@ -67,7 +68,7 @@ namespace Paint
                 player.Load();
                 player.Play();
             }
-            catch (Exception E) { }
+            catch (Exception) { }
         }
 
         private void FillBitmap()
@@ -432,12 +433,8 @@ namespace Paint
                         encoder.Save(stream);
                 }
             }
-
-
         }
-
-        Shape strokeThickness;
-
+        
         /// <summary>
         /// Метод обрабатывает кнопку изменения толщины линии
         /// </summary>
@@ -449,19 +446,22 @@ namespace Paint
             if (selectedItem.Equals(thick1))
             {
                 currentBrush.BrushThickness = new DefaultThickness();
-              //  strokeThickness = 1;
+                vectorThickness = 1;
             }
             else if (selectedItem.Equals(thick2))
             {
                 currentBrush.BrushThickness = new MediumThickness();
+                vectorThickness = 2;
             }
             else if (selectedItem.Equals(thick3))
             {
                 currentBrush.BrushThickness = new BoldThickness();
+                vectorThickness = 3;
             }
             else if (selectedItem.Equals(thick4))
             {
                 currentBrush.BrushThickness = new ExtraboldThickness();
+                vectorThickness = 4;
             }
         }
 
@@ -483,7 +483,6 @@ namespace Paint
 
         
         System.Windows.Point A;
-        System.Windows.Point B;
         private void myCanvas_MouseEnter(object sender, MouseEventArgs e)
         {
 
@@ -511,7 +510,7 @@ namespace Paint
                     Y1 = A.Y,
                     X2 = e.GetPosition(myCanvas).X,
                     Y2 = e.GetPosition(myCanvas).Y,
-                    StrokeThickness = 1,
+                    StrokeThickness = vectorThickness,
                     Stroke = stroke1,
                 }); 
 
