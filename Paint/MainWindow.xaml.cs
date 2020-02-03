@@ -221,18 +221,8 @@ namespace Paint
         {
             string buttonStr = Convert.ToString(((Button)e.OriginalSource).Background);
             currentBrush.BrushColor = new Color(buttonStr);
-            switch (buttonStr)
-            {
-                case "#FFFF0000":
-                    stroke1 = Brushes.Red;
-                    break;
-                case "#FF008000":
-                    stroke1 = Brushes.Green;
-                    break;
-                default:
-                    stroke1 = Brushes.Black;
-                    break;
-            }
+            stroke1 = new SolidColorBrush((System.Windows.Media.Color)ColorConverter.ConvertFromString(buttonStr));
+
         }
 
         
