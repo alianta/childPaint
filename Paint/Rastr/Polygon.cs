@@ -9,10 +9,7 @@ using System.Windows.Media.Imaging;
 namespace Paint.Rastr
 {
     public class Polygon : Figure
-    {
-        //public Polygon()
-        //{ }
-
+    {
         public Polygon(List<Point> figurePoints) : base(figurePoints)
         { }
     }

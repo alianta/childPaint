@@ -11,9 +11,6 @@ namespace Paint
 {
     public class Filling
     {
-        //public int x { get; set; }
-        //public int y { get; set; }
-
         public Filling(Color color)
         {
             Color = color;
@@ -23,8 +20,6 @@ namespace Paint
             public int startX;
             public int endX;
         }
-        //int Width = 640;
-        //int Height = 480;
 
         WriteableBitmap wb = MyBitmap.GetBitmap().btm;
 
@@ -49,25 +44,17 @@ namespace Paint
             while (rs.startX > 0 && canvasMem[lY][rs.startX].SequenceEqual(oldColor))
             {
                 Array.Copy(Color.HexToRGBConverter(), 0, canvasMem[lY][rs.startX], 0, 4);
-                //canvasMem[lY][rs.startX] = oldColor;
                 rs.startX--;
             }
-            //rs.startX++;
 
             while (rs.endX < wb.Width - 1 && (canvasMem[lY][rs.endX]).SequenceEqual(oldColor))
             {
                 Array.Copy(Color.HexToRGBConverter(), 0, canvasMem[lY][rs.endX], 0, 4);
-                //canvasMem[lY][rs.endX] = oldColor;
                 rs.endX++;
             }
-            //rs.endX--;
 
             SetPixelLine(++rs.startX, rs.endX, lY);
 
-
-            //System.Threading.Thread.Sleep(5);
-            //Application.Current.Dispatcher.Invoke(DispatcherPriority.Background,
-            //                              new Action(delegate { }));
             return rs;
         }
 
@@ -77,8 +64,6 @@ namespace Paint
             if (lY == -1) return;
             for (int i = rs.startX; i < rs.endX; i++)
             {
-                //while (canvasMem[lY][i].SequenceEqual(oldColor))
-                //{
                 XLine sub = FillLineHorizontal(ref canvasMem, i, lY, oldColor);
                 i = sub.endX;
 
@@ -96,10 +81,8 @@ namespace Paint
                 if (sub.startX < rs.startX)
                 {
                     sub.endX = rs.startX;
-                    //Trace.WriteLine("BOTTOM: " + sub.startX + " " + sub.endX + " Y: " + lY);
                     RecLineBottom(ref canvasMem, sub, lY, oldColor);
                 }
-                // }
             }
         }
 
@@ -111,8 +94,6 @@ namespace Paint
 
             for (int i = rs.startX; i < rs.endX; i++)
             {
-                //while (canvasMem[lY][i].SequenceEqual(oldColor))
-                //{
                 XLine sub = FillLineHorizontal(ref canvasMem, i, lY, oldColor);
                 i = sub.endX;
 
@@ -132,10 +113,8 @@ namespace Paint
                 if (sub.startX < rs.startX)
                 {
                     sub.endX = rs.startX;
-                    //Trace.WriteLine("BOTTOM: " + sub.startX + " " + sub.endX + " Y: " + lY);
                     RecLineTop(ref canvasMem, sub, lY, oldColor);
                 }
-                //}
             }
         }
 
@@ -146,13 +125,11 @@ namespace Paint
             Array.Copy(oldColor, 0, oldColor1, 0, 4);
 
             if (recursionDepth > 1) return;
-            //recursionDepth++;
             byte[] pixels = GetPixelArrayLength();
             wb.CopyPixels(pixels, GetStride(), 0);
 
 
             byte[][][] canvasMem = new byte[(int)wb.Height][][];
-            //[(int)PaintField.Height][4];
 
             int m = 0;
 

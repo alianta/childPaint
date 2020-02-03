@@ -10,10 +10,6 @@ namespace Paint.Rastr
 {
     class Line : Figure
     {
-        //public Line()
-        //{ }
-
-
         public Line(List<Point> figurePoints) : base(figurePoints)
         { }
 

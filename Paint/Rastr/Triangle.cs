@@ -10,9 +10,6 @@ namespace Paint.Rastr
 {
     public class Triangle : Figure
     {
-        //public Triangle()
-        //{ }
-
         public Triangle(List<Point> figurePoints) : base(figurePoints)
         { }
 

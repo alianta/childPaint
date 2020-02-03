@@ -13,8 +13,5 @@ namespace Paint.Rastr
     {
         public Ellipce(List<Point> figurePoints) : base(figurePoints)
         { }
-
-        //public Ellipce() { }
-
     }
 }

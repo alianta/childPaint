@@ -10,13 +10,8 @@ namespace Paint.Rastr
 {
     public class NeLine : Figure
     {
-        //public Line()
-        //{ }
-        
         public NeLine(List<Point> points) : base(points)
-        {
-            //Points = points;
-        }
+        { }
 
         public override void DoDraw()
         {

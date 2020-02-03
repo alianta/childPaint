@@ -5,20 +5,21 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Paint"
         mc:Ignorable="d"
-        Title="OurPain/T" Height="710" Width="1000" MouseUp="Window_MouseUp"
+        Title="PAIN/T" Height="710" Width="1000" MouseUp="Window_MouseUp"
         Icon="white/b_9-colorBar.ico" FontWeight="Bold" MouseDoubleClick="Window_MouseDoubleClick" KeyDown="Window_KeyDown">
 
 	<Grid >
 		<TabControl Background="#FFBDB9B9" SelectionChanged="TabControl_SelectionChanged" FontWeight="Bold">
 			<TabItem x:Name="bitmap" Header="BITMAP" >
-                <Canvas Background="White" Width="800" Height="550" HorizontalAlignment="Left" Margin="0,80,0,40">
+                <Canvas Background="White" Width="800" Height="550" HorizontalAlignment="Left" Margin="0,55,0,40">
                     <Image Name="MainImage"  HorizontalAlignment="Left" VerticalAlignment="Top" Width="800" Height="550" OpacityMask="White" MouseMove="Image_MouseMove" Stretch="None" MouseLeftButtonDown="MainImage_MouseDown" MouseLeftButtonUp="MainImage_MouseEnter" Cursor="Pen"/>
                 </Canvas>
             </TabItem>
             <TabItem x:Name="vector" Header="VECTOR" >
-                <Canvas x:Name="myCanvas" Background="Yellow" Width="800" Height="550" HorizontalAlignment="Left" Margin="0,80,0,40"
+                <Canvas x:Name="myCanvas" Background="White" Width="800" Height="550" HorizontalAlignment="Left" Margin="0,55,0,40"
                     MouseEnter="myCanvas_MouseEnter"
-					MouseMove="myCanvas_MouseMove">
+					MouseMove="myCanvas_MouseMove"
+                    MouseUp="myCanvas_MouseUp">
                 </Canvas>
             </TabItem>
         </TabControl>

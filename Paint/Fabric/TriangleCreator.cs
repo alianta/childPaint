@@ -14,10 +14,10 @@ namespace Paint.Fabric
         {
             if (shiftPressed)
             {
-                return CreateRectangularTriangle(pStart, pFinish);
+                return CreateIsoscaleTriangle(pStart, pFinish);
             }
 
-            return CreateIsoscaleTriangle (pStart, pFinish);
+            return CreateRectangularTriangle(pStart, pFinish);
         }
 
         /// <summary>

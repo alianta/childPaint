@@ -28,25 +28,22 @@ namespace Paint
         ISurfaceStrategy currentSurfaceStrategy;
         ColoredFiguresStrategy defaultFillRealization;
         FigureEnum flagFigure = FigureEnum.Pen;
-        bool isPressed = false; //передает состаяние мыши
-        Point prevPoint; //точка начала коордиат
-        Point pStart;// Начальная точка
-        Point pFinish;// Конечная точка
-        int numSides;//количество сторон
+        bool isPressed = false;
         bool shiftPressed = false;
         bool isBucket = false;
         bool isDoubleClicked = false;
+        Point prevPoint, pStart, pFinish, tmpPoint;
+        int numSides;
         int clickCount = 0;
         //Fill fill = new Fill();
         Stack stackBack = new Stack();
         Stack stackForward = new Stack();
         FigureCreator concreteCreator = null;
         Figure concreteFigure = null;
-        Point tmpPoint;
 
         public MainWindow()
         {
-            //Scream();
+            Scream();
             defaultDrawerRealization = new DrawByLine();
             currentBrush = new Brush();
             defaultFillRealization = new NoFill();
@@ -152,60 +149,61 @@ namespace Paint
             if (isPressed)
             {
                 MainImage.Source = myBitmap.btm;
-
-                switch (flagFigure)
+                if (!isBucket)
                 {
-                    case FigureEnum.Pen:
-                        concreteCreator = new PenCreator();
-                        break;
-                    case FigureEnum.Rectangle:
-                        concreteCreator = new RectangleCreator();
-                        break;
-                    case FigureEnum.Circle:
-                        concreteCreator = new EllipceCreator();
-                        break;
-                    case FigureEnum.Triangle:
-                        concreteCreator = new TriangleCreator();
-                        break;
-                    case FigureEnum.Polygon:
-                        numSides = Convert.ToInt32(sides.Text);
-                        concreteCreator = new PolygonCreator(numSides);
-                        break;
-                    case FigureEnum.Tree:
-                        numSides = Convert.ToInt32(sides.Text);
-                        concreteCreator = new FractalTreeCreator(numSides);
-                        break;
-                    case FigureEnum.StraightLine:
-                        concreteCreator = new StraightLineCreator();
-                        break;
-                    case FigureEnum.Eraser:
-                        concreteCreator = new EraserCreator();
-                        break;
-                    case FigureEnum.ClosingLines:
-                        break;
+                    switch (flagFigure)
+                    {
+                        case FigureEnum.Pen:
+                            concreteCreator = new PenCreator();
+                            break;
+                        case FigureEnum.Rectangle:
+                            concreteCreator = new RectangleCreator();
+                            break;
+                        case FigureEnum.Circle:
+                            concreteCreator = new EllipceCreator();
+                            break;
+                        case FigureEnum.Triangle:
+                            concreteCreator = new TriangleCreator();
+                            break;
+                        case FigureEnum.Polygon:
+                            numSides = Convert.ToInt32(sides.Text);
+                            concreteCreator = new PolygonCreator(numSides);
+                            break;
+                        case FigureEnum.Tree:
+                            numSides = Convert.ToInt32(sides.Text);
+                            concreteCreator = new FractalTreeCreator(numSides);
+                            break;
+                        case FigureEnum.StraightLine:
+                            concreteCreator = new StraightLineCreator();
+                            break;
+                        case FigureEnum.Eraser:
+                            concreteCreator = new EraserCreator();
+                            break;
+                        case FigureEnum.ClosingLines:
+                            break;
+                    }
+
+                    if (concreteCreator == null)
+                        return;
+
+                    if (flagFigure == FigureEnum.ClosingLines && clickCount < 2)
+                    {
+                        concreteFigure = concreteCreator.CreateFigure(prevPoint, curPoint, isDoubleClicked);
+                    }
+
+                    concreteFigure = concreteCreator.CreateFigure(prevPoint, curPoint, shiftPressed);
+                    InitFigure(concreteFigure);
+
+                    if (flagFigure == FigureEnum.Pen || flagFigure == FigureEnum.Eraser)
+                    {
+                        prevPoint = curPoint;
+                    }
+                    else
+                    {
+                        myBitmap.SetBitmapToCopy();
+
+                    }
                 }
-
-                if (concreteCreator == null)
-                    return;
-
-                if (flagFigure == FigureEnum.ClosingLines && clickCount < 2)
-                {
-                    concreteFigure = concreteCreator.CreateFigure(prevPoint, curPoint, isDoubleClicked);
-                }
-
-                concreteFigure = concreteCreator.CreateFigure(prevPoint, curPoint, shiftPressed);
-                InitFigure(concreteFigure);
-
-                if (flagFigure == FigureEnum.Pen || flagFigure == FigureEnum.Eraser)
-                {
-                    prevPoint = curPoint;
-                }
-                else
-                {
-                    myBitmap.SetBitmapToCopy();
-
-                }
-
                 concreteFigure.DoDraw();
             }
         }
@@ -473,7 +471,9 @@ namespace Paint
             }
         }
 
+        
         System.Windows.Point A;
+        System.Windows.Point B;
         private void myCanvas_MouseEnter(object sender, MouseEventArgs e)
         {
 
@@ -485,27 +485,29 @@ namespace Paint
 
         private void myCanvas_MouseDown(object sender, MouseEventArgs e)
         {
+        }
+        private void myCanvas_MouseUp(object sender, MouseEventArgs e)
+        {
             isPressed = true;
         }
 
         private void myCanvas_MouseMove(object sender, MouseEventArgs e)
         {
-            if (e.MouseDevice.LeftButton == MouseButtonState.Pressed)
-            {
-                myCanvas.Children.Add(new Line
-                {
-                    X1 = A.X,
-                    Y1 = A.Y,
-                    X2 = e.GetPosition(myCanvas).X,
-                    Y2 = e.GetPosition(myCanvas).Y,
-                    StrokeThickness = 1,
-                    Stroke = stroke1,
-                }); 
+            //if (isPressed)
+            //{
+            System.Windows.Shapes.Line a = new System.Windows.Shapes.Line();
+            a.X1 = A.X;
+            a.X2 = e.GetPosition(myCanvas).X;
+            a.Y1 = A.Y;
+            a.Y2 = e.GetPosition(myCanvas).Y;
+            a.StrokeThickness = 2;
+            a.Stroke = Brushes.Red;
+            A = e.GetPosition(myCanvas);
+            myCanvas.Children.Add(a);
+            //}
 
             } A = e.GetPosition(myCanvas);
         }
-
-
 
         private void bntFillBucket_Click(object sender, RoutedEventArgs e)
         {

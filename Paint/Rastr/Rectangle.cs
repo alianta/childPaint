@@ -11,9 +11,6 @@ namespace Paint.Rastr
 {
     public class Rectangle : Figure
     {
-        //public Rectangle()
-        //{ }
-
         public Rectangle(List<Point> figurePoints) : base(figurePoints)
         { }
     }
