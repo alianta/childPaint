@@ -1,0 +1,195 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{87F8B452-D679-41EF-9C20-7DD2A3DFA463}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>Paint</RootNamespace>
+    <AssemblyName>Paint</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Page Include="InfoPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ColoredFigures\ColoredFigureStrategy.cs" />
+    <Compile Include="ColoredFigures\NoFill.cs" />
+    <Compile Include="ColoredFigures\SolidFill.cs" />
+    <Compile Include="Fabric\ClosingLinesCreator.cs" />
+    <Compile Include="Fabric\EraserCreator.cs" />
+    <Compile Include="Fabric\FractalTreeCreator.cs" />
+    <Compile Include="Fabric\PenCreator.cs" />
+    <Compile Include="Fabric\PolygonCreator.cs" />
+    <Compile Include="Fabric\RectangleCreator.cs" />
+    <Compile Include="Fabric\StraightLineCreator.cs" />
+    <Compile Include="Fill.cs" />
+    <Compile Include="InfoPage.xaml.cs">
+      <DependentUpon>InfoPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MyBitmap.cs" />
+    <Compile Include="Brush.cs" />
+    <Compile Include="Color.cs" />
+    <Compile Include="Fabric\EllipceCreator.cs" />
+    <Compile Include="Fabric\FigureCreator.cs" />
+    <Compile Include="Fabric\TriangleCreator.cs" />
+    <Compile Include="SurfaceStrategy\DrawOnBitmap.cs" />
+    <Compile Include="SurfaceStrategy\DrawOnCanvas.cs" />
+    <Compile Include="SurfaceStrategy\ISurfaceStrategy.cs" />
+    <Compile Include="Rastr\NeLine.cs" />
+    <Compile Include="Rastr\ClosingLines.cs" />
+    <Compile Include="Rastr\FigureEnum.cs" />
+    <Compile Include="Stack.cs" />
+    <Compile Include="Thickness\EraserThickness.cs" />
+    <Compile Include="Thickness\ExtraboldThickness.cs" />
+    <Compile Include="Thickness\DefaultThickness.cs" />
+    <Compile Include="Draw\DrawByDots.cs" />
+    <Compile Include="Draw\DrawByLine.cs" />
+    <Compile Include="Draw\IDrawer.cs" />
+    <Compile Include="Thickness\BoldThickness.cs" />
+    <Compile Include="Thickness\MediumThickness.cs" />
+    <Compile Include="Thickness\ThicknessStrategy.cs" />
+    <Compile Include="Rastr\Ellipce.cs" />
+    <Compile Include="Rastr\Figure.cs" />
+    <Compile Include="Rastr\FractalTree.cs" />
+    <Compile Include="Rastr\Line.cs" />
+    <Compile Include="Rastr\Polygon.cs" />
+    <Compile Include="Rastr\Rectangle.cs" />
+    <Compile Include="Pixel.cs" />
+    <Compile Include="Rastr\StraightLine.cs" />
+    <Compile Include="Rastr\Triangle.cs" />
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="white\b_1-line.png" />
+    <Resource Include="white\b_10-eraser.png" />
+    <Resource Include="white\b_11-selection.png" />
+    <Resource Include="white\b_12-move.png" />
+    <Resource Include="white\b_2-lineCoords.png" />
+    <Resource Include="white\b_3-ellipsis.png" />
+    <Resource Include="white\b_4-rectangle.png" />
+    <Resource Include="white\b_5-triangle.png" />
+    <Resource Include="white\b_6-nGon.png" />
+    <Resource Include="white\b_7-fillBucket.png" />
+    <Resource Include="white\b_8-lineWidth-1.png" />
+    <Resource Include="white\b_8-lineWidth-2.png" />
+    <Resource Include="white\b_8-lineWidth-3.png" />
+    <Resource Include="white\b_8-lineWidth.png" />
+    <Resource Include="white\b_9-colorBar.png" />
+    <Resource Include="white\b_9-fillColor.png" />
+    <Resource Include="white\b_9-lineColor.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="white\5005 %281%29.JPG" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="white\b_14-pencil.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="white\b_13-tree.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Vector\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="white\2.ico" />
+    <Resource Include="white\hudgehog.png" />
+    <Resource Include="white\kopatich.png" />
+    <Resource Include="white\krosh.png" />
+    <Resource Include="white\losash.png" />
+    <Resource Include="white\misharik.png" />
+    <Resource Include="white\sova.png" />
+    <Resource Include="white\barash.png" />
+    <Resource Include="white\bibi.png" />
+    <Content Include="white\female_scream.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

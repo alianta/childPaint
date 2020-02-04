@@ -1,0 +1,61 @@
+﻿<Window x:Class="Paint.InfoPage"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Paint"
+        mc:Ignorable="d"
+        Title="OurPain/T Info" Height="600" Width="350" 
+        Icon="white/b_9-colorBar.ico" FontWeight="Bold">
+
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="150"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Label Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center">Программа Paint для детей от 3х лет (v 1.0)</Label>
+        <Label Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center">Команда разработчиков "Смешарики":</Label>
+
+        <Image Grid.Row="2" Grid.Column="0" Height="55" Width="55" Source="white/losash.png"></Image>
+        <Label Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">Полина</Label>
+
+        <Image Grid.Row="3" Grid.Column="0" Height="55" Width="55" Source="white/sova.png"></Image>
+        <Label Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">Женя</Label>
+
+        <Image Grid.Row="4" Grid.Column="0" Height="55" Width="55" Source="white/kopatich.png"></Image>
+        <Label Grid.Row="4" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">Илона</Label>
+
+        <Image Grid.Row="5" Grid.Column="0" Height="55" Width="55" Source="white/barash.png"></Image>
+        <Label Grid.Row="5" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">Вика</Label>
+
+        <Image Grid.Row="6" Grid.Column="0" Height="55" Width="55" Source="white/krosh.png"></Image>
+        <Label Grid.Row="6" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">Кристина</Label>
+
+        <Image Grid.Row="7" Grid.Column="0" Height="55" Width="55" Source="white/hudgehog.png"></Image>
+        <Label Grid.Row="7" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">Наталья</Label>
+
+        <Label Grid.Row="8" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center">Заказчики:</Label>
+        <Image Grid.Row="9" Grid.Column="0" Height="55" Width="55" Source="white/bibi.png"></Image>
+        <Label Grid.Row="9" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">Антон</Label>
+
+        <Image Grid.Row="10" Grid.Column="0" Height="55" Width="55" Source="white/misharik.png"></Image>
+        <Label Grid.Row="10" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">Максим</Label>
+
+
+    </Grid>
+</Window>
+
