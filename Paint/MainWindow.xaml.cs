@@ -158,6 +158,7 @@ namespace Paint
             shiftPressed = Keyboard.IsKeyDown(Key.LeftShift);
             ShowCurPoint(e);
             Point curPoint = SetToCurPoint(e);
+            
 
             if (isPressed)
             {
