@@ -73,7 +73,6 @@
     <Compile Include="ColoredFigures\ColoredFigureStrategy.cs" />
     <Compile Include="ColoredFigures\NoFill.cs" />
     <Compile Include="ColoredFigures\SolidFill.cs" />
-    <Compile Include="Eraser.cs" />
     <Compile Include="Fabric\ClosingLinesCreator.cs" />
     <Compile Include="Fabric\EraserCreator.cs" />
     <Compile Include="Fabric\FractalTreeCreator.cs" />

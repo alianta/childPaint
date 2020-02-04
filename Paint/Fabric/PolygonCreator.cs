@@ -13,14 +13,14 @@ namespace Paint.Fabric
         private int numSides;
         public PolygonCreator(int numSides)
         {
-            this.numSides = Convert.ToInt32(numSides);
+            this.numSides = numSides;
         }
 
         public override Figure CreateFigure(Point pStart, Point pFinish, bool shiftPressed)
         {
             return CreatePolygon(pStart, pFinish, numSides);
         }
-        
+
         /// <summary>
         /// Метод рисует многоугольник
         /// </summary>
@@ -30,24 +30,20 @@ namespace Paint.Fabric
         public Figure CreatePolygon(Point pStart, Point pFinish, int numSides)
         {
             List<Point> figurePoints = new List<Point>();
-            Point[] p = new Point[numSides + 1];
 
-            lineAngle((double)(360.0 / (double)numSides), pStart, pFinish, numSides, p, figurePoints);
+            lineAngle((double)(360.0 / (double)numSides), pStart, pFinish, numSides, figurePoints);
 
             return new Polygon(figurePoints);
         }
-
-
 
         /// <summary>
         /// Метод создает массив точек многоугольника
         /// </summary>
         /// <param name="angle"></param>
-        private void lineAngle(double angle, Point pStart, Point pFinish, int n, Point[] p, List<Point> figurePoints)
+        private void lineAngle(double angle, Point pStart, Point pFinish, int n, List<Point> figurePoints)
         {
             Point v = new Point(pFinish.X - pStart.X, pFinish.Y - pStart.Y);
             double R = Math.Sqrt(Math.Pow(v.X, 2) + Math.Pow(v.Y, 2));
-
             double z = GetAngle(pFinish, pStart, v, R);
 
             int i = 0;

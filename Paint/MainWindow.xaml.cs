@@ -13,7 +13,7 @@ using System.Media;
 using System.Windows.Shapes;
 using Paint.SurfaceStrategy;
 using Line = System.Windows.Shapes.Line;
-
+using System.Collections.Generic;
 
 namespace Paint
 {
@@ -44,6 +44,12 @@ namespace Paint
         private System.Windows.Point A;
         private Stack stackForward = new Stack();
 
+        bool canBeDragged = false;
+        bool canDraw = true;
+        List<List<Point>> listOfFigures = new List<List<Point>>();
+        List<Point> fogureSpacePoints = new List<Point>();
+        int[] figureMinMaxXY;
+        bool pointIsInFigureSpace;
 
         public MainWindow()
         {
@@ -120,13 +126,21 @@ namespace Paint
         /// <param name="e"></param>
         private void MainImage_MouseDown(object sender, MouseButtonEventArgs e)
         {
+            pStart = SetToCurPoint(e);
+            isPressed = true;
+
             if (clickCount < 2 && flagFigure == FigureEnum.ClosingLines)
             {
                 clickCount++;
             }
 
-            pStart = SetToCurPoint(e);
-            isPressed = true;
+            else if (canBeDragged && !IsPointIsInFigureSpace(figureMinMaxXY, pStart))
+            {
+                canBeDragged = false;
+                fogureSpacePoints = null;
+                figureMinMaxXY = null;
+                canDraw = true;
+            }
 
             if (clickCount == 1 && flagFigure == FigureEnum.ClosingLines)
             {
@@ -158,32 +172,47 @@ namespace Paint
             shiftPressed = Keyboard.IsKeyDown(Key.LeftShift);
             ShowCurPoint(e);
             Point curPoint = SetToCurPoint(e);
-            
+
 
             if (isPressed)
             {
                 MainImage.Source = myBitmap.Btm;
-                if (!isBucket)
+                if (canDraw)
                 {
-                    SelectConcreteCreator(flagFigure);
-
-                    if (concreteCreator == null)
-                        return;
-
-                    if (flagFigure == FigureEnum.ClosingLines && clickCount < 2)
+                    if (!isBucket)
                     {
-                        concreteFigure = concreteCreator.CreateFigure(prevPoint, curPoint, isDoubleClicked);
+                        SelectConcreteCreator(flagFigure);
+
+                        if (concreteCreator == null)
+                            return;
+
+                        if (flagFigure == FigureEnum.ClosingLines && clickCount < 2)
+                        {
+                            concreteFigure = concreteCreator.CreateFigure(prevPoint, curPoint, isDoubleClicked);
+                        }
+
+                        concreteFigure = concreteCreator.CreateFigure(prevPoint, curPoint, shiftPressed);
+                        InitFigure(concreteFigure);
+
+                        if (flagFigure == FigureEnum.Pen || flagFigure == FigureEnum.Eraser)
+                        {
+                            prevPoint = curPoint;
+                        }
+                        else
+                        {
+                            myBitmap.SetBitmapToCopy();
+                        }
                     }
-
-                    concreteFigure = concreteCreator.CreateFigure(prevPoint, curPoint, shiftPressed);
-                    InitFigure(concreteFigure);
-
-                    if (flagFigure == FigureEnum.Pen || flagFigure == FigureEnum.Eraser)
+                }
+                else
+                {
+                    if (canBeDragged && pointIsInFigureSpace)
                     {
-                        prevPoint = curPoint;
-                    }
-                    else
-                    {
+                        List<Point> newList = new List<Point>();
+                        int[] distance = GetDistance(pStart, curPoint);
+                        newList = SetNewFigurePoints(listOfFigures[listOfFigures.Count - 1], distance);
+                        concreteFigure.Points = null;
+                        concreteFigure.Points = newList;
                         myBitmap.SetBitmapToCopy();
                     }
                 }
@@ -203,6 +232,13 @@ namespace Paint
             isPressed = false;
             pFinish = SetToCurPoint(e);
 
+            if (flagFigure != FigureEnum.ClosingLines && flagFigure != FigureEnum.Pen)
+            {
+                canBeDragged = true;
+                canDraw = false;
+                listOfFigures.Add(concreteFigure.Points);
+            }
+
             if (!isDoubleClicked)
             {
                 stackBack.AddMyBitmap(myBitmap.Btm);
@@ -221,6 +257,9 @@ namespace Paint
 
                 if (isDoubleClicked)
                 {
+                    canBeDragged = true;
+                    canDraw = false;
+                    listOfFigures.Add(concreteFigure.Points);
                     isDoubleClicked = false;
                     isPressed = false;
                     clickCount = 0;
@@ -231,6 +270,13 @@ namespace Paint
             {
                 tmpPoint = pFinish;
             }
+
+            if (canBeDragged)
+            {
+                figureMinMaxXY = GetMinMaxXY(concreteFigure.Points);
+                fogureSpacePoints = GetfigureSpacePoints(figureMinMaxXY);
+            }
+
         }
 
         /// <summary>
@@ -606,6 +652,88 @@ namespace Paint
                 player.Play();
             }
             catch (Exception) { }
+
+        }
+
+        private int[] GetMinMaxXY(List<Point> figurePoints)
+        {
+            int minX = figurePoints[0].X;
+            int maxX = figurePoints[0].X;
+            int minY = figurePoints[0].Y;
+            int maxY = figurePoints[0].Y;
+            foreach (Point item in figurePoints)
+            {
+                if (item.X > maxX)
+                {
+                    maxX = item.X;
+                }
+                if (item.Y > maxY)
+                {
+                    maxY = item.Y;
+                }
+
+                if (item.X < minX)
+                {
+                    minX = item.X;
+                }
+                if (item.Y < minY)
+                {
+                    minY = item.Y;
+                }
+            }
+            int[] arr = new int[] { minX, maxX, minY, maxY };
+            return arr;
+        }
+
+        private List<Point> GetfigureSpacePoints(int[] minMaxXY)
+        {
+            List<Point> figureSpace = new List<Point>();
+            figureSpace.Add(new Point(minMaxXY[0], minMaxXY[2]));
+            figureSpace.Add(new Point(minMaxXY[0], minMaxXY[3]));
+            figureSpace.Add(new Point(minMaxXY[1], minMaxXY[3]));
+            figureSpace.Add(new Point(minMaxXY[1], minMaxXY[2]));
+
+            return figureSpace;
+        }
+
+
+        private bool IsPointIsInFigureSpace(int[] minMaxXY, Point curPoint)
+        {
+            if (curPoint.X >= minMaxXY[0] && curPoint.X <= minMaxXY[1] && curPoint.Y >= minMaxXY[2] && curPoint.Y <= minMaxXY[3])
+            {
+                return pointIsInFigureSpace = true;
+            }
+
+            return pointIsInFigureSpace = false;
+        }
+
+        private int[] GetDistance(Point pStart, Point curPoint)
+        {
+            int[] arr = new int[2];
+            arr[0] = curPoint.X - pStart.X;
+            arr[1] = curPoint.Y - pStart.Y;
+
+            return arr;
+        }
+
+
+        private Point GetNewPoint(Point point, int[] distance)
+        {
+            Point newP = new Point();
+            newP.X = point.X + distance[0];
+            newP.Y = point.Y + distance[1];
+            return newP;
+        }
+
+        private List<Point> SetNewFigurePoints(List<Point> concreteFigurePoints, int[] distance)
+        {
+            List<Point> newList = new List<Point>();
+            foreach (Point point in concreteFigurePoints)
+            {
+                Point p = GetNewPoint(point, distance);
+                newList.Add(p);
+            }
+            return newList;
         }
     }
 }

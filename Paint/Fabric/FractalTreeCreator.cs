@@ -43,8 +43,8 @@ namespace Paint.Fabric
 
             if (numInerations > 2)
             {
-                numInerations *= 0.7; //Меняем параметр a
-                                      //Считаем координаты для вершины-ребенка
+                numInerations *= 0.7;
+                //Считаем координаты для вершины-ребенка
                 pFinish.X = (int)Math.Round(x + numInerations * Math.Cos(angle));
                 pFinish.Y = (int)Math.Round(y - numInerations * Math.Sin(angle));
                 //рисуем линию между вершинами          

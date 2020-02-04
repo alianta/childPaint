@@ -10,7 +10,6 @@ namespace Paint.Fabric
 {
     public class ClosingLinesCreator : FigureCreator
     {
-
         List<Point> allFigurePoints = new List<Point>();
         public override Figure CreateFigure(Point pStart, Point pFinish, bool isDoubleClicked)
         {
