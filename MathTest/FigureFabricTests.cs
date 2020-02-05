@@ -20,58 +20,58 @@ namespace Paint.Fabric
                 case "point2":
                     return new Point(4, 50);
                 case "point3":
-                    return new Point(-450,-100);
+                    return new Point(-450, -100);
                 case "point4":
-                    return new Point(-300,0);
+                    return new Point(-300, 0);
                 case "point5":
-                    return new Point(5,10);
+                    return new Point(5, 10);
                 case "point6":
-                    return new Point(10,5);
+                    return new Point(10, 5);
                 case "point7":
-                    return new Point(0,0);
+                    return new Point(0, 0);
                 case "point8":
-                    return new Point(0,0);
+                    return new Point(0, 0);
                 case "point9":
                     return new Point(0, -5);
                 case "point10":
                     return new Point(-5, 0);
                 case "point11":
-                    return new Point(800,0);
+                    return new Point(800, 0);
                 case "point12":
-                    return new Point(0,800);
+                    return new Point(0, 800);
                 case "pointStartSquer1":
                     return new Point(20, 40);
                 case "pointFinishSquer1":
                     return new Point(30, 100);
                 case "pointStartIsoscaleTriangle1":
-                    return new Point(10,20);
+                    return new Point(10, 20);
                 case "pointFinishIsoscaleTriangle1":
-                    return new Point(30,10);
+                    return new Point(30, 10);
                 case "pointStartIsoscaleTriangle2":
                     return new Point(129, 170);
                 case "pointFinishIsoscaleTriangle2":
-                    return new Point(331,40);
+                    return new Point(331, 40);
 
                 case "pointStartRectangularTriangle1":
-                    return new Point(2,3);
+                    return new Point(2, 3);
                 case "pointFinishRectangularTriangle1":
-                    return new Point(5,1);
+                    return new Point(5, 1);
                 case "pointStartRectangularTriangle3":
                     return new Point(0, 0);
                 case "pointFinishRectangularTriangle4":
-                    return new Point(-100,100);
+                    return new Point(-100, 100);
                 case "pointStartRectangularTriangle5":
                     return new Point(0, 0);
                 case "pointFinishRectangularTriangle6":
-                    return new Point(0,0);
+                    return new Point(0, 0);
                 case "pointStartRectangularTriangle7":
-                    return new Point(0,900);
+                    return new Point(0, 900);
                 case "pointFinishRectangularTriangle8":
                     return new Point(-600, 0);
                 case "pointStartRectangularTriangle9":
-                    return new Point(-230,-800);
+                    return new Point(-230, -800);
                 case "pointFinishRectangularTriangle10":
-                    return new Point(-900,-700);
+                    return new Point(-900, -700);
                 case "pointStartRectangularTriangle11":
                     return new Point(-200, -200);
                 case "pointFinishRectangularTriangle12":
@@ -101,10 +101,13 @@ namespace Paint.Fabric
                 case "pointFinishEllipce1":
                     return new Point(10, 6);
 
+                case "pointStartRhombus1":
+                    return new Point(300, 300);
+                case "pointFinishRhombus1":
+                    return new Point(300, 340);
                 default:
                     return new Point();
             }
-
         }
 
         public List<Point> GetPointsListByName(string name)
@@ -323,7 +326,13 @@ namespace Paint.Fabric
                         new Point(7,0),
                     };
 
-
+                case "pointListRhombus":
+                    return new List<Point>() {
+                        new Point(300,300),
+                        new Point(363,300),
+                        new Point(340,340),
+                        new Point(276,340)
+                    };
 
                 default:
                     return new List<Point>();
@@ -398,7 +407,7 @@ namespace Paint.Fabric
 
             CollectionAssert.AreEqual(expected, actual);
         }
-        
+
 
         // ÃŒ√Œ”√ŒÀ‹Õ» 
 
@@ -444,6 +453,68 @@ namespace Paint.Fabric
 
             CollectionAssert.AreEqual(expected, actual);
         }
+
+
+
+        public Point GetPointsByName(string name)
+        {
+            switch (name)
+            {
+                case "pointStartParal1":
+                    return new Point(300, 300);
+                case "pointFinishParal1":
+                    return new Point(300, 340);
+                case "pointStartParal2":
+                    return new Point(300, 300);
+                case "pointFinishParal2":
+                    return new Point(300, 300);
+                default:
+                    return new Point();
+            }
+        }
+
+        public List<Point> GetPointsListByName1(string name)
+        {
+            switch (name)
+            {
+                case "pointListParal1":
+                    return new List<Point>() {
+                        new Point(300,300),
+                        new Point(363,300),
+                        new Point(340,340),
+                        new Point(276,340)
+                    };
+                case "pointListParal2":
+                    return new List<Point>() {
+                        new Point(300,300)
+                    };
+                default:
+                    return new List<Point>();
+            }
+        }
+
+        //œ‡‡ÎÎÂÎÓ„‡ÏÏ
+        [TestCase("pointStartParal1", "pointFinishParal1", "pointListParal1")]
+        [TestCase("pointStartParal2", "pointFinishParal2", "pointListParal2")]
+        public void CreateParallelogramTest(string pStartName, string pFinishName, string expectedPointsListName)
+        {
+            ParallelogramCreator rhombus = new ParallelogramCreator();
+            Point pStart = GetPointsByName(pStartName);
+            Point pFinish = GetPointsByName(pFinishName);
+            List<Point> expected = GetPointsListByName1(expectedPointsListName);
+            List<Point> actual = rhombus.CreateParallelogram(pStart, pFinish).Points;
+            CollectionAssert.AreEqual(expected, actual);
+        }
     }
+
+
+    //{
+    //                   new Point(300,300),
+    //                   new Point(363,300),
+    //                   new Point(340,340),
+    //                   new Point(276,340)
+    //               }
+
+
 
 }

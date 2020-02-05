@@ -16,6 +16,7 @@ namespace Paint.Rastr
         Tree,
         StraightLine,
         ClosingLines,
-        Eraser
+        Eraser,
+        Parallelogram
     }
 }

@@ -44,6 +44,9 @@
             <Button x:Name="btnRectangle" Height="35" Width="35" Background="White" BorderThickness="0" ToolTip="Rectangle (Square with Shift)" Click="BtnFigure_Click" Cursor="Hand">
 				<Image Source="white/b_4-rectangle.png"></Image>
 			</Button>
+            <Button x:Name="btnRhombus" Height="35" Width="35" Background="White" BorderThickness="0" ToolTip="Rectangle (Square with Shift)" Click="BtnFigure_Click" Cursor="Hand">
+
+            </Button>
             <Button x:Name="btnTriangle" Height="35" Width="35" Background="White" BorderThickness="0" ToolTip="Isoscale triangle (Rectangular triangle with Shift)" Click="BtnFigure_Click" Cursor="Hand">
 				<Image Source="white/b_5-triangle.png"></Image>
 			</Button>

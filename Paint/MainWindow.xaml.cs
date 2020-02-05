@@ -113,6 +113,10 @@ namespace Paint
             {
                 flagFigure = FigureEnum.Eraser;
             }
+            else if (sender.Equals(btnRhombus))
+            {
+                flagFigure = FigureEnum.Parallelogram;
+            }
             else
             {
                 xPosition.Text = "Алярма!";
@@ -575,6 +579,9 @@ namespace Paint
                     concreteCreator = new EraserCreator();
                     break;
                 case FigureEnum.ClosingLines:
+                    break;
+                case FigureEnum.Parallelogram:
+                    concreteCreator = new ParallelogramCreator();
                     break;
             }
         }

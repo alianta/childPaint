@@ -76,6 +76,7 @@
     <Compile Include="Fabric\ClosingLinesCreator.cs" />
     <Compile Include="Fabric\EraserCreator.cs" />
     <Compile Include="Fabric\FractalTreeCreator.cs" />
+    <Compile Include="Fabric\ParallelogramCreator.cs" />
     <Compile Include="Fabric\PenCreator.cs" />
     <Compile Include="Fabric\PolygonCreator.cs" />
     <Compile Include="Fabric\RectangleCreator.cs" />
@@ -90,6 +91,7 @@
     <Compile Include="Fabric\EllipceCreator.cs" />
     <Compile Include="Fabric\FigureCreator.cs" />
     <Compile Include="Fabric\TriangleCreator.cs" />
+    <Compile Include="Rastr\Parallelogram.cs" />
     <Compile Include="SurfaceStrategy\DrawOnBitmap.cs" />
     <Compile Include="SurfaceStrategy\DrawOnCanvas.cs" />
     <Compile Include="SurfaceStrategy\ISurfaceStrategy.cs" />
