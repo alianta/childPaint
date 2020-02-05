@@ -379,3 +379,4 @@ C:\Users\User\Desktop\Новая папка\кракен\childPaint\MathTest\obj
 C:\Users\User\Desktop\Новая папка\кракен\childPaint\MathTest\obj\Debug\netcoreapp3.0\MathTest.csproj.CopyComplete
 C:\Users\User\Desktop\Новая папка\кракен\childPaint\MathTest\obj\Debug\netcoreapp3.0\MathTest.dll
 C:\Users\User\Desktop\Новая папка\кракен\childPaint\MathTest\obj\Debug\netcoreapp3.0\MathTest.pdb
+D:\Новая папка\кракен\childPaint\MathTest\bin\Debug\netcoreapp3.0\white\female_scream.wav

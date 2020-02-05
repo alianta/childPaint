@@ -105,6 +105,7 @@ namespace Paint.Fabric
                     return new Point(300, 300);
                 case "pointFinishRhombus1":
                     return new Point(300, 340);
+
                 default:
                     return new Point();
             }
@@ -468,6 +469,14 @@ namespace Paint.Fabric
                     return new Point(300, 300);
                 case "pointFinishParal2":
                     return new Point(300, 300);
+                case "pointStartParal3":
+                    return new Point(0, 0);
+                case "pointFinishParal3":
+                    return new Point(0, 0);
+                case "pointStartParal4":
+                    return new Point(-850, -600);
+                case "pointFinishParal4":
+                    return new Point(-900, -700);
                 default:
                     return new Point();
             }
@@ -488,6 +497,19 @@ namespace Paint.Fabric
                     return new List<Point>() {
                         new Point(300,300)
                     };
+
+                        case "pointListParal3":
+                    return new List<Point>() {
+                        new Point(0,0)
+                    };
+                         case "pointListParal4":
+                    return new List<Point>() {
+                        new Point(-850,-600),
+                        new Point(-692,-600),
+                        new Point(-750,-700),
+                        new Point(-907,-700),
+                        
+                    };
                 default:
                     return new List<Point>();
             }
@@ -496,6 +518,8 @@ namespace Paint.Fabric
         //ֿאנאככוכמדנאלל
         [TestCase("pointStartParal1", "pointFinishParal1", "pointListParal1")]
         [TestCase("pointStartParal2", "pointFinishParal2", "pointListParal2")]
+        [TestCase("pointStartParal3", "pointFinishParal3", "pointListParal3")]
+        [TestCase("pointStartParal4", "pointFinishParal4", "pointListParal4")]
         public void CreateParallelogramTest(string pStartName, string pFinishName, string expectedPointsListName)
         {
             ParallelogramCreator rhombus = new ParallelogramCreator();
