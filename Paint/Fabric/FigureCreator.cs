@@ -13,6 +13,5 @@ namespace Paint.Fabric
   public abstract class FigureCreator
     {
         public abstract Figure CreateFigure(Point pStart, Point pFinish, bool shiftPressed);// создает объект фигуры
-
     }
 }

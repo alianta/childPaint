@@ -167,11 +167,11 @@ namespace Paint.Fabric
                 case "pointListIsoscaleTriangle1":
                     return new List<Point>() {
                         new Point(10,20),
-                        new Point(30,10),
+                        new Point(10,10),
                         new Point(10,20),
-                        new Point(10,10),
-                        new Point(10,10),
-                        new Point(30,10),
+                        //new Point(10,10),
+                        //new Point(10,10),
+                        //new Point(30,10),
                     };
                 case "pointListIsoscaleTriangle2":
                     return new List<Point>() {

@@ -39,7 +39,6 @@ namespace Paint
         private int numSides;
         private int clickCount = 0;
         private int vectorThickness;
-        // private Fill fill = new Fill();
         private Stack stackBack = new Stack();
         private System.Windows.Point A;
         private Stack stackForward = new Stack();
@@ -444,6 +443,7 @@ namespace Paint
                     break;
                 case "VECTOR":
                     currentSurfaceStrategy = new DrawOnCanvas();
+                    //MainImage.Source = MyCanvas.Instance;
                     break;
             }
         }
@@ -463,9 +463,11 @@ namespace Paint
 
         private void MyCanvas_MouseDown(object sender, MouseEventArgs e)
         {
+
         }
         private void MyCanvas_MouseUp(object sender, MouseEventArgs e)
         {
+
         }
 
         /// <summary>
@@ -475,20 +477,22 @@ namespace Paint
         /// <param name="e"></param>
         private void MyCanvas_MouseMove(object sender, MouseEventArgs e)
         {
-            if (e.MouseDevice.LeftButton == MouseButtonState.Pressed)
-            {
-                myCanvas.Children.Add(new Line
-                {
-                    X1 = A.X,
-                    Y1 = A.Y,
-                    X2 = e.GetPosition(myCanvas).X,
-                    Y2 = e.GetPosition(myCanvas).Y,
-                    StrokeThickness = vectorThickness,
-                    Stroke = stroke1,
-                });
+            //if (e.MouseDevice.LeftButton == MouseButtonState.Pressed)
+            //    instance.Children.Add(l);
+            //if (e.MouseDevice.LeftButton == MouseButtonState.Pressed)
+            //{
+            //    myCanvas.Children.Add(new Line
+            //    {
+            //        X1 = A.X,
+            //        Y1 = A.Y,
+            //        X2 = e.GetPosition(myCanvas).X,
+            //        Y2 = e.GetPosition(myCanvas).Y,
+            //        StrokeThickness = vectorThickness,
+            //        Stroke = stroke1,
+            //    });
 
-            }
-            A = e.GetPosition(myCanvas);
+            //}
+            //A = e.GetPosition(myCanvas);
         }
 
         /// <summary>
@@ -741,6 +745,22 @@ namespace Paint
                 newList.Add(p);
             }
             return newList;
+        }
+
+        private System.Drawing.Point ConverterOfPointsToSD(System.Windows.Point p)
+        {
+            System.Drawing.Point temp = new System.Drawing.Point();
+            temp.X = (int)p.X;
+            temp.Y = (int)p.Y;
+            return temp;
+        }
+
+        private System.Windows.Point ConverterOfPointsToSW(System.Drawing.Point p)
+        {
+            System.Windows.Point temp = new System.Windows.Point();
+            temp.X = p.X;
+            temp.Y = p.Y;
+            return temp;
         }
     }
 }

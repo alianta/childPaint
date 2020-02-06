@@ -17,7 +17,7 @@ namespace Paint.Fabric
             figurePoints.Add(pStart);
             figurePoints.Add(pFinish);
 
-            return new Line(figurePoints);
+            return new Rastr.Pen(figurePoints);
         }
     }
 }

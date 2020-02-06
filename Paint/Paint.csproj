@@ -91,7 +91,9 @@
     <Compile Include="Fabric\EllipceCreator.cs" />
     <Compile Include="Fabric\FigureCreator.cs" />
     <Compile Include="Fabric\TriangleCreator.cs" />
+    <Compile Include="MyCanvas.cs" />
     <Compile Include="Rastr\Parallelogram.cs" />
+    <Compile Include="Rastr\VectorFigure.cs" />
     <Compile Include="SurfaceStrategy\DrawOnBitmap.cs" />
     <Compile Include="SurfaceStrategy\DrawOnCanvas.cs" />
     <Compile Include="SurfaceStrategy\ISurfaceStrategy.cs" />
@@ -111,7 +113,7 @@
     <Compile Include="Rastr\Ellipce.cs" />
     <Compile Include="Rastr\Figure.cs" />
     <Compile Include="Rastr\FractalTree.cs" />
-    <Compile Include="Rastr\Line.cs" />
+    <Compile Include="Rastr\Pen.cs" />
     <Compile Include="Rastr\Polygon.cs" />
     <Compile Include="Rastr\Rectangle.cs" />
     <Compile Include="Pixel.cs" />

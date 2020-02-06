@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Shapes;
 
 namespace Paint.SurfaceStrategy
 {
@@ -11,5 +12,7 @@ namespace Paint.SurfaceStrategy
     {
         Brush CurrentBrush { get; set; }
         void Draw(Point pStart, Point pFinish);
+
+        void Draw(List<Line> listOfLines);
     }
 }

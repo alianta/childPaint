@@ -8,9 +8,9 @@ using System.Windows.Media.Imaging;
 
 namespace Paint.Rastr
 {
-    class Line : Figure
+    class Pen : Figure
     {
-        public Line(List<Point> figurePoints) : base(figurePoints)
+        public Pen(List<Point> figurePoints) : base(figurePoints)
         { }
 
     }
