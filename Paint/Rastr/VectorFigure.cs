@@ -9,12 +9,14 @@ using System.Drawing;
 
 namespace Paint.Rastr
 {
-    public class Vectorfigure : Figure
+    public class VectorFigure : Figure
     {
-        public Vectorfigure(List<Point> points) : base(points)
+        public List<Line> ListOfLines { get; set; }
+
+        public VectorFigure(List<Point> points) : base(points)
         {
-            List<Line> listOfLines = new List<Line>();
-            for (int i = 0; i < points.Count; i++)
+            ListOfLines = new List<Line>();
+            for (int i = 0; i < points.Count-1; i++)
             {
                 Line line = new Line();
                 line.Stroke = Brushes.Black;
@@ -22,14 +24,14 @@ namespace Paint.Rastr
                 line.Y1 = points[i].Y;
                 line.X2 = points[i + 1].X;
                 line.Y2 = points[i + 1].Y;
-                listOfLines.Add(line);
+                ListOfLines.Add(line);
             }
             Line lastLine = new Line();
-            lastLine.X1 = points[points.Count].X;
-            lastLine.Y1 = points[points.Count].Y;
+            lastLine.X1 = points[points.Count-1].X;
+            lastLine.Y1 = points[points.Count-1].Y;
             lastLine.X2 = points[0].X;
             lastLine.Y2 = points[0].Y;
-            listOfLines.Add(lastLine);
+            ListOfLines.Add(lastLine);
         }
     }
 }

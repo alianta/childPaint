@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
 
 namespace Paint
 {
@@ -23,5 +24,11 @@ namespace Paint
             SurfaceStrategy.Draw(pStart, pFinish);
 
         }
+
+        //public void DrawOnSurface(List<Line> listOfLines) {
+        //    if (SurfaceStrategy == null)
+        //        return; // идите в жопу
+        //    SurfaceStrategy.DrawVector(listOfLines);
+        //}
     }
 }

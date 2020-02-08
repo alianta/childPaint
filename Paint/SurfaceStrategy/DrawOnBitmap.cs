@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Shapes;
 
 namespace Paint.SurfaceStrategy
 {
@@ -20,6 +21,11 @@ namespace Paint.SurfaceStrategy
             {
                 DrawLine(first[i], second[i]);
             }
+        }
+
+        public void DrawVector(List<Line> listOfLines)
+        {
+            throw new NotImplementedException();
         }
 
         /// <summary>

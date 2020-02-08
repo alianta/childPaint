@@ -11,8 +11,10 @@ namespace Paint.SurfaceStrategy
     public interface ISurfaceStrategy
     {
         Brush CurrentBrush { get; set; }
+
+
         void Draw(Point pStart, Point pFinish);
 
-        void Draw(List<Line> listOfLines);
+        //void DrawVector(List<Line> listOfLines);
     }
 }

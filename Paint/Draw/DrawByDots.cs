@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Drawing;
 using System.Windows.Media.Imaging;
 using Paint.SurfaceStrategy;
+using System.Windows.Shapes;
 
 namespace Paint
 {
@@ -21,5 +22,7 @@ namespace Paint
             //    Pixel.Draw(figurePoints[i + 5], CurrentBrush.BrushColor.HexToRGBConverter());
             //}
         }
+
+        public void DrawOnSurface(List<Line> listOfLines) { }
     }
 }

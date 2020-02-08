@@ -8,103 +8,107 @@
         Title="PAIN/T" Height="710" Width="1000" MouseUp="Window_MouseUp"
         Icon="white/2.ico" FontWeight="Bold" MouseDoubleClick="Window_MouseDoubleClick" KeyDown="Window_KeyDown">
 
-	<Grid >
-		<TabControl Background="#FFBDB9B9" SelectionChanged="TabControl_SelectionChanged" FontWeight="Bold">
-			<TabItem x:Name="bitmap" Header="BITMAP" >
+    <Grid >
+        <TabControl Background="#FFBDB9B9" SelectionChanged="TabControl_SelectionChanged" FontWeight="Bold">
+            <TabItem x:Name="bitmap" Header="BITMAP" >
                 <Canvas Background="White" Width="800" Height="550" HorizontalAlignment="Left" Margin="0,55,0,40">
                     <Image Name="MainImage"  HorizontalAlignment="Left" VerticalAlignment="Top" Width="800" Height="550" OpacityMask="White" MouseMove="Image_MouseMove" Stretch="None" MouseLeftButtonDown="MainImage_MouseDown" MouseLeftButtonUp="MainImage_MouseEnter" Cursor="Pen"/>
                 </Canvas>
             </TabItem>
             <TabItem x:Name="vector" Header="VECTOR" >
+
                 <Canvas x:Name="myCanvas" Background="White" Width="800" Height="550" HorizontalAlignment="Left" Margin="0,55,0,40"
                     MouseEnter="MyCanvas_MouseEnter"
 					MouseMove="MyCanvas_MouseMove"
-                    MouseUp="MyCanvas_MouseUp"
-                        Cursor="Pen">
+                    MouseUp="MyCanvas_MouseUp" 
+                    MouseDown="MyCanvas_MouseDown"
+                        >
                 </Canvas>
+
+
             </TabItem>
         </TabControl>
-		<StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="0,24,0,0" Background="White" Height="50">
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="0,24,0,0" Background="White" Height="50">
 
             <Button x:Name="btnBack"  ToolTip="Back" Height="35" Width="30" Background="White" BorderThickness="0" Click="BtnBackForward_Click" FontFamily="Segoe MDL2 Assets" Content="&#xE72B;" Cursor="Hand"/>
             <Button x:Name="btnForward"  ToolTip="Forward" Height="35" Width="30" Background="White" BorderThickness="0" Click="BtnBackForward_Click" FontFamily="Segoe MDL2 Assets" Content="&#xE72A;" Cursor="Hand"/>
 
             <Button x:Name="btnLine" Height="35" Width="30" Background="White" BorderThickness="0" ToolTip="Pencil" Click="BtnFigure_Click" Cursor="Hand">
-				<Image Source="white/b_14-pencil.png"></Image>
-			</Button>
+                <Image Source="white/b_14-pencil.png"></Image>
+            </Button>
             <Button x:Name="btnStraightLine" Height="35" Width="30" Background="White" BorderThickness="0"  ToolTip="Straight line" Click="BtnFigure_Click" Cursor="Hand">
-				<Image Source="white/b_1-line.png"></Image>
-			</Button>
+                <Image Source="white/b_1-line.png"></Image>
+            </Button>
             <Button x:Name="btnClosingLines" Height="35" Width="35" Background="White" BorderThickness="0" ToolTip="Closing line" Click="BtnFigure_Click" Cursor="Hand">
-				<Image Source="white/b_2-lineCoords.png"></Image>
-			</Button>
+                <Image Source="white/b_2-lineCoords.png"></Image>
+            </Button>
             <Button x:Name="btnCircle" Height="35" Width="35" Background="White" BorderThickness="0" ToolTip="Ellipce (Circle with Shift)"  Click="BtnFigure_Click" Cursor="Hand">
-				<Image Source="white/b_3-ellipsis.png"></Image>
-			</Button>
+                <Image Source="white/b_3-ellipsis.png"></Image>
+            </Button>
             <Button x:Name="btnRectangle" Height="35" Width="35" Background="White" BorderThickness="0" ToolTip="Rectangle (Square with Shift)" Click="BtnFigure_Click" Cursor="Hand">
-				<Image Source="white/b_4-rectangle.png"></Image>
-			</Button>
+                <Image Source="white/b_4-rectangle.png"></Image>
+            </Button>
             <Button x:Name="btnRhombus" Height="35" Width="35" Background="White" BorderThickness="0" ToolTip="Rectangle (Square with Shift)" Click="BtnFigure_Click" Cursor="Hand">
 
             </Button>
             <Button x:Name="btnTriangle" Height="35" Width="35" Background="White" BorderThickness="0" ToolTip="Isoscale triangle (Rectangular triangle with Shift)" Click="BtnFigure_Click" Cursor="Hand">
-				<Image Source="white/b_5-triangle.png"></Image>
-			</Button>
+                <Image Source="white/b_5-triangle.png"></Image>
+            </Button>
 
             <Button x:Name="btnPolygon" Height="35" Width="35" Background="White" BorderThickness="0" ToolTip="Polygon"  Click="BtnFigure_Click" Cursor="Hand">
-				<Image Source="white/b_6-nGon.png"></Image>
-			</Button>
+                <Image Source="white/b_6-nGon.png"></Image>
+            </Button>
             <Button x:Name="btnTree" Height="35" Width="35" Background="White" BorderThickness="0" ToolTip="Pythagorean tree"  Click="BtnFigure_Click" Cursor="Hand">
-				<Image Source="white/b_13-tree.png"></Image>
-			</Button>
+                <Image Source="white/b_13-tree.png"></Image>
+            </Button>
             <TextBox x:Name="sides" TextWrapping="Wrap"  Width="40" Margin="0,12,5,10" FontWeight="Normal"  VerticalAlignment="Center" Height="25" Text="5" TextAlignment="Center" FontSize="14" ToolTip="Number for Polygon and Pythagorean tree" PreviewTextInput="Sides_OnPreviewTextInput" Cursor="IBeam"/>
 
 
-			<!--выбор толщины линии-->
+            <!--выбор толщины линии-->
             <ComboBox Height="40" Width="100" Background="White" BorderThickness="0" Name="ThicknessList" VerticalAlignment="Center" SelectionChanged="Button_Change_Thickness" ToolTip="Line thickness" Cursor="Hand">
                 <ComboBoxItem  x:Name="thick1" IsSelected="True" Cursor="Hand">
                     <StackPanel  Orientation="Horizontal" Cursor="Hand">
-						<Image Source="white/b_8-lineWidth-1.png"  Width="40" />
-						<TextBlock VerticalAlignment="Center" Margin="13,0,0,0">x1</TextBlock>
-					</StackPanel>
-				</ComboBoxItem>
-				<ComboBoxItem  x:Name="thick2">
+                        <Image Source="white/b_8-lineWidth-1.png"  Width="40" />
+                        <TextBlock VerticalAlignment="Center" Margin="13,0,0,0">x1</TextBlock>
+                    </StackPanel>
+                </ComboBoxItem>
+                <ComboBoxItem  x:Name="thick2">
                     <StackPanel Orientation="Horizontal" Cursor="Hand">
-						<Image Source="white/b_8-lineWidth-2.png"  Width="40" />
-						<TextBlock  VerticalAlignment="Center" Margin="13,0,0,0">x2</TextBlock>
-					</StackPanel>
-				</ComboBoxItem>
-				<ComboBoxItem x:Name="thick3">
+                        <Image Source="white/b_8-lineWidth-2.png"  Width="40" />
+                        <TextBlock  VerticalAlignment="Center" Margin="13,0,0,0">x2</TextBlock>
+                    </StackPanel>
+                </ComboBoxItem>
+                <ComboBoxItem x:Name="thick3">
                     <StackPanel   Orientation="Horizontal" Cursor="Hand">
-						<Image Source="white/b_8-lineWidth-3.png"  Width="40" />
-						<TextBlock  VerticalAlignment="Center" HorizontalAlignment="Right" Margin="13,0,0,0">x3</TextBlock>
-					</StackPanel>
-				</ComboBoxItem>
-				<ComboBoxItem x:Name="thick4">
+                        <Image Source="white/b_8-lineWidth-3.png"  Width="40" />
+                        <TextBlock  VerticalAlignment="Center" HorizontalAlignment="Right" Margin="13,0,0,0">x3</TextBlock>
+                    </StackPanel>
+                </ComboBoxItem>
+                <ComboBoxItem x:Name="thick4">
                     <StackPanel   Orientation="Horizontal" Cursor="Hand">
-						<Image Source="white/5005 (1).JPG"  Width="40" />
-						<TextBlock  VerticalAlignment="Center" Margin="13,0,0,0">x4</TextBlock>
-					</StackPanel>
-				</ComboBoxItem>
-			</ComboBox>
+                        <Image Source="white/5005 (1).JPG"  Width="40" />
+                        <TextBlock  VerticalAlignment="Center" Margin="13,0,0,0">x4</TextBlock>
+                    </StackPanel>
+                </ComboBoxItem>
+            </ComboBox>
 
             <Button x:Name="bntFillBucket" Height="35" Width="35" Background="White" BorderThickness="0" Click="BntFillBucket_Click" ToolTip="Color fill" Cursor="Hand">
-				<Image Source="white/b_7-fillBucket.png"></Image>
-			</Button>
+                <Image Source="white/b_7-fillBucket.png"></Image>
+            </Button>
 
             <Button x:Name="btnEraser" Height="35" Width="35" Background="White" BorderThickness="0" Click="BtnFigure_Click" ToolTip="Eraser" Cursor="Hand">
-				<Image Source="white/b_10-eraser.png"></Image>
-			</Button>
+                <Image Source="white/b_10-eraser.png"></Image>
+            </Button>
 
             <Button x:Name="bntPickOut" Height="35" Width="35" Background="White" BorderThickness="0" ToolTip="Pick out" Cursor="Hand">
-				<Image Source="white/b_11-selection.png"></Image>
-			</Button>
+                <Image Source="white/b_11-selection.png"></Image>
+            </Button>
 
             <Button x:Name="bntMove" Height="35" Width="35" Background="White" BorderThickness="0" ToolTip="Move" Cursor="Hand">
                 <Image Source="white/b_12-move.png"></Image>
             </Button>
             <!--палитра-->
-			<WrapPanel Width="180" Margin="3">
+            <WrapPanel Width="180" Margin="3">
                 <Button x:Name="bntBlack" Width="20" Height="20" Margin="1" Background="#000000" Click="Button_Change_Color" Cursor="Hand"/>
                 <Button x:Name="bntRed" Width="20" Height="20" Margin="1" Background="#ff0000" Click="Button_Change_Color" Cursor="Hand"/>
                 <Button x:Name="bntGreen" Width="20" Height="20" Margin="1" Background="#008000" Click="Button_Change_Color" Cursor="Hand"/>
@@ -121,43 +125,43 @@
                 <Button x:Name="bntMaroon" Width="20" Height="20" Margin="1" Background="#800000" Click="Button_Change_Color" Cursor="Hand"/>
                 <Button x:Name="bntYellow" Width="20" Height="20" Margin="1" Background="#ffff00" Click="Button_Change_Color" Cursor="Hand"/>
                 <Button x:Name="bntWhite" Width="20" Height="20" Margin="1" Background="White" Click="Button_Change_Color" Cursor="Hand"/>
-			</WrapPanel>
+            </WrapPanel>
             <Button x:Name="clearBtn" Height="30" Width="80" Margin="60,9,0,10.6" Background="White" Content="CLEAR ALL" FontSize="11" ToolTip="Clear canvas" Click="Button_Clear" Cursor="Hand"/>
 
 
 
 
-		</StackPanel>
+        </StackPanel>
 
-		<StackPanel VerticalAlignment="Bottom" Orientation="Horizontal" Background="White" Height="34">
-			<Label Content="X : " VerticalAlignment="Center" Height="28"/>
+        <StackPanel VerticalAlignment="Bottom" Orientation="Horizontal" Background="White" Height="34">
+            <Label Content="X : " VerticalAlignment="Center" Height="28"/>
             <TextBox x:Name="xPosition" HorizontalAlignment="Left" Height="25" TextWrapping="Wrap" VerticalAlignment="Center" Width="50" IsReadOnly="True"/>
-			<Label Content="Y : " HorizontalAlignment="Left"  VerticalAlignment="Center" RenderTransformOrigin="0.564,1.103"/>
+            <Label Content="Y : " HorizontalAlignment="Left"  VerticalAlignment="Center" RenderTransformOrigin="0.564,1.103"/>
             <TextBox x:Name="yPosition" HorizontalAlignment="Left" Height="25" TextWrapping="Wrap" VerticalAlignment="Center" Width="50" IsReadOnly="True"/>
 
             <Label Content="FORMAT" VerticalAlignment="Center" FontSize="12" Margin="630,3,0,3" Height="24"/>
             <ComboBox x:Name ="fileTypesList" Height="24" Width="60" FontSize="12" Cursor="Hand">
                 <ComboBoxItem IsSelected="True" Cursor="Hand">
                     <StackPanel Orientation="Horizontal" Cursor="Hand">
-						<TextBlock Margin="1"><Run Text=".jpg"/></TextBlock>
-					</StackPanel>
-				</ComboBoxItem>
-				<ComboBoxItem>
+                        <TextBlock Margin="1"><Run Text=".jpg"/></TextBlock>
+                    </StackPanel>
+                </ComboBoxItem>
+                <ComboBoxItem>
                     <StackPanel Orientation="Horizontal" Cursor="Hand">
-						<TextBlock ><Run Text=".bmp"/></TextBlock>
-					</StackPanel>
-				</ComboBoxItem>
-				<ComboBoxItem>
+                        <TextBlock ><Run Text=".bmp"/></TextBlock>
+                    </StackPanel>
+                </ComboBoxItem>
+                <ComboBoxItem>
                     <StackPanel Orientation="Horizontal" Cursor="Hand">
-						<TextBlock><Run Text=".png"/></TextBlock>
-					</StackPanel>
-				</ComboBoxItem>
-			</ComboBox>
+                        <TextBlock><Run Text=".png"/></TextBlock>
+                    </StackPanel>
+                </ComboBoxItem>
+            </ComboBox>
             <Button x:Name="save" Height="24" Width="50" Margin="5" Background="White" Content="SAVE" FontSize="12" Click="Button_Save" VerticalAlignment="Center" ToolTip="Save to file" Cursor="Hand"/>
-			<!--форматы-->
-		</StackPanel>
+            <!--форматы-->
+        </StackPanel>
 
 
-	</Grid>
+    </Grid>
 </Window>
 

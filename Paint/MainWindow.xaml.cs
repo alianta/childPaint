@@ -22,8 +22,11 @@ namespace Paint
     /// </summary>
     public partial class MainWindow : Window
     {
+        private Point prev = new Point(0, 0);
+        private Point position = new Point(0, 0);
         private Brush currentBrush;
         private MyBitmap myBitmap;
+
         private IDrawer defaultDrawerRealization;
         private ISurfaceStrategy currentSurfaceStrategy;
         private ColoredFiguresStrategy defaultFillRealization;
@@ -52,16 +55,22 @@ namespace Paint
 
         public MainWindow()
         {
-            Scream();
+            //Scream();
             defaultDrawerRealization = new DrawByLine();
             currentBrush = new Brush();
             defaultFillRealization = new NoFill();
             currentSurfaceStrategy = new DrawOnBitmap();
+           // Canvas c = new Canvas();
+            
             InitializeComponent();
+           
+            MyCanvas.Instance = myCanvas;
             myBitmap = MyBitmap.GetBitmap();
             myBitmap.Btm = new WriteableBitmap((int)MainImage.Width, (int)MainImage.Height, 96, 96, PixelFormats.Bgra32, null);
             stackBack.AddMyBitmap(myBitmap.Btm);
             MainImage.Source = myBitmap.Btm;
+
+
             FillBitmap();
         }
 
@@ -443,7 +452,9 @@ namespace Paint
                     break;
                 case "VECTOR":
                     currentSurfaceStrategy = new DrawOnCanvas();
-                    //MainImage.Source = MyCanvas.Instance;
+                    /*MyCanvas mc = new MyCanvas();
+                    mc.Canv = myCanvas;*/
+                    //mc.GetCanvas(myCanvas);
                     break;
             }
         }
@@ -457,13 +468,24 @@ namespace Paint
         {
             if (e.MouseDevice.LeftButton == MouseButtonState.Pressed)
             {
-                A = e.GetPosition(myCanvas);
+                //A = e.GetPosition(myCanvas);
+               
+                //prev = new Point((int)A.X, (int)A.Y);
+               
             }
         }
 
-        private void MyCanvas_MouseDown(object sender, MouseEventArgs e)
+        //private void MyCanvas_MouseDown(object sender, MouseEventArgs e)
+        //{
+        //    var tmp = e.GetPosition(this.myCanvas);
+        //    position = new Point((int)tmp.X, (int)tmp.Y);
+        //    prev = position;
+        //}
+        private void MyCanvas_MouseDown(object sender, MouseButtonEventArgs e)
         {
-
+            var tmp = e.GetPosition(sender as Canvas);
+            position = new Point((int)tmp.X, (int)tmp.Y);
+            prev = position;
         }
         private void MyCanvas_MouseUp(object sender, MouseEventArgs e)
         {
@@ -477,22 +499,30 @@ namespace Paint
         /// <param name="e"></param>
         private void MyCanvas_MouseMove(object sender, MouseEventArgs e)
         {
-            //if (e.MouseDevice.LeftButton == MouseButtonState.Pressed)
-            //    instance.Children.Add(l);
-            //if (e.MouseDevice.LeftButton == MouseButtonState.Pressed)
-            //{
-            //    myCanvas.Children.Add(new Line
-            //    {
-            //        X1 = A.X,
-            //        Y1 = A.Y,
-            //        X2 = e.GetPosition(myCanvas).X,
-            //        Y2 = e.GetPosition(myCanvas).Y,
-            //        StrokeThickness = vectorThickness,
-            //        Stroke = stroke1,
-            //    });
+            ShowCurPoint(e, sender);
 
-            //}
-            //A = e.GetPosition(myCanvas);
+            if (e.MouseDevice.LeftButton == MouseButtonState.Pressed)
+            {
+                var temp = e.GetPosition(sender as Canvas);
+                // position = new Point((int)temp.X, (int)temp.Y);
+                position = new Point((int)temp.X, (int)temp.Y);
+                SelectConcreteCreator(flagFigure);
+                concreteFigure = concreteCreator.CreateFigure(prev, position, false);
+                VectorFigure vectorFigure = new VectorFigure(concreteFigure.Points);
+                if (MyCanvas.CurrentFigure == null)
+                {
+                    MyCanvas.CurrentFigure = vectorFigure;
+                }
+                else
+                {
+                    MyCanvas.RemoveChildrenByTag();
+                }
+                InitFigure(concreteFigure);
+                concreteFigure.DoDraw();
+                if (MyCanvas.CurrentFigure == null)
+                    MyCanvas.ListVectorFigures.Add(new VectorFigure(concreteFigure.Points));
+                //myCanvas = MyCanvas.Instance;
+            }
         }
 
         /// <summary>
@@ -595,11 +625,22 @@ namespace Paint
         /// </summary>
         /// <param name="e"></param>
         /// 
-        private void ShowCurPoint(MouseEventArgs e)
+        private void ShowCurPoint(MouseEventArgs e, object sender = null)
         {
-            xPosition.Text = Convert.ToString(Convert.ToInt32(e.GetPosition(MainImage).X));
-            yPosition.Text = Convert.ToString(Convert.ToInt32(e.GetPosition(MainImage).Y));
+            Type str = currentSurfaceStrategy.GetType();
+
+            if (str.Name == "DrawOnCanvas")
+            {             
+                xPosition.Text = Convert.ToString(Convert.ToInt32(e.GetPosition(sender as Canvas).X));
+                yPosition.Text = Convert.ToString(Convert.ToInt32(e.GetPosition(sender as Canvas).Y));
+            }
+ 
+            else{
+                xPosition.Text = Convert.ToString(Convert.ToInt32(e.GetPosition(MainImage).X));
+                yPosition.Text = Convert.ToString(Convert.ToInt32(e.GetPosition(MainImage).Y));
+            }
         }
+                
 
         /// <summary>
         /// Метод задает текущую точку
@@ -735,6 +776,8 @@ namespace Paint
             newP.Y = point.Y + distance[1];
             return newP;
         }
+
+        
 
         private List<Point> SetNewFigurePoints(List<Point> concreteFigurePoints, int[] distance)
         {
