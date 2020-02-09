@@ -31,5 +31,9 @@ namespace Paint
             rgbColor[0] = Convert.ToByte(int.Parse(s.Substring(6, 2), System.Globalization.NumberStyles.AllowHexSpecifier));
             return rgbColor;
         }
+        public string getHexColor()
+        {
+            return color;
+        }
     }
 }

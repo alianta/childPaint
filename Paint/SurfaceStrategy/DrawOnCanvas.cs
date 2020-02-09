@@ -36,13 +36,16 @@ namespace Paint.SurfaceStrategy
 
         public void Draw(Point pStart, Point pFinish)
         {
+
+            string bcolor = CurrentBrush.BrushColor.getHexColor();
             Line line = new Line
             {
                 X1 = pStart.X,
                 Y1 = pStart.Y,
                 X2 = pFinish.X,
                 Y2 = pFinish.Y,
-                Stroke = new SolidColorBrush(Colors.Red),
+               // Stroke = new SolidColorBrush(Colors.Red),
+                Stroke = new BrushConverter().ConvertFromString(bcolor) as SolidColorBrush,
                 StrokeThickness = 1,
             };
             line.Tag = MyCanvas.CurrentFigure;
