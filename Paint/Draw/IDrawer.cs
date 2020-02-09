@@ -14,6 +14,5 @@ namespace Paint
     {        
         ISurfaceStrategy SurfaceStrategy { get; set; }
         void DrawOnSurface(Point pStart, Point pFinish);
-        //void DrawOnSurface(List<Line> listOfLines);
     }
 }

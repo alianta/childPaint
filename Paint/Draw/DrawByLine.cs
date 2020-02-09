@@ -24,11 +24,5 @@ namespace Paint
             SurfaceStrategy.Draw(pStart, pFinish);
 
         }
-
-        //public void DrawOnSurface(List<Line> listOfLines) {
-        //    if (SurfaceStrategy == null)
-        //        return; // идите в жопу
-        //    SurfaceStrategy.DrawVector(listOfLines);
-        //}
     }
 }

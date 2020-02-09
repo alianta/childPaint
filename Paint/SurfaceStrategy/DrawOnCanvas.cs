@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Paint.Thickness;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -13,27 +14,6 @@ namespace Paint.SurfaceStrategy
     {
         public Brush CurrentBrush { get; set; }
 
-        //public MyCanvas MyCanvas { get; set; }
-
-        public void DrawVector(List<Line> listOfLines)
-        {
-            //Line line = new Line();
-
-            //line.Stroke = System.Windows.Media.Brushes.Black;
-            //line.X1 = pStart.X;
-            //line.Y1 = pStart.Y;
-            //line.X2 = pFinish.X;
-            //line.Y2 = pFinish.Y;
-            // лист из векторФигуры подтянуть
-            // синглтон канваса - экземпляр
-
-
-            //for (int i = 0; i < listOfLines.Count; i++)
-            //{
-            //    MyCanvas.Instance.Children.Add(listOfLines[i]);
-            //}
-        }
-
         public void Draw(Point pStart, Point pFinish)
         {
 
@@ -46,10 +26,33 @@ namespace Paint.SurfaceStrategy
                 Y2 = pFinish.Y,
                // Stroke = new SolidColorBrush(Colors.Red),
                 Stroke = new BrushConverter().ConvertFromString(bcolor) as SolidColorBrush,
-                StrokeThickness = 1,
+                StrokeThickness = getVectorThickness(),
             };
             line.Tag = MyCanvas.CurrentFigure;
             MyCanvas.GetInstanceCopy().Children.Add(line);
+        }
+
+        private double getVectorThickness()
+        {
+            double thickness = 1;
+
+            switch (CurrentBrush.BrushThickness.GetType().Name)
+            {
+                case nameof(DefaultThickness):
+                    thickness = 1;
+                    break;
+                case nameof(MediumThickness):
+                    thickness = 2;
+                    break;
+                case nameof(BoldThickness):
+                    thickness = 3;
+                    break;
+                case nameof(ExtraboldThickness):
+                    thickness = 4;
+                    break;
+            }
+
+            return thickness;
         }
     }
 }
