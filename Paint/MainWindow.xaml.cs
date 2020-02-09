@@ -22,6 +22,8 @@ namespace Paint
     /// </summary>
     public partial class MainWindow : Window
     {
+
+        #region переменные
         private Point prev = new Point(0, 0);
         private Point position = new Point(0, 0);
         private Brush currentBrush;
@@ -52,6 +54,7 @@ namespace Paint
         List<Point> fogureSpacePoints = new List<Point>();
         int[] figureMinMaxXY;
         bool pointIsInFigureSpace;
+        #endregion
 
         public MainWindow()
         {
@@ -60,10 +63,10 @@ namespace Paint
             currentBrush = new Brush();
             defaultFillRealization = new NoFill();
             currentSurfaceStrategy = new DrawOnBitmap();
-           // Canvas c = new Canvas();
-            
+            // Canvas c = new Canvas();
+
             InitializeComponent();
-           
+
             MyCanvas.Instance = myCanvas;
             myBitmap = MyBitmap.GetBitmap();
             myBitmap.Btm = new WriteableBitmap((int)MainImage.Width, (int)MainImage.Height, 96, 96, PixelFormats.Bgra32, null);
@@ -76,6 +79,7 @@ namespace Paint
 
         //  ОБРАБОТКА СОБЫТИЙ
 
+        #region btns
         /// <summary>
         /// Метод обрабатывающий кнопки фигур
         /// </summary>
@@ -130,6 +134,168 @@ namespace Paint
                 xPosition.Text = "Алярма!";
             }
         }
+
+        /// <summary>
+        /// Метод обрабатывает клик по иконке с цветами
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Button_Change_Color(object sender, RoutedEventArgs e)
+        {
+            string buttonStr = Convert.ToString(((Button)e.OriginalSource).Background);
+            currentBrush.BrushColor = new Color(buttonStr);
+            stroke1 = new SolidColorBrush((System.Windows.Media.Color)ColorConverter.ConvertFromString(buttonStr));
+        }
+
+        /// <summary>
+        /// Метод обрабатывает нажатие на кнопку очищения холста     
+        /// /// Задает новый битмап
+        /// Ставит битмап в sourse холста
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Button_Clear(object sender, RoutedEventArgs e)
+        {
+            Type canvaType = currentSurfaceStrategy.GetType();
+
+            if (canvaType.Name == "DrawOnCanvas")
+            {
+                myCanvas.Children.Clear();
+            }
+            else
+            {
+                FillBitmap();
+                myBitmap.Btm = new WriteableBitmap((int)MainImage.Width, (int)MainImage.Height, 96, 96, PixelFormats.Bgra32, null);
+                MainImage.Source = myBitmap.Btm;
+            }
+        }
+
+        /// <summary>
+        /// Метод обрабатывает кнопку сохранения
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Button_Save(object sender, RoutedEventArgs e)
+        {
+            Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
+            ComboBoxItem selectedItem = (ComboBoxItem)fileTypesList.SelectedValue;
+            StackPanel selectedStackPanel = (StackPanel)selectedItem.Content;
+            UIElementCollection UIElCollection = selectedStackPanel.Children;
+            TextBlock tb = (TextBlock)UIElCollection[0];
+            string selectedFileType = Convert.ToString(tb.Text);
+
+            // Настраиваем параметры диалога
+            dlg.FileName = "Document"; // Имя по-умолчанию
+            dlg.Filter = "PNG Image (*.png)|*.png|JPEG Image (*.jpg)|*.jpg|BMP Image (*.bmp)|*.bmp|All files (*.*)|*.*";// Фильтр по расширениям
+            switch (selectedFileType)
+            {
+                case (".jpg"):
+                    dlg.FilterIndex = 2;
+                    break;
+                case (".png"):
+                    dlg.FilterIndex = 1;
+                    break;
+                case (".bmp"):
+                    dlg.FilterIndex = 3;
+                    break;
+            }
+
+            Nullable<bool> result = dlg.ShowDialog();
+            // Обработка результата работы диалога
+            if (result == true)
+            {
+                Type str = currentSurfaceStrategy.GetType();
+
+                if (str.Name == "DrawOnCanvas")
+                {
+                    FileStream fs = new FileStream(dlg.FileName, FileMode.Create);
+                    RenderTargetBitmap bmp = new RenderTargetBitmap((int)myCanvas.ActualWidth,
+                        (int)myCanvas.ActualHeight, 1 / 96, 1 / 96, PixelFormats.Pbgra32);
+                    bmp.Render(myCanvas);
+                    BitmapEncoder encoder = new TiffBitmapEncoder();
+                    encoder.Frames.Add(BitmapFrame.Create(bmp));
+                    encoder.Save(fs);
+                    fs.Close();
+                }
+                else if (str.Name == "DrawOnBitmap")
+                {
+                    var encoder = new PngBitmapEncoder();
+                    encoder.Frames.Add(BitmapFrame.Create((BitmapSource)MainImage.Source));
+                    using (FileStream stream = new FileStream(dlg.FileName, FileMode.Create))
+                        encoder.Save(stream);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Метод обрабатывает кнопку изменения толщины линии
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Button_Change_Thickness(object sender, SelectionChangedEventArgs e)
+        {
+            ComboBoxItem selectedItem = (ComboBoxItem)ThicknessList.SelectedValue;
+            if (selectedItem.Equals(thick1))
+            {
+                currentBrush.BrushThickness = new DefaultThickness();
+                vectorThickness = 1;
+            }
+            else if (selectedItem.Equals(thick2))
+            {
+                currentBrush.BrushThickness = new MediumThickness();
+                vectorThickness = 2;
+            }
+            else if (selectedItem.Equals(thick3))
+            {
+                currentBrush.BrushThickness = new BoldThickness();
+                vectorThickness = 3;
+            }
+            else if (selectedItem.Equals(thick4))
+            {
+                currentBrush.BrushThickness = new ExtraboldThickness();
+                vectorThickness = 4;
+            }
+        }
+
+
+        /// <summary>
+        /// Метод обрабатывает нажатие на кнопку заливки
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BntFillBucket_Click(object sender, RoutedEventArgs e)
+        {
+            isBucket = true;
+        }
+
+        /// <summary>
+        /// Метод обрабатывает нажатие на кнопки вперед / назад
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BtnBackForward_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender.Equals(btnBack))
+            {
+                if (stackBack.GetSize() > 1)
+                {
+                    stackForward.AddMyBitmap(stackBack.GetMyBitmap());
+                }
+
+                myBitmap.Btm = stackBack.GetMyBitmap();
+                MainImage.Source = myBitmap.Btm;
+                stackBack.AddMyBitmap(myBitmap.Btm);
+            }
+            if (sender.Equals(btnForward) && stackForward.GetSize() > 0)
+            {
+                myBitmap.Btm = stackForward.GetMyBitmap();
+                MainImage.Source = myBitmap.Btm;
+            }
+        }
+
+        #endregion
+
+        #region bitmap
 
         /// <summary>
         /// Метод обрабатывает нажатие левой кнопки мыши на холсте
@@ -231,7 +397,9 @@ namespace Paint
                 concreteFigure.DoDraw();
             }
         }
+        #endregion
 
+        #region window
         /// <summary>
         /// Метод обрабатывает MouseUp на холсте
         /// Возвращает isPressed в false
@@ -302,40 +470,6 @@ namespace Paint
             isDoubleClicked = true;
         }
 
-        /// <summary>
-        /// Метод обрабатывает клик по иконке с цветами
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Button_Change_Color(object sender, RoutedEventArgs e)
-        {
-            string buttonStr = Convert.ToString(((Button)e.OriginalSource).Background);
-            currentBrush.BrushColor = new Color(buttonStr);
-            stroke1 = new SolidColorBrush((System.Windows.Media.Color)ColorConverter.ConvertFromString(buttonStr));
-        }
-
-        /// <summary>
-        /// Метод обрабатывает нажатие на кнопку очищения холста     
-        /// /// Задает новый битмап
-        /// Ставит битмап в sourse холста
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Button_Clear(object sender, RoutedEventArgs e)
-        {
-            Type canvaType = currentSurfaceStrategy.GetType();
-
-            if (canvaType.Name == "DrawOnCanvas")
-            {
-                myCanvas.Children.Clear();
-            }
-            else
-            {
-                FillBitmap();
-                myBitmap.Btm = new WriteableBitmap((int)MainImage.Width, (int)MainImage.Height, 96, 96, PixelFormats.Bgra32, null);
-                MainImage.Source = myBitmap.Btm;
-            }
-        }
 
         /// <summary>
         /// Метод обрывает рисование линии при выведении курсора из-за холста и продолжает, когда возвращаешься
@@ -350,92 +484,22 @@ namespace Paint
             }
         }
 
+
         /// <summary>
-        /// Метод обрабатывает кнопку сохранения
+        /// Метод обрабатывает нажатие на кнопки F1
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Button_Save(object sender, RoutedEventArgs e)
+        private void Window_KeyDown(object sender, KeyEventArgs e)
         {
-            Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
-            ComboBoxItem selectedItem = (ComboBoxItem)fileTypesList.SelectedValue;
-            StackPanel selectedStackPanel = (StackPanel)selectedItem.Content;
-            UIElementCollection UIElCollection = selectedStackPanel.Children;
-            TextBlock tb = (TextBlock)UIElCollection[0];
-            string selectedFileType = Convert.ToString(tb.Text);
-
-            // Настраиваем параметры диалога
-            dlg.FileName = "Document"; // Имя по-умолчанию
-            dlg.Filter = "PNG Image (*.png)|*.png|JPEG Image (*.jpg)|*.jpg|BMP Image (*.bmp)|*.bmp|All files (*.*)|*.*";// Фильтр по расширениям
-            switch (selectedFileType)
+            if (e.Key == Key.F1)
             {
-                case (".jpg"):
-                    dlg.FilterIndex = 2;
-                    break;
-                case (".png"):
-                    dlg.FilterIndex = 1;
-                    break;
-                case (".bmp"):
-                    dlg.FilterIndex = 3;
-                    break;
-            }
-
-            Nullable<bool> result = dlg.ShowDialog();
-            // Обработка результата работы диалога
-            if (result == true)
-            {
-                Type str = currentSurfaceStrategy.GetType();
-
-                if (str.Name == "DrawOnCanvas")
-                {
-                    FileStream fs = new FileStream(dlg.FileName, FileMode.Create);
-                    RenderTargetBitmap bmp = new RenderTargetBitmap((int)myCanvas.ActualWidth,
-                        (int)myCanvas.ActualHeight, 1 / 96, 1 / 96, PixelFormats.Pbgra32);
-                    bmp.Render(myCanvas);
-                    BitmapEncoder encoder = new TiffBitmapEncoder();
-                    encoder.Frames.Add(BitmapFrame.Create(bmp));
-                    encoder.Save(fs);
-                    fs.Close();
-                }
-                else if (str.Name == "DrawOnBitmap")
-                {
-                    var encoder = new PngBitmapEncoder();
-                    encoder.Frames.Add(BitmapFrame.Create((BitmapSource)MainImage.Source));
-                    using (FileStream stream = new FileStream(dlg.FileName, FileMode.Create))
-                        encoder.Save(stream);
-                }
+                InfoPage info = new InfoPage();
+                info.ShowDialog();
             }
         }
 
-        /// <summary>
-        /// Метод обрабатывает кнопку изменения толщины линии
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Button_Change_Thickness(object sender, SelectionChangedEventArgs e)
-        {
-            ComboBoxItem selectedItem = (ComboBoxItem)ThicknessList.SelectedValue;
-            if (selectedItem.Equals(thick1))
-            {
-                currentBrush.BrushThickness = new DefaultThickness();
-                vectorThickness = 1;
-            }
-            else if (selectedItem.Equals(thick2))
-            {
-                currentBrush.BrushThickness = new MediumThickness();
-                vectorThickness = 2;
-            }
-            else if (selectedItem.Equals(thick3))
-            {
-                currentBrush.BrushThickness = new BoldThickness();
-                vectorThickness = 3;
-            }
-            else if (selectedItem.Equals(thick4))
-            {
-                currentBrush.BrushThickness = new ExtraboldThickness();
-                vectorThickness = 4;
-            }
-        }
+        #endregion
 
         /// <summary>
         /// Выбор растр или вектор
@@ -459,6 +523,8 @@ namespace Paint
             }
         }
 
+        #region canvas
+
         /// <summary>
         /// Метод обрабатывает наведение курсора на векторный холст
         /// </summary>
@@ -469,28 +535,53 @@ namespace Paint
             if (e.MouseDevice.LeftButton == MouseButtonState.Pressed)
             {
                 //A = e.GetPosition(myCanvas);
-               
                 //prev = new Point((int)A.X, (int)A.Y);
-               
             }
         }
 
-        //private void MyCanvas_MouseDown(object sender, MouseEventArgs e)
-        //{
-        //    var tmp = e.GetPosition(this.myCanvas);
-        //    position = new Point((int)tmp.X, (int)tmp.Y);
-        //    prev = position;
-        //}
         private void MyCanvas_MouseDown(object sender, MouseButtonEventArgs e)
         {
             var tmp = e.GetPosition(sender as Canvas);
             position = new Point((int)tmp.X, (int)tmp.Y);
             prev = position;
         }
+
         private void MyCanvas_MouseUp(object sender, MouseEventArgs e)
         {
-
+            if (MyCanvas.CurrentFigure != null)
+            {
+                MyCanvas.ListVectorFigures.Add(MyCanvas.CurrentFigure);
+                foreach (Line line in myCanvas.Children)
+                {
+                    line.MouseLeftButtonDown += Line_MouseDown;
+                }
+            }
+            MyCanvas.CurrentFigure = null;
         }
+
+        public void Line_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            foreach (VectorFigure figure in MyCanvas.ListVectorFigures)
+            {
+                foreach (var line in figure.ListOfLines)
+                {
+                    if (sender == line)
+                    {
+                        MyCanvas.CurrentFigure = figure;
+                        break;
+                    }
+                }
+            }
+
+            //foreach (var line in MyCanvas.CurrentFigure.ListOfLines)
+            //{
+            //    line.X1 += 20;
+            //    line.X2 += 20;
+            //    line.Y1 += 20;
+            //    line.Y2 += 20;
+            //}
+        }
+
 
         /// <summary>
         /// Метод обрабатывает движение по векторному холсту
@@ -521,63 +612,18 @@ namespace Paint
                 concreteFigure.DoDraw();
                 if (MyCanvas.CurrentFigure == null)
                     MyCanvas.ListVectorFigures.Add(new VectorFigure(concreteFigure.Points));
-                //myCanvas = MyCanvas.Instance;
             }
-        }
-
-        /// <summary>
-        /// Метод обрабатывает нажатие на кнопку заливки
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void BntFillBucket_Click(object sender, RoutedEventArgs e)
-        {
-            isBucket = true;
-        }
-
-        /// <summary>
-        /// Метод обрабатывает нажатие на кнопки вперед / назад
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void BtnBackForward_Click(object sender, RoutedEventArgs e)
-        {
-            if (sender.Equals(btnBack))
+            else
             {
-                if (stackBack.GetSize() > 1)
-                {
-                    stackForward.AddMyBitmap(stackBack.GetMyBitmap());
-                }
-
-                myBitmap.Btm = stackBack.GetMyBitmap();
-                MainImage.Source = myBitmap.Btm;
-                stackBack.AddMyBitmap(myBitmap.Btm);
-            }
-            if (sender.Equals(btnForward) && stackForward.GetSize() > 0)
-            {
-                myBitmap.Btm = stackForward.GetMyBitmap();
-                MainImage.Source = myBitmap.Btm;
+                MyCanvas.CurrentFigure = null;
             }
         }
-
-        /// <summary>
-        /// Метод обрабатывает нажатие на кнопки F1
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Window_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.F1)
-            {
-                InfoPage info = new InfoPage();
-                info.ShowDialog();
-            }
-        }
+        #endregion
 
 
         //  ВНУТРЕННИЕ МЕТОДЫ
 
-
+        #region ВНУТРЕННИЕ МЕТОДЫ
         /// <summary>
         /// Создание креейтера выбраной фигуры 
         /// </summary>
@@ -630,17 +676,18 @@ namespace Paint
             Type str = currentSurfaceStrategy.GetType();
 
             if (str.Name == "DrawOnCanvas")
-            {             
+            {
                 xPosition.Text = Convert.ToString(Convert.ToInt32(e.GetPosition(sender as Canvas).X));
                 yPosition.Text = Convert.ToString(Convert.ToInt32(e.GetPosition(sender as Canvas).Y));
             }
- 
-            else{
+
+            else
+            {
                 xPosition.Text = Convert.ToString(Convert.ToInt32(e.GetPosition(MainImage).X));
                 yPosition.Text = Convert.ToString(Convert.ToInt32(e.GetPosition(MainImage).Y));
             }
         }
-                
+
 
         /// <summary>
         /// Метод задает текущую точку
@@ -777,7 +824,7 @@ namespace Paint
             return newP;
         }
 
-        
+
 
         private List<Point> SetNewFigurePoints(List<Point> concreteFigurePoints, int[] distance)
         {
@@ -805,5 +852,7 @@ namespace Paint
             temp.Y = p.Y;
             return temp;
         }
+        #endregion
     }
 }
+
