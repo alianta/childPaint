@@ -200,29 +200,39 @@ namespace Paint
                     break;
             }
 
-            Nullable<bool> result = dlg.ShowDialog();
-            // Обработка результата работы диалога
-            if (result == true)
+            Type str = currentSurfaceStrategy.GetType();
+            if (str.Name == "DrawOnCanvas")
             {
-                Type str = currentSurfaceStrategy.GetType();
+                //заглушка для вектора (пока не ясно как сохранять в SVG)
+                MessageBox.Show("This functionality will be in the next version of programm!");
+            }
+            else
+            {
+                Nullable<bool> result = dlg.ShowDialog();
+                // Обработка результата работы диалога
+                if (result == true)
+                {
+                    
 
-                if (str.Name == "DrawOnCanvas")
-                {
-                    FileStream fs = new FileStream(dlg.FileName, FileMode.Create);
-                    RenderTargetBitmap bmp = new RenderTargetBitmap((int)myCanvas.ActualWidth,
-                        (int)myCanvas.ActualHeight, 1 / 96, 1 / 96, PixelFormats.Pbgra32);
-                    bmp.Render(myCanvas);
-                    BitmapEncoder encoder = new TiffBitmapEncoder();
-                    encoder.Frames.Add(BitmapFrame.Create(bmp));
-                    encoder.Save(fs);
-                    fs.Close();
-                }
-                else if (str.Name == "DrawOnBitmap")
-                {
-                    var encoder = new PngBitmapEncoder();
-                    encoder.Frames.Add(BitmapFrame.Create((BitmapSource)MainImage.Source));
-                    using (FileStream stream = new FileStream(dlg.FileName, FileMode.Create))
-                        encoder.Save(stream);
+                    if (str.Name == "DrawOnCanvas")
+                    {
+                        FileStream fs = new FileStream(dlg.FileName, FileMode.Create);
+                        RenderTargetBitmap bmp = new RenderTargetBitmap((int)myCanvas.ActualWidth,
+                            (int)myCanvas.ActualHeight, 1 / 96, 1 / 96, PixelFormats.Pbgra32);
+                        bmp.Render(myCanvas);
+                        BitmapEncoder encoder = new TiffBitmapEncoder();
+                        encoder.Frames.Add(BitmapFrame.Create(bmp));
+                        encoder.Save(fs);
+                        fs.Close();
+                    }
+                    else if (str.Name == "DrawOnBitmap")
+                    {
+                        var encoder = new PngBitmapEncoder();
+                        encoder.Frames.Add(BitmapFrame.Create((BitmapSource)MainImage.Source));
+                        using (FileStream stream = new FileStream(dlg.FileName, FileMode.Create))
+                            encoder.Save(stream);
+                    }
+
                 }
             }
         }
