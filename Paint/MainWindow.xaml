@@ -1,4 +1,4 @@
-﻿<Window x:Class="Paint.MainWindow"
+<Window x:Class="Paint.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -48,7 +48,7 @@
             <Button x:Name="btnRectangle" Height="35" Width="35" Background="White" BorderThickness="0" ToolTip="Rectangle (Square with Shift)" Click="BtnFigure_Click" Cursor="Hand">
                 <Image Source="white/b_4-rectangle.png"></Image>
             </Button>
-            <Button x:Name="btnRhombus" Height="35" Width="35" Background="White" BorderThickness="0" ToolTip="Rectangle (Square with Shift)" Click="BtnFigure_Click" Cursor="Hand">
+            <Button x:Name="btnRhombus" Height="35" Width="35" Background="White" BorderThickness="0" ToolTip="Rhombus" Click="BtnFigure_Click" Cursor="Hand">
 
             </Button>
             <Button x:Name="btnTriangle" Height="35" Width="35" Background="White" BorderThickness="0" ToolTip="Isoscale triangle (Rectangular triangle with Shift)" Click="BtnFigure_Click" Cursor="Hand">

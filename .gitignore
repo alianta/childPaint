@@ -200,3 +200,5 @@ obj
 *.ide
 
 .vs/Paint/v16/Server/sqlite3/
+
+.vs/Paint/DesignTimeBuild/.dtbcache

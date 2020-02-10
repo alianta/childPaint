@@ -212,7 +212,7 @@ namespace Paint
                 // Обработка результата работы диалога
                 if (result == true)
                 {
-                    
+
 
                     if (str.Name == "DrawOnCanvas")
                     {
@@ -535,6 +535,13 @@ namespace Paint
 
         #region canvas
 
+        bool captured = false;
+        double x_shape, x_canvas, y_shape, y_canvas;
+        UIElement source = null;
+        List<Figure> listOfVectorFigures = new List<Figure>();
+        // The points selected by the user.
+        private List<System.Windows.Point> vectorPoints = new List<System.Windows.Point>();
+
         /// <summary>
         /// Метод обрабатывает наведение курсора на векторный холст
         /// </summary>
@@ -571,17 +578,21 @@ namespace Paint
 
         public void Line_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            foreach (VectorFigure figure in MyCanvas.ListVectorFigures)
-            {
-                foreach (var line in figure.ListOfLines)
-                {
-                    if (sender == line)
-                    {
-                        MyCanvas.CurrentFigure = figure;
-                        break;
-                    }
-                }
-            }
+            string bcolor = currentBrush.BrushColor.getHexColor();
+            (sender as Line).Stroke = new BrushConverter().ConvertFromString(bcolor) as SolidColorBrush;
+
+
+            /* foreach (VectorFigure figure in MyCanvas.ListVectorFigures)
+             {
+                 foreach (var line in figure.ListOfLines)
+                 {
+                     if (sender == line)
+                     {
+                         MyCanvas.CurrentFigure = figure;
+                         break;
+                     }
+                 }
+             }*/
 
             //foreach (var line in MyCanvas.CurrentFigure.ListOfLines)
             //{
@@ -625,7 +636,8 @@ namespace Paint
             }
             else
             {
-                MyCanvas.CurrentFigure = null;
+                // MyCanvas.CurrentFigure = null;
+                MyCanvas_MouseUp(sender, e);
             }
         }
         #endregion
