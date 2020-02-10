@@ -80,7 +80,11 @@ namespace Paint
             {
                 FrameworkElement child = (FrameworkElement)instance.Children[i];
                 if (child.Tag == CurrentFigure)
+                {
                     instance.Children.Remove(child);
+                    i--;
+                }
+
             }
         }
 
@@ -141,10 +145,10 @@ namespace Paint
         /// <summary>
         /// Поменяли местами.
         /// </summary>
-      /*  public void SetBitmapToCopy()
-        {
-            _instance.Canv = new MyCanvas(_instance.CanvCopy);
-        }*/
-        
+        /*  public void SetBitmapToCopy()
+          {
+              _instance.Canv = new MyCanvas(_instance.CanvCopy);
+          }*/
+
     }
 }

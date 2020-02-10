@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Paint"
         mc:Ignorable="d"
         Title="OurPain/T Info" Height="600" Width="350" 
-        Icon="white/b_9-colorBar.ico" FontWeight="Bold">
+        Icon="white/2.ico" FontWeight="Bold">
 
     <Grid>
 
